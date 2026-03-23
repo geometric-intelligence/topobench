@@ -47,11 +47,11 @@ class TestLoaders:
                             "geometric_shapes.yaml", 'amazon_ratings.yaml', 'AQSOL.yaml', 
                             "cocitation_citeseer.yaml", "cocitation_cora.yaml",
                             "cocitation_pubmed.yaml", 'minesweeper.yaml', 'roman_empire.yaml',
-                            'tolokers.yaml'
+                            'tolokers.yaml',
                             # Avoid datasets that take too long to load
                             "artnet-views.yaml", 
                             "artnet-exp.yaml", "avazu-ctr.yaml", "city-reviews.yaml", "city-roads-L.yaml",
-                            "artnet-views.yaml", "hm-prices.yaml", "hm-categories.yaml", "pokec-regions.yaml", "tolokers-2.yaml",
+                            "hm-prices.yaml", "hm-categories.yaml", "pokec-regions.yaml", "tolokers-2.yaml",
                             "twitch-views.yaml", "web-fraud.yaml", "web-traffic.yaml", "web-topics.yaml",
                             }
         
