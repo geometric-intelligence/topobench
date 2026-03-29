@@ -1,0 +1,3 @@
+# MUSAE LastFM Asia dataset needs feature dimensionality reduction transform for TopoBench models
+defaults:
+  - data_manipulations: feature_dimensionality_reduction

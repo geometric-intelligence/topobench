@@ -1,0 +1,6 @@
+transform_name: "FeatureDimensionalityReduction"
+transform_type: "data manipulation"
+
+reduced_dim: ${dataset.parameters.num_features}
+svd_iter: 20
+svd_seed: ${seed}

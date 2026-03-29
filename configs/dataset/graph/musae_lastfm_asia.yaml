@@ -1,0 +1,34 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.LastFmAsiaDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: MUSAE
+    data_name: musae_lastfm_asia
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  # Dataset parameters
+  num_features: 128 # Default feature dimension after reduction 128 (Rozemberczki & Sarkar 2020), without reduction: 7842
+  num_classes: 18
+  num_nodes: 7624
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 1
+  pin_memory: False
