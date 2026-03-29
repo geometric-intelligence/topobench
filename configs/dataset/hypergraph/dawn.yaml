@@ -1,0 +1,36 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.hypergraph.dawn_dataset_loader.DawnDatasetLoader
+  # topobench.data.loaders.DawnDatasetLoader
+  parameters: 
+    data_domain: hypergraph
+    data_type: dawn
+    data_name: dawn
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+    # Google Drive URL for downloading the dataset files
+    google_drive_url: "https://drive.google.com/uc?export=download&id=1wGwoG7oBWnNN7J9TEpjqNpODbsYfMxp4"
+
+# Dataset parameters
+parameters:
+  num_features: 1  # Default feature dimension (may need adjustment based on actual features)
+  num_classes: 2558 # Default number of classes (may need adjustment based on task)
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 1
+  pin_memory: False
+
