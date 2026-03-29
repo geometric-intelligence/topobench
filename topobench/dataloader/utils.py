@@ -97,6 +97,19 @@ def collate_fn(batch):
     torch_geometric.data.Batch
         A `torch_geometric.data.Batch` object.
     """
+    # Special case: if batch contains a single pre-batched Data object
+    # (e.g., from TransductiveSplitDataset), return it directly
+    if len(batch) == 1:
+        item = batch[0]
+        # Check if it's already a Data object (not a tuple)
+        # Inductive datasets return tuples: (values, keys)
+        # Transductive datasets return pre-batched Data objects
+        if isinstance(
+            item, (torch_geometric.data.Data, DomainData)
+        ) and not isinstance(item, tuple):
+            # Already batched by transductive loader, return as-is
+            return item
+
     data_list = []
     batch_idx_dict = defaultdict(list)
 

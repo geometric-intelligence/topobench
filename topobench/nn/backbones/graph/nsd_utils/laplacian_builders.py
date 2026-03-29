@@ -103,7 +103,7 @@ class LaplacianBuilder(nn.Module):
             assert diag.dim() == 2
         d = diag.size(-1)
         diag_sqrt_inv = (diag + 1).pow(-0.5)
-        
+
         diag_sqrt_inv = (
             diag_sqrt_inv.view(-1, 1, 1)
             if tril.dim() > 2
@@ -121,6 +121,7 @@ class LaplacianBuilder(nn.Module):
         diag_maps = diag_sqrt_inv**2 * diag
 
         return diag_maps, non_diag_maps
+
 
 class DiagLaplacianBuilder(LaplacianBuilder):
     """
@@ -199,6 +200,7 @@ class DiagLaplacianBuilder(LaplacianBuilder):
 
         return (edge_index, weights), saved_tril_maps
 
+
 class NormConnectionLaplacianBuilder(LaplacianBuilder):
     """
     Builder for normalized bundle sheaf Laplacian with orthogonal restriction maps.
@@ -254,7 +256,7 @@ class NormConnectionLaplacianBuilder(LaplacianBuilder):
         """
         assert len(map_params.size()) == 2
         assert map_params.size(1) == self.d * (self.d + 1) // 2
-        
+
         _, full_right_idx = self.full_left_right_idx
         left_idx, right_idx = self.left_right_idx
         tril_row, tril_col = self.vertex_tril_idx
@@ -293,6 +295,7 @@ class NormConnectionLaplacianBuilder(LaplacianBuilder):
         )
 
         return (edge_index, weights), saved_tril_maps
+
 
 class GeneralLaplacianBuilder(LaplacianBuilder):
     """

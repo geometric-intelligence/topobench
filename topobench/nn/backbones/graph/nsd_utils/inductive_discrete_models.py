@@ -64,16 +64,12 @@ class InductiveDiscreteDiagSheafDiffusion(SheafDiffusion):
             )
             nn.init.orthogonal_(self.lin_right_weights[-1].weight.data)
         for _i in range(self.layers):
-            self.lin_left_weights.append(
-                nn.Linear(self.d, self.d, bias=False)
-            )
+            self.lin_left_weights.append(nn.Linear(self.d, self.d, bias=False))
             nn.init.eye_(self.lin_left_weights[-1].weight.data)
 
         self.sheaf_learners = nn.ModuleList()
 
-        num_sheaf_learners = min(
-            self.layers, self.layers
-        )
+        num_sheaf_learners = min(self.layers, self.layers)
         for _i in range(num_sheaf_learners):
             self.sheaf_learners.append(
                 LocalConcatSheafLearner(
@@ -208,17 +204,13 @@ class InductiveDiscreteBundleSheafDiffusion(SheafDiffusion):
             )
             nn.init.orthogonal_(self.lin_right_weights[-1].weight.data)
         for _i in range(self.layers):
-            self.lin_left_weights.append(
-                nn.Linear(self.d, self.d, bias=False)
-            )
+            self.lin_left_weights.append(nn.Linear(self.d, self.d, bias=False))
             nn.init.eye_(self.lin_left_weights[-1].weight.data)
 
         self.sheaf_learners = nn.ModuleList()
         self.weight_learners = nn.ModuleList()
 
-        num_sheaf_learners = min(
-            self.layers, self.layers
-        )
+        num_sheaf_learners = min(self.layers, self.layers)
         for _i in range(num_sheaf_learners):
             self.sheaf_learners.append(
                 LocalConcatSheafLearner(
@@ -397,16 +389,12 @@ class InductiveDiscreteGeneralSheafDiffusion(SheafDiffusion):
             )
             nn.init.orthogonal_(self.lin_right_weights[-1].weight.data)
         for _i in range(self.layers):
-            self.lin_left_weights.append(
-                nn.Linear(self.d, self.d, bias=False)
-            )
+            self.lin_left_weights.append(nn.Linear(self.d, self.d, bias=False))
             nn.init.eye_(self.lin_left_weights[-1].weight.data)
 
         self.sheaf_learners = nn.ModuleList()
 
-        num_sheaf_learners = min(
-            self.layers, self.layers
-        )
+        num_sheaf_learners = min(self.layers, self.layers)
         for _i in range(num_sheaf_learners):
             self.sheaf_learners.append(
                 LocalConcatSheafLearner(

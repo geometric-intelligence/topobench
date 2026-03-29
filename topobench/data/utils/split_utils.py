@@ -180,7 +180,7 @@ def random_splitting(labels, parameters, root=None, global_data_seed=42):
     return split_idx
 
 
-def assign_train_val_test_mask_to_graphs(dataset, split_idx):
+def assign_train_val_test_mask_to_graphs(dataset, split_idx, use_lazy=False):
     """Split the graph dataset into train, validation, and test datasets.
 
     Parameters
@@ -189,13 +189,29 @@ def assign_train_val_test_mask_to_graphs(dataset, split_idx):
         Considered dataset.
     split_idx : dict
         Dictionary containing the train, validation, and test indices.
+    use_lazy : bool, optional
+        Use lazy subsets for O(1) memory (default: False for backward compatibility).
+        When True, returns LazyDataloadDataset objects compatible with TBDataloader.
 
     Returns
     -------
     tuple:
         Tuple containing the train, validation, and test datasets.
+        When use_lazy=True, returns LazyDataloadDataset objects.
+        When use_lazy=False, returns DataloadDataset objects (in-memory).
     """
+    if use_lazy:
+        # Use lazy splits for O(1) memory usage with TBDataloader compatibility
+        # Import here to avoid circular dependency
+        from topobench.data.datasets import LazyDataloadDataset
 
+        return (
+            LazyDataloadDataset(dataset, split_idx["train"]),
+            LazyDataloadDataset(dataset, split_idx["valid"]),
+            LazyDataloadDataset(dataset, split_idx["test"]),
+        )
+
+    # Traditional approach: load all samples and assign masks
     data_train_lst, data_val_lst, data_test_lst = [], [], []
 
     # Assign masks directly by iterating over pre-split indices
@@ -227,67 +243,7 @@ def assign_train_val_test_mask_to_graphs(dataset, split_idx):
     )
 
 
-def load_transductive_splits(dataset, parameters):
-    r"""Load the graph dataset with the specified split.
-
-    Parameters
-    ----------
-    dataset : torch_geometric.data.Dataset
-        Graph dataset.
-    parameters : DictConfig
-        Configuration parameters.
-
-    Returns
-    -------
-    list:
-        List containing the train, validation, and test splits.
-    """
-    # Extract labels from dataset object
-    assert len(dataset) == 1, (
-        "Dataset should have only one graph in a transductive setting."
-    )
-
-    data = dataset.data_list[0]
-    labels = data.y.numpy()
-
-    # Ensure labels are one dimensional array
-    assert len(labels.shape) == 1, "Labels should be one dimensional array"
-
-    root = (
-        dataset.dataset.get_data_dir()
-        if hasattr(dataset.dataset, "get_data_dir")
-        else None
-    )
-
-    if parameters.split_type == "random":
-        splits = random_splitting(labels, parameters, root=root)
-
-    elif parameters.split_type == "k-fold":
-        splits = k_fold_split(labels, parameters, root=root)
-
-    else:
-        raise NotImplementedError(
-            f"split_type {parameters.split_type} not valid. Choose either 'random' or 'k-fold'"
-        )
-
-    # Assign train val test masks to the graph
-    data.train_mask = torch.from_numpy(splits["train"])
-    data.val_mask = torch.from_numpy(splits["valid"])
-    data.test_mask = torch.from_numpy(splits["test"])
-
-    if parameters.get("standardize", False):
-        # Standardize the node features respecting train mask
-        data.x = (data.x - data.x[data.train_mask].mean(0)) / data.x[
-            data.train_mask
-        ].std(0)
-        data.y = (data.y - data.y[data.train_mask].mean(0)) / data.y[
-            data.train_mask
-        ].std(0)
-
-    return DataloadDataset([data]), None, None
-
-
-def load_inductive_splits(dataset, parameters):
+def load_inductive_splits(dataset, parameters, use_lazy=False):
     r"""Load multiple-graph datasets with the specified split.
 
     Parameters
@@ -296,6 +252,9 @@ def load_inductive_splits(dataset, parameters):
         Graph dataset.
     parameters : DictConfig
         Configuration parameters.
+    use_lazy : bool, optional
+        Use lazy subsets for O(1) memory usage (default: False for backward compatibility).
+        Recommended for large on-disk datasets.
 
     Returns
     -------
@@ -341,7 +300,73 @@ def load_inductive_splits(dataset, parameters):
         )
 
     train_dataset, val_dataset, test_dataset = (
-        assign_train_val_test_mask_to_graphs(dataset, split_idx)
+        assign_train_val_test_mask_to_graphs(
+            dataset, split_idx, use_lazy=use_lazy
+        )
+    )
+
+    return train_dataset, val_dataset, test_dataset
+
+
+def load_transductive_splits(preprocessor, split_config):
+    r"""Load transductive splits with pre-batched loaders.
+
+    This function creates TransductiveSplitDataset wrappers for transductive
+    learning, which handle batching internally. Unlike inductive splits,
+    transductive splits work on a single graph with train/val/test masks.
+
+    Parameters
+    ----------
+    preprocessor : OnDiskTransductivePreprocessor
+        Preprocessor with built index and graph data.
+    split_config : DictConfig
+        Configuration for batching strategy, including:
+        - strategy : str ("structure_centric" or "extended_context")
+        - Strategy-specific parameters (e.g., structures_per_batch, node_budget)
+
+    Returns
+    -------
+    tuple
+        A tuple containing (train_dataset, val_dataset, test_dataset).
+        Each is a TransductiveSplitDataset instance.
+    """
+    # Import here to avoid circular dependency
+    from topobench.data.datasets.transductive_split import (
+        TransductiveSplitDataset,
+    )
+
+    # Build index if not already built
+    if not preprocessor._index_built:
+        print("Building structure index...")
+        preprocessor.build_index()
+        print(f"✓ Index built: {preprocessor.num_structures:,} structures")
+
+    # Create train/val/test splits using masks from graph_data
+    train_dataset = TransductiveSplitDataset(
+        preprocessor=preprocessor,
+        split_config=split_config,
+        mask=preprocessor.graph_data.train_mask
+        if hasattr(preprocessor.graph_data, "train_mask")
+        else None,
+        split_name="train",
+    )
+
+    val_dataset = TransductiveSplitDataset(
+        preprocessor=preprocessor,
+        split_config=split_config,
+        mask=preprocessor.graph_data.val_mask
+        if hasattr(preprocessor.graph_data, "val_mask")
+        else None,
+        split_name="val",
+    )
+
+    test_dataset = TransductiveSplitDataset(
+        preprocessor=preprocessor,
+        split_config=split_config,
+        mask=preprocessor.graph_data.test_mask
+        if hasattr(preprocessor.graph_data, "test_mask")
+        else None,
+        split_name="test",
     )
 
     return train_dataset, val_dataset, test_dataset
