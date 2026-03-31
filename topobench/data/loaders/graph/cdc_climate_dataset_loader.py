@@ -4,14 +4,12 @@ from pathlib import Path
 
 from omegaconf import DictConfig
 
-from topobench.data.datasets.us_county_demos_dataset import (
-    USCountyDemosDataset,
-)
+from topobench.data.datasets.cdc_climate_dataset import CDCClimateDataset
 from topobench.data.loaders.base import AbstractLoader
 
 
-class USCountyDemosDatasetLoader(AbstractLoader):
-    """Load US County Demos dataset with configurable year and task variable.
+class CDCClimateDatasetLoader(AbstractLoader):
+    """Load CDC Climate dataset.
 
     Parameters
     ----------
@@ -26,13 +24,13 @@ class USCountyDemosDatasetLoader(AbstractLoader):
     def __init__(self, parameters: DictConfig) -> None:
         super().__init__(parameters)
 
-    def load_dataset(self) -> USCountyDemosDataset:
-        """Load the US County Demos dataset.
+    def load_dataset(self) -> CDCClimateDataset:
+        """Load the CDC Climate dataset.
 
         Returns
         -------
-        USCountyDemosDataset
-            The loaded US County Demos dataset with the appropriate `data_dir`.
+        CDCClimateDataset
+            The loaded CDC Climate dataset with the appropriate `data_dir`.
 
         Raises
         ------
@@ -44,26 +42,26 @@ class USCountyDemosDatasetLoader(AbstractLoader):
         self.data_dir = self._redefine_data_dir(dataset)
         return dataset
 
-    def _initialize_dataset(self) -> USCountyDemosDataset:
-        """Initialize the US County Demos dataset.
+    def _initialize_dataset(self) -> CDCClimateDataset:
+        """Initialize the CDC Climate dataset.
 
         Returns
         -------
-        USCountyDemosDataset
+        CDCClimateDataset
             The initialized dataset instance.
         """
-        return USCountyDemosDataset(
+        return CDCClimateDataset(
             root=str(self.root_data_dir),
             name=self.parameters.data_name,
             parameters=self.parameters,
         )
 
-    def _redefine_data_dir(self, dataset: USCountyDemosDataset) -> Path:
+    def _redefine_data_dir(self, dataset: CDCClimateDataset) -> Path:
         """Redefine the data directory based on the chosen (year, task_variable) pair.
 
         Parameters
         ----------
-        dataset : USCountyDemosDataset
+        dataset : CDCClimateDataset
             The dataset instance.
 
         Returns

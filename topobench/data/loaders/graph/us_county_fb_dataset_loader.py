@@ -4,14 +4,12 @@ from pathlib import Path
 
 from omegaconf import DictConfig
 
-from topobench.data.datasets.us_county_demos_dataset import (
-    USCountyDemosDataset,
-)
+from topobench.data.datasets.us_county_fb_dataset import USCountyFBDataset
 from topobench.data.loaders.base import AbstractLoader
 
 
-class USCountyDemosDatasetLoader(AbstractLoader):
-    """Load US County Demos dataset with configurable year and task variable.
+class USCountyFBDatasetLoader(AbstractLoader):
+    """Load US County FB dataset.
 
     Parameters
     ----------
@@ -26,13 +24,13 @@ class USCountyDemosDatasetLoader(AbstractLoader):
     def __init__(self, parameters: DictConfig) -> None:
         super().__init__(parameters)
 
-    def load_dataset(self) -> USCountyDemosDataset:
-        """Load the US County Demos dataset.
+    def load_dataset(self) -> USCountyFBDataset:
+        """Load the US County FB dataset.
 
         Returns
         -------
-        USCountyDemosDataset
-            The loaded US County Demos dataset with the appropriate `data_dir`.
+        USCountyFBDataset
+            The loaded US County FB dataset with the appropriate `data_dir`.
 
         Raises
         ------
@@ -44,26 +42,26 @@ class USCountyDemosDatasetLoader(AbstractLoader):
         self.data_dir = self._redefine_data_dir(dataset)
         return dataset
 
-    def _initialize_dataset(self) -> USCountyDemosDataset:
-        """Initialize the US County Demos dataset.
+    def _initialize_dataset(self) -> USCountyFBDataset:
+        """Initialize the US County FB dataset.
 
         Returns
         -------
-        USCountyDemosDataset
+        USCountyFBDataset
             The initialized dataset instance.
         """
-        return USCountyDemosDataset(
+        return USCountyFBDataset(
             root=str(self.root_data_dir),
             name=self.parameters.data_name,
             parameters=self.parameters,
         )
 
-    def _redefine_data_dir(self, dataset: USCountyDemosDataset) -> Path:
+    def _redefine_data_dir(self, dataset: USCountyFBDataset) -> Path:
         """Redefine the data directory based on the chosen (year, task_variable) pair.
 
         Parameters
         ----------
-        dataset : USCountyDemosDataset
+        dataset : USCountyFBDataset
             The dataset instance.
 
         Returns

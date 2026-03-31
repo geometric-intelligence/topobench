@@ -45,8 +45,10 @@ split_helper_functions = [
 ]
 
 from .io_utils import (  # noqa: E402
+    GraphDatasetConfig,  # noqa: F401
     download_file_from_drive,  # noqa: F401
     download_file_from_link,  # noqa: F401
+    load_graph_with_features,  # noqa: F401
     load_hypergraph_content_dataset,  # noqa: F401
     load_hypergraph_pickle_dataset,  # noqa: F401
     read_ndim_manifolds,  # noqa: F401
@@ -55,6 +57,8 @@ from .io_utils import (  # noqa: E402
 )
 
 io_helper_functions = [
+    "GraphDatasetConfig",
+    "load_graph_with_features",
     "load_hypergraph_pickle_dataset",
     "load_hypergraph_content_dataset",
     "read_us_county_demos",

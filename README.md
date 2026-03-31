@@ -365,6 +365,7 @@ Specially useful in pre-processing steps, these are the general data manipulatio
 ### Graph
 | Dataset | Task | Description | Reference |
 | --- | --- | --- | --- |
+| CDC-Climate | Regression | U.S. county-level climate data. | [Source](https://arxiv.org/abs/2101.07730) |
 | Cora | Classification | Cocitation dataset. | [Source](https://link.springer.com/article/10.1023/A:1009953814988) |
 | Citeseer | Classification | Cocitation dataset. | [Source](https://dl.acm.org/doi/10.1145/276675.276685) |
 | Pubmed | Classification | Cocitation dataset. | [Source](https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/2157) |
@@ -380,6 +381,7 @@ Specially useful in pre-processing steps, these are the general data manipulatio
 | Empire | Classification | Heterophilic dataset. | [Source](https://arxiv.org/pdf/2302.11640) |
 | Tolokers | Classification | Heterophilic dataset. | [Source](https://arxiv.org/pdf/2302.11640) |
 | US-county-demos | Regression | In turn each node attribute is used as the target label. | [Source](https://arxiv.org/pdf/2002.08274) |
+| US-county-fb | Regression | U.S. county network with Facebook social connectedness and demographic features. | [Source](https://arxiv.org/abs/2101.07730) |
 | ZINC | Regression | Graph-level regression. | [Source](https://pubs.acs.org/doi/10.1021/ci3001277) |
 
 
@@ -490,4 +492,3 @@ Feel free to reach out via email if you want to collaborate, do your thesis with
 
 📧 **Contact Email:** [topological.intelligence@gmail.com](mailto:topological.intelligence@gmail.com)  
 ▶️ **YouTube Channel:** [Topological Intelligence](https://www.youtube.com/@TopologicalIntelligence)
-

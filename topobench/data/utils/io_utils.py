@@ -3,6 +3,8 @@
 import json
 import os.path as osp
 import pickle
+from collections.abc import Callable
+from dataclasses import dataclass
 from urllib.parse import parse_qs, urlparse
 
 import numpy as np
@@ -230,129 +232,166 @@ def read_ndim_manifolds(
     return data_list
 
 
-def read_us_county_demos(path, year=2012, y_col="Election"):
-    """Load US County Demos dataset.
+@dataclass
+class GraphDatasetConfig:
+    """Configuration for loading graph-based datasets with node features.
+
+    Attributes
+    ----------
+    edge_file : str
+        Filename for the edge list file.
+    feature_file : str
+        Filename template for the feature file (may contain format placeholders).
+    edge_sep : str
+        Separator for edge file (default: ",").
+    feature_encoding : Optional[str]
+        Encoding for feature file (default: None).
+    keep_cols : list[str]
+        List of column names to keep from feature file.
+    node_id_col : str
+        Column name for node identifiers (e.g., "FIPS").
+    edges_use_node_ids : bool
+        Indicates how node identifiers are represented in the edge file:
+        - True: Edge file contains actual values from node_id_col (e.g., FIPS codes like 48201, 48453)
+        - False: Edge file contains 0-indexed row numbers that reference positions in the feature file
+    preprocessing_fn : Optional[Callable]
+        Optional function to apply dataset-specific preprocessing to the stat DataFrame.
+    """
+
+    edge_file: str
+    feature_file: str
+    edge_sep: str = ","
+    feature_encoding: str | None = None
+    keep_cols: list[str] = None
+    node_id_col: str = "FIPS"
+    edges_use_node_ids: bool = True
+    preprocessing_fn: Callable[[pd.DataFrame], pd.DataFrame] | None = None
+
+
+def load_graph_with_features(
+    path: str,
+    config: GraphDatasetConfig,
+    y_col: str,
+    **format_kwargs,
+) -> Data:
+    """Unified function to load graph datasets with node features.
+
+    This function handles the common pipeline for loading graph data:
+    1. Load edge list and feature files
+    2. Filter and clean data
+    3. Handle node ID mapping
+    4. Remove self-loops and isolated nodes
+    5. Create undirected graph
+    6. Return PyTorch Geometric Data object
 
     Parameters
     ----------
     path : str
-        Path to the dataset.
-    year : int, optional
-        Year to load the features (default: 2012).
-    y_col : str, optional
-        Column to use as label. Can be one of ['Election', 'MedianIncome',
-        'MigraRate', 'BirthRate', 'DeathRate', 'BachelorRate', 'UnemploymentRate'] (default: "Election").
+        Path to the dataset directory.
+    config : GraphDatasetConfig
+        Configuration object specifying file formats and processing options.
+    y_col : str
+        Column name to use as the target variable.
+    **format_kwargs : dict
+        Additional keyword arguments for formatting file paths (e.g., year=2012).
 
     Returns
     -------
     torch_geometric.data.Data
-        Data object of the graph for the US County Demos dataset.
+        Data object containing the graph structure and features.
     """
-    edges_df = pd.read_csv(f"{path}/county_graph.csv")
-    stat = pd.read_csv(
-        f"{path}/county_stats_{year}.csv", encoding="ISO-8859-1"
+    # Load edge list
+    edge_file_path = f"{path}/{config.edge_file}"
+    edges_df = pd.read_csv(
+        edge_file_path,
+        sep=config.edge_sep,
+        header=None,
+        names=["SRC", "DST"],
     )
 
-    keep_cols = [
-        "FIPS",
-        "DEM",
-        "GOP",
-        "MedianIncome",
-        "MigraRate",
-        "BirthRate",
-        "DeathRate",
-        "BachelorRate",
-        "UnemploymentRate",
-    ]
+    # Filter out rows that can't be converted to numeric (e.g., header lines, comments)
+    edges_df = edges_df.apply(pd.to_numeric, errors="coerce")
+    edges_df = edges_df.dropna()
+    edges_df = edges_df.astype(int)
 
-    # Select columns, replace ',' with '.' and convert to numeric
-    stat = stat.loc[:, keep_cols]
-    stat["MedianIncome"] = stat["MedianIncome"].replace(",", ".", regex=True)
+    # Load feature file
+    feature_file_path = f"{path}/{config.feature_file.format(**format_kwargs)}"
+    read_kwargs = {}
+    if config.feature_encoding:
+        read_kwargs["encoding"] = config.feature_encoding
+
+    stat = pd.read_csv(feature_file_path, **read_kwargs)
+
+    # Keep desired columns
+    stat = stat.loc[:, config.keep_cols]
+
+    # Apply dataset-specific preprocessing if provided
+    if config.preprocessing_fn:
+        stat = config.preprocessing_fn(stat)
+
+    # Convert to numeric
     stat = stat.apply(pd.to_numeric, errors="coerce")
 
-    # Step 2: Substitute NaN values with column mean
+    # Fill NaN values with column means
     for column in stat.columns:
-        if column != "FIPS":
+        if column != config.node_id_col:
             mean_value = stat[column].mean()
             stat[column] = stat[column].fillna(mean_value)
-    stat = stat[keep_cols].dropna()
 
-    # Delete edges that are not present in stat df
-    unique_fips = stat["FIPS"].unique()
+    # Drop any remaining NaN rows
+    stat = stat.dropna()
 
-    src_ = edges_df["SRC"].apply(lambda x: x in unique_fips)
-    dst_ = edges_df["DST"].apply(lambda x: x in unique_fips)
+    # Align node IDs with what edges reference
+    if not config.edges_use_node_ids:
+        # Edges reference row positions: overwrite node_id_col with row indices
+        stat[config.node_id_col] = stat.index
 
-    edges_df = edges_df[src_ & dst_]
-
-    # Remove rows from stat df where edges_df['SRC'] or edges_df['DST'] are not present
-    stat = stat[
-        stat["FIPS"].isin(edges_df["SRC"]) & stat["FIPS"].isin(edges_df["DST"])
+    # Filter edges: keep only edges connecting nodes present in features
+    node_ids_in_features = set(stat[config.node_id_col].unique())
+    edges_df = edges_df[
+        edges_df["SRC"].isin(node_ids_in_features)
+        & edges_df["DST"].isin(node_ids_in_features)
     ]
-    stat = stat.reset_index(drop=True)
-
-    # Remove rows where SRC == DST
+    # and remove self-loops
     edges_df = edges_df[edges_df["SRC"] != edges_df["DST"]]
 
-    # Get torch_geometric edge_index format
+    # Filter features: keep only nodes in edges
+    nodes_in_edges = set(edges_df["SRC"].unique()) | set(
+        edges_df["DST"].unique()
+    )
+    stat = stat[stat[config.node_id_col].isin(nodes_in_edges)]
+    stat = stat.reset_index(drop=True)
+
+    # Map node IDs to be 0-indexed
+    final_node_ids = stat[config.node_id_col].unique()
+    id_to_idx = {node_id: idx for idx, node_id in enumerate(final_node_ids)}
+    edges_df["SRC"] = edges_df["SRC"].map(id_to_idx)
+    edges_df["DST"] = edges_df["DST"].map(id_to_idx)
+
+    # Create edge_index and make undirected
     edge_index = torch.tensor(
         np.stack([edges_df["SRC"].to_numpy(), edges_df["DST"].to_numpy()])
     )
-
-    # Make edge_index undirected
     edge_index = torch_geometric.utils.to_undirected(edge_index)
 
-    # Convert edge_index back to pandas DataFrame
-    edges_df = pd.DataFrame(edge_index.numpy().T, columns=["SRC", "DST"])
-
-    del edge_index
-
-    # Map stat['FIPS'].unique() to [0, ..., num_nodes]
-    fips_map = {fips: i for i, fips in enumerate(stat["FIPS"].unique())}
-    stat["FIPS"] = stat["FIPS"].map(fips_map)
-
-    # Map edges_df['SRC'] and edges_df['DST'] to [0, ..., num_nodes]
-    edges_df["SRC"] = edges_df["SRC"].map(fips_map)
-    edges_df["DST"] = edges_df["DST"].map(fips_map)
-
-    # Get torch_geometric edge_index format
-    edge_index = torch.tensor(
-        np.stack([edges_df["SRC"].to_numpy(), edges_df["DST"].to_numpy()])
-    )
-
-    # Remove isolated nodes (Note: this function maps the nodes to [0, ..., num_nodes] automatically)
+    # Remove isolated nodes
     edge_index, _, mask = torch_geometric.utils.remove_isolated_nodes(
         edge_index
     )
 
-    # Conver mask to index
+    # Filter features to match final node set
     index = np.arange(mask.size(0))[mask]
-    stat = stat.iloc[index]
-    stat = stat.reset_index(drop=True)
+    stat = stat.iloc[index].reset_index(drop=True)
 
-    # Get new values for FIPS from current index
-    # To understand why please print stat.iloc[[516, 517, 518, 519, 520]] for 2012 year
-    # Basically the FIPS values has been shifted
-    stat["FIPS"] = stat.reset_index()["index"]
+    # Drop node ID column as it's no longer needed
+    stat = stat.drop(columns=[config.node_id_col])
 
-    # Create Election variable
-    stat["Election"] = (stat["DEM"] - stat["GOP"]) / (
-        stat["DEM"] + stat["GOP"]
-    )
-
-    # Drop DEM and GOP columns and FIPS
-    stat = stat.drop(columns=["DEM", "GOP", "FIPS"])
-
-    # Prediction col
-    x_col = list(stat.columns)
-    x_col.remove(y_col)
-
-    x = torch.tensor(stat[x_col].to_numpy(), dtype=torch.float32)
+    # Separate features (x) from target (y)
+    x_cols = [col for col in stat.columns if col != y_col]
+    x = torch.tensor(stat[x_cols].to_numpy(), dtype=torch.float32)
     y = torch.tensor(stat[y_col].to_numpy(), dtype=torch.float32)
 
-    data = torch_geometric.data.Data(x=x, y=y, edge_index=edge_index)
-
-    return data
+    return Data(x=x, y=y, edge_index=edge_index)
 
 
 def load_hypergraph_pickle_dataset(data_dir, data_name):
@@ -580,3 +619,83 @@ def load_hypergraph_content_dataset(data_dir, data_name):
     print("Final num_class", data.num_class)
 
     return data, data_dir
+
+
+# ----------------------
+# BACKWARD COMPATIBILITY
+# ----------------------
+# The following code is written for backward compatibility and may be deleted.
+# New datasets should use load_graph_with_features() directly with custom GraphDatasetConfig.
+def _preprocess_us_county_demos(stat: pd.DataFrame) -> pd.DataFrame:
+    """Apply US County Demographics specific preprocessing.
+
+    Parameters
+    ----------
+    stat : pd.DataFrame
+        Statistics DataFrame with demographic data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Preprocessed DataFrame with Election feature and cleaned columns.
+    """
+    # Replace comma with dot in MedianIncome (will be converted to numeric by pipeline)
+    stat["MedianIncome"] = stat["MedianIncome"].replace(",", ".", regex=True)
+
+    # Create Election variable from DEM and GOP
+    stat["Election"] = (stat["DEM"] - stat["GOP"]) / (
+        stat["DEM"] + stat["GOP"]
+    )
+
+    # Drop intermediate columns
+    stat = stat.drop(columns=["DEM", "GOP"])
+
+    return stat
+
+
+US_COUNTY_DEMOS_CONFIG = GraphDatasetConfig(
+    edge_file="county_graph.csv",
+    feature_file="county_stats_{year}.csv",
+    edge_sep=",",
+    feature_encoding="ISO-8859-1",
+    keep_cols=[
+        "FIPS",
+        "DEM",
+        "GOP",
+        "MedianIncome",
+        "MigraRate",
+        "BirthRate",
+        "DeathRate",
+        "BachelorRate",
+        "UnemploymentRate",
+    ],
+    node_id_col="FIPS",
+    edges_use_node_ids=True,
+    preprocessing_fn=_preprocess_us_county_demos,
+)
+
+
+def read_us_county_demos(path, year=2012, y_col="Election"):
+    """Load US County Demos dataset.
+
+    Parameters
+    ----------
+    path : str
+        Path to the dataset.
+    year : int, optional
+        Year to load the features (default: 2012).
+    y_col : str, optional
+        Column to use as label. Can be one of ['Election', 'MedianIncome',
+        'MigraRate', 'BirthRate', 'DeathRate', 'BachelorRate', 'UnemploymentRate'] (default: "Election").
+
+    Returns
+    -------
+    torch_geometric.data.Data
+        Data object of the graph for the US County Demos dataset.
+    """
+    return load_graph_with_features(
+        path=path,
+        config=US_COUNTY_DEMOS_CONFIG,
+        y_col=y_col,
+        year=year,
+    )

@@ -5,7 +5,6 @@ import os.path as osp
 import shutil
 from typing import ClassVar
 
-import pandas as pd
 from omegaconf import DictConfig
 from torch_geometric.data import Data, InMemoryDataset, extract_zip
 from torch_geometric.io import fs
@@ -17,8 +16,8 @@ from topobench.data.utils.io_utils import (
 )
 
 
-class USCountyDemosDataset(InMemoryDataset):
-    r"""Dataset class for US County Demographics dataset.
+class CDCClimateDataset(InMemoryDataset):
+    r"""Dataset class for CDC Climate dataset.
 
     Parameters
     ----------
@@ -37,48 +36,32 @@ class USCountyDemosDataset(InMemoryDataset):
     """
 
     URLS: ClassVar = {
-        "US-county-demos": "https://drive.google.com/file/d/1FNF_LbByhYNICPNdT6tMaJI9FxuSvvLK/view?usp=sharing",
+        "CDC-climate": "https://drive.google.com/file/d/1F3xnu8OwlJK1AVoF9WVvnndYbhyVZwci/view?usp=sharing",
     }
 
     FILE_FORMAT: ClassVar = {
-        "US-county-demos": "zip",
+        "CDC-climate": "zip",
     }
 
     RAW_FILE_NAMES: ClassVar = {}
 
-    @staticmethod
-    def preprocess_features(stat: pd.DataFrame) -> pd.DataFrame:
-        """Apply US County Demographics specific preprocessing.
-
-        This method performs the following preprocessing steps:
-        1. Replaces commas with dots in MedianIncome column for proper numeric conversion
-        2. Creates Election feature from DEM and GOP columns as (DEM - GOP) / (DEM + GOP)
-        3. Drops the intermediate DEM and GOP columns
-
-        Parameters
-        ----------
-        stat : pd.DataFrame
-            Statistics DataFrame with demographic data.
-
-        Returns
-        -------
-        pd.DataFrame
-            Preprocessed DataFrame with Election feature and cleaned columns.
-        """
-        # Replace comma with dot in MedianIncome (will be converted to numeric by pipeline)
-        stat["MedianIncome"] = stat["MedianIncome"].replace(
-            ",", ".", regex=True
-        )
-
-        # Create Election variable from DEM and GOP
-        stat["Election"] = (stat["DEM"] - stat["GOP"]) / (
-            stat["DEM"] + stat["GOP"]
-        )
-
-        # Drop intermediate columns
-        stat = stat.drop(columns=["DEM", "GOP"])
-
-        return stat
+    DATASET_CONFIG: ClassVar = GraphDatasetConfig(
+        edge_file="CDC-climate-graph.txt",
+        feature_file="CDC-climate-feats.csv",
+        edge_sep=" ",
+        feature_encoding=None,
+        keep_cols=[
+            "FIPS",
+            "airT",
+            "landT",
+            "precipitation",
+            "sunlight",
+            "pm2.5",
+        ],
+        node_id_col="FIPS",
+        edges_use_node_ids=False,
+        preprocessing_fn=None,  # No custom preprocessing needed
+    )
 
     def __init__(
         self,
@@ -88,7 +71,6 @@ class USCountyDemosDataset(InMemoryDataset):
     ) -> None:
         self.name = name
         self.parameters = parameters
-        self.year = parameters.year
         self.task_variable = parameters.task_variable
         super().__init__(
             root,
@@ -136,7 +118,7 @@ class USCountyDemosDataset(InMemoryDataset):
         self.processed_root = osp.join(
             self.root,
             self.name,
-            "_".join([str(self.year), self.task_variable]),
+            self.task_variable,
         )
         return osp.join(self.processed_root, "processed")
 
@@ -149,7 +131,7 @@ class USCountyDemosDataset(InMemoryDataset):
         list[str]
             List of raw file names.
         """
-        return ["county_graph.csv", f"county_stats_{self.year}.csv"]
+        return ["CDC-climate-feats.csv", "CDC-climate-graph.txt"]
 
     @property
     def processed_file_names(self) -> str:
@@ -196,38 +178,15 @@ class USCountyDemosDataset(InMemoryDataset):
     def process(self) -> None:
         r"""Handle the data for the dataset.
 
-        This method loads the US county demographics data, applies any pre-
+        This method loads the CDC climate data, applies any pre-
         processing transformations if specified, and saves the processed data
         to the appropriate location.
         """
-        # Configure dataset loading
-        config = GraphDatasetConfig(
-            edge_file="county_graph.csv",
-            feature_file=f"county_stats_{self.year}.csv",
-            edge_sep=",",
-            feature_encoding="ISO-8859-1",
-            keep_cols=[
-                "FIPS",
-                "DEM",
-                "GOP",
-                "MedianIncome",
-                "MigraRate",
-                "BirthRate",
-                "DeathRate",
-                "BachelorRate",
-                "UnemploymentRate",
-            ],
-            node_id_col="FIPS",
-            edges_use_node_ids=True,
-            preprocessing_fn=self.preprocess_features,
-        )
-
         # Load the data using unified loader
         data = load_graph_with_features(
             path=self.raw_dir,
-            config=config,
+            config=self.DATASET_CONFIG,
             y_col=self.task_variable,
-            year=self.year,
         )
         data_list = [data]
 

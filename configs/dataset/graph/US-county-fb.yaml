@@ -1,0 +1,36 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.USCountyFBDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: cornel
+    data_name: US-county-fb
+    year: 2012
+    task_variable: 'election' # options: [sh050m, sh100m, sh500m, income, migration, birth, death, education, unemployment, election]
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 9
+  num_classes: 1
+  num_nodes: 3105
+  task: regression
+  loss_type: mse
+  monitor_metric: mae
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+  standardize: True
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 0
+  pin_memory: False
