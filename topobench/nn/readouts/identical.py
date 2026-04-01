@@ -17,6 +17,7 @@ class NoReadOut(AbstractZeroCellReadOut):
     """
 
     def __init__(self, **kwargs):
+        self.name = "NoReadOut"
         super().__init__(**kwargs)
 
     def forward(

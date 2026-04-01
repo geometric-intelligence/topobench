@@ -42,7 +42,9 @@ class AbstractZeroCellReadOut(torch.nn.Module):
             if hidden_dim != out_channels or logits_linear_layer
             else torch.nn.Identity()
         )
-        assert task_level in ["graph", "node"], "Invalid task_level"
+        assert task_level in ["graph", "node"] or (
+            self.name == "NoReadOut" and task_level == "edge"
+        ), "Invalid task_level"
         self.task_level = task_level
         self.logits_linear_layer = logits_linear_layer
 
