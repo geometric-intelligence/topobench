@@ -1,0 +1,41 @@
+# OCB101 (Open Circuit Benchmark 101) Dataset Configuration
+# Graph-level regression task: Predict circuit performance metrics.
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.graph.ocb_loader.OCBDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: circuits # A new type for circuit graphs
+    data_name: OCB101
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_graphs: 10000
+  num_node_features: 11 # 10 one-hot + 1 feat
+  num_features: 11 # Added for compatibility with config resolvers
+  num_edge_features: 0
+  num_classes: 1 # Single-target regression ('fom')
+  task: regression
+  loss_type: mse
+  monitor_metric: mae # Monitors the first target by default
+  task_level: graph
+
+# Splits configuration
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 42
+  split_type: random
+  train_prop: 0.8
+  val_prop: 0.1
+  test_prop: 0.1
+  standardize: True
+
+# DataLoader parameters
+dataloader:
+  batch_size: 32
+  num_workers: 0
+  pin_memory: false
+  shuffle: True
