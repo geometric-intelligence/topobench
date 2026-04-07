@@ -1,0 +1,51 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.HALArlequinDatasetLoader
+  parameters:
+    data_domain: hypergraph
+    data_type: academic
+    data_name: HALArlequin
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+    # Hypergraph construction parameters
+    max_rank: 3
+    cluster_seed: 42
+    neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+    # Semantic hyperedge clustering parameters
+    semantic_cluster_algorithm: spherical_kmeans
+    semantic_kmeans_k: 10
+    semantic_kmeans_n_init: 1
+    # Higher order structure initialization method: "avg_doc" or "one_hot"
+    ho_init_method: avg_doc
+    # Author hyperedge filtering: min papers for an author to get a hyperedge
+    min_papers_per_author: 2
+    # Institution granularity: "researchteam", "laboratory", or "institution"
+    institution_level: laboratory
+    # Prediction task: "semantic" (predict cluster) or "first_author" (predict first author)
+    prediction_task: semantic
+    # Min first-authored papers for an author to be a valid class (null = no filter)
+    # Only used when prediction_task=first_author. With >=2: 24 classes; >=3: 14 classes.
+    min_papers_per_first_author: null
+
+# Dataset parameters
+parameters:
+  num_features: [1024, 1024, 1024, 1024]
+  num_classes: 10
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random
+  k: 10
+  train_prop: 0.8
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1
+  num_workers: 1
+  pin_memory: False

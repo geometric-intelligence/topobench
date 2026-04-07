@@ -1,13 +1,13 @@
 # path to root directory
 # this requires PROJECT_ROOT environment variable to exist
 # you can replace it with "." if you want the root to be the current working directory
-root_dir: ${oc.env:PROJECT_ROOT}
+root_dir: /data/gbg141/Arlequin/
 
 # path to data directory
-data_dir: ${paths.root_dir}/datasets
+data_dir: /data/gbg141/Arlequin/datasets
 
 # path to logging directory
-log_dir: ${paths.root_dir}/logs
+log_dir: /data/gbg141/Arlequin/logs
 
 # path to output directory, created dynamically by hydra
 # path generation pattern is specified in `configs/hydra/default.yaml`

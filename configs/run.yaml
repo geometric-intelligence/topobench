@@ -5,7 +5,7 @@
 defaults:
   - _self_
   - dataset: hypergraph/maga_arlequin
-  - model: hypergraph/topotune_hyp
+  - model: pointcloud/deepset #hypergraph/topotune_hyp
   - transforms: ${get_default_transform:${dataset},${model}} #no_transform
   - optimizer: default
   - loss: default

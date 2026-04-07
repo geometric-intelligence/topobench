@@ -12,15 +12,19 @@ loader:
     max_rank: 4
     cluster_seed: 42
     neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+    # Semantic hyperedge clustering parameters
+    semantic_cluster_algorithm: spherical_kmeans
+    semantic_kmeans_k: 10
+    semantic_kmeans_n_init: 1
     # Higher order structure initialization method: "bio" (default) or "avg_post"
     ho_init_method: avg_post
     # Filter out users with more than this many posts (null = no filter)
-    max_posts_per_user: 10000
+    max_posts_per_user: 1000
 
 # Dataset parameters
 parameters:
-  num_features: [1024, 1024, 1024, 1024, 40]
-  num_classes: 40
+  num_features: [1024, 1024, 1024, 1024, 10]
+  num_classes: 10
   task: classification
   loss_type: cross_entropy
   monitor_metric: accuracy

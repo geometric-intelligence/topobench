@@ -12,6 +12,10 @@ loader:
     max_rank: 4
     cluster_seed: 42
     neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+    # Semantic hyperedge clustering parameters
+    semantic_cluster_algorithm: spherical_kmeans
+    semantic_kmeans_k: 10
+    semantic_kmeans_n_init: 1
 
 # Dataset parameters
 parameters:

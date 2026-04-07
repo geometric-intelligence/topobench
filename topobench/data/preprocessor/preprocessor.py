@@ -34,7 +34,7 @@ class PreProcessor(torch_geometric.data.InMemoryDataset):
 
     def __init__(self, dataset, data_dir, transforms_config=None, **kwargs):
         self.dataset = dataset
-        if transforms_config is not None:
+        if transforms_config not in (None, {}):
             self.transforms_applied = True
             pre_transform = self.instantiate_pre_transform(
                 data_dir, transforms_config
@@ -50,6 +50,11 @@ class PreProcessor(torch_geometric.data.InMemoryDataset):
             self.data_list = [data for data in self]
         else:
             self.transforms_applied = False
+            data_dir = (
+                dataset.get_data_dir()
+                if hasattr(dataset, "get_data_dir")
+                else dataset.root()
+            )
             super().__init__(data_dir, None, None, **kwargs)
             self.transform = (
                 dataset.transform if hasattr(dataset, "transform") else None

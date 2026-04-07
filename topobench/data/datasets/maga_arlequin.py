@@ -11,6 +11,7 @@ import toponetx as tnx
 import torch
 from hnne.finch_clustering import FINCH
 from omegaconf import DictConfig
+from sklearn.cluster import KMeans
 from torch_geometric.data import Data, InMemoryDataset
 from torch_geometric.io import fs
 
@@ -55,13 +56,19 @@ class MAGAArlequinDataset(InMemoryDataset):
         self.name = name
         self.parameters = parameters
         # hypergraph construction parameters
-        self.cluster_level_posts = parameters.get("cluster_level_posts", 1)
+        self.cluster_level_posts = parameters.get("cluster_level_posts", -2)
         self.cluster_level_users = parameters.get("cluster_level_users", 0)
         self.max_rank = parameters.get("max_rank", 4)
         self.cluster_seed = parameters.get("cluster_seed", 42)
         self.neighborhoods = parameters.get("neighborhoods", None)
+        self.semantic_cluster_algorithm = parameters.get(
+            "semantic_cluster_algorithm",
+            "spherical_kmeans",
+        )
+        self.semantic_kmeans_k = parameters.get("semantic_kmeans_k", 10)
+        self.semantic_kmeans_n_init = parameters.get("semantic_kmeans_n_init", 1)
         # higher order initialization method: "bio" (default) or "avg_post"
-        self.ho_init_method = parameters.get("ho_init_method", "bio")
+        self.ho_init_method = parameters.get("ho_init_method", "avg_post")
         # filter out users with more than this many posts (None = no filter)
         self.max_posts_per_user = parameters.get("max_posts_per_user", None)
         # Create a hash of neighborhoods list to avoid overly long filenames
@@ -70,7 +77,13 @@ class MAGAArlequinDataset(InMemoryDataset):
             neighborhoods_hash = hashlib.md5(neighborhoods_str.encode()).hexdigest()[:12]
         else:
             neighborhoods_hash = "none"
-        self.hypergraph_id = f"{self.cluster_level_posts}_{self.cluster_level_users}_{self.max_rank}_{self.cluster_seed}_{neighborhoods_hash}_{self.ho_init_method}_{self.max_posts_per_user}"
+        self.hypergraph_id = (
+            f"{self.cluster_level_posts}_{self.cluster_level_users}_"
+            f"{self.max_rank}_{self.cluster_seed}_{neighborhoods_hash}_"
+            f"{self.ho_init_method}_{self.max_posts_per_user}_"
+            f"{self.semantic_cluster_algorithm}_"
+            f"{self.semantic_kmeans_k}_{self.semantic_kmeans_n_init}"
+        )
         super().__init__(
             root,
         )
@@ -138,6 +151,16 @@ class MAGAArlequinDataset(InMemoryDataset):
             Processed file name.
         """
         return "data.pt"
+    
+    def get_data_dir(self) -> str:
+        """Return the path to the data directory.
+
+        Returns
+        -------
+        str
+            Path to the data directory.
+        """
+        return osp.join(self.root, self.name, self.hypergraph_id)
     
     def create_posts_nodes(self, df):
         """Create post nodes from dataframe and add to complex.
@@ -275,10 +298,36 @@ class MAGAArlequinDataset(InMemoryDataset):
         embeddings : np.ndarray
             Array containing the post embeddings.
         """
-        clusters, n_clusters, _, _ = FINCH(data=embeddings, distance="cosine", verbose=0, random_state=self.cluster_seed)
-        print("Embeddings: ", n_clusters)
-        self.semantics = clusters[:, self.cluster_level_posts]
-        self.n_clusters_posts = n_clusters[self.cluster_level_posts]
+        if self.semantic_cluster_algorithm == "finch":
+            clusters, n_clusters, _, _ = FINCH(
+                data=embeddings,
+                distance="cosine",
+                verbose=0,
+                random_state=self.cluster_seed,
+            )
+            print("Embeddings: ", n_clusters)
+            self.semantics = clusters[:, self.cluster_level_posts]
+            self.n_clusters_posts = n_clusters[self.cluster_level_posts]
+            return
+
+        if self.semantic_cluster_algorithm == "spherical_kmeans":
+            norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+            norms = np.maximum(norms, 1e-12)
+            normalized_embeddings = embeddings / norms
+            kmeans = KMeans(
+                n_clusters=self.semantic_kmeans_k,
+                n_init=self.semantic_kmeans_n_init,
+                random_state=self.cluster_seed,
+            )
+            labels = kmeans.fit_predict(normalized_embeddings)
+            self.semantics = labels
+            self.n_clusters_posts = self.semantic_kmeans_k
+            return
+
+        raise ValueError(
+            "Unsupported semantic_cluster_algorithm: "
+            f"{self.semantic_cluster_algorithm}"
+        )
 
     def build_semantic_hyperedges(self, rank=4):
         """Build semantic hyperedges from clustered posts and add to complex.
