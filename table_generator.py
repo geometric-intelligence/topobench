@@ -593,6 +593,35 @@ def aggregate_across_seeds(
         f"▶ All seed columns excluded from grouping: {sorted(all_seed_cols)}"
     )
 
+    # Backfill missing seeds from run_name (e.g. "..._seed9")
+    # Also derive a config key for those runs, since their wandb config
+    # columns are typically empty and they'd otherwise collapse into one
+    # giant group per project.
+    _RUN_CONFIG_KEY = "_run_config_key"
+    df[_RUN_CONFIG_KEY] = ""
+
+    missing_mask = df[seed_col].isna()
+    n_missing = missing_mask.sum()
+    if n_missing > 0 and "run_name" in df.columns:
+        extracted = df.loc[missing_mask, "run_name"].str.extract(
+            r"_seed(\d+)", expand=False
+        )
+        recovered = extracted.notna().sum()
+        df.loc[missing_mask, seed_col] = pd.to_numeric(
+            extracted, errors="coerce"
+        )
+        backfilled_mask = missing_mask & df[seed_col].notna()
+        df.loc[backfilled_mask, _RUN_CONFIG_KEY] = df.loc[
+            backfilled_mask, "run_name"
+        ].str.replace(r"_seed\d+$", "", regex=True)
+        still_missing = df[seed_col].isna().sum()
+        print(
+            f"▶ Backfilled {recovered}/{n_missing} missing seeds from run_name"
+        )
+        if still_missing > 0:
+            print(f"▶ Dropping {still_missing} runs with no seed info at all")
+            df = df.dropna(subset=[seed_col])
+
     if expected_seeds is None:
         expected_seeds = int(df[seed_col].nunique(dropna=True))
     print(f"▶ Expected seeds per group: {expected_seeds}")
