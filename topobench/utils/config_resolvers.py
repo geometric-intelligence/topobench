@@ -236,12 +236,53 @@ def get_monitor_mode(task):
         raise ValueError(f"Invalid task {task}")
 
 
+def _parse_encodings(encodings):
+    """Parse encodings if they are in string format 'family::[enc1,enc2]'.
+
+    Parameters
+    ----------
+    encodings : list or str
+        List of encodings or string in 'family::[enc1,enc2]' format.
+
+    Returns
+    -------
+    list
+        List of encoding names.
+    """
+    if isinstance(encodings, str):
+        if "::" in encodings:
+            _, enc_list_str = encodings.split("::", 1)
+            enc_list_str = enc_list_str.strip("[]")
+            return [e.strip() for e in enc_list_str.split(",") if e.strip()]
+        return [encodings]
+    return encodings
+
+
+def get_hop_num_pses(encodings, copy_initial):
+    """Get the number of hops for the positional or structural encodings.
+
+    Parameters
+    ----------
+    encodings : list or str
+        List of encodings or string in 'family::[enc1,enc2]' format.
+    copy_initial : bool
+        If the initial features should be copied as the 0-th hop.
+
+    Returns
+    -------
+    int
+        Number of hops.
+    """
+    encodings = _parse_encodings(encodings)
+    return len(encodings) + int(copy_initial)
+
+
 def get_pse_dimensions(encodings, parameters):
     r"""Get dimensions of positional or structural encodings.
 
     Parameters
     ----------
-    encodings : list
+    encodings : list or str
         List of positional or structural encodings.
     parameters : dict
         Dictionary of parameters for the positional or structural encodings, which should
@@ -252,6 +293,7 @@ def get_pse_dimensions(encodings, parameters):
     list
         List with dimensions of the positional or structural encodings.
     """
+    encodings = _parse_encodings(encodings)
     dimensions = []
     for pse in encodings:
         if pse == "LapPE":
@@ -281,7 +323,7 @@ def get_fes_dimensions(encodings, parameters):
 
     Parameters
     ----------
-    encodings : list
+    encodings : list or str
         List of feature encodings.
     parameters : dict
         Dictionary of parameters for the feature encodings.
@@ -291,6 +333,7 @@ def get_fes_dimensions(encodings, parameters):
     list
         List with dimensions of the feature encodings.
     """
+    encodings = _parse_encodings(encodings)
     dimensions = []
     for fe in encodings:
         if fe == "HKFE":
@@ -327,7 +370,7 @@ def get_all_encoding_dimensions(encodings, parameters):
 
     Parameters
     ----------
-    encodings : list
+    encodings : list or str
         List of all encodings (both PSEs and FEs).
     parameters : dict
         Dictionary of parameters for all encodings.
@@ -337,6 +380,7 @@ def get_all_encoding_dimensions(encodings, parameters):
     list
         List with dimensions of all encodings in the same order as input.
     """
+    encodings = _parse_encodings(encodings)
     dimensions = []
     for enc in encodings:
         # PSE encodings
@@ -418,7 +462,9 @@ def check_pses_in_transforms(transforms):
     # Potentially multiple transforms
     for key in transforms:
         if "CombinedPSEs" in key or "encodings" in key:
-            for pse in transforms[key].get("encodings", []):
+            raw_encodings = transforms[key].get("encodings", [])
+            encodings = _parse_encodings(raw_encodings)
+            for pse in encodings:
                 if pse == "LapPE":
                     if (
                         transforms[key]

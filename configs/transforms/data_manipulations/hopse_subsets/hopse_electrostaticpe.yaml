@@ -1,0 +1,19 @@
+transform_name: "HOPSE_PE_Information"
+transform_type: "data manipulation"
+max_rank: 2
+copy_initial: ${model.preprocessing_params.copy_initial}
+neighborhoods: ${model.preprocessing_params.neighborhoods}
+
+dim_target_node: 7
+dim_target_graph: 0
+max_hop: ${get_hop_num_pses:${.encodings},${.copy_initial}}
+in_channels: ${infer_in_hasse_graph_agg_dim:${.neighborhoods},${.dim_all_encodings},${.max_rank},${.max_hop},${oc.select:dataset.parameters.num_features},${.dim_target_graph},${.dim_target_node},${.copy_initial},${oc.select:dataset.parameters.preserve_edge_attr_if_lifted}}
+device: ${trainer.accelerator}
+cuda: ${trainer.devices}
+
+encodings: ["ElectrostaticPE"]
+dim_all_encodings: [7]
+
+parameters:
+  ElectrostaticPE:
+    concat_to_x: false

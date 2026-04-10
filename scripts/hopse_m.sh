@@ -11,8 +11,9 @@
 # ==============================================================================
 # DO NOT MISS THIS
 
-export SELECTED_GPUS="0,1,2,3,4,5,6,7" 
-wandb_entity="gbg141-hopse"
+# export SELECTED_GPUS="0,1,2,3,4,5,6,7"
+export SELECTED_GPUS="0" 
+# wandb_entity="gbg141-hopse"
 RESUME=true  # Set to true to skip already-completed runs (reads SUCCESSFUL_RUNS.log)
 
 # ==============================================================================
@@ -174,10 +175,15 @@ neighborhoods=(
     "inc2::[up_incidence-0,up_incidence-1,2-up_incidence-0,down_incidence-1,down_incidence-2,2-down_incidence-2]"
 )
 
-# --- Encodings (two families to compare) ---
+# --- Encodings (Individual encodings recovered via subsets) ---
 encodings=(
-    "pse::[LapPE,RWSE,ElectrostaticPE,HKdiagSE]"
-    "fe::[HKFE,KHopFE,PPRFE]"
+    "lappe::data_manipulations@hopse_encoding=hopse_subsets/hopse_lappe"
+    "rwse::data_manipulations@hopse_encoding=hopse_subsets/hopse_rwse"
+    "electro::data_manipulations@hopse_encoding=hopse_subsets/hopse_electrostaticpe"
+    "hkdiag::data_manipulations@hopse_encoding=hopse_subsets/hopse_hkdiagse"
+    "hkfe::data_manipulations@hopse_encoding=hopse_subsets/hopse_hkfe"
+    "khopfe::data_manipulations@hopse_encoding=hopse_subsets/hopse_khopfe"
+    "pprfe::data_manipulations@hopse_encoding=hopse_subsets/hopse_pprfe"
 )
 
 # --- Hyperparameters (superset across all dataset groups) ---

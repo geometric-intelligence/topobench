@@ -34,6 +34,7 @@ from topobench.utils.config_resolvers import (
     get_default_transform,
     get_fes_dimensions,
     get_flattened_channels,
+    get_hop_num_pses,
     get_list_element,
     get_monitor_metric,
     get_monitor_mode,
@@ -150,8 +151,11 @@ OmegaConf.register_new_resolver(
     replace=True,
 )
 OmegaConf.register_new_resolver(
-    "get_hop_num_pses", lambda x, y: len(x) + int(y), replace=True
+    "get_hop_num_pses",
+    get_hop_num_pses,
+    replace=True,
 )
+
 OmegaConf.register_new_resolver(
     "set_preserve_edge_attr",
     set_preserve_edge_attr,
@@ -239,6 +243,13 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
         else None
     )
     preprocessor = PreProcessor(dataset, dataset_dir, transform_config)
+    # Synchronize transforms config with potentially updated preprocessor parameters (after recovery)
+    if transform_config is not None:
+        for key, updated_params in preprocessor.transforms_parameters.items():
+            if key in cfg.transforms:
+                # Use OmegaConf.merge to ensure all nested keys (like dim_all_encodings) are updated
+                cfg.transforms[key] = OmegaConf.merge(cfg.transforms[key], updated_params)
+    
     dataset_train, dataset_val, dataset_test = (
         preprocessor.load_dataset_splits(cfg.dataset.split_params)
     )

@@ -10,6 +10,7 @@ from topobench.transforms.data_manipulations.all_encodings import (
     CombinedEncodings,
     SelectDestinationEncodings,
 )
+from topobench.utils.config_resolvers import _parse_encodings
 
 
 class dotdict(dict):
@@ -37,7 +38,7 @@ class HOPSE_PE_Information(torch_geometric.transforms.BaseTransform):
         self.max_rank = kwargs["max_rank"]
         self.copy_initial = kwargs["copy_initial"]
         self.neighborhoods = kwargs["neighborhoods"]
-        self.encodings = kwargs["encodings"]
+        self.encodings = _parse_encodings(kwargs["encodings"])
         self.dim_all_encodings = kwargs.get("dim_all_encodings", [])
         self.in_channels = kwargs["in_channels"]
 
