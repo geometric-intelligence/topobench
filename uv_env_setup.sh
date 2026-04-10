@@ -17,12 +17,9 @@ echo "======================================================="
 # ------------------------------------------------------------------------------
 # Configuration
 # ------------------------------------------------------------------------------
-TORCH_VER="2.3.0"
-
 case "$PLATFORM" in
     cpu|cu118|cu121)
         TARGET_INDEX="pytorch-${PLATFORM}"
-        PYG_URL="https://data.pyg.org/whl/torch-${TORCH_VER}+${PLATFORM}.html"
         ;;
     *)
         echo "❌ Error: Invalid platform '$PLATFORM'. Use: cpu, cu118, or cu121."
@@ -32,20 +29,13 @@ esac
 
 echo "⚙️  Updating pyproject.toml..."
 
-# 1. Update the 'find-links' URL for PyG extensions
+# Update the torch source index for Linux
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # MacOS sed
-    sed -i '' "s|find-links = \[\".*\"\]|find-links = [\"${PYG_URL}\"]|g" pyproject.toml
-    # Update Linux Source Marker
     sed -i '' "s/index = \"pytorch-[a-z0-9]*\", marker = \"sys_platform == 'linux'/index = \"${TARGET_INDEX}\", marker = \"sys_platform == 'linux'/g" pyproject.toml
 else
-    # Linux sed
-    sed -i "s|find-links = \[\".*\"\]|find-links = [\"${PYG_URL}\"]|g" pyproject.toml
-    # Update Linux Source Marker
     sed -i "s/index = \"pytorch-[a-z0-9]*\", marker = \"sys_platform == 'linux'/index = \"${TARGET_INDEX}\", marker = \"sys_platform == 'linux'/g" pyproject.toml
 fi
 
-echo "✅ Set PyG Links to : ${PYG_URL}"
 echo "✅ Set Torch Index to: ${TARGET_INDEX}"
 
 # ------------------------------------------------------------------------------
@@ -55,8 +45,26 @@ echo ""
 echo "🧹 Cleaning old lockfile..."
 rm -f uv.lock
 
+# Dry-run to detect which torch version will be installed
+TORCH_VER=$(uv sync --dry-run --python 3.11 2>&1 \
+    | grep '+ torch==' | sed 's/.*+ torch==//')
+if [ -z "$TORCH_VER" ]; then
+    # Fallback: read from existing venv (dry-run reports nothing if already installed)
+    TORCH_VER=$(.venv/bin/python -c "import torch; print(torch.__version__)" 2>/dev/null)
+fi
+if [ -z "$TORCH_VER" ]; then
+    echo "❌ Error: Could not detect torch version."
+    return 1 2>/dev/null || exit 1
+fi
+PYG_URL="https://data.pyg.org/whl/torch-${TORCH_VER}.html"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s|find-links = \[\".*\"\]|find-links = [\"${PYG_URL}\"]|g" pyproject.toml
+else
+    sed -i "s|find-links = \[\".*\"\]|find-links = [\"${PYG_URL}\"]|g" pyproject.toml
+fi
+echo "✅ Set PyG Links to : ${PYG_URL} (torch ${TORCH_VER})"
+
 echo "📦 Syncing Environment (Python 3.11)..."
-# Force Python 3.11 creation
 if ! uv sync --python 3.11 --all-extras; then
     echo "❌ uv sync failed."
     return 1 2>/dev/null || exit 1
