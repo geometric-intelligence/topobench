@@ -112,6 +112,11 @@ name = "pytorch-cu121"
 url = "https://download.pytorch.org/whl/cu121"
 explicit = true
 
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
 # Default find-links (will be overwritten by bash script)
 [tool.uv]
 find-links = ["https://data.pyg.org/whl/torch-2.3.0+cu121.html"]

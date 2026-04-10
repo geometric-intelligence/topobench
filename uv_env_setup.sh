@@ -3,7 +3,7 @@
 # ==============================================================================
 # 🛠️  TopoBench Environment Setup Script (Py3.11 + Dynamic CUDA)
 # ==============================================================================
-# usage: bash uv_env_setup.sh [cpu|cu118|cu121]
+# usage: bash uv_env_setup.sh [cpu|cu118|cu121|cu128]
 # ==============================================================================
 
 PLATFORM="${1:-cpu}"
@@ -18,11 +18,11 @@ echo "======================================================="
 # Configuration
 # ------------------------------------------------------------------------------
 case "$PLATFORM" in
-    cpu|cu118|cu121)
+    cpu|cu118|cu121|cu128)
         TARGET_INDEX="pytorch-${PLATFORM}"
         ;;
     *)
-        echo "❌ Error: Invalid platform '$PLATFORM'. Use: cpu, cu118, or cu121."
+        echo "❌ Error: Invalid platform '$PLATFORM'. Use: cpu, cu118, cu121, or cu128."
         return 1 2>/dev/null || exit 1
         ;;
 esac
