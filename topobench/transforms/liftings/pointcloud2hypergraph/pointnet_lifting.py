@@ -2,7 +2,6 @@
 
 import torch
 import torch_geometric
-from torch_cluster import fps, radius
 
 from topobench.transforms.liftings.pointcloud2hypergraph.base import (
     PointCloud2HypergraphLifting,
@@ -45,6 +44,7 @@ class PointNetLifting(PointCloud2HypergraphLifting):
         dict
             The lifted topology.
         """
+        from torch_cluster import fps, radius
 
         batch = (
             torch.zeros(data.num_nodes, dtype=torch.long)
