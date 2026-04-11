@@ -30,7 +30,7 @@ elif [ "$PLATFORM" == "cu121" ]; then
     PYG_URL="https://data.pyg.org/whl/torch-${TORCH_VER}+cu121.html"
 else
     echo "❌ Error: Invalid platform '$PLATFORM'. Use: cpu, cu118, or cu121."
-    exit 1
+    return 1 2>/dev/null || exit 1
 fi
 
 echo "⚙️  Updating pyproject.toml..."
