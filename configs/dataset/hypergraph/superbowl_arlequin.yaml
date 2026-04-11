@@ -1,0 +1,44 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.SuperbowlArlequinDatasetLoader
+  parameters:
+    data_domain: hypergraph
+    data_type: social
+    data_name: SuperbowlArlequin
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+    # Hypergraph construction parameters
+    max_rank: 3
+    cluster_seed: 42
+    neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+    # Semantic clustering depth (1-8): depth 1 = 3 coarse clusters, depth 8 = 84 fine clusters
+    semantic_depth: 3
+    # Node feature mode: "embedding" (1024-dim) or "cluster_onehot" (one-hot of cluster label)
+    node_feature_mode: embedding
+    # Minimum posts per author to be included (authors below threshold are removed)
+    min_posts_per_author: 2
+
+# Dataset parameters
+# NOTE: num_classes = number of authors after filtering. Default below is for
+# semantic_depth=3, min_posts_per_author=2. Update if you change those params.
+parameters:
+  num_features: [1024, 1024, 1024, 24]
+  num_classes: 5027
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+# Splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random
+  k: 10
+  train_prop: 0.8
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1
+  num_workers: 1
+  pin_memory: False

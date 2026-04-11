@@ -13,6 +13,7 @@ for seed in ${seeds[@]}; do
         model.backbone.activation=relu \
         dataset.split_params.data_seed=${seed} \
         dataset.loader.parameters.ho_init_method=avg_post,bio \
+        dataset.loader.parameters.max_posts_per_user=1000,2000 \
         model.readout.readout_name=PropagateSignalDown \
         model.readout.pooling_type=mean \
         model.readout.hierarchical_propagation=False \
@@ -38,6 +39,7 @@ for seed in ${seeds[@]}; do
         model.backbone.activation=relu \
         dataset.split_params.data_seed=${seed} \
         dataset.loader.parameters.ho_init_method=avg_post,bio \
+        dataset.loader.parameters.max_posts_per_user=1000,2000 \
         model.readout.readout_name=PropagateSignalDown \
         model.readout.pooling_type=mean \
         model.readout.hierarchical_propagation=False \
@@ -63,6 +65,7 @@ for seed in ${seeds[@]}; do
         model.backbone.activation=relu \
         dataset.split_params.data_seed=${seed} \
         dataset.loader.parameters.ho_init_method=avg_post,bio \
+        dataset.loader.parameters.max_posts_per_user=1000,2000 \
         model.readout.readout_name=PropagateSignalDown \
         model.readout.pooling_type=mean \
         model.readout.hierarchical_propagation=False \
@@ -88,6 +91,7 @@ for seed in ${seeds[@]}; do
         model.backbone.activation=relu \
         dataset.split_params.data_seed=${seed} \
         dataset.loader.parameters.ho_init_method=avg_post,bio \
+        dataset.loader.parameters.max_posts_per_user=1000,2000 \
         model.readout.readout_name=PropagateSignalDown \
         model.readout.pooling_type=mean \
         model.readout.hierarchical_propagation=False \
