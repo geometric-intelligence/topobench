@@ -120,27 +120,27 @@ class TestConfigResolvers:
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/MUTAG"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [7,4,4]
+        assert in_channels == [7,4,4,4]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/MUTAG", "dataset.parameters.preserve_edge_attr_if_lifted=False"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [7,7,7]
+        assert in_channels == [7,7,7,7]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/MUTAG", "dataset.parameters.preserve_edge_attr_if_lifted=False", "transforms.graph2simplicial_lifting.feature_lifting=Concatenation"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [7,14,42]
+        assert in_channels == [7,14,42,168]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/MUTAG", "transforms.graph2simplicial_lifting.feature_lifting=Concatenation"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [7,4,4]
+        assert in_channels == [7,4,4,4]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/cocitation_cora", "transforms.graph2simplicial_lifting.feature_lifting=Concatenation"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [1433,2866,8598]
+        assert in_channels == [1433,2866,8598,34392]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/topotune", "dataset=graph/cocitation_cora"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [1433,1433,1433]
+        assert in_channels == [1433,1433,1433,1433]
         
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=graph/gcn", "dataset=simplicial/mantra_orientation"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
@@ -148,7 +148,7 @@ class TestConfigResolvers:
 
         cfg = hydra.compose(config_name="run.yaml", overrides=["model=simplicial/scn", "dataset=graph/cocitation_cora"], return_hydra_config=True)
         in_channels = infer_in_channels(cfg.dataset, cfg.transforms)
-        assert in_channels == [1433,1433,1433]
+        assert in_channels == [1433,1433,1433,1433]
 
     def test_infer_num_cell_dimensions(self):
         """Test infer_num_cell_dimensions."""

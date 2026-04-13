@@ -29,6 +29,10 @@ class TBOptimizer(AbstractOptimizer):
         self.optimizer = functools.partial(
             TORCH_OPTIMIZERS[optimizer_id], **parameters
         )
+
+        # CHANGED: Store the scheduler config so we can access keys like 'monitor' later
+        self.scheduler_config = scheduler
+
         if scheduler is not None:
             scheduler_id = scheduler.get("scheduler_id")
             scheduler_params = scheduler.get("scheduler_params")
@@ -63,13 +67,17 @@ class TBOptimizer(AbstractOptimizer):
         optimizer = self.optimizer(params=model_parameters)
         if self.scheduler is not None:
             scheduler = self.scheduler(optimizer=optimizer)
+
+            # CHANGED: Use .get() to read from the config, falling back to defaults if missing
             return {
                 "optimizer": optimizer,
                 "lr_scheduler": {
                     "scheduler": scheduler,
-                    "monitor": "val/loss",
-                    "interval": "epoch",
-                    "frequency": 1,
+                    "monitor": self.scheduler_config.get(
+                        "monitor", "val/loss"
+                    ),
+                    "interval": self.scheduler_config.get("interval", "epoch"),
+                    "frequency": self.scheduler_config.get("frequency", 1),
                 },
             }
         return {"optimizer": optimizer}

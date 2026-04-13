@@ -5,44 +5,51 @@ on:
     branches: [main, github-actions-test]
   pull_request:
     branches: [main]
+
 permissions:
   contents: write
 
 jobs:
   build:
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: [3.11.3]
-        torch-version: [2.0.1]
-        include:
-          - torch-version: 2.0.1
+        python-version: ["3.11"]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Build using Python ${{matrix.python-version}}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+
+      # 1. Setup uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: ${{matrix.python-version}}
-          cache: "pip"
-          cache-dependency-path: "pyproject.toml"
-      - name: Install dependencies [pip]
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      # 2. Run your centralized installation script
+      - name: Install dependencies (via script)
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          source env_setup.sh
-      - name: Install Pandoc [apt-get]
-        run: |
-          sudo apt-get -y install pandoc
+          # This installs '.[all]' which includes doc dependencies
+          source uv_env_setup.sh
+
+      # 3. Install System Dependencies
+      - name: Install Pandoc
+        run: sudo apt-get -y install pandoc
+
+      # 4. Generate Docs
       - name: Generate API Documentation
         run: |
+          source .venv/bin/activate
           cd docs
           bash generate_api_docs.sh
+
       - name: Generate Docs [Sphinx]
         run: |
-          sphinx-build  -b html -D version=latest -D release=latest docs docs/_build
+          source .venv/bin/activate
+          sphinx-build -b html -D version=latest -D release=latest docs docs/_build
+
+      # 5. Deploy
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'geometric-intelligence/TopoBench' }}

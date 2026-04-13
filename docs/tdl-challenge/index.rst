@@ -8,6 +8,29 @@ Welcome to the **Topological Deep Learning Challenge 2025: Expanding the Data La
 .. seealso::
    Link to the challenge repository: `<https://github.com/geometric-intelligence/TopoBench>`__.
 
+🏆 Winners
+----------
+
+**Category A.1: Broadening Benchmarks**
+
+* **Winner:** *Amiiza team*. Their implementation of *ATLAS Top Tagging* brings a novel benchmark from the particle physics community into the TDL ecosystem.
+* **Honorable Mentions:** *MappingComplexityLab* for the HypBench Dataset and *Loris* for the Graphland Benchmark.
+
+**Category A.2: Natively Higher-Order Datasets**
+
+* **Winner:** *Hugo Walter*. He implemented the *Cornell LabeledNodesDataset*, consisting of 8 single-labeled hypergraph datasets, representing a significant step forward for hypergraph benchmarking.
+* **Honorable Mentions:** *IgPA* for the Conjugated Molecule dataset and *TJPaik* for Analog Circuits implementations.
+
+**Category B.1: Large-Scale Inductive Infrastructure**
+
+* **Winner:** *DLLB team*. This team successfully tackled the challenge of migrating to ``OnDiskDataset`` support in the transductive setting.
+* **Honorable Mention:** *DLLB team*. The team received a special acknowledgement for their impressive strides in scalable data loading for the inductive setting as well.
+
+**Category B.2: Pioneering New Benchmark Tasks**
+
+* **Winner:** *DLLB team*. They introduced Link Prediction to the benchmark suite, establishing a new standard for the field.
+* **Honorable Mention:** *NeuroTriangles team*. Recognized for proposing higher-order cell tasks on a neuroscience dataset.
+
 
 Motivation
 ----------

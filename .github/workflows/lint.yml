@@ -4,13 +4,22 @@ on:
   push:
     branches: [ main, github-actions-test ]
   pull_request:
-    branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
   ruff:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: chartboost/ruff-action@v1
+      - uses: actions/checkout@v4
+
+      # We use the official action from Astral (creators of uv & ruff)
+      - name: Run Ruff
+        uses: astral-sh/ruff-action@v3
         with:
-          src: './topobench'
+          src: "./topobench"
+          # This ensures the ruff version matches what you have in pyproject.toml
+          version-file: "pyproject.toml"
+          # Optional: fails the build if the code changes (e.g. formatting)
+          changed-files: "true"

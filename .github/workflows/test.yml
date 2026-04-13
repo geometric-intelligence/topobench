@@ -1,46 +1,42 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Testing
 
 on:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["main"]
 
 permissions:
   contents: read
 
 jobs:
   build:
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: [3.11.3]
+        python-version: ["3.11"]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{matrix.python-version}}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{matrix.python-version}}
 
-      - uses: actions/cache@v4
+      # 1. Setup uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          path: ~/.cache/pip
-          key: ${{matrix.os}}-${{matrix.python-version}}-${{ hashFiles('pyproject.toml') }}
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - name: Install dependencies
+      # 2. Run your centralized installation script
+      - name: Install dependencies (via script)
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          source env_setup.sh
+          # This script handles the .venv creation and PyTorch/CUDA logic
+          source uv_env_setup.sh
 
+      # 3. Run Tests
       - name: Test with pytest
         run: |
+          # We must activate the venv created by your script
+          source .venv/bin/activate
           pytest --cov --cov-report=xml:coverage.xml test/
 
       - name: Upload coverage reports to Codecov

@@ -20,11 +20,13 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11"
 ]
-requires-python = ">= 3.10"
+# STRICTLY PYTHON 3.11
+requires-python = ">=3.11, <3.12"
+
 dependencies=[
+    "torch==2.3.0",
     "tqdm",
     "charset-normalizer",
     "numpy",
@@ -52,8 +54,11 @@ dependencies=[
     "ogb",
     "rootutils",
     "topomodelx @ git+https://github.com/pyt-team/TopoModelX.git",
-    "toponetx @ git+https://github.com/pyt-team/TopoNetX.git",
+    "toponetx @ git+https://github.com/pyt-team/TopoNetX.git@c378925",
     "lightning==2.4.0",
+    "torch-scatter",
+    "torch-sparse",
+    "torch-cluster",
 ]
 
 [project.optional-dependencies]
@@ -62,7 +67,8 @@ doc = [
     "nbsphinx",
     "nbsphinx_link",
     "numpydoc",
-    "sphinx",
+    "sphinx>=7.0,<9.0",   # Sphinx 9 is incompatible with the required docutils
+    "docutils<0.21",      # Required for nbsphinx-link
     "sphinx_gallery",
     "pydata-sphinx-theme",
     "myst_parser"
@@ -87,48 +93,63 @@ all = ["TopoBench[dev, doc]"]
 homepage="https://geometric-intelligence.github.io/topobench/index.html"
 repository="https://github.com/geometric-intelligence/TopoBench"
 
+# ==============================================================================
+#  UV CONFIGURATION
+# ==============================================================================
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+# Default find-links (will be overwritten by bash script)
+[tool.uv]
+find-links = ["https://data.pyg.org/whl/torch-2.3.0+cu121.html"]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", marker = "sys_platform == 'darwin' or sys_platform == 'win32'" },
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux'" },
+]
+
+[tool.uv.extra-build-dependencies]
+torch-cluster = ["torch==2.3.0"]
+torch-scatter = ["torch==2.3.0"]
+torch-sparse = ["torch==2.3.0"]
+
+# ==============================================================================
+#  TOOL CONFIGS
+# ==============================================================================
 [tool.black]
-line-length = 79  # PEP 8 standard for maximum line length
-target-version = ['py310']
+line-length = 79
+target-version = ['py311']
 
 [tool.docformatter]
 wrap-summaries = 79
 wrap-descriptions = 79
 
 [tool.ruff]
-target-version = "py310"
-#extend-include = ["*.ipynb"]
+target-version = "py311"
 extend-exclude = ["test", "tutorials", "notebooks"]
-line-length = 79  # PEP 8 standard for maximum line length
+line-length = 79
 
 [tool.ruff.format]
 docstring-code-format = false
 
 [tool.ruff.lint]
-select = [
-    "F", # pyflakes errors
-    "E", # code style
-    "W", # warnings
-    "I", # import order
-    "UP", # pyupgrade rules
-    "B", # bugbear rules
-    "PIE", # pie rules
-    "Q", # quote rules
-    "RET", # return rules
-    "SIM", # code simplifications
-    "NPY", # numpy rules
-    "PERF", # performance rules
-]
+select = ["F", "E", "W", "I", "UP", "B", "PIE", "Q", "RET", "SIM", "NPY", "PERF"]
 fixable = ["ALL"]
-ignore = [
-    "E501",     # line too long
-    "RET504",   # Unnecessary assignment before return
-    "RET505",   # Unnecessary `elif` after `return` statement
-    "NPY002",   # Replace legacy `np.random.seed` call with `np.random.Generator`
-    "UP038",    # Use `X | Y` in `isinstance` call instead of `(X, Y)` -- not compatible with python 3.9 (even with __future__ import)
-    "W293",     # Does not allow to have empty lines in multiline comments
-    "PERF203",  # [TODO: fix all such issues] `try`-`except` within a loop incurs performance overhead
-]
+ignore = ["E501", "RET504", "RET505", "NPY002", "UP038", "W293", "PERF203"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -141,10 +162,7 @@ convention = "numpy"
 version = {attr = "topobench.__version__"}
 
 [tool.setuptools.packages.find]
-include = [
-    "topobench",
-    "topobench.*"
-]
+include = ["topobench", "topobench.*"]
 
 [tool.mypy]
 warn_redundant_casts = true
@@ -154,27 +172,13 @@ disable_error_code = ["import-untyped"]
 plugins = "numpy.typing.mypy_plugin"
 
 [[tool.mypy.overrides]]
-module = [
-    "torch_cluster.*","networkx.*","scipy.spatial","scipy.sparse","toponetx.classes.simplicial_complex"
-]
+module = ["torch_cluster.*","networkx.*","scipy.spatial","scipy.sparse","toponetx.classes.simplicial_complex"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "--capture=no"
-pythonpath = [
-  "."
-]
+pythonpath = ["."]
 
 [tool.numpydoc_validation]
-checks = [
-    "all",
-    "GL01",
-    "ES01",
-    "EX01",
-    "SA01"
-]
-exclude = [
-    '\.undocumented_method$',
-    '\.__init__$',
-    '\.__repr__$',
-]
+checks = ["all", "GL01", "ES01", "EX01", "SA01"]
+exclude = ['\.undocumented_method$', '\.__init__$', '\.__repr__$']

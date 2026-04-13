@@ -25,12 +25,12 @@ backbone_wrapper:
   _partial_: true
   wrapper_name: HypergraphWrapper
   out_channels: ${model.feature_encoder.out_channels}
-  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  num_cell_dimensions: 1 # The highest order of cell dimensions to consider
 
 readout:
   _target_: topobench.nn.readouts.${model.readout.readout_name}
   readout_name: PropagateSignalDown #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
-  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  num_cell_dimensions: 1 # The highest order of cell dimensions to consider
   hidden_dim: ${model.feature_encoder.out_channels}
   out_channels: ${dataset.parameters.num_classes}
   task_level: ${dataset.parameters.task_level}

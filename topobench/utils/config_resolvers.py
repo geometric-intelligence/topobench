@@ -362,14 +362,14 @@ def infer_in_channels(dataset, transforms):
             # Case when the dataset has no edge attributes
             if feature_lifting == "Concatenation":
                 return_value = [num_features]
-                for i in range(2, transforms[lifting].complex_dim + 1):
+                for i in range(2, transforms[lifting].complex_dim + 2):
                     return_value += [int(return_value[-1]) * i]
 
                 return return_value
 
             else:
                 # ProjectionSum feature lifting by default
-                return [num_features] * transforms[lifting].complex_dim
+                return [num_features] * (transforms[lifting].complex_dim + 1)
         # Case when the dataset has edge attributes (cells attributes)
         else:
             assert type(num_features) is omegaconf.listconfig.ListConfig, (
@@ -379,18 +379,18 @@ def infer_in_channels(dataset, transforms):
             if not transforms[lifting].preserve_edge_attr:
                 if feature_lifting == "Concatenation":
                     return_value = [num_features[0]]
-                    for i in range(2, transforms[lifting].complex_dim + 1):
+                    for i in range(2, transforms[lifting].complex_dim + 2):
                         return_value += [int(return_value[-1]) * i]
 
                     return return_value
 
                 else:
                     # ProjectionSum feature lifting by default
-                    return [num_features[0]] * transforms[lifting].complex_dim
+                    return [num_features[0]] * (transforms[lifting].complex_dim + 1)
             # If preserve_edge_attr == True
             else:
                 return list(num_features) + [num_features[1]] * (
-                    transforms[lifting].complex_dim - len(num_features)
+                    transforms[lifting].complex_dim + 1 - len(num_features)
                 )
 
     # Case when there is no lifting
