@@ -26,10 +26,14 @@ class DatasetLoss(AbstractLoss):
             )
             self.criterion = torch.nn.CrossEntropyLoss()
         elif self.task == "multilabel classification":
-            assert self.loss_type == "BCE", (
-                "Invalid loss type for classification task,TB supports only BCE for multilabel classification task"
+            assert self.loss_type in ("BCE", "focal"), (
+                "Invalid loss type for multilabel classification task, "
+                "TB supports 'BCE' and 'focal'"
             )
             self.criterion = torch.nn.BCEWithLogitsLoss(reduction="none")
+            if self.loss_type == "focal":
+                self.focal_gamma = dataset_loss.get("focal_gamma", 2.0)
+                self.focal_alpha = dataset_loss.get("focal_alpha", None)
         elif self.task == "regression" and self.loss_type == "mse":
             self.criterion = torch.nn.MSELoss()
         elif self.task == "regression" and self.loss_type == "mae":
@@ -87,6 +91,21 @@ class DatasetLoss(AbstractLoss):
             # Avoid NaN values in the target
             target = torch.where(mask, target, torch.zeros_like(target))
             loss = self.criterion(logits, target)
+
+            if self.loss_type == "focal":
+                # Apply focal modulation: (1 - p_t)^gamma
+                # p_t = sigmoid(logit) for positives, 1 - sigmoid(logit) for negatives
+                p = torch.sigmoid(logits)
+                p_t = p * target + (1.0 - p) * (1.0 - target)
+                focal_weight = (1.0 - p_t) ** self.focal_gamma
+                if self.focal_alpha is not None:
+                    alpha_t = (
+                        self.focal_alpha * target
+                        + (1.0 - self.focal_alpha) * (1.0 - target)
+                    )
+                    focal_weight = alpha_t * focal_weight
+                loss = focal_weight * loss
+
             # Mask out the loss for NaN values
             loss = loss * mask
             # Take out average

@@ -3,6 +3,8 @@ _target_: topobench.loss.TBLoss
 dataset_loss:
   task: ${dataset.parameters.task}
   loss_type: ${dataset.parameters.loss_type}
+  focal_gamma: ${oc.select:dataset.parameters.focal_gamma,2.0}
+  focal_alpha: ${oc.select:dataset.parameters.focal_alpha,null}
 
 modules_losses: # Collect model losses
   feature_encoder: ${oc.select:model.feature_encoder.loss,null}

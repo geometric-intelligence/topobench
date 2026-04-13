@@ -7,7 +7,7 @@ loader:
     data_name: HALArlequin
     data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
     # Hypergraph construction parameters
-    max_rank: 3
+    max_rank: 4
     cluster_seed: 42
     neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
     # Semantic hyperedge clustering parameters
@@ -20,23 +20,30 @@ loader:
     min_papers_per_author: 2
     # Institution granularity: "researchteam", "laboratory", or "institution"
     institution_level: laboratory
-    # Prediction task: "semantic" (predict cluster) or "first_author" (predict first author)
-    prediction_task: semantic
-    # Min first-authored papers for an author to be a valid class (null = no filter)
-    # Only used when prediction_task=first_author. With >=2: 24 classes; >=3: 14 classes.
+    # Prediction task: all-author multilabel classification
+    # Labels are binary vectors of length num_classes (one entry per vocabulary author).
+    # Vocabulary authors are those with >= min_papers_per_author papers (same filter
+    # as the author hyperedges), so the label space is consistent with the graph structure.
+    prediction_task: all_authors
+    # Not used for all_authors task
     min_papers_per_first_author: null
-    # Keyword hyperedges: each keyword groups papers that share it (rank 4).
-    # Disabled by default; enable by setting use_keyword_hyperedges: true and max_rank: 4.
-    use_keyword_hyperedges: false
+    # Keyword hyperedges at rank 4: each keyword groups papers that share it.
+    # Requires max_rank: 4 (set below).
+    use_keyword_hyperedges: true
     min_papers_per_keyword: 2
 
 # Dataset parameters
 parameters:
-  num_features: [1024, 1024, 1024, 1024]
-  num_classes: ${dataset.loader.parameters.semantic_kmeans_k}
-  task: classification
-  loss_type: cross_entropy
-  monitor_metric: accuracy
+  num_features: [1024, 1024, 1024, 1024, 1024]
+  # num_classes = number of vocabulary authors (those with >= min_papers_per_author papers).
+  # Verified from the enriched parquet: 70 authors with >= 2 papers across 116 documents.
+  num_classes: 70
+  task: multilabel classification
+  loss_type: focal
+  focal_gamma: 2.0     # focusing parameter: higher = more down-weighting of easy negatives
+  focal_alpha: null    # optional per-class prior: scalar in (0,1) or null to disable
+  monitor_metric: f1_macro
+  metrics: [f1_macro]
   task_level: node
 
 #splits

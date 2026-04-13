@@ -74,6 +74,10 @@ class HALArlequinDataset(InMemoryDataset):
         self.min_papers_per_first_author = parameters.get(
             "min_papers_per_first_author", None
         )
+        self.use_keyword_hyperedges = parameters.get(
+            "use_keyword_hyperedges", False
+        )
+        self.min_papers_per_keyword = parameters.get("min_papers_per_keyword", 2)
 
         if self.neighborhoods is not None:
             neighborhoods_str = ",".join(sorted(self.neighborhoods))
@@ -87,7 +91,8 @@ class HALArlequinDataset(InMemoryDataset):
             f"{self.ho_init_method}_{self.semantic_cluster_algorithm}_"
             f"{self.semantic_kmeans_k}_{self.semantic_kmeans_n_init}_"
             f"{self.min_papers_per_author}_{self.institution_level}_"
-            f"{self.prediction_task}_{self.min_papers_per_first_author}"
+            f"{self.prediction_task}_{self.min_papers_per_first_author}_"
+            f"kw{self.use_keyword_hyperedges}_{self.min_papers_per_keyword}"
         )
         super().__init__(
             root,
@@ -320,6 +325,99 @@ class HALArlequinDataset(InMemoryDataset):
             f"{len(self.semantic_hyperedges)} clusters"
         )
 
+    def build_keyword_hyperedges(self, df, rank=4):
+        """Build keyword hyperedges connecting papers that share a keyword.
+
+        Uses the ``keywords`` column of the dataframe (a list of author-supplied
+        keyword strings per paper, as fetched from the HAL API). Keywords with
+        fewer than ``min_papers_per_keyword`` papers are discarded to keep the
+        hypergraph dense enough to carry useful signal.
+
+        Keywords are stripped of surrounding whitespace before grouping; papers
+        with an empty keyword list simply do not contribute to any hyperedge.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Dataframe with a 'keywords' column (each entry is a list of str).
+        rank : int, optional
+            Rank of the keyword hyperedges, by default 4.
+        """
+        keyword_to_docs: dict[str, set] = {}
+        for idx in range(len(df)):
+            for kw in df.at[idx, "keywords"]:
+                kw = kw.strip()
+                if not kw:
+                    continue
+                if kw not in keyword_to_docs:
+                    keyword_to_docs[kw] = set()
+                keyword_to_docs[kw].add(self.documents[idx])
+
+        self.keyword_names = []
+        self.keyword_hyperedges = []
+        for kw, docs_set in keyword_to_docs.items():
+            docs = sorted(docs_set)  # sorted for determinism
+            if len(docs) < self.min_papers_per_keyword:
+                continue
+            he = tnx.HyperEdge(docs, rank=rank)
+            self.keyword_names.append(kw)
+            self.keyword_hyperedges.append(docs)
+            self.complex.add_cell(he, rank=rank)
+
+        print(
+            f"Keyword hyperedges (rank {rank}): {len(self.keyword_hyperedges)} "
+            f"(from {len(keyword_to_docs)} unique keywords, "
+            f"filtered with min_papers={self.min_papers_per_keyword})"
+        )
+
+    def _extract_all_authors_labels(self, df):
+        """Build multilabel binary targets for all-author prediction.
+
+        Each document gets a binary vector of length equal to the number of
+        vocabulary authors (authors with >= min_papers_per_author papers).
+        Entry i is 1.0 if the i-th vocabulary author co-authored the document.
+
+        Uses the same ``min_papers_per_author`` filter as
+        :meth:`build_author_hyperedges` so the label vocabulary is consistent
+        with the hypergraph structure.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Dataframe with an 'authors' column (each entry is a list/array).
+
+        Returns
+        -------
+        df : pd.DataFrame
+            Unchanged dataframe (returned for interface consistency).
+        """
+        author_counts: dict[str, int] = {}
+        for authors in df["authors"]:
+            for a in authors:
+                author_counts[a] = author_counts.get(a, 0) + 1
+
+        vocab = sorted(
+            a for a, cnt in author_counts.items()
+            if cnt >= self.min_papers_per_author
+        )
+        author_to_idx = {a: i for i, a in enumerate(vocab)}
+        self.n_all_authors = len(vocab)
+
+        n_docs = len(df)
+        labels = np.zeros((n_docs, self.n_all_authors), dtype=np.float32)
+        for doc_idx, authors in enumerate(df["authors"]):
+            for a in authors:
+                if a in author_to_idx:
+                    labels[doc_idx, author_to_idx[a]] = 1.0
+
+        self.all_author_labels = labels
+        print(
+            f"All-author multilabel prediction: {self.n_all_authors} vocabulary "
+            f"authors (>= {self.min_papers_per_author} papers), "
+            f"{n_docs} documents"
+        )
+        return df
+
     def _extract_first_author_labels(self, df):
         """Extract first-author labels and optionally filter the dataframe.
 
@@ -373,6 +471,8 @@ class HALArlequinDataset(InMemoryDataset):
 
         if self.prediction_task == "first_author":
             df = self._extract_first_author_labels(df)
+        elif self.prediction_task == "all_authors":
+            df = self._extract_all_authors_labels(df)
 
         self.doc_ids = list(range(len(df)))
         embeddings = np.array(df["embedding"].to_list())
@@ -385,6 +485,9 @@ class HALArlequinDataset(InMemoryDataset):
 
         self.cluster_documents(embeddings)
         self.build_semantic_hyperedges(rank=3)
+
+        if self.use_keyword_hyperedges:
+            self.build_keyword_hyperedges(df, rank=4)
 
         connectivity = get_colored_hypergraph_connectivity(
             self.complex,
@@ -444,6 +547,17 @@ class HALArlequinDataset(InMemoryDataset):
             features_and_labels["x_3"] = torch.tensor(
                 np.array(cluster_features), dtype=torch.float32
             )
+
+            if self.use_keyword_hyperedges:
+                # Rank 4 (keywords): average embedding of each keyword's papers
+                kw_features = []
+                for docs in self.keyword_hyperedges:
+                    doc_indices = [d.id for d in docs]
+                    avg_emb = np.mean(embeddings[doc_indices], axis=0)
+                    kw_features.append(avg_emb)
+                features_and_labels["x_4"] = torch.tensor(
+                    np.array(kw_features), dtype=torch.float32
+                )
         else:
             for rank in range(1, self.max_rank + 1):
                 num_cells = connectivity["shape"][rank]
@@ -454,6 +568,10 @@ class HALArlequinDataset(InMemoryDataset):
         if self.prediction_task == "first_author":
             features_and_labels["y"] = torch.tensor(
                 self.first_author_labels, dtype=torch.long
+            )
+        elif self.prediction_task == "all_authors":
+            features_and_labels["y"] = torch.tensor(
+                self.all_author_labels, dtype=torch.float32
             )
         else:
             features_and_labels["y"] = torch.tensor(

@@ -250,8 +250,10 @@ def load_transductive_splits(dataset, parameters):
     data = dataset.data_list[0]
     labels = data.y.numpy()
 
-    # Ensure labels are one dimensional array
-    assert len(labels.shape) == 1, "Labels should be one dimensional array"
+    # Ensure labels are 1D (single-label) or 2D (multilabel) array
+    assert labels.ndim in [1, 2], (
+        "Labels should be a 1D (single-label) or 2D (multilabel) array"
+    )
 
     root = (
         dataset.dataset.get_data_dir()
