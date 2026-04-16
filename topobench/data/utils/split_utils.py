@@ -193,6 +193,56 @@ def random_splitting(labels, parameters, root=None, global_data_seed=42):
     return split_idx
 
 
+def fixed_splitting(data, parameters):
+    """Use dataset's built-in train/val/test masks.
+
+    Handles both 1D masks (single split) and 2D masks (multiple splits).
+    For 2D masks, the split is selected by ``data_seed``.
+
+    Parameters
+    ----------
+    data : torch_geometric.data.Data
+        Graph data object with built-in mask attributes.
+    parameters : DictConfig
+        Configuration parameters. Expected keys:
+            - data_seed: Which split to use (for multi-split datasets)
+            - val_mask_attr: Attribute name for validation mask
+              (default "val_mask"; set to "stopping_mask" for WikiCS)
+
+    Returns
+    -------
+    dict
+        Dictionary containing the train, validation and test indices
+        with keys "train", "valid", and "test".
+    """
+    fold = parameters.get("data_seed", 0)
+    val_attr = parameters.get("val_mask_attr", "val_mask")
+
+    train_mask = data.train_mask
+    val_mask = getattr(data, val_attr, None)
+    test_mask = data.test_mask
+
+    if train_mask is None:
+        raise ValueError("Dataset does not have built-in train_mask")
+    if val_mask is None:
+        raise ValueError(f"Dataset does not have built-in {val_attr}")
+    if test_mask is None:
+        raise ValueError("Dataset does not have built-in test_mask")
+
+    if train_mask.dim() == 2:
+        train_mask = train_mask[:, fold % train_mask.shape[1]]
+    if val_mask.dim() == 2:
+        val_mask = val_mask[:, fold % val_mask.shape[1]]
+    if test_mask.dim() == 2:
+        test_mask = test_mask[:, fold % test_mask.shape[1]]
+
+    return {
+        "train": torch.where(train_mask)[0].cpu().numpy(),
+        "valid": torch.where(val_mask)[0].cpu().numpy(),
+        "test": torch.where(test_mask)[0].cpu().numpy(),
+    }
+
+
 def assign_train_val_test_mask_to_graphs(dataset, split_idx):
     """Split the graph dataset into train, validation, and test datasets.
 
@@ -278,9 +328,13 @@ def load_transductive_splits(dataset, parameters):
     elif parameters.split_type == "k-fold":
         splits = k_fold_split(labels, parameters, root=root)
 
+    elif parameters.split_type == "fixed":
+        splits = fixed_splitting(data, parameters)
+
     else:
         raise NotImplementedError(
-            f"split_type {parameters.split_type} not valid. Choose either 'random' or 'k-fold'"
+            f"split_type {parameters.split_type} not valid. "
+            "Choose from 'random', 'k-fold', or 'fixed'."
         )
 
     # Assign train val test masks to the graph
