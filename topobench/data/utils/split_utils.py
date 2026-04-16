@@ -9,6 +9,36 @@ from sklearn.model_selection import StratifiedKFold
 from topobench.dataloader import DataloadDataset
 
 
+def _generate_or_load_cached_splits(split_dir, fold, generator):
+    """Load split for ``fold`` from ``split_dir``, generating if missing.
+
+    If ``{split_dir}/{fold}.npz`` is missing, calls ``generator()`` (which
+    must return a sequence of split dicts, one per fold) and writes each
+    to ``{fold_n}.npz`` before loading.
+
+    Parameters
+    ----------
+    split_dir : str
+        Directory holding cached split .npz files.
+    fold : int
+        Which fold to load.
+    generator : callable
+        Returns a sequence of split dicts with keys 'train', 'valid', 'test'.
+
+    Returns
+    -------
+    NpzFile
+        Loaded split with keys 'train', 'valid', 'test'.
+    """
+    split_path = os.path.join(split_dir, f"{fold}.npz")
+    if not os.path.isfile(split_path):
+        if not os.path.isdir(split_dir):
+            os.makedirs(split_dir)
+        for fold_n, split in enumerate(generator()):
+            np.savez(os.path.join(split_dir, f"{fold_n}.npz"), **split)
+    return np.load(split_path)
+
+
 # Generate splits in different fasions
 def k_fold_split(labels, parameters, root=None):
     """Return train and valid indices as in K-Fold Cross-Validation.
@@ -45,43 +75,30 @@ def k_fold_split(labels, parameters, root=None):
 
     split_dir = os.path.join(data_dir, f"{k}-fold")
 
-    if not os.path.isdir(split_dir):
-        os.makedirs(split_dir)
+    def generate():
+        """Generate all `k` stratified k-fold splits.
 
-    split_path = os.path.join(split_dir, f"{fold}.npz")
-    if not os.path.isfile(split_path):
+        Returns
+        -------
+        list[dict]
+            List of split dicts, one per fold.
+        """
         n = len(labels)
-        x_idx = np.arange(n)
-        x_idx = np.random.permutation(x_idx)
-        labels = labels[x_idx]
-
+        x_idx = np.random.permutation(np.arange(n))
+        labels_perm = labels[x_idx]
         skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=42)
-
-        for fold_n, (train_idx, valid_idx) in enumerate(
-            skf.split(x_idx, labels)
-        ):
-            split_idx = {
-                "train": train_idx,
-                "valid": valid_idx,
-                "test": valid_idx,
-            }
-
-            # Check that all nodes/graph have been assigned to some split
+        out = []
+        for train_idx, valid_idx in skf.split(x_idx, labels_perm):
             assert np.all(
-                np.sort(
-                    np.array(
-                        split_idx["train"].tolist()
-                        + split_idx["valid"].tolist()
-                    )
-                )
+                np.sort(np.array(train_idx.tolist() + valid_idx.tolist()))
                 == np.sort(np.arange(len(labels)))
             ), "Not every sample has been loaded."
-            split_path = os.path.join(split_dir, f"{fold_n}.npz")
+            out.append(
+                {"train": train_idx, "valid": valid_idx, "test": valid_idx}
+            )
+        return out
 
-            np.savez(split_path, **split_idx)
-
-    split_path = os.path.join(split_dir, f"{fold}.npz")
-    split_idx = np.load(split_path)
+    split_idx = _generate_or_load_cached_splits(split_dir, fold, generate)
 
     # Check that all nodes/graph have been assigned to some split
     assert np.unique(
@@ -127,46 +144,36 @@ def random_splitting(labels, parameters, root=None, global_data_seed=42):
     train_prop = parameters["train_prop"]
     valid_prop = (1 - train_prop) / 2
 
-    # Create split directory if it does not exist
     split_dir = os.path.join(
         data_dir, f"train_prop={train_prop}_global_seed={global_data_seed}"
     )
-    generate_splits = False
-    if not os.path.isdir(split_dir):
-        os.makedirs(split_dir)
-        generate_splits = True
 
-    # Generate splits if they do not exist
-    if generate_splits:
-        # Set initial seed
+    def generate():
+        """Generate 10 random train/valid/test splits.
+
+        Returns
+        -------
+        list[dict]
+            List of 10 split dicts.
+        """
         torch.manual_seed(global_data_seed)
         np.random.seed(global_data_seed)
-        # Generate a split
         n = len(labels)
         train_num = int(n * train_prop)
         valid_num = int(n * valid_prop)
-
-        # Generate 10 splits
-        for fold_n in range(10):
-            # Permute indices
+        out = []
+        for _ in range(10):
             perm = torch.as_tensor(np.random.permutation(n))
+            out.append(
+                {
+                    "train": perm[:train_num],
+                    "valid": perm[train_num : train_num + valid_num],
+                    "test": perm[train_num + valid_num :],
+                }
+            )
+        return out
 
-            train_indices = perm[:train_num]
-            val_indices = perm[train_num : train_num + valid_num]
-            test_indices = perm[train_num + valid_num :]
-            split_idx = {
-                "train": train_indices,
-                "valid": val_indices,
-                "test": test_indices,
-            }
-
-            # Save generated split
-            split_path = os.path.join(split_dir, f"{fold_n}.npz")
-            np.savez(split_path, **split_idx)
-
-    # Load the split
-    split_path = os.path.join(split_dir, f"{fold}.npz")
-    split_idx = np.load(split_path)
+    split_idx = _generate_or_load_cached_splits(split_dir, fold, generate)
 
     # Check that all nodes/graph have been assigned to some split
     assert np.unique(
