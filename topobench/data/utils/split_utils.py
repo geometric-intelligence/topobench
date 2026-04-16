@@ -331,10 +331,23 @@ def load_transductive_splits(dataset, parameters):
     elif parameters.split_type == "fixed":
         splits = fixed_splitting(data, parameters)
 
+    elif parameters.split_type == "ogb":
+        split_idx = dataset.dataset.split_idx
+        splits = {
+            k: v.cpu().numpy()
+            if isinstance(v, torch.Tensor)
+            else np.asarray(v)
+            for k, v in (
+                ("train", split_idx["train"]),
+                ("valid", split_idx["valid"]),
+                ("test", split_idx["test"]),
+            )
+        }
+
     else:
         raise NotImplementedError(
             f"split_type {parameters.split_type} not valid. "
-            "Choose from 'random', 'k-fold', or 'fixed'."
+            "Choose from 'random', 'k-fold', 'fixed', or 'ogb'."
         )
 
     # Assign train val test masks to the graph
