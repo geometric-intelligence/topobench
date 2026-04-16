@@ -193,6 +193,102 @@ def random_splitting(labels, parameters, root=None, global_data_seed=42):
     return split_idx
 
 
+def class_balanced_splitting(
+    labels, parameters, root=None, global_data_seed=42
+):
+    r"""Split by sampling a fixed number of nodes per class for training.
+
+    Remaining nodes are split into validation and test sets of fixed size.
+    This matches the standard Planetoid evaluation protocol (e.g., 20 labeled
+    nodes per class for training).
+
+    Parameters
+    ----------
+    labels : numpy.ndarray
+        Label array of shape (num_nodes,).
+    parameters : DictConfig
+        Configuration parameters. Expected keys:
+            - data_split_dir: Directory for saving/loading splits
+            - data_seed: Which of the generated splits to use
+            - train_count_per_class: Number of training nodes per class (default 20)
+            - valid_count: Number of validation nodes (default 500)
+            - test_count: Number of test nodes (default 1000)
+    root : str, optional
+        Root directory for data splits. Overwrite the default directory.
+    global_data_seed : int
+        Seed for the random number generator.
+
+    Returns
+    -------
+    dict
+        Dictionary containing the train, validation and test indices
+        with keys "train", "valid", and "test".
+    """
+    fold = parameters["data_seed"] % 10
+    data_dir = (
+        parameters["data_split_dir"]
+        if root is None
+        else os.path.join(root, "data_splits")
+    )
+
+    train_count = parameters.get("train_count_per_class", 20)
+    valid_count = parameters.get("valid_count", 500)
+    test_count = parameters.get("test_count", 1000)
+    seed = parameters.get("global_data_seed", global_data_seed)
+
+    split_dir = os.path.join(
+        data_dir,
+        f"class_balanced_train={train_count}_val={valid_count}"
+        f"_test={test_count}_seed={seed}",
+    )
+
+    def generate():
+        """Generate 10 class-balanced train/valid/test splits.
+
+        Returns
+        -------
+        list[dict]
+            List of 10 split dicts.
+        """
+        torch.manual_seed(seed)
+        np.random.seed(seed)
+        labels_tensor = torch.as_tensor(labels)
+        if labels_tensor.dim() > 1:
+            labels_tensor = labels_tensor.squeeze()
+        n = len(labels)
+        class_list = labels_tensor.unique()
+        assert n - len(class_list) * train_count >= valid_count + test_count, (
+            f"Not enough remainder nodes for valid={valid_count} + "
+            f"test={test_count} after {train_count} per-class training nodes"
+        )
+        out = []
+        for _ in range(10):
+            train_idx = []
+            non_train_idx = []
+            idx = torch.arange(n)
+            for c in class_list:
+                c_idx = idx[labels_tensor == c]
+                perm = torch.randperm(c_idx.shape[0])
+                shuffled = c_idx[perm]
+                train_idx.extend(shuffled[:train_count].tolist())
+                non_train_idx.extend(shuffled[train_count:].tolist())
+            non_train_idx = torch.as_tensor(non_train_idx)
+            # Val/test sampled uniformly from remainder per Planetoid protocol
+            non_train_idx = non_train_idx[torch.randperm(len(non_train_idx))]
+            out.append(
+                {
+                    "train": np.array(train_idx),
+                    "valid": non_train_idx[:valid_count].numpy(),
+                    "test": non_train_idx[
+                        valid_count : valid_count + test_count
+                    ].numpy(),
+                }
+            )
+        return out
+
+    return _generate_or_load_cached_splits(split_dir, fold, generate)
+
+
 def fixed_splitting(data, parameters):
     """Use dataset's built-in train/val/test masks.
 
@@ -328,6 +424,9 @@ def load_transductive_splits(dataset, parameters):
     elif parameters.split_type == "k-fold":
         splits = k_fold_split(labels, parameters, root=root)
 
+    elif parameters.split_type == "class_balanced":
+        splits = class_balanced_splitting(labels, parameters, root=root)
+
     elif parameters.split_type == "fixed":
         splits = fixed_splitting(data, parameters)
 
@@ -347,7 +446,7 @@ def load_transductive_splits(dataset, parameters):
     else:
         raise NotImplementedError(
             f"split_type {parameters.split_type} not valid. "
-            "Choose from 'random', 'k-fold', 'fixed', or 'ogb'."
+            "Choose from 'random', 'k-fold', 'class_balanced', 'fixed', or 'ogb'."
         )
 
     # Assign train val test masks to the graph
