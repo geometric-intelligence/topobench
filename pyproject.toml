@@ -26,7 +26,7 @@ classifiers = [
 requires-python = ">=3.11, <3.12"
 
 dependencies=[
-    "torch==2.3.0",
+    "torch>=2.3.0",
     "tqdm",
     "charset-normalizer",
     "numpy",
@@ -56,12 +56,16 @@ dependencies=[
     "topomodelx @ git+https://github.com/pyt-team/TopoModelX.git",
     "toponetx @ git+https://github.com/pyt-team/TopoNetX.git@c378925",
     "lightning==2.4.0",
+]
+
+[project.optional-dependencies]
+# Required for NSD, ED-GNN, and point cloud lifting backbones.
+# Wheels must match your PyTorch + CUDA version; see find-links below.
+sparse = [
     "torch-scatter",
     "torch-sparse",
     "torch-cluster",
 ]
-
-[project.optional-dependencies]
 doc = [
     "jupyter",
     "nbsphinx",
@@ -87,7 +91,7 @@ test = [
 ]
 
 dev = ["TopoBench[test, lint]"]
-all = ["TopoBench[dev, doc]"]
+all = ["TopoBench[dev, doc, sparse]"]
 
 [project.urls]
 homepage="https://geometric-intelligence.github.io/topobench/index.html"
@@ -112,20 +116,21 @@ name = "pytorch-cu121"
 url = "https://download.pytorch.org/whl/cu121"
 explicit = true
 
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
 # Default find-links (will be overwritten by bash script)
 [tool.uv]
 find-links = ["https://data.pyg.org/whl/torch-2.3.0+cu121.html"]
+no-build-package = ["torch-scatter", "torch-sparse", "torch-cluster"]
 
 [tool.uv.sources]
 torch = [
     { index = "pytorch-cpu", marker = "sys_platform == 'darwin' or sys_platform == 'win32'" },
     { index = "pytorch-cu121", marker = "sys_platform == 'linux'" },
 ]
-
-[tool.uv.extra-build-dependencies]
-torch-cluster = ["torch==2.3.0"]
-torch-scatter = ["torch==2.3.0"]
-torch-sparse = ["torch==2.3.0"]
 
 # ==============================================================================
 #  TOOL CONFIGS
@@ -172,7 +177,7 @@ disable_error_code = ["import-untyped"]
 plugins = "numpy.typing.mypy_plugin"
 
 [[tool.mypy.overrides]]
-module = ["torch_cluster.*","networkx.*","scipy.spatial","scipy.sparse","toponetx.classes.simplicial_complex"]
+module = ["torch_cluster.*","torch_sparse.*","torch_scatter.*","networkx.*","scipy.spatial","scipy.sparse","toponetx.classes.simplicial_complex"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

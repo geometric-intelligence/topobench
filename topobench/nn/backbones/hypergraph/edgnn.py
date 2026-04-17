@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch_geometric
-import torch_scatter
 
 
 class EDGNN(nn.Module):
@@ -482,6 +481,8 @@ class EquivSetConv(nn.Module):
         Tensor
             Output features.
         """
+        import torch_scatter
+
         N = X.shape[-2]
 
         Xve = self.W1(X)[..., vertex, :]  # [nnz, C]
@@ -562,6 +563,8 @@ class JumpLinkConv(nn.Module):
         Tensor
             Output features.
         """
+        import torch_scatter
+
         N = X.shape[-2]
 
         Xve = X[..., vertex, :]  # [nnz, C]
@@ -666,6 +669,8 @@ class MeanDegConv(nn.Module):
         Tensor
             Output features.
         """
+        import torch_scatter
+
         N = X.shape[-2]
 
         Xve = self.W1(X[..., vertex, :])  # [nnz, C]

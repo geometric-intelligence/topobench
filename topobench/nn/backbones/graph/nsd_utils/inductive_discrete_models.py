@@ -12,7 +12,6 @@ This module implements three variants of inductive sheaf diffusion:
 
 import torch
 import torch.nn.functional as F
-import torch_sparse
 from torch import nn
 
 from .laplacian_builders import (
@@ -102,6 +101,8 @@ class InductiveDiscreteDiagSheafDiffusion(SheafDiffusion):
         torch.Tensor
             Output node features of shape [num_nodes, output_dim].
         """
+        import torch_sparse
+
         # Get actual number of nodes dynamically
         actual_num_nodes = x.size(0)
 
@@ -281,6 +282,8 @@ class InductiveDiscreteBundleSheafDiffusion(SheafDiffusion):
         torch.Tensor
             Output node features of shape [num_nodes, output_dim].
         """
+        import torch_sparse
+
         # Get actual number of nodes dynamically
         actual_num_nodes = x.size(0)
 
@@ -453,6 +456,8 @@ class InductiveDiscreteGeneralSheafDiffusion(SheafDiffusion):
         torch.Tensor
             Output node features of shape [num_nodes, output_dim].
         """
+        import torch_sparse
+
         # Get actual number of nodes dynamically
         actual_num_nodes = x.size(0)
 
