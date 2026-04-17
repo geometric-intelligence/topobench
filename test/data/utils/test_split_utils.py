@@ -10,12 +10,74 @@ from unittest.mock import MagicMock, patch
 from omegaconf import DictConfig
 
 from topobench.data.utils.split_utils import (
+    _generate_or_load_cached_splits,
     k_fold_split,
     random_splitting,
     load_inductive_splits,
     load_transductive_splits,
     assign_train_val_test_mask_to_graphs,
 )
+
+
+def _one_split_generator():
+    """Return a callable that yields one trivial train/valid/test split.
+
+    Returns
+    -------
+    callable
+        A zero-arg callable returning a list with one split dict.
+    """
+    return lambda: [
+        {
+            "train": np.array([0]),
+            "valid": np.array([1]),
+            "test": np.array([2]),
+        }
+    ]
+
+
+def test_split_dir_created_concurrently(tmp_path, monkeypatch):
+    """Regression test for the split-dir TOCTOU race (issue #310).
+
+    Simulates another worker creating ``split_dir`` between our
+    ``os.path.isdir`` check and the subsequent ``os.makedirs`` call.
+
+    Parameters
+    ----------
+    tmp_path : pathlib.Path
+        Pytest-provided temporary directory.
+    monkeypatch : pytest.MonkeyPatch
+        Fixture used to replace ``os.path.isdir`` for the duration
+        of the test.
+    """
+    split_dir = str(tmp_path / "splits")
+    real_isdir = os.path.isdir
+
+    def isdir_with_concurrent_create(path):
+        """Return the real answer, after simulating a concurrent create.
+
+        Parameters
+        ----------
+        path : str
+            Path being checked.
+
+        Returns
+        -------
+        bool
+            The original ``os.path.isdir`` answer (stale by the time
+            it is returned, mimicking the TOCTOU window).
+        """
+        result = real_isdir(path)
+        if path == split_dir and not result:
+            os.makedirs(path)
+        return result
+
+    monkeypatch.setattr(os.path, "isdir", isdir_with_concurrent_create)
+
+    result = _generate_or_load_cached_splits(
+        split_dir, 0, _one_split_generator()
+    )
+    assert set(result.keys()) == {"train", "valid", "test"}
 
 
 class TestLoadInductiveSplits:
