@@ -32,10 +32,16 @@ def _generate_or_load_cached_splits(split_dir, fold, generator):
     """
     split_path = os.path.join(split_dir, f"{fold}.npz")
     if not os.path.isfile(split_path):
-        if not os.path.isdir(split_dir):
-            os.makedirs(split_dir)
+        os.makedirs(split_dir, exist_ok=True)
         for fold_n, split in enumerate(generator()):
-            np.savez(os.path.join(split_dir, f"{fold_n}.npz"), **split)
+            path = os.path.join(split_dir, f"{fold_n}.npz")
+            tmp = f"{path}.tmp.{os.getpid()}"
+            # Pass a file object so np.savez writes to the exact path
+            # rather than appending ".npz" to the tmp name, which would
+            # break the subsequent os.replace.
+            with open(tmp, "wb") as f:
+                np.savez(f, **split)
+            os.replace(tmp, path)
     return np.load(split_path)
 
 
