@@ -181,7 +181,7 @@ class MantraDataset(InMemoryDataset):
         r"""Handle the data for the dataset.
 
         This method loads the JSON file for MANTRA for the specified manifold
-        dimmension, applies the respective preprocessing if specified and saves
+        dimension, applies the respective preprocessing if specified and saves
         the preprocessed data to the appropriate location.
         """
 

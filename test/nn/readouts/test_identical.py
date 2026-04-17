@@ -12,7 +12,7 @@ class TestNoReadOut:
     @pytest.fixture
     def base_kwargs(self):
         """Fixture providing the required base parameters.
-        
+
         Returns
         -------
         dict
@@ -27,12 +27,12 @@ class TestNoReadOut:
     @pytest.fixture
     def readout_layer(self, base_kwargs):
         """Fixture to create a NoReadOut instance for testing.
-        
+
         Parameters
         ----------
         base_kwargs : dict
             A fixture providing the required base parameters.
-            
+
         Returns
         -------
         NoReadOut
@@ -43,7 +43,7 @@ class TestNoReadOut:
     @pytest.fixture
     def sample_model_output(self):
         """Fixture to create a sample model output dictionary.
-        
+
         Returns
         -------
         dict
@@ -58,7 +58,7 @@ class TestNoReadOut:
     @pytest.fixture
     def sample_batch(self):
         """Fixture to create a sample batch of graph data.
-        
+
         Returns
         -------
         torch_geometric.data.Data
@@ -72,7 +72,7 @@ class TestNoReadOut:
 
     def test_initialization(self, base_kwargs):
         """Test that NoReadOut initializes correctly with required parameters.
-        
+
         Parameters
         ----------
         base_kwargs : dict
@@ -84,7 +84,7 @@ class TestNoReadOut:
 
     def test_forward_pass_returns_unchanged_output(self, readout_layer, sample_model_output, sample_batch):
         """Test that forward pass returns the model output without modifications.
-        
+
         Parameters
         ----------
         readout_layer : NoReadOut
@@ -96,7 +96,7 @@ class TestNoReadOut:
         """
         original_output = sample_model_output.copy()
         output = readout_layer(sample_model_output, sample_batch)
-        
+
         # The output should contain the original data plus the computed logits
         for key in original_output:
             assert key in output
@@ -105,7 +105,7 @@ class TestNoReadOut:
 
     def test_invalid_task_level(self, base_kwargs):
         """Test that initialization fails with invalid task_level.
-        
+
         Parameters
         ----------
         base_kwargs : dict
@@ -118,7 +118,7 @@ class TestNoReadOut:
 
     def test_repr(self, readout_layer):
         """Test the string representation of the NoReadOut layer.
-        
+
         Parameters
         ----------
         readout_layer : NoReadOut
@@ -129,7 +129,7 @@ class TestNoReadOut:
 
     def test_forward_pass_with_different_batch_sizes(self, readout_layer):
         """Test that forward pass works with different batch sizes.
-        
+
         Parameters
         ----------
         readout_layer : NoReadOut
@@ -147,7 +147,7 @@ class TestNoReadOut:
         }
         result = readout_layer(single_output, single_batch)
         assert 'logits' in result
-        
+
         # Test with multiple graphs
         multi_batch = tg_data.Data(
             x=torch.randn(15, 32),
@@ -163,7 +163,7 @@ class TestNoReadOut:
 
     def test_kwargs_handling(self, base_kwargs):
         """Test that the layer correctly handles both required and additional keyword arguments.
-        
+
         Parameters
         ----------
         base_kwargs : dict

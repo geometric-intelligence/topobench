@@ -19,7 +19,7 @@ class TestProjectionSum:
 
     def test_lift_features(self, simple_graph_1):
         """Test the lift_features method.
-        
+
         Parameters
         ----------
         simple_graph_1 : torch_geometric.data.Data

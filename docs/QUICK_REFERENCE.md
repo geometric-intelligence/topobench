@@ -96,27 +96,27 @@ TopoBench uses NumPy-style docstrings:
 ```python
 def my_function(param1, param2):
     """Short description of function.
-    
+
     Longer description with more details about what
     the function does and why.
-    
+
     Parameters
     ----------
     param1 : str
         Description of param1
     param2 : int, optional
         Description of param2 (default is 42)
-        
+
     Returns
     -------
     result : bool
         Description of return value
-        
+
     Examples
     --------
     >>> my_function("hello", 5)
     True
-    
+
     Notes
     -----
     Additional notes about edge cases or behavior.

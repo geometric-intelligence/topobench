@@ -5,7 +5,7 @@ threshold_type: 'quantile'
 threshold_direction: 'above'
 threshold: 0.1
 feature_lifting: ProjectionSum
-# Required for all liftings to make the pipeline executable 
+# Required for all liftings to make the pipeline executable
 preserve_edge_attr: False
 complex_dim: 1
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}

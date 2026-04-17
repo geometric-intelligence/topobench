@@ -6,13 +6,13 @@ model_domain: hypergraph
 feature_encoder:
   _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
   encoder_name: AllCellFeatureEncoder
-  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}} 
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
   out_channels: 128
   proj_dropout: 0.0
 
 backbone:
   _target_: topomodelx.nn.hypergraph.unigcnii.UniGCNII
-  in_channels: ${model.feature_encoder.out_channels}  
+  in_channels: ${model.feature_encoder.out_channels}
   hidden_channels: ${model.feature_encoder.out_channels}
   n_layers: 4
   alpha: 0.5

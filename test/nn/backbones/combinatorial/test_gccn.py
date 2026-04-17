@@ -56,7 +56,7 @@ def create_mock_complex_batch():
     x_0 = torch.randn(3, 16)  # 3 nodes
     x_1 = torch.randn(3, 16)  # 3 edges
     x_2 = torch.randn(1, 16)  # 1 face
-    
+
     batch = Data(x_0=x_0, x_1=x_1, x_2=x_2)
 
     # Incidence matrices
@@ -100,7 +100,7 @@ def create_mock_complex_batch():
     ).coalesce()
     batch["up_adjacency-2"] = adjacency_2
 
-    cell_statistics = torch.tensor([[3, 3, 1]]) 
+    cell_statistics = torch.tensor([[3, 3, 1]])
     batch["cell_statistics"] = cell_statistics
     return batch
 
@@ -147,7 +147,7 @@ def test_topotune():
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
     neighborhoods = OmegaConf.create(["up_adjacency-0", "up_adjacency-1", "down_incidence-1", "down_incidence-2"])#[[[0, 0], "adjacency"], [[1, 1], "adjacency"], [[1, 0], "boundary"], [[2, 1], "boundary"]])
-    
+
     auto_test = ModifiedNNModuleAutoTest([
         {
             "module": TopoTune,
@@ -191,7 +191,7 @@ def test_topotune_methods():
 
     # Test intrarank_gnn_forward
     output = topotune.intrarank_gnn_forward(expanded, 0, 0)
-    assert output.shape == (3, 16) 
+    assert output.shape == (3, 16)
 
     # Test interrank_expand
     membership = topotune.generate_membership_vectors(batch)
@@ -202,7 +202,7 @@ def test_topotune_methods():
 
     # Test interrank_gnn_forward
     output = topotune.interrank_gnn_forward(expanded, 0, 0, 3)
-    assert output.shape == (3, 16)  
+    assert output.shape == (3, 16)
 
     # Test aggregate_inter_nbhd
     x_out_per_route = {0: torch.randn(3, 16), 1: torch.randn(3, 16)}
@@ -215,9 +215,9 @@ def test_interrank_boundary_index():
     x_src = torch.randn(15, 16)
     boundary_index = [torch.randint(0, 10, (30,)), torch.randint(0, 15, (30,))]
     n_dst_nodes = 10
-    
+
     edge_index, edge_attr = interrank_boundary_index(x_src, boundary_index, n_dst_nodes)
-    
+
     assert edge_index.shape == (2, 30)
     assert edge_attr.shape == (30, 16)
 
@@ -225,10 +225,10 @@ def test_get_activation():
     """Test the get_activation function."""
     relu_func = get_activation("relu")
     assert callable(relu_func)
-    
+
     relu_module = get_activation("relu", return_module=True)
     assert issubclass(relu_module, torch.nn.Module)
-    
+
     with pytest.raises(NotImplementedError):
         get_activation("invalid_activation")
 
@@ -245,7 +245,7 @@ def test_topotune_different_activations(activation):
     """
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
-    
+
     neighborhoods = OmegaConf.create(["up_adjacency-0", "down_incidence-1"])
     model = TopoTune(
         GNN=gnn,
@@ -271,7 +271,7 @@ def test_topotune_use_edge_attr_true():
     """
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
-    
+
     # Add more complex neighborhoods to ensure both interrank and intrarank expansions
     neighborhoods = OmegaConf.create([
         "up_adjacency-0",   # intrarank route rank=0->0
@@ -305,7 +305,7 @@ def test_topotune_single_node_per_rank():
     # Create a batch with just 1 node, 1 edge, 1 face
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
-    
+
     neighborhoods = OmegaConf.create(["up_adjacency-0", "down_incidence-1"])
     model = TopoTune(
         GNN=gnn,
@@ -329,7 +329,7 @@ def test_topotune_multiple_layers():
     """
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
-    
+
     neighborhoods = OmegaConf.create(["up_adjacency-0", "down_incidence-1"])
     model = TopoTune(
         GNN=gnn,
@@ -376,4 +376,3 @@ def test_topotune_src_rank_larger_than_dst_rank():
     for rank in [0, 1, 2]:
         assert rank in output
         assert output[rank].shape == getattr(batch, f"x_{rank}").shape
-

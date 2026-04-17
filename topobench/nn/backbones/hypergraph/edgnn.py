@@ -159,7 +159,7 @@ class customMLP(nn.Module):
         Number of layers.
     dropout : float, optional
         Dropout rate. Defaults to 0.5.
-    Normalization : str, optiona
+    Normalization : str, optional
         Normalization method. Defaults to 'bn'.
     InputNorm : bool, optional
         Whether to normalize input features. Defaults to False.

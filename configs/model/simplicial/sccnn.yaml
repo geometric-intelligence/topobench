@@ -1,6 +1,6 @@
 _target_: topobench.model.TBModel
 
-model_name: sccnn 
+model_name: sccnn
 model_domain: simplicial
 
 feature_encoder:

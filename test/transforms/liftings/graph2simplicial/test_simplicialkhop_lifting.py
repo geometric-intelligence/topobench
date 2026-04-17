@@ -20,7 +20,7 @@ class TestSimplicialKHopLifting:
 
     def test_lift_topology(self, simple_graph_1):
         """ Test the lift_topology method.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data
@@ -1328,7 +1328,7 @@ class TestSimplicialKHopLifting:
 
     def test_lifted_features_signed(self, simple_graph_1):
         """Test the lift_features method for signed case.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data
@@ -1423,7 +1423,7 @@ class TestSimplicialKHopLifting:
 
     def test_lifted_features_unsigned(self, simple_graph_1):
         """Test the lift_features method for unsigned case.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data

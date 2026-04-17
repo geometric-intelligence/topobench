@@ -168,4 +168,3 @@ Helper functions and utility modules
    :maxdepth: 2
 
    topobench.utils
-

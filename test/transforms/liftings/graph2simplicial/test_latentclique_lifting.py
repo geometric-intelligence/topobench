@@ -68,9 +68,9 @@ class TestLatentCliqueCoverLifting:
         edge_prob_single_adj = self.lifting.forward(self.data_test_one.clone()).adjacency_0
 
         ### TEST #1 ###
-        # if edge_prob == 1 and a the input graph has a single clique,
+        # if edge_prob == 1 and the input graph has a single clique,
         # then the 1-skeleton of the inferred latent SC must have a single clique
-        # (or, equivalently, the SC has a simplex in its facests set if complex_dim = |maximal_clique|-1)
+        # (or, equivalently, the SC has a simplex in its facets set if complex_dim = |maximal_clique|-1)
 
         # Convert adjacency matrix to NetworkX graph
         G_from_latent_complex = nx.from_numpy_matrix(
@@ -108,4 +108,3 @@ class TestLatentCliqueCoverLifting:
         assert input_edge_set.issubset(
             latent_edge_set
         ), "the set of 0-simplices of the inferred latent SC is not contained the set of edges of the input graph"
-

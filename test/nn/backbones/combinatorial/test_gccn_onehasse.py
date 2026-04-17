@@ -43,7 +43,7 @@ class MockGNN(torch.nn.Module):
             Output of the GCN layer.
         """
         return self.conv(x, edge_index)
-    
+
 
 class MockGNNWithLinear(MockGNN):
     """
@@ -92,7 +92,7 @@ def create_mock_complex_batch():
     x_0 = torch.randn(3, 16)  # 3 nodes
     x_1 = torch.randn(3, 16)  # 3 edges
     x_2 = torch.randn(1, 16)  # 1 face
-    
+
     batch = Data(x_0=x_0, x_1=x_1, x_2=x_2)
 
     # Incidence matrices
@@ -136,7 +136,7 @@ def create_mock_complex_batch():
     ).coalesce()
     batch["up_adjacency-2"] = adjacency_2
 
-    cell_statistics = torch.tensor([[3, 3, 1]]) 
+    cell_statistics = torch.tensor([[3, 3, 1]])
     batch["cell_statistics"] = cell_statistics
     return batch
 
@@ -183,7 +183,7 @@ def test_topotune_onehasse():
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
     neighborhoods = OmegaConf.create(["up_adjacency-0", "up_adjacency-1", "down_incidence-1", "down_incidence-2"])#[[[0, 0], "adjacency"], [[1, 1], "adjacency"], [[1, 0], "boundary"], [[2, 1], "boundary"]])
-    
+
     auto_test = ModifiedNNModuleAutoTest([
         {
             "module": TopoTune_OneHasse,
@@ -247,10 +247,10 @@ def test_get_activation():
     """Test the get_activation function."""
     relu_func = get_activation("relu")
     assert callable(relu_func)
-    
+
     relu_module = get_activation("relu", return_module=True)
     assert issubclass(relu_module, torch.nn.Module)
-    
+
     with pytest.raises(NotImplementedError):
         get_activation("invalid_activation")
 
@@ -262,10 +262,10 @@ def test_topotune_onehasse_early_return_x2_zero():
     batch = create_mock_complex_batch()
     batch.x_2 = torch.zeros((0, 16))  # Force x_2 to have 0 faces
     gnn = MockGNN(16, 32, 16)
-    
+
     # Define any neighborhoods; they won't matter since x_2=0 triggers early return
     neighborhoods = OmegaConf.create(["up_adjacency-0", "down_incidence-2"])
-    
+
     model = TopoTune_OneHasse(
         GNN=gnn,
         neighborhoods=neighborhoods,
@@ -333,7 +333,7 @@ def test_topotune_onehasse_unsupported_src_rank_raises(bad_neighborhood, expecte
     """
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
-    
+
     neighborhoods = OmegaConf.create([bad_neighborhood])
     model = TopoTune_OneHasse(
         GNN=gnn,
@@ -359,7 +359,7 @@ def test_topotune_onehasse_indexerror_in_aggregate_inter_nbhd(mocker):
     batch = create_mock_complex_batch()
     gnn = MockGNN(16, 32, 16)
     neighborhoods = OmegaConf.create(["up_adjacency-0", "down_incidence-1"])
-    
+
     model = TopoTune_OneHasse(
         GNN=gnn,
         neighborhoods=neighborhoods,
@@ -381,7 +381,7 @@ def test_topotune_onehasse_indexerror_in_aggregate_inter_nbhd(mocker):
         ----------
         b : torch_geometric.data.Data
             The input batch data.
-        
+
         Returns
         -------
         dict of {int: torch.Tensor}
@@ -400,9 +400,9 @@ def test_topotune_onehasse_indexerror_in_aggregate_inter_nbhd(mocker):
 def create_special_batch():
     """
     Create a batch with shapes adjusted to trigger certain corner cases.
-    
+
     For instance:
-    - 2 faces (x_2 of size [2, *]) 
+    - 2 faces (x_2 of size [2, *])
     - Non-square adjacency or incidence to see if it leads to certain expansions
       or error-handling in all_nbhds_expand.
 

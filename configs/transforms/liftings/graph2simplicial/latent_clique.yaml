@@ -5,6 +5,6 @@ edge_prob_var: 0.0001 # Uncertainty of the prior distribution of pie ~ Beta(a, b
 signed: True
 preserve_edge_attr: False # This lifting do not explicitly preserves the graph structure, hence it is necessary to set preserve_edge_attr to False or modify the lifting source code.
 feature_lifting: ProjectionSum
-# Required for all liftings to make the pipeline executable 
+# Required for all liftings to make the pipeline executable
 complex_dim: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}

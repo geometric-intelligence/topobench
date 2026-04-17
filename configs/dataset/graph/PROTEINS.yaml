@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.TUDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: TUDataset
     data_name: PROTEINS
@@ -30,6 +30,3 @@ dataloader_params:
   batch_size: 128 # We have an issue with allowing multiple graphs in a batch due to sparse incidences
   num_workers: 0
   pin_memory: False
-
-
-

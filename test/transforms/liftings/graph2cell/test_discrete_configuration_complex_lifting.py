@@ -8,7 +8,7 @@ from topobench.transforms.liftings.graph2cell.discrete_configuration_complex_lif
 @pytest.fixture
 def mock_data():
     """Create a mock data object for testing.
-    
+
     Returns
     -------
     MagicMock
@@ -30,7 +30,7 @@ def test_discrete_configuration_complex_lifting_init():
 
 def test_discrete_configuration_complex_lifting_forward(mock_data):
     """Test the forward method of the DiscreteConfigurationComplexLifting class.
-    
+
     Parameters
     ----------
     mock_data : MagicMock
@@ -43,7 +43,7 @@ def test_discrete_configuration_complex_lifting_forward(mock_data):
 
 def test_discrete_configuration_complex_lifting_lift_topology(mock_data):
     """Test the lift_topology method of the DiscreteConfigurationComplexLifting class.
-    
+
     Parameters
     ----------
     mock_data : MagicMock
@@ -66,19 +66,19 @@ class TestDiscreteConfigurationComplexLifting:
 
     def test_lift_topology(self, simple_graph_1):
         """Test the lift_topology method.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data
             A simple graph used for testing.
         """
         data = simple_graph_1
-        
+
         assert self.lifting_concat.forward(data.clone()).incidence_1.shape[1] == 156, "Something is wrong with incidence_1."
         assert self.lifting_sum.forward(data.clone()).incidence_1.shape[1] == 156, "Something is wrong with incidence_1."
         assert self.lifting_mean.forward(data.clone()).incidence_1.shape[1] == 156, "Something is wrong with incidence_1."
 
-    
+
 
 # import torch
 

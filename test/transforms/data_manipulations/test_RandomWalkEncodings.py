@@ -56,7 +56,7 @@ class TestRWSE:
         # Check that RWSE is stored separately
         assert hasattr(transformed, "RWSE")
         assert transformed.RWSE.shape == (3, 8)
-        
+
         # Check that original x is unchanged
         assert torch.equal(transformed.x, x)
 
@@ -244,7 +244,7 @@ class TestRWSE:
         x = torch.tensor([[1.0], [2.0], [3.0]])
         y = torch.tensor([0, 1, 0])
         custom_attr = torch.tensor([10, 20, 30])
-        
+
         data = Data(
             x=x,
             edge_index=edge_index,
@@ -293,7 +293,7 @@ class TestRWSE:
     @pytest.mark.parametrize("max_pe_dim", [1, 2, 4, 8, 16])
     def test_parametrized_dimensions(self, max_pe_dim):
         """Parametrized test for different RWSE dimensions.
-        
+
         Parameters
         ----------
         max_pe_dim : int

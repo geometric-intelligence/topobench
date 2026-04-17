@@ -40,7 +40,7 @@ class SimplicialLineLifting(Graph2SimplicialLifting):
             The input data to be lifted.
 
         Returns
-        ----------
+        -------
         dict
             The lifted topology.
         """

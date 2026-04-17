@@ -136,7 +136,7 @@ class RandomFlagComplexLifting(PointCloud2SimplicialLifting):
         lifted_topology = get_complex_connectivity(
             simplicial_complex, self.complex_dim, signed=False
         )
-        # Computing the persitence to obtain the Betti numbers
+        # Computing the persistence to obtain the Betti numbers
         st.compute_persistence(persistence_dim_max=True)
 
         # Save the Betti numbers in the Data object

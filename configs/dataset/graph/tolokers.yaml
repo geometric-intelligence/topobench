@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.HeterophilousGraphDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: heterophilic
     data_name: tolokers

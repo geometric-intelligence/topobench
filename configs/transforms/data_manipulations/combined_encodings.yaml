@@ -7,6 +7,6 @@ parameters:
     include_eigenvalues: false
     include_first: false
     concat_to_x: true
-  RWSE: 
+  RWSE:
     max_pe_dim: 10
     concat_to_x: true

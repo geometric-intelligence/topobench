@@ -74,11 +74,11 @@ else
     while true; do
         # Calculate hash of all Python files
         CURRENT_HASH=$(find "$PROJECT_DIR/topobench" -name "*.py" -type f -exec md5sum {} \; 2>/dev/null | sort | md5sum)
-        
+
         if [ "$LAST_HASH" != "$CURRENT_HASH" ] && [ -n "$LAST_HASH" ]; then
             regenerate_docs
         fi
-        
+
         LAST_HASH=$CURRENT_HASH
         sleep 30
     done

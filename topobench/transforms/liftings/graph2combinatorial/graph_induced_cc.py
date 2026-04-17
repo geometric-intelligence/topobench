@@ -100,12 +100,12 @@ class GraphTriangleInducedCC(Graph2CombinatorialLifting):
         Create a list of pairs with the starts and lengths of hyperedges in ascending order of hyperedge size.
 
         Parameters
-        ------------
+        ----------
         hyperedges : torch.tensor
             A tensor with two rows: the first one for hyperedge indices, the second one for node indices.
 
         Returns
-        --------
+        -------
         list
             A list of pairs (start, length) sorted according to length (ascending).
         """
@@ -141,7 +141,7 @@ def build_paths(overlap_pairs):
     Returns
     -------
     list
-        List of sequences of overlaping triangles.
+        List of sequences of overlapping triangles.
     """
     parent = {}
 
@@ -207,7 +207,7 @@ def find_overlapping_paths(lists):
     Returns
     -------
     list
-        List of sequences of overlaping triangles.
+        List of sequences of overlapping triangles.
     """
     one_element_overlap = []
     two_elements_overlap = []

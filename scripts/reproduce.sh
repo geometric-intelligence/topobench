@@ -13,10 +13,10 @@ FAILED_LOG_FILE="scripts/failed_runs.log"
 # Function to run a command and check for failure
 run_command() {
     local cmd="$1"
-    
+
     # Run the command and capture the output and error
     { eval "$cmd" 2>&1 | tee -a "$LOG_FILE"; } 2>> "$ERROR_LOG_FILE"
-    
+
     # Check if the command failed
     if [ ${PIPESTATUS[0]} -ne 0 ]; then
         echo "Command failed: $cmd" >> "$FAILED_LOG_FILE"
@@ -291,4 +291,3 @@ for cmd in "${commands[@]}"; do
     echo "Running: $cmd"
     run_command "$cmd"
 done
-

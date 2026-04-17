@@ -13,7 +13,7 @@ class TestHypergraphKNNLifting:
 
     def setup_method(self):
         """Set up test fixtures before each test method.
-        
+
         Creates instances of HypergraphKNNLifting with different k values
         and loop settings.
         """
@@ -35,7 +35,7 @@ class TestHypergraphKNNLifting:
 
     def test_lift_topology_k2(self, simple_graph_2):
         """Test the lift_topology method with k=2.
-        
+
         Parameters
         ----------
         simple_graph_2 : torch_geometric.data.Data
@@ -60,13 +60,13 @@ class TestHypergraphKNNLifting:
             lifted_data_k2["incidence_hyperedges"].to_dense(),
             expected_incidence_1
         ), "Incorrect incidence_hyperedges for k=2"
-        
+
         assert lifted_data_k2["num_hyperedges"] == expected_n_hyperedges
         assert torch.equal(lifted_data_k2["x_0"], simple_graph_2.x)
 
     def test_lift_topology_k3(self, simple_graph_2):
         """Test the lift_topology method with k=3.
-        
+
         Parameters
         ----------
         simple_graph_2 : torch_geometric.data.Data
@@ -91,20 +91,20 @@ class TestHypergraphKNNLifting:
             lifted_data_k3["incidence_hyperedges"].to_dense(),
             expected_incidence_1
         ), "Incorrect incidence_hyperedges for k=3"
-        
+
         assert lifted_data_k3["num_hyperedges"] == expected_n_hyperedges
         assert torch.equal(lifted_data_k3["x_0"], simple_graph_2.x)
 
     def test_lift_topology_no_loop(self, simple_graph_2):
         """Test the lift_topology method with loop=False.
-        
+
         Parameters
         ----------
         simple_graph_2 : torch_geometric.data.Data
             A simple graph fixture with 9 nodes arranged in a line pattern.
         """
         lifted_data = self.lifting_no_loop.lift_topology(simple_graph_2.clone())
-        
+
         # Verify no self-loops in the incidence matrix
         incidence_matrix = lifted_data["incidence_hyperedges"].to_dense()
         diagonal = torch.diag(incidence_matrix)
@@ -117,9 +117,9 @@ class TestHypergraphKNNLifting:
             x=torch.tensor([[1.0], [1.0], [2.0], [2.0]]),
             edge_index=torch.tensor([[0, 1, 2, 3], [1, 0, 3, 2]])
         )
-        
+
         lifted_data = self.lifting_k2.lift_topology(data)
-        
+
         # Verify the shape of the output
         assert lifted_data["incidence_hyperedges"].size() == (4, 4)
         assert lifted_data["num_hyperedges"] == 4
@@ -128,7 +128,7 @@ class TestHypergraphKNNLifting:
     @pytest.mark.parametrize("k_value", [1, 2, 3, 4])
     def test_different_k_values(self, k_value, simple_graph_2):
         """Test lift_topology with different k values.
-        
+
         Parameters
         ----------
         k_value : int
@@ -138,11 +138,11 @@ class TestHypergraphKNNLifting:
         """
         lifting = HypergraphKNNLifting(k_value=k_value, loop=True)
         lifted_data = lifting.lift_topology(simple_graph_2.clone())
-        
+
         # Verify basic properties
         assert lifted_data["num_hyperedges"] == simple_graph_2.x.size(0)
         incidence_matrix = lifted_data["incidence_hyperedges"].to_dense()
-        
+
         # Check that each node is connected to at most k nodes
         assert torch.all(incidence_matrix.sum(dim=1) <= k_value), \
             f"Some nodes are connected to more than {k_value} neighbors"

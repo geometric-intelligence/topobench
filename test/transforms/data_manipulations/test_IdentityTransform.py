@@ -44,7 +44,7 @@ class TestIdentityTransform:
         data = Data(x=x, edge_index=edge_index, num_nodes=2)
 
         transformed = self.transform(data)
-        
+
         # Check that all attributes are equal
         assert torch.equal(transformed.edge_index, data.edge_index)
         assert torch.equal(transformed.x, data.x)
@@ -70,7 +70,7 @@ class TestIdentityTransform:
         )
 
         transformed = self.transform(data)
-        
+
         # Check all attributes remain equal
         assert torch.equal(transformed.x, data.x)
         assert torch.equal(transformed.edge_index, data.edge_index)
@@ -87,9 +87,9 @@ class TestIdentityTransform:
             edge_index=torch.tensor([[],[]]),
             num_nodes=0
         )
-        
+
         transformed = self.transform(data)
-        
+
         assert transformed.num_nodes == 0
         assert transformed.edge_index.size() == data.edge_index.size()
         assert transformed.x.size() == data.x.size()
@@ -100,11 +100,11 @@ class TestIdentityTransform:
         """Test transform on a large graph."""
         num_nodes = 1000
         num_edges = 5000
-        
+
         x = torch.randn(num_nodes, 10)  # 10 features per node
         edge_index = torch.randint(0, num_nodes, (2, num_edges))
         edge_attr = torch.randn(num_edges, 5)  # 5 features per edge
-        
+
         data = Data(
             x=x,
             edge_index=edge_index,
@@ -113,7 +113,7 @@ class TestIdentityTransform:
         )
 
         transformed = self.transform(data)
-        
+
         assert torch.equal(transformed.x, data.x)
         assert torch.equal(transformed.edge_index, data.edge_index)
         assert torch.equal(transformed.edge_attr, data.edge_attr)
@@ -126,9 +126,9 @@ class TestIdentityTransform:
             edge_index=torch.tensor([[0, 1], [1, 0]]),
             num_nodes=2
         )
-        
+
         transformed = self.transform(data)
-        
+
         # Check key attributes remain equal
         for key in data.keys():  # Changed from data.keys to data.keys()
             assert hasattr(transformed, key)
@@ -147,7 +147,7 @@ class TestIdentityTransform:
         )
 
         transformed = self.transform(data)
-        
+
         assert transformed.x.dtype == torch.long
         assert transformed.y.dtype == torch.float
         assert transformed.z.dtype == torch.bool

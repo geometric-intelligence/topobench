@@ -65,7 +65,7 @@ class TestRedefineSimplicialNeighbourhoods:
                         assert torch.equal(initial[key].to_dense(), transformed[key].to_dense()), f"Mismatch in tensor values for key: {key}"
                     except AttributeError as e:
                         pytest.fail(f"Tensor conversion to dense failed for key: {key}. Error: {e}")
-   
+
     def test_repr(self):
         """Test the string representation of the transformation class.
 
@@ -96,6 +96,3 @@ class TestRedefineSimplicialNeighbourhoods:
         # Ensure all keys appear in the representation
         for key in transforms_config["RedefineSimplicialNeighbourhoods"]:
             assert key in repr_str, f"Missing key '{key}' in __repr__ output."
-
-            
-        

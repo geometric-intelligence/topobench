@@ -64,7 +64,7 @@ evaluation. To propel the field forward, we focus on the following fronts:
 - **Deepening:** TDL capabilities by building infrastructure for large-scale
   datasets and novel benchmark tasks.
 
-We are calling on the community to build a richer, more robust, and scalable data ecosystem for TDL. 
+We are calling on the community to build a richer, more robust, and scalable data ecosystem for TDL.
 By participating, you will be paving the way for the next generation of topological models.
 
 
@@ -506,43 +506,43 @@ Graphs
    * - Dataset
      - Reference
    * - TwiBot-20
-     - *A Comprehensive Twitter Bot Detection Benchmark (Large).* 
+     - *A Comprehensive Twitter Bot Detection Benchmark (Large).*
    * - TwiBot-22
-     - *Towards Graph-Based Twitter Bot Detection (Large).* 
+     - *Towards Graph-Based Twitter Bot Detection (Large).*
    * - MGTAB
-     - *A Multi-Relational Graph-Based Twitter Account Detection Benchmark.* 
+     - *A Multi-Relational Graph-Based Twitter Account Detection Benchmark.*
    * - GraphLand (14 datasets)
-     - *GraphLand: Evaluating Graph Machine Learning Models on Diverse Industrial Data.* 
+     - *GraphLand: Evaluating Graph Machine Learning Models on Diverse Industrial Data.*
    * - Karate Club (7 datasets)
-     - *Karate Club: An API Oriented Open-Source Python Framework for Unsupervised…* 
+     - *Karate Club: An API Oriented Open-Source Python Framework for Unsupervised…*
    * - Coauth-DBLP
-     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.* 
+     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.*
    * - Coauth-AMiner
-     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.* 
+     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.*
    * - Email-Enron
-     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.* 
+     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.*
    * - Email-Eu
-     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.* 
+     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.*
    * - Stack-Physics
-     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.* 
+     - *Classification of Edge-dependent Labels of Nodes in Hypergraphs.*
    * - Wiki-CS
-     - *Wiki-CS: A Wikipedia-Based Benchmark for Graph Neural Networks.* 
+     - *Wiki-CS: A Wikipedia-Based Benchmark for Graph Neural Networks.*
    * - FacebookPagePage
-     - *Multi-Scale Attributed Node Embedding (MUSAE).* 
+     - *Multi-Scale Attributed Node Embedding (MUSAE).*
    * - GitHub (MUSAE)
-     - *Multi-Scale Attributed Node Embedding (MUSAE).* 
+     - *Multi-Scale Attributed Node Embedding (MUSAE).*
    * - LastFMAsia
-     - *Multi-Scale Attributed Node Embedding (MUSAE).* 
+     - *Multi-Scale Attributed Node Embedding (MUSAE).*
    * - Deezer Europe
-     - *Multi-Scale Attributed Node Embedding (MUSAE).* 
+     - *Multi-Scale Attributed Node Embedding (MUSAE).*
    * - Twitch
-     - *Multi-Scale Attributed Node Embedding (MUSAE).* 
+     - *Multi-Scale Attributed Node Embedding (MUSAE).*
    * - GemsecDeezer
-     - *GEMSEC: Graph Embedding with Self Clustering.* 
+     - *GEMSEC: Graph Embedding with Self Clustering.*
    * - Torus dataset
-     - *Topological Blindspots: Understanding and Extending Topological Deep Learning through the Lens of Expressivity.* 
+     - *Topological Blindspots: Understanding and Extending Topological Deep Learning through the Lens of Expressivity.*
    * - QM9
-     - *MoleculeNet: A Benchmark for Molecular Machine Learning.* 
+     - *MoleculeNet: A Benchmark for Molecular Machine Learning.*
 
 
 Hypergraphs
@@ -555,21 +555,21 @@ Hypergraphs
    * - Dataset
      - Reference
    * - CornellTemporalHyperGraphDataset
-     - *Simplicial Closure and Higher-Order Link Prediction.* 
+     - *Simplicial Closure and Higher-Order Link Prediction.*
    * - CornellLabelledNodes
      - *Various references.*
    * - RHG-3
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
    * - RHG-10
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
    * - IMDB-Dir-Form
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
    * - IMDB-Dir-Genre
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
    * - Steam-Player
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
    * - Twitter-Friend
-     - *Hypergraph Isomorphism Computation.* 
+     - *Hypergraph Isomorphism Computation.*
 
 
 Organizers and Sponsors

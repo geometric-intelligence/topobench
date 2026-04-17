@@ -59,7 +59,7 @@ class GroupCombinatorialHomophily(torch_geometric.transforms.BaseTransform):
             zip(unique_labels.numpy(), count_labels.numpy(), strict=False)
         )
 
-        # Enhancment: avoid to_dense
+        # Enhancement: avoid to_dense
         H = data.incidence_hyperedges.to_dense()
         he_cardinalities = H.sum(0)
 
@@ -191,7 +191,7 @@ class GroupCombinatorialHomophily(torch_geometric.transforms.BaseTransform):
             node_idxs = class_node_idxs[unique_class]
 
             # Extract from D matrix only rows corresponding to nodes belonging to current 'unique_class'
-            # Transfose to be alligned with paper
+            # Transpose to be aligned with paper
             D_class = D[node_idxs, :].T
 
             # Denominator of (1)

@@ -14,7 +14,7 @@ class TestCellCycleLifting:
 
     def test_lift_topology(self, simple_graph_1):
         """Test the lift_topology method.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data

@@ -1,4 +1,3 @@
 transform_name: "NodeDegrees"
 transform_type: "data manipulation"
 selected_fields: ["edge_index"] # "incidence"
-

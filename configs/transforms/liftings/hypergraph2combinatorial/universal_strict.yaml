@@ -2,4 +2,3 @@ transform_type: "lifting"
 transform_name: "UniversalStrictLifting"
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
 complex_dim: 5
-

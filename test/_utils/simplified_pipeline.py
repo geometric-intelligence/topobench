@@ -50,7 +50,7 @@ OmegaConf.register_new_resolver(
 
 def run(cfg: DictConfig) -> DictConfig:
     """Run pipeline with given configuration.
-    
+
     Parameters
     ----------
     cfg : DictConfig
@@ -97,6 +97,3 @@ def run(cfg: DictConfig) -> DictConfig:
     trainer.test(
         model=model, datamodule=datamodule, ckpt_path=ckpt_path
     )
-
-            
-        

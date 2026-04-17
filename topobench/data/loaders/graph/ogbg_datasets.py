@@ -44,7 +44,7 @@ class OGBGDatasetLoader(AbstractLoader):
         dataset = PygGraphPropPredDataset(
             name=self.parameters.data_name, root=self.root_data_dir
         )
-        # Conver attributes to float
+        # Convert attributes to float
         dataset._data.x = dataset._data.x.to(torch.float)
         # Squeeze the target tensor
         dataset._data.y = dataset._data.y.squeeze(1)

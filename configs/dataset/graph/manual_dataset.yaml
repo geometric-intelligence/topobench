@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.ManualGraphDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: manual_dataset
     data_name: manual
@@ -28,6 +28,6 @@ split_params:
 
 # Dataloader parameters
 dataloader_params:
-  batch_size: 1 
+  batch_size: 1
   num_workers: 1
   pin_memory: False

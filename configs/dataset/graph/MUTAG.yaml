@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.TUDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: TUDataset
     data_name: MUTAG

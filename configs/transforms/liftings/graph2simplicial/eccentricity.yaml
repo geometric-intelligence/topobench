@@ -2,7 +2,7 @@ transform_type: 'lifting'
 transform_name: "SimplicialEccentricityLifting"
 signed: True
 feature_lifting: ProjectionSum
-# Required for all liftings to make the pipeline executable 
+# Required for all liftings to make the pipeline executable
 complex_dim: 3
 preserve_edge_attr: False
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}

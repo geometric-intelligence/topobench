@@ -26,23 +26,23 @@ class TestUtils:
 
         with pytest.raises(Exception) as e:
             get_metric_value(self.metric_dict, "some_metric")
-            
+
         out = get_metric_value(self.metric_dict, None)
         assert out is None
-    
+
     def test_extras(self):
         """Test extras."""
         # extras(self.cfg)
         extras({})
-        
-    
+
+
     def test_task_wrapper(self):
         """Test task_wrapper."""
         d = DictConfig({'paths': {'output_dir': 'logs/'}})
 
         def task_func(cfg: DictConfig):
             """Task function for testing task_wrapper.
-            
+
             Parameters
             ----------
             cfg : DictConfig
@@ -54,14 +54,13 @@ class TestUtils:
                 The metric and object dictionaries.
             """
             return {'accuracy': torch.tensor([90])}, {'model': 'model'}
-        
-        
+
+
         out = task_wrapper(task_func)(d)
-        
+
         assert out[0]['accuracy'] == 90., "Metric dictionary not returned correctly."
         assert out[1]['model'] == 'model', "Object dictionary not returned correctly."
-        
+
         mock_task_func = MagicMock(side_effect=Exception("Test exception"))
         with pytest.raises(Exception, match="Test exception"):
             task_wrapper(mock_task_func)(d)
-        

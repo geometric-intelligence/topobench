@@ -25,7 +25,7 @@ class TestPipeline:
     def setup_method(self):
         """Setup method."""
         hydra.core.global_hydra.GlobalHydra.instance().clear()
-    
+
     def test_pipeline(self):
         """Test pipeline."""
         with hydra.initialize(config_path="../../configs", job_name="job"):
@@ -44,27 +44,3 @@ class TestPipeline:
                     return_hydra_config=True
                 )
                 run(cfg)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Test Pipeline")
-
-    parser.add_argument(
-        "--dataset",
-        type=str,
-        required=True,
-        help="Path to data root directory",
-        choices = ['graph/MUTAG', 'graph/a123']  # ADD YOUR DATASET HERE
-    )
-    parser.add_argument(
-        "--models",
-        type=str,
-        nargs='+',
-        required=False,
-        default=["graph/gcn"],
-        help="Model(s) to use in the pipeline",
-    )
-    args = parser.parse_args()
-
-    test_pipeline = TestPipeline(args)
-    test_pipeline.setup_method()
-    test_pipeline.test_pipeline()

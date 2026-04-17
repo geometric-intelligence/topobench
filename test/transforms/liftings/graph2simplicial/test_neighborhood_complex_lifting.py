@@ -22,17 +22,17 @@ class TestNeighborhoodComplexLifting:
         self.lifting_unsigned = NeighborhoodComplexLifting(complex_dim=3, signed=False)
         self.lifting_high = NeighborhoodComplexLifting(complex_dim=7, signed=False)
 
-        # Intialize an empty graph for testing purpouses
+        # Initialize an empty graph for testing purpouses
         self.empty_graph = nx.empty_graph(10)
         self.empty_data = from_networkx(self.empty_graph)
         self.empty_data["x"] = torch.rand((10, 10))
 
-        # Intialize a start graph for testing
+        # Initialize a start graph for testing
         self.star_graph = nx.star_graph(5)
         self.star_data = from_networkx(self.star_graph)
         self.star_data["x"] = torch.rand((6, 1))
 
-        # Intialize a random graph for testing purpouses
+        # Initialize a random graph for testing purpouses
         self.random_graph = nx.fast_gnp_random_graph(5, 0.5)
         self.random_data = from_networkx(self.random_graph)
         self.random_data["x"] = torch.rand((5, 1))
@@ -40,12 +40,12 @@ class TestNeighborhoodComplexLifting:
 
     def has_neighbour(self, simplex_points: list[set]) -> tuple[bool, set[int]]:
         """Verify that the maximal simplices of Data representation of a simplicial complex share a neighbour.
-        
+
         Parameters
         ----------
         simplex_points : list[set]
             A list of sets representing the maximal simplices of a simplicial complex.
-        
+
         Returns
         -------
         bool

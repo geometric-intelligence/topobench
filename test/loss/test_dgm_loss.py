@@ -10,7 +10,7 @@ from topobench.loss.model.DGMLoss import DGMLoss
 def mock_batch():
     """
     Create a mock batch of data for testing.
-    
+
     Returns
     -------
     MagicMock
@@ -31,7 +31,7 @@ def mock_batch():
 def mock_model_out():
     """
     Create a mock model output for testing.
-    
+
     Returns
     -------
     dict
@@ -45,8 +45,8 @@ def mock_model_out():
 def test_dgm_loss_init():
     """
     Test the initialization of the DGMLoss class.
-    
-    This function tests the DGMLoss class to ensure that it initializes correctly  
+
+    This function tests the DGMLoss class to ensure that it initializes correctly
     with the default loss weight and that the average accuracy is set to None.
     """
     loss_fn = DGMLoss(loss_weight=0.7)
@@ -69,7 +69,7 @@ def test_dgm_loss_forward(mock_batch, mock_model_out):
     mock_model_out : torch.Tensor
         A mock output from the model.
     """
-    
+
     loss_fn = DGMLoss()
     loss = loss_fn.forward(mock_model_out, mock_batch)
     assert isinstance(loss, torch.Tensor)
@@ -81,15 +81,15 @@ def test_dgm_loss_forward_with_different_masks(mock_batch, mock_model_out):
     """
     Test the DGMLoss forward method with different model states.
 
-    This function tests the `DGMLoss` forward method using different 
-    model states (Training, Validation, and Test) to ensure that the 
+    This function tests the `DGMLoss` forward method using different
+    model states (Training, Validation, and Test) to ensure that the
     loss is computed correctly and returns a tensor in each case.
 
     Parameters
     ----------
     mock_batch : Mock
-        A mock object representing the batch input to the model, 
-        with an attribute `model_state` that can be set to different 
+        A mock object representing the batch input to the model,
+        with an attribute `model_state` that can be set to different
         states (Training, Validation, Test).
     mock_model_out : Mock
         A mock object representing the output of the model.

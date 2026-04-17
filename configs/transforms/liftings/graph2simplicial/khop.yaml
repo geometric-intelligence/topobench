@@ -2,7 +2,7 @@ transform_type: 'lifting'
 transform_name: "SimplicialKHopLifting"
 max_k_simplices: 25
 feature_lifting: ProjectionSum
-# Required for all liftings to make the pipeline executable 
+# Required for all liftings to make the pipeline executable
 complex_dim: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
 preserve_edge_attr: ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted,False}
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}

@@ -10,7 +10,7 @@ from topobench.transforms.liftings.graph2simplicial.line_lifting import (
 
 def create_test_graph():
     """Create a simple graph for testing.
-    
+
     Returns
     -------
     torch_geometric.data
@@ -93,9 +93,9 @@ class TestSimplicialLineLifting:
         assert (
             expected_incidence_2 == lifted_data_signed.incidence_2.to_dense()
         ).all(), "Something is wrong with signed incidence_2 (edges to triangles)."
-        
+
         lifted_data = self.lifting_unsigned_max_simplices.forward(self.data.clone())
-        
+
         expected_incidence = torch.tensor(
             [[1., 1., 1., 1., 0., 0., 0., 0., 0.],
              [1., 0., 0., 0., 1., 1., 0., 0., 0.],

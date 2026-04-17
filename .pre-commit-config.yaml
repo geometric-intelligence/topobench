@@ -5,10 +5,17 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args:
+          - --markdown-linebreak-ext=md
       - id: fix-byte-order-marker
       - id: check-case-conflict
       - id: check-merge-conflict
+      - id: check-ast
+      - id: check-json
       - id: check-yaml
+      - id: check-symlinks
       - id: mixed-line-ending
         args:
           - --fix=no

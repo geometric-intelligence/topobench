@@ -11,7 +11,7 @@ class TestSimplicialCurvature:
 
     def test_simplicial_curvature(self, simple_graph_1):
         """Test simplicial curvature calculation.
-        
+
         Parameters
         ----------
         simple_graph_1 : torch_geometric.data.Data
@@ -34,6 +34,6 @@ class TestSimplicialCurvature:
             torch.sum(data['incidence_3'], dim=1).to_dense(),
             dim=1
         )
-        
+
         res = simplicial_curvature(data)
         assert isinstance(res, Data)

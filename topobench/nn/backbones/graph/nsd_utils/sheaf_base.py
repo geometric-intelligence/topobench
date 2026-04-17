@@ -1,3 +1,4 @@
+"""Base classes for sheaf neural network layers."""
 # Copyright 2022 Twitter, Inc.
 # SPDX-License-Identifier: Apache-2.0
 

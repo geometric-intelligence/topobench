@@ -20,7 +20,7 @@ class TestKeepOnlyConnectedComponent:
         """Test initialization of the transform."""
         assert self.transform.type == "keep_connected_component"
         assert self.transform.parameters["num_components"] == self.num_components
-        
+
         # Test default initialization
         transform = KeepOnlyConnectedComponent()
         assert transform.type == "keep_connected_component"
@@ -73,7 +73,7 @@ class TestKeepOnlyConnectedComponent:
     def test_multiple_num_components(self):
         """Test transform with num_components > 1."""
         transform = KeepOnlyConnectedComponent(num_components=2)
-        
+
         # Create a graph with three components
         edge_index = torch.tensor([
             [0, 1, 2, 3, 4, 5],  # Three components: (0,1), (2,3), (4,5)

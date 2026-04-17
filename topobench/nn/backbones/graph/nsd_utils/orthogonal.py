@@ -1,6 +1,6 @@
+"""Orthogonal transformations for sheaf diffusion."""
 # Copyright 2022 Twitter, Inc.
 # SPDX-License-Identifier: Apache-2.0
-
 
 import torch
 from torch import nn

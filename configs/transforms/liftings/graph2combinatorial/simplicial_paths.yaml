@@ -9,6 +9,6 @@ j: 2
 complex_dim: 2
 chunk_size: 1024
 threshold: 1
-# Required for all liftings to make the pipeline executable 
+# Required for all liftings to make the pipeline executable
 preserve_edge_attr: False
 neighborhoods: ${oc.select:model.backbone.neighborhoods,null}

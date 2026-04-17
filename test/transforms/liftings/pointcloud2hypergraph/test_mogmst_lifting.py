@@ -50,16 +50,16 @@ class TestMoGMSTLifting:
             and labels[3] != labels[6]
             and labels[0] != labels[6]
         ), "Labels have not been assigned correctly"
-        
+
         labels, num_components, means = self.lifting2.find_mog(
             self.data.clone().x.numpy()
         )
-        
+
         assert num_components == 4, "Wrong number of components"
 
     def test_lift_topology(self):
         """Test the lift_topology method."""
-        
+
         # Test the lift_topology method
         lifted_data_k = self.lifting.forward(self.data.clone())
 

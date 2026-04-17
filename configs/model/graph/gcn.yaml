@@ -19,7 +19,7 @@ backbone:
   act: relu
 
 backbone_wrapper:
-  _target_: topobench.nn.wrappers.GNNWrapper 
+  _target_: topobench.nn.wrappers.GNNWrapper
   _partial_: true
   wrapper_name: GNNWrapper
   out_channels: ${model.feature_encoder.out_channels}

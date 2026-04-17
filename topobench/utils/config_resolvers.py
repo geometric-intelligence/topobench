@@ -386,7 +386,9 @@ def infer_in_channels(dataset, transforms):
 
                 else:
                     # ProjectionSum feature lifting by default
-                    return [num_features[0]] * (transforms[lifting].complex_dim + 1)
+                    return [num_features[0]] * (
+                        transforms[lifting].complex_dim + 1
+                    )
             # If preserve_edge_attr == True
             else:
                 return list(num_features) + [num_features[1]] * (

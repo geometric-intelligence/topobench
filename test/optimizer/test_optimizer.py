@@ -8,7 +8,7 @@ from topobench.optimizer import TBOptimizer
 
 class TestTBOptimizer:
     """Test the TBOptimizer class."""
-    
+
     def setup_method(self):
         """Setup method."""
         self.optimizer_config_with_scheduler = {
@@ -29,10 +29,9 @@ class TestTBOptimizer:
         out = optimizer.configure_optimizer(self.params)
         assert "optimizer" in out
         assert "lr_scheduler" in out
-        
+
         # Check without scheduler
         optimizer = TBOptimizer(**self.optimizer_config_without_scheduler)
         out = optimizer.configure_optimizer(self.params)
         assert "optimizer" in out
         assert "lr_scheduler" not in out
-        

@@ -31,4 +31,3 @@ model:
 dataset:
   split_type: k-fold
   k: 10
-

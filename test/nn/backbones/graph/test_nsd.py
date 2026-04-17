@@ -19,14 +19,14 @@ class TestNSDEncoder:
 
     def _prepare_features(self, num_nodes, feat_dim=None):
         """Helper to create features matching the model's expected dimension.
-        
+
         Parameters
         ----------
         num_nodes : int
             Number of nodes in the graph.
         feat_dim : int, optional
             Feature dimension. If None, uses self.input_dim.
-            
+
         Returns
         -------
         torch.Tensor
@@ -42,7 +42,7 @@ class TestNSDEncoder:
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim
         )
-        
+
         assert model.input_dim == self.input_dim
         assert model.hidden_dim == self.hidden_dim
         assert model.num_layers == 2  # default
@@ -63,7 +63,7 @@ class TestNSDEncoder:
             sheaf_act="elu",
             orth="matrix_exp"
         )
-        
+
         assert model.num_layers == 3
         assert model.sheaf_type == "bundle"
         assert model.d == 4
@@ -78,7 +78,7 @@ class TestNSDEncoder:
             sheaf_type="diag",
             d=2
         )
-        
+
         assert model.sheaf_type == "diag"
         assert model.d == 2
 
@@ -91,7 +91,7 @@ class TestNSDEncoder:
             sheaf_type="bundle",
             d=4
         )
-        
+
         assert model.sheaf_type == "bundle"
         assert model.d == 4
 
@@ -104,7 +104,7 @@ class TestNSDEncoder:
             sheaf_type="general",
             d=3
         )
-        
+
         assert model.sheaf_type == "general"
         assert model.d == 3
 
@@ -137,7 +137,7 @@ class TestNSDEncoder:
             d=1
         )
         assert model.d == 1
-        
+
         # Should fail with d < 1
         with pytest.raises(AssertionError):
             NSDEncoder(
@@ -157,7 +157,7 @@ class TestNSDEncoder:
             d=2
         )
         assert model.d == 2
-        
+
         # Should fail with d <= 1
         with pytest.raises(AssertionError):
             NSDEncoder(
@@ -177,7 +177,7 @@ class TestNSDEncoder:
             d=2
         )
         assert model.d == 2
-        
+
         # Should fail with d <= 1
         with pytest.raises(AssertionError):
             NSDEncoder(
@@ -189,119 +189,119 @@ class TestNSDEncoder:
 
     def test_forward_basic(self, simple_graph_0):
         """Test basic forward pass.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert not torch.isnan(out).any()
         assert not torch.isinf(out).any()
 
     def test_forward_no_batch(self, simple_graph_0):
         """Test forward pass without batch vector.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_with_edge_attr(self, simple_graph_0):
         """Test forward pass with edge attributes (should be ignored).
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         # Create dummy edge attributes (should be ignored by NSD)
         edge_attr = torch.randn(simple_graph_0.edge_index.shape[1], 4)
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             edge_attr=edge_attr,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_with_edge_weight(self, simple_graph_0):
         """Test forward pass with edge weights (should be ignored).
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         # Create dummy edge weights (should be ignored by NSD)
         edge_weight = torch.randn(simple_graph_0.edge_index.shape[1])
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             edge_weight=edge_weight,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_diag_sheaf(self, simple_graph_0):
         """Test forward pass with diagonal sheaf.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -309,25 +309,25 @@ class TestNSDEncoder:
             sheaf_type="diag",
             d=2
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_bundle_sheaf(self, simple_graph_0):
         """Test forward pass with bundle sheaf.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -335,25 +335,25 @@ class TestNSDEncoder:
             sheaf_type="bundle",
             d=4
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_general_sheaf(self, simple_graph_0):
         """Test forward pass with general sheaf.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -361,51 +361,51 @@ class TestNSDEncoder:
             sheaf_type="general",
             d=3
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_different_num_layers(self, simple_graph_0):
         """Test forward pass with different number of layers.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for num_layers in [1, 2, 4, 6]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
                 num_layers=num_layers
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
             assert model.num_layers == num_layers
 
     def test_forward_different_d_values(self, simple_graph_0):
         """Test forward pass with different d values.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for d in [2, 4, 8]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
@@ -413,26 +413,26 @@ class TestNSDEncoder:
                 num_layers=2,
                 d=d
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
             assert model.d == d
 
     def test_forward_different_dropout(self, simple_graph_0):
         """Test forward pass with different dropout rates.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for dropout in [0.0, 0.1, 0.3, 0.5]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
@@ -440,25 +440,25 @@ class TestNSDEncoder:
                 num_layers=2,
                 dropout=dropout
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_different_input_dropout(self, simple_graph_0):
         """Test forward pass with different input dropout rates.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for input_dropout in [0.0, 0.1, 0.3, 0.5]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
@@ -466,25 +466,25 @@ class TestNSDEncoder:
                 num_layers=2,
                 input_dropout=input_dropout
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_different_sheaf_activations(self, simple_graph_0):
         """Test forward pass with different sheaf activations.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for sheaf_act in ["tanh", "elu", "id"]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
@@ -492,25 +492,25 @@ class TestNSDEncoder:
                 num_layers=2,
                 sheaf_act=sheaf_act
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_forward_different_orth_methods(self, simple_graph_0):
         """Test forward pass with different orthogonalization methods.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         for orth in ["cayley", "matrix_exp"]:
             model = NSDEncoder(
                 input_dim=self.input_dim,
@@ -518,70 +518,70 @@ class TestNSDEncoder:
                 num_layers=2,
                 orth=orth
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_training_mode(self, simple_graph_0):
         """Test forward pass in training mode.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
         model.train()
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert model.training
 
     def test_eval_mode(self, simple_graph_0):
         """Test forward pass in evaluation mode.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
         model.eval()
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert not model.training
 
     def test_backward_pass(self, simple_graph_0):
         """Test backward pass and gradient computation.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -592,18 +592,18 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         x = self._prepare_features(simple_graph_0.num_nodes).requires_grad_(True)
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         # Compute loss and backward
         loss = out.sum()
         loss.backward()
-        
+
         # Check that gradients exist
         assert x.grad is not None
         # At least some parameters should have gradients
@@ -612,7 +612,7 @@ class TestNSDEncoder:
 
     def test_batched_graphs(self, simple_graph_0, simple_graph_1):
         """Test forward pass with batched graphs.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -622,22 +622,22 @@ class TestNSDEncoder:
         """
         expected_nodes = simple_graph_0.num_nodes + simple_graph_1.num_nodes
         x = self._prepare_features(expected_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         # Create batch
         batch_data = Batch.from_data_list([simple_graph_0, simple_graph_1])
-        
+
         out = model(
             x=x,
             edge_index=batch_data.edge_index,
             batch=batch_data.batch
         )
-        
+
         assert out.shape == (expected_nodes, self.hidden_dim)
 
     def test_empty_graph(self):
@@ -649,13 +649,13 @@ class TestNSDEncoder:
         )
         # Set to eval mode to avoid batch norm issues with single node
         model.eval()
-        
+
         x = self._prepare_features(1)
         edge_index = torch.empty((2, 0), dtype=torch.long)
         batch = torch.zeros(1, dtype=torch.long)
-        
+
         out = model(x=x, edge_index=edge_index, batch=batch)
-        
+
         assert out.shape == (1, self.hidden_dim)
 
     def test_large_graph(self):
@@ -665,11 +665,11 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         num_nodes = 100
         num_edges = 300
         x = self._prepare_features(num_nodes)
-        
+
         # Create edges in one direction only, then to_undirected will handle making it bidirectional
         # This ensures proper pairing that NSD expects
         edge_list = []
@@ -681,32 +681,32 @@ class TestNSDEncoder:
                 src, tgt = tgt, src
             if src != tgt:  # Avoid self-loops
                 edge_list.append([src, tgt])
-        
+
         # Remove duplicates
         edge_list = list(set(tuple(e) for e in edge_list))
-        
+
         if len(edge_list) > 0:
             edge_index = torch.tensor(edge_list, dtype=torch.long).t()
         else:
             # Fallback: create at least one edge
             edge_index = torch.tensor([[0], [1]], dtype=torch.long)
-        
+
         batch = torch.zeros(num_nodes, dtype=torch.long)
-        
+
         out = model(x=x, edge_index=edge_index, batch=batch)
-        
+
         assert out.shape == (num_nodes, self.hidden_dim)
 
     def test_deterministic_output_eval_mode(self, simple_graph_0):
         """Test that output is deterministic in eval mode.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -714,25 +714,25 @@ class TestNSDEncoder:
             dropout=0.5
         )
         model.eval()
-        
+
         # Run forward pass twice
         out1 = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         out2 = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert torch.allclose(out1, out2)
 
     def test_different_hidden_dims(self, simple_graph_0):
         """Test with different hidden dimensions.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -740,24 +740,24 @@ class TestNSDEncoder:
         """
         for hidden_dim in [16, 32, 64, 128]:
             x = self._prepare_features(simple_graph_0.num_nodes)
-            
+
             model = NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=hidden_dim,
                 num_layers=2
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, hidden_dim)
 
     def test_different_input_dims(self, simple_graph_0):
         """Test with different input dimensions.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -765,24 +765,24 @@ class TestNSDEncoder:
         """
         for input_dim in [8, 16, 32, 64]:
             x = self._prepare_features(simple_graph_0.num_nodes, input_dim)
-            
+
             model = NSDEncoder(
                 input_dim=input_dim,
                 hidden_dim=self.hidden_dim,
                 num_layers=2
             )
-            
+
             out = model(
                 x=x,
                 edge_index=simple_graph_0.edge_index,
                 batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
             )
-            
+
             assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_model_device_consistency(self, simple_graph_0):
         """Test that model respects device placement.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -790,7 +790,7 @@ class TestNSDEncoder:
         """
         if not torch.cuda.is_available():
             pytest.skip("CUDA not available")
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -798,20 +798,20 @@ class TestNSDEncoder:
             device="cuda"
         )
         model = model.cuda()
-        
+
         x = self._prepare_features(simple_graph_0.num_nodes).cuda()
         edge_index = simple_graph_0.edge_index.cuda()
         batch = torch.zeros(simple_graph_0.num_nodes, dtype=torch.long).cuda()
-        
+
         out = model(x=x, edge_index=edge_index, batch=batch)
-        
+
         assert out.is_cuda
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     @pytest.mark.parametrize("num_layers", [1, 2, 4, 6])
     def test_parametrized_num_layers(self, simple_graph_0, num_layers):
         """Parametrized test for different number of layers.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -820,26 +820,26 @@ class TestNSDEncoder:
             Number of NSD layers to test.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=num_layers
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert model.num_layers == num_layers
 
     @pytest.mark.parametrize("sheaf_type", ["diag", "bundle", "general"])
     def test_parametrized_sheaf_type(self, simple_graph_0, sheaf_type):
         """Parametrized test for different sheaf types.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -848,12 +848,12 @@ class TestNSDEncoder:
             Type of sheaf to test.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         # Use d=2 for all types (minimum valid for all)
         d = 2 if sheaf_type != "diag" else 1
         if sheaf_type in ["bundle", "general"]:
             d = 4  # Use larger d for non-diag types
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -861,20 +861,20 @@ class TestNSDEncoder:
             sheaf_type=sheaf_type,
             d=d
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert model.sheaf_type == sheaf_type
 
     @pytest.mark.parametrize("d", [2, 4, 8])
     def test_parametrized_d_values(self, simple_graph_0, d):
         """Parametrized test for different d values.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -883,27 +883,27 @@ class TestNSDEncoder:
             Stalk dimension to test.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2,
             d=d
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert model.d == d
 
     @pytest.mark.parametrize("orth", ["cayley", "matrix_exp"])
     def test_parametrized_orth_method(self, simple_graph_0, orth):
         """Parametrized test for different orthogonalization methods.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -912,38 +912,38 @@ class TestNSDEncoder:
             Orthogonalization method to test.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2,
             orth=orth
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_kwargs_ignored(self, simple_graph_0):
         """Test that additional kwargs are ignored gracefully.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
@@ -951,7 +951,7 @@ class TestNSDEncoder:
             unused_kwarg="test",
             another_unused=123
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
     def test_get_sheaf_model(self):
@@ -961,9 +961,9 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
-        
+
         sheaf_model = model.get_sheaf_model()
-        
+
         assert sheaf_model is not None
         assert sheaf_model == model.sheaf_model
 
@@ -979,9 +979,9 @@ class TestNSDEncoder:
             sheaf_act="elu",
             orth="matrix_exp"
         )
-        
+
         config = model.sheaf_config
-        
+
         assert config["d"] == 4
         assert config["layers"] == 3
         assert config["hidden_channels"] == 64 // 4  # hidden_dim // d
@@ -994,21 +994,21 @@ class TestNSDEncoder:
 
     def test_multiple_forward_passes_same_graph(self, simple_graph_0):
         """Test multiple forward passes on the same graph.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
             num_layers=2
         )
         model.eval()
-        
+
         # Multiple forward passes
         for _ in range(5):
             out = model(
@@ -1022,7 +1022,7 @@ class TestNSDEncoder:
 
     def test_gradient_flow(self, simple_graph_0):
         """Test that gradients flow through the entire network.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -1034,38 +1034,38 @@ class TestNSDEncoder:
             num_layers=2
         )
         model.train()
-        
+
         x = self._prepare_features(simple_graph_0.num_nodes).requires_grad_(True)
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         # Compute loss
         loss = out.mean()
         loss.backward()
-        
+
         # Check gradients in different parts of the model
         param_grads = [p.grad for p in model.parameters() if p.grad is not None]
         assert len(param_grads) > 0, "No parameters have gradients"
-        
+
         # Check that gradients are not all zeros
         non_zero_grads = [g for g in param_grads if g.abs().sum() > 0]
         assert len(non_zero_grads) > 0, "All gradients are zero"
 
     def test_bundle_sheaf_with_matrix_exp(self, simple_graph_0):
         """Test bundle sheaf with matrix_exp orthogonalization.
-        
+
         This tests the orthogonal.py matrix_exp path (line 39).
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -1074,29 +1074,29 @@ class TestNSDEncoder:
             d=4,
             orth="matrix_exp"
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert not torch.isnan(out).any()
         assert not torch.isinf(out).any()
 
     def test_general_sheaf_with_matrix_exp(self, simple_graph_0):
         """Test general sheaf with matrix_exp orthogonalization.
-        
+
         This ensures complete coverage of matrix_exp path in orthogonal.py.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
             Test graph fixture.
         """
         x = self._prepare_features(simple_graph_0.num_nodes)
-        
+
         model = NSDEncoder(
             input_dim=self.input_dim,
             hidden_dim=self.hidden_dim,
@@ -1105,22 +1105,22 @@ class TestNSDEncoder:
             d=3,
             orth="matrix_exp"
         )
-        
+
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
         assert not torch.isnan(out).any()
         assert not torch.isinf(out).any()
 
     def test_bundle_sheaf_gradient_flow(self, simple_graph_0):
         """Test gradient flow through bundle sheaf.
-        
+
         This tests the bundle laplacian builder normalise method (lines 153-176).
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -1134,18 +1134,18 @@ class TestNSDEncoder:
             d=4
         )
         model.train()
-        
+
         x = self._prepare_features(simple_graph_0.num_nodes).requires_grad_(True)
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         # Compute loss and backward
         loss = out.sum()
         loss.backward()
-        
+
         # Check that gradients exist
         assert x.grad is not None
         has_grad = any(param.grad is not None for param in model.parameters() if param.requires_grad)
@@ -1153,9 +1153,9 @@ class TestNSDEncoder:
 
     def test_general_sheaf_gradient_flow(self, simple_graph_0):
         """Test gradient flow through general sheaf.
-        
+
         This ensures coverage of general sheaf laplacian methods.
-        
+
         Parameters
         ----------
         simple_graph_0 : torch_geometric.data.Data
@@ -1169,18 +1169,18 @@ class TestNSDEncoder:
             d=3
         )
         model.train()
-        
+
         x = self._prepare_features(simple_graph_0.num_nodes).requires_grad_(True)
         out = model(
             x=x,
             edge_index=simple_graph_0.edge_index,
             batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long)
         )
-        
+
         # Compute loss and backward
         loss = out.sum()
         loss.backward()
-        
+
         # Check that gradients exist
         assert x.grad is not None
         has_grad = any(param.grad is not None for param in model.parameters() if param.requires_grad)

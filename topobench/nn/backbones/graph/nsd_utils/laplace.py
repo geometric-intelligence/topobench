@@ -214,6 +214,7 @@ def compute_learnable_diag_laplacian_indices(
 
     return diag_indices, non_diag_indices
 
+
 def mergesp(index1, value1, index2, value2):
     """
     Merge two sparse matrices with disjoint indices into one.

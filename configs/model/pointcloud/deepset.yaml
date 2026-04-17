@@ -16,7 +16,7 @@ backbone:
   hidden_channels: ${model.feature_encoder.out_channels}
 
 backbone_wrapper:
-  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name} 
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
   _partial_: true
   wrapper_name: PointcloudWrapper
   out_channels: ${model.feature_encoder.out_channels}
@@ -24,7 +24,7 @@ backbone_wrapper:
 
 readout:
   _target_: topobench.nn.readouts.${model.readout.readout_name}
-  readout_name: MLPReadout 
+  readout_name: MLPReadout
   num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
   in_channels: ${model.feature_encoder.out_channels}
   hidden_layers: [64,32]

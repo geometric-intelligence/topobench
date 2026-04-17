@@ -20,7 +20,7 @@ class DiscreteConfigurationComplexLifting(Graph2CellLifting):
 
     Lift graphs to cell complexes by generating the k-th discrete configuration complex D_k(G) of the graph. This is a cube complex, which is similar to a simplicial complex except each n-dimensional cell is homeomorphic to a n-dimensional cube rather than an n-dimensional simplex.
 
-    The discrete configuration complex of order k consists of all sets of k unique edges or vertices of G, with the additional constraint that if an edge e is in a cell, then neither of the endpoints of e are in the cell. For examples of different graphs and their configuration complexes, see the tutorial.
+    The discrete configuration complex of order k consists of all sets of k unique edges or vertices of G, with the additional constraint that if an edge e is in a cell, then neither of the endpoints of e is in the cell. For examples of different graphs and their configuration complexes, see the tutorial.
 
     Note that since TopoNetx only supports cell complexes of dimension 2, if you generate a configuration complex of order k > 2 this will only produce the 2-skeleton.
 

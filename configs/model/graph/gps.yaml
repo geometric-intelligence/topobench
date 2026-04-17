@@ -1,12 +1,12 @@
 _target_: topobench.model.TBModel
 
-model_name: GPS 
+model_name: GPS
 model_domain: graph
 
 feature_encoder:
   _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
   encoder_name: AllCellFeatureEncoder
-  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}} 
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
   out_channels: 64
   proj_dropout: 0.2
 
@@ -18,7 +18,7 @@ backbone:
   dropout: 0.4 # SWEEP: [0.0, 0.25, 0.5]
   heads: 4 # SWEEP: [4,8]
   attn_type: multihead # SWEEP: [multihead, performer]
-  local_conv_type: gin # no sweep. 
+  local_conv_type: gin # no sweep.
 
 backbone_wrapper:
   _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
@@ -30,7 +30,7 @@ backbone_wrapper:
 
 readout:
   _target_: topobench.nn.readouts.${model.readout.readout_name}
-  readout_name: MLPReadout 
+  readout_name: MLPReadout
   num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
   in_channels: ${model.feature_encoder.out_channels}
   hidden_layers: [16]

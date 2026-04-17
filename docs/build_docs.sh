@@ -119,7 +119,7 @@ if [ "$SERVE" = true ]; then
 elif [ "$OPEN_BROWSER" = true ]; then
     if [ -f "$INDEX_FILE" ]; then
         echo -e "${GREEN}✓ Opening documentation in browser...${NC}"
-        
+
         # Detect OS and open browser
         if command -v xdg-open > /dev/null; then
             xdg-open "$INDEX_FILE" > /dev/null 2>&1 &

@@ -22,7 +22,7 @@ class TestSimplicialCliqueLifting:
 
     def test_lift_topology(self, simple_graph_1):
         """Test the lift_topology method.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data
@@ -210,7 +210,7 @@ class TestSimplicialCliqueLifting:
 
     def test_lifted_features_signed(self, simple_graph_1):
         """Test the lift_features method in signed incidence cases.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data
@@ -258,7 +258,7 @@ class TestSimplicialCliqueLifting:
 
     def test_lifted_features_unsigned(self, simple_graph_1):
         """Test the lift_features method in unsigned incidence cases.
-        
+
         Parameters
         ----------
         simple_graph_1 : Data

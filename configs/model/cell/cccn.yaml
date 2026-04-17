@@ -6,7 +6,7 @@ model_domain: cell
 feature_encoder:
   _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
   encoder_name: AllCellFeatureEncoder
-  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}} 
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
   out_channels: 32
   proj_dropout: 0.
   selected_dimensions:

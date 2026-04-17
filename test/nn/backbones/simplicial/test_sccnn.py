@@ -12,7 +12,7 @@ from topobench.transforms.liftings.graph2simplicial import (
 
 def test_SCCNNCustom(simple_graph_1):
     """Test SCCNNCustom.
-    
+
     Parameters
     ----------
     simple_graph_1 : torch_geometric.data.Data
@@ -37,7 +37,7 @@ def test_SCCNNCustom(simple_graph_1):
 
     auto_test = NNModuleAutoTest([
         {
-            "module" : SCCNNCustom, 
+            "module" : SCCNNCustom,
             "init": ((data.x.shape[1], data.x_1.shape[1], data.x_2.shape[1]), (out_dim, out_dim, out_dim), conv_order, sc_order),
             "forward":  ((data.x, data.x_1, data.x_2), laplacian_all, incidence_all),
             "assert_shape": expected_shapes
@@ -49,7 +49,7 @@ def test_SCCNNCustom(simple_graph_1):
 @pytest.fixture
 def create_sample_data():
     """Create sample data for testing.
-    
+
     Returns
     -------
     dict
@@ -59,17 +59,17 @@ def create_sample_data():
     x = torch.randn(num_nodes, 3)  # 3 node features
     x_1 = torch.randn(8, 4)  # 8 edges with 4 features
     x_2 = torch.randn(6, 5)  # 6 faces with 5 features
-    
+
     # Create sample Laplacians and incidence matrices
     hodge_laplacian_0 = torch.sparse_coo_tensor(size=(num_nodes, num_nodes))
     down_laplacian_1 = torch.sparse_coo_tensor(size=(8, 8))
     up_laplacian_1 = torch.sparse_coo_tensor(size=(8, 8))
     down_laplacian_2 = torch.sparse_coo_tensor(size=(6, 6))
     up_laplacian_2 = torch.sparse_coo_tensor(size=(6, 6))
-    
+
     incidence_1 = torch.sparse_coo_tensor(size=(num_nodes, 8))
     incidence_2 = torch.sparse_coo_tensor(size=(8, 6))
-    
+
     return {
         'x': x,
         'x_1': x_1,
@@ -82,7 +82,7 @@ def test_sccnn_basic_initialization():
     """Test basic initialization of SCCNNCustom."""
     in_channels = (3, 4, 5)
     hidden_channels = (6, 6, 6)
-    
+
     # Test basic initialization
     model = SCCNNCustom(
         in_channels_all=in_channels,
@@ -91,7 +91,7 @@ def test_sccnn_basic_initialization():
         sc_order=3
     )
     assert model is not None
-    
+
     # Verify layer structure
     assert len(model.layers) == 2  # Default n_layers is 2
     assert hasattr(model, 'in_linear_0')
@@ -102,7 +102,7 @@ def test_update_functions():
     """Test different update functions in the SCCNN."""
     in_channels = (3, 4, 5)
     hidden_channels = (6, 6, 6)
-    
+
     # Test sigmoid update function
     model = SCCNNCustom(
         in_channels_all=in_channels,
@@ -112,7 +112,7 @@ def test_update_functions():
         update_func="sigmoid"
     )
     assert model is not None
-    
+
     # Test ReLU update function
     model = SCCNNCustom(
         in_channels_all=in_channels,
@@ -125,14 +125,14 @@ def test_update_functions():
 
 def test_aggr_norm(create_sample_data):
     """Test aggregation normalization functionality.
-    
+
     Parameters
     ----------
     create_sample_data : dict
         Sample data for testing.
     """
     data = create_sample_data
-    
+
     model = SCCNNCustom(
         in_channels_all=(3, 4, 5),
         hidden_channels_all=(6, 6, 6),
@@ -140,14 +140,14 @@ def test_aggr_norm(create_sample_data):
         sc_order=3,
         aggr_norm=True
     )
-    
+
     # Forward pass with aggregation normalization
     output = model(
         (data['x'], data['x_1'], data['x_2']),
         data['laplacian_all'],
         data['incidence_all']
     )
-    
+
     assert len(output) == 3
     assert all(torch.isfinite(out).all() for out in output)
 
@@ -155,7 +155,7 @@ def test_different_conv_orders():
     """Test SCCNN with different convolution orders."""
     in_channels = (3, 4, 5)
     hidden_channels = (6, 6, 6)
-    
+
     # Test with conv_order = 1
     model1 = SCCNNCustom(
         in_channels_all=in_channels,
@@ -164,7 +164,7 @@ def test_different_conv_orders():
         sc_order=3
     )
     assert model1 is not None
-    
+
     # Test with conv_order = 3
     model2 = SCCNNCustom(
         in_channels_all=in_channels,
@@ -173,7 +173,7 @@ def test_different_conv_orders():
         sc_order=3
     )
     assert model2 is not None
-    
+
     # Test invalid conv_order
     with pytest.raises(AssertionError):
         model = SCCNNCustom(
@@ -187,7 +187,7 @@ def test_different_sc_orders():
     """Test SCCNN with different simplicial complex orders."""
     in_channels = (3, 4, 5)
     hidden_channels = (6, 6, 6)
-    
+
     # Test with sc_order = 2
     model1 = SCCNNCustom(
         in_channels_all=in_channels,
@@ -196,7 +196,7 @@ def test_different_sc_orders():
         sc_order=2
     )
     assert model1 is not None
-    
+
     # Test with sc_order > 2
     model2 = SCCNNCustom(
         in_channels_all=in_channels,
@@ -208,27 +208,27 @@ def test_different_sc_orders():
 
 def test_forward_shapes(create_sample_data):
     """Test output shapes for different input configurations.
-    
+
     Parameters
     ----------
     create_sample_data : dict
         Sample data for testing.
     """
     data = create_sample_data
-    
+
     model = SCCNNCustom(
         in_channels_all=(3, 4, 5),
         hidden_channels_all=(6, 6, 6),
         conv_order=2,
         sc_order=3
     )
-    
+
     output = model(
         (data['x'], data['x_1'], data['x_2']),
         data['laplacian_all'],
         data['incidence_all']
     )
-    
+
     assert output[0].shape == (data['x'].shape[0], 6)
     assert output[1].shape == (data['x_1'].shape[0], 6)
     assert output[2].shape == (data['x_2'].shape[0], 6)
@@ -237,7 +237,7 @@ def test_n_layers():
     """Test SCCNN with different numbers of layers."""
     in_channels = (3, 4, 5)
     hidden_channels = (6, 6, 6)
-    
+
     # Test with 1 layer
     model1 = SCCNNCustom(
         in_channels_all=in_channels,
@@ -247,7 +247,7 @@ def test_n_layers():
         n_layers=1
     )
     assert len(model1.layers) == 1
-    
+
     # Test with 3 layers
     model2 = SCCNNCustom(
         in_channels_all=in_channels,

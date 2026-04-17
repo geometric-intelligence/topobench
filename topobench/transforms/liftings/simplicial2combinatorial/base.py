@@ -8,7 +8,7 @@ class Simplicial2CombinatorialLifting(SimplicialLifting):
 
     Parameters
     ----------
-    **kwargs : optiona""l
+    **kwargs : optional
         Additional arguments for the class.
     """
 

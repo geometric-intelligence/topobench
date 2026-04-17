@@ -36,8 +36,8 @@ div.section > h4 {
 }
 
 /* Improve class and function signatures */
-dl.py.class, 
-dl.py.function, 
+dl.py.class,
+dl.py.function,
 dl.py.method,
 dl.class.py,
 dl.function.py,
@@ -293,8 +293,8 @@ html[data-theme="light"] a.reference.internal .viewcode-link:hover {
     }
 
     /* Improve class and function signatures in dark mode */
-    dl.py.class, 
-    dl.py.function, 
+    dl.py.class,
+    dl.py.function,
     dl.py.method,
     dl.class.py,
     dl.function.py,

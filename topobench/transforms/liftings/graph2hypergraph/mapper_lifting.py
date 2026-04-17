@@ -23,7 +23,7 @@ class MapperCover:
     resolution : int, optional
         The number of intervals in the MapperCover. Default is 10.
     gain : float, optional
-        The proportion of overlap between consectutive intervals
+        The proportion of overlap between consecutive intervals
         in the MapperCover and should be value between 0 and 0.5.
         Default is 0.3.
 
@@ -106,7 +106,7 @@ class MapperCover:
             f"Resolution should be greater than 0. Currently, resolution is {self.resolution}."
         )
         assert float(self.resolution).is_integer(), (
-            f"Resolution must be an integer value. Currenly, resolution is {self.resolution}."
+            f"Resolution must be an integer value. Currently, resolution is {self.resolution}."
         )
 
 
@@ -142,7 +142,7 @@ class MapperLifting(Graph2HypergraphLifting):
         The number of intervals to construct the MapperCover.
         Default is 10.
     gain : float, optional
-        The percentage of overlap between consectutive intervals
+        The percentage of overlap between consecutive intervals
         in MapperCover and should be a value between 0 and 0.5.
         Default is 0.3.
     filter_func : object, optional

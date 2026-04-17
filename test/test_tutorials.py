@@ -9,7 +9,7 @@ import pytest
 
 def _exec_tutorial(path):
     """Execute a tutorial notebook.
-    
+
     Parameters
     ----------
     path : str
@@ -37,7 +37,7 @@ paths = sorted(glob.glob("tutorials/*.ipynb"))
 @pytest.mark.parametrize("path", paths)
 def test_tutorial(path):
     """Run the test of the tutorials.
-    
+
     Parameters
     ----------
     path : str

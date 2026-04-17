@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.CitationHypergraphDatasetLoader
-  parameters: 
+  parameters:
     data_domain: hypergraph
     data_type: coauthorship
     data_name: coauthorship_cora

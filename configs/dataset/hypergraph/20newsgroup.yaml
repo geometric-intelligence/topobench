@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.HypergraphDatasetLoader
-  parameters: 
+  parameters:
     data_domain: hypergraph
     data_type: ml_datasets
     data_name: 20newsW100

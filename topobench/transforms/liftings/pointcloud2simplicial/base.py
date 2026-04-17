@@ -33,7 +33,7 @@ class PointCloud2SimplicialLifting(PointCloudLifting):
             The simplicial complex.
 
         Returns
-        ---------
+        -------
         dict
             The lifted topology.
         """

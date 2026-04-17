@@ -46,7 +46,7 @@ class TestGraphTriangleInducedCC:
             abs(expected_incidence_1) == lifted_data.incidence_1.to_dense()
         ).all(), "Something is wrong with incidence_1 (nodes to edges)."
 
-        
+
         expected_incidence_2 = torch.tensor(
             [
             [0., 0.],
@@ -74,7 +74,7 @@ class TestGraphTriangleInducedCC:
             abs(expected_incidence_2) == lifted_data.incidence_2.to_dense()
         ).all(), "Something is wrong with incidence_2 (edges to faces)."
 
-        
+
         expected_incidence_3 = torch.tensor([[1.],[1.]])
 
         assert (

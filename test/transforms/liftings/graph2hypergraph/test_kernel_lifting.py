@@ -18,7 +18,7 @@ from topobench.transforms.liftings.graph2hypergraph.kernel_lifting import (
 
 def cos_sim(A, B, dim=1):
     """Compute the cosine similarity between two matrices.
-    
+
     Parameters
     ----------
     A : torch.Tensor
@@ -27,7 +27,7 @@ def cos_sim(A, B, dim=1):
         The second matrix.
     dim : int, optional
         The dimension along which to compute the cosine similarity, by default 1.
-        
+
     Returns
     -------
     torch.Tensor
@@ -41,7 +41,7 @@ def cos_sim(A, B, dim=1):
 
 def rbf_kernel(x1, x2, gamma=1.0):
     """ Compute the RBF kernel between two matrices.
-    
+
     Parameters
     ----------
     x1 : torch.Tensor
@@ -50,7 +50,7 @@ def rbf_kernel(x1, x2, gamma=1.0):
         The second matrix.
     gamma : float, optional
         The gamma parameter of the RBF kernel, by default 1.0.
-        
+
     Returns
     -------
     torch.Tensor
@@ -138,7 +138,7 @@ class TestHypergraphKernelLifting:
 
     def reset_lifting(self, **kwargs):
         """Reset the HypergraphKernelLifting class with new parameters.
-        
+
         Parameters
         ----------
         **kwargs : dict

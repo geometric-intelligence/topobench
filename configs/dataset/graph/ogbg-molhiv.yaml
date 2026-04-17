@@ -1,7 +1,7 @@
 
 loader:
   _target_: topobench.data.loaders.OGBGDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: OGBGDataset
     data_name: ogbg-molhiv
@@ -11,7 +11,7 @@ loader:
 parameters:
   num_features: 9
   num_classes: 2
-  task: classification 
+  task: classification
   loss_type: cross_entropy
   monitor_metric: accuracy
   task_level: graph
@@ -27,9 +27,6 @@ split_params:
 
 # Dataloader parameters
 dataloader_params:
-  batch_size: 64 
+  batch_size: 64
   num_workers: 0
   pin_memory: False
-
-
-

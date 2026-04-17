@@ -103,7 +103,7 @@ class TopoTune(torch.nn.Module):
         Parameters
         ----------
         params : dict
-            The parameters of the batch, containting the complex.
+            The parameters of the batch, containing the complex.
         src_rank : int
             The source rank.
         nbhd : str
@@ -159,7 +159,7 @@ class TopoTune(torch.nn.Module):
         Parameters
         ----------
         params : dict
-            The parameters of the batch, containting the complex.
+            The parameters of the batch, containing the complex.
         src_rank : int
             The source rank.
         dst_rank : int

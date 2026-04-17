@@ -66,7 +66,7 @@ class TestLapPE:
         # Check that LapPE is stored separately
         assert hasattr(transformed, "LapPE")
         assert transformed.LapPE.shape == (3, 8)
-        
+
         # Check that original x is unchanged
         assert torch.equal(transformed.x, x)
 
@@ -240,7 +240,7 @@ class TestLapPE:
         # Check that for each eigenvector column, the maximum absolute value
         # element has consistent sign (the sign convention used in the code)
         lappe = transformed.LapPE
-        
+
         for col in range(lappe.shape[1]):
             if lappe[:, col].abs().sum() > 1e-6:  # Skip zero columns (padding)
                 max_idx = torch.argmax(lappe[:, col].abs())
@@ -346,7 +346,7 @@ class TestLapPE:
         x = torch.tensor([[1.0], [2.0], [3.0]])
         y = torch.tensor([0, 1, 0])
         custom_attr = torch.tensor([10, 20, 30])
-        
+
         data = Data(
             x=x,
             edge_index=edge_index,
@@ -465,7 +465,7 @@ class TestLapPE:
     @pytest.mark.parametrize("max_pe_dim", [1, 2, 4, 8, 16])
     def test_parametrized_dimensions(self, max_pe_dim):
         """Parametrized test for different LapPE dimensions.
-        
+
         Parameters
         ----------
         max_pe_dim : int
@@ -485,7 +485,7 @@ class TestLapPE:
     @pytest.mark.parametrize("include_first", [True, False])
     def test_parametrized_include_first(self, include_first):
         """Parametrized test for include_first parameter.
-        
+
         Parameters
         ----------
         include_first : bool

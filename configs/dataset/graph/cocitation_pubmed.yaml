@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.PlanetoidDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: cocitation
     data_name: PubMed

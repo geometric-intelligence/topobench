@@ -24,7 +24,7 @@ backbone:
     - ${model.backbone.in_channels_all[0]}
     - ${model.backbone.in_channels_all[1]}
     - ${model.backbone.in_channels_all[2]}
-  conv_order: 1 # Increasing order make the training unstable 
+  conv_order: 1 # Increasing order make the training unstable
   sc_order: 3
   aggr_norm: False
   update_func: "sigmoid"

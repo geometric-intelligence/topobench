@@ -6,7 +6,7 @@ model_domain: cell
 feature_encoder:
   _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
   encoder_name: AllCellFeatureEncoder
-  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}} 
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
   out_channels: 128
   proj_dropout: 0.0
   selected_dimensions:
@@ -19,7 +19,7 @@ backbone:
   in_channels_1: ${model.feature_encoder.out_channels}
   out_channels: ${model.feature_encoder.out_channels}
   dropout: 0.0
-  heads: 1 # For now we stuck to out_channels//heads, keep heads = 1 
+  heads: 1 # For now we stuck to out_channels//heads, keep heads = 1
   concat: True
   skip_connection: True
   n_layers: 1

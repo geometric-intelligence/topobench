@@ -1,7 +1,7 @@
 # Dataset loader config
 loader:
   _target_: topobench.data.loaders.GeometricShapesDatasetLoader
-  parameters: 
+  parameters:
     data_domain: pointcloud
     data_type: geometric_shapes
     data_name: geometric_shapes
@@ -29,4 +29,3 @@ dataloader_params:
   batch_size: 10 # We have an issue with allowing multiple graphs in a batch due to sparse incidences
   num_workers: 0
   pin_memory: False
-

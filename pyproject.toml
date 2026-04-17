@@ -114,13 +114,18 @@ explicit = true
 
 # Default find-links (will be overwritten by bash script)
 [tool.uv]
-find-links = ["https://data.pyg.org/whl/torch-2.3.0+cpu.html"]
+find-links = ["https://data.pyg.org/whl/torch-2.3.0+cu121.html"]
 
 [tool.uv.sources]
 torch = [
     { index = "pytorch-cpu", marker = "sys_platform == 'darwin' or sys_platform == 'win32'" },
-    { index = "pytorch-cpu", marker = "sys_platform == 'linux'" },
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux'" },
 ]
+
+[tool.uv.extra-build-dependencies]
+torch-cluster = ["torch==2.3.0"]
+torch-scatter = ["torch==2.3.0"]
+torch-sparse = ["torch==2.3.0"]
 
 # ==============================================================================
 #  TOOL CONFIGS

@@ -7,7 +7,7 @@ from topobench.utils import log_hyperparameters
 @patch("topobench.utils.logging_utils.OmegaConf.to_container")
 def test_log_hyperparameters(mock_to_container, mock_warning):
     """Test the log_hyperparameters function.
-    
+
     Parameters
     ----------
     mock_to_container : MagicMock

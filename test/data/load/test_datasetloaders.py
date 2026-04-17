@@ -9,7 +9,7 @@ from omegaconf import DictConfig
 from topobench.data.preprocessor.preprocessor import PreProcessor
 class TestLoaders:
     """Comprehensive test suite for all dataset loaders."""
-    
+
     @pytest.fixture(autouse=True)
     def setup(self):
         """Setup test environment before each test method."""
@@ -23,7 +23,7 @@ class TestLoaders:
     # Existing helper methods remain the same
     def _gather_config_files(self, base_dir: Path) -> List[str]:
         """Gather all relevant config files.
-        
+
         Parameters
         ----------
         base_dir : Path
@@ -43,11 +43,11 @@ class TestLoaders:
                             "REDDIT-BINARY.yaml", "IMDB-MULTI.yaml", "IMDB-BINARY.yaml", #"ZINC.yaml"
                             "ogbg-molpcba.yaml", "manual_dataset.yaml" # "ogbg-molhiv.yaml"
                             }
-        
-        # Below the datasets that takes quite some time to load and process                            
+
+        # Below the datasets that takes quite some time to load and process
         self.long_running_datasets = {"mantra_name.yaml", "mantra_orientation.yaml", "mantra_genus.yaml", "mantra_betti_numbers.yaml"}
 
-        
+
         for dir_path in config_base_dir.iterdir():
             curr_dir = str(dir_path).split('/')[-1]
             if dir_path.is_dir():
@@ -66,7 +66,7 @@ class TestLoaders:
             Name of the data domain.
         config_file : str
           Name of the config file.
-        
+
         Returns
         -------
         Tuple[Any, Dict]
@@ -80,8 +80,8 @@ class TestLoaders:
             print('Current config file: ', config_file)
             parameters = hydra.compose(
                 config_name="run.yaml",
-                overrides=[f"dataset={data_domain}/{config_file}", f"model=graph/gat"], 
-                return_hydra_config=True, 
+                overrides=[f"dataset={data_domain}/{config_file}", f"model=graph/gat"],
+                return_hydra_config=True,
             )
             dataset_loader = hydra.utils.instantiate(parameters.dataset.loader)
             print(repr(dataset_loader))
@@ -97,31 +97,24 @@ class TestLoaders:
         for config_data in self.config_files:
             data_domain, config_file = config_data
             dataset, _ = self._load_dataset(data_domain, config_file)
-            
+
             # Test dataset size and dimensions
             if hasattr(dataset, "data"):
                 assert dataset.data.x.size(0) > 0, "Empty node features"
                 assert dataset.data.y.size(0) > 0, "Empty labels"
-            
+
             # Below brakes with manual dataset
-            # else: 
+            # else:
             #     assert dataset[0].x.size(0) > 0, "Empty node features"
             #     assert dataset[0].y.size(0) > 0, "Empty labels"
-            
+
             # Test node feature dimensions
             if hasattr(dataset, 'num_node_features'):
                 assert dataset.data.x.size(1) == dataset.num_node_features
-            
+
             # Below brakes with manual dataset
             # # Test label dimensions
             # if hasattr(dataset, 'num_classes'):
             #     assert torch.max(dataset.data.y) < dataset.num_classes
 
             repr(dataset)
-    
-       
-
-
-    
-                
-

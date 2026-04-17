@@ -299,7 +299,7 @@ class HypergraphKernelLifting(Graph2HypergraphLifting):
             The lifted topology.
 
         Raises
-        -------
+        ------
         ValueError: if the input is incomplete or in incorrect format.
         """
         if not torch_geometric.utils.is_undirected(data.edge_index):

@@ -15,16 +15,16 @@ class TestConfigInstantiators:
         self.callback = OmegaConf.load("configs/callbacks/model_summary.yaml")
         self.logger = DictConfig(
             {
-            '_target_': 'lightning.pytorch.loggers.wandb.WandbLogger', 
-            'save_dir': '/', 
-            'offline': False, 
-            'id': None, 
-            'anonymous': None, 
-            'project': 'None', 
-            'log_model': False, 
-            'prefix': '', 
-            'group': '', 
-            'tags': [], 
+            '_target_': 'lightning.pytorch.loggers.wandb.WandbLogger',
+            'save_dir': '/',
+            'offline': False,
+            'id': None,
+            'anonymous': None,
+            'project': 'None',
+            'log_model': False,
+            'prefix': '',
+            'group': '',
+            'tags': [],
             'job_type': ''
             }
         )
@@ -33,9 +33,8 @@ class TestConfigInstantiators:
         """Test instantiate_callbacks."""
         result = instantiate_callbacks(self.callback)
         assert type(result) == list
-       
+
     def test_instantiate_loggers(self):
         """Test instantiate_loggers."""
         result = instantiate_loggers(self.logger)
         assert type(result) == list
-        

@@ -5,9 +5,9 @@ from unittest.mock import PropertyMock
 
 class FlowMocker:
     """Flow mocker.
-    
-    Mocker for the flow of the test. It allows to create mock objects and assert them.
-    
+
+    Mocker for the flow of the test. It allows creating mock objects and asserting them.
+
     Parameters
     ----------
     mocker : pytest_mock.plugin.MockerFixture
@@ -26,7 +26,7 @@ class FlowMocker:
 
     def parse_mock(self, params):
         """Parse mock object from parameters.
-        
+
         Parameters
         ----------
         params : dict
@@ -67,15 +67,15 @@ class FlowMocker:
                 if mock_alias is not None:
                     if mock_alias in self.mocks:
                         raise KeyError(
-                            f"`{mock_alias}` is already exist in mock dictionary"
+                            f"`{mock_alias}` already exists in mock dictionary"
                         )
                     self.mocks[mock_alias] = self.mocks[patch_obj]
 
     def assert_all(self, tested_obj, params=None):
         """Assert test.
-        
+
         Assert that specified in assert_args either `params` or self.params. We can access mock object by its alias {"mock: "mock_alias_1", ...}.
-        
+
         Parameters
         ----------
         tested_obj : any
@@ -105,12 +105,12 @@ class FlowMocker:
 
     def get(self, mock_key):
         """Get mock object by its key.
-        
+
         Parameters
         ----------
         mock_key : str
             Key of the mock object.
-            
+
         Returns
         -------
         any

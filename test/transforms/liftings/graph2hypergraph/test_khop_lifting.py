@@ -19,7 +19,7 @@ class TestHypergraphKHopLifting:
 
     def test_lift_topology(self, simple_graph_2):
         """ Test the lift_topology method.
-        
+
         Parameters
         ----------
         simple_graph_2 : Data
@@ -78,7 +78,7 @@ class TestHypergraphKHopLifting:
         assert (
             expected_n_hyperedges == lifted_data_k2.num_hyperedges
         ), "Something is wrong with the number of hyperedges (k=2)."
-        
+
         self.data_edge_attr = simple_graph_2
         edge_attributes = torch.rand((self.data_edge_attr.edge_index.shape[1], 2))
         self.data_edge_attr.edge_attr = edge_attributes

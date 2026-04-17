@@ -32,7 +32,7 @@ class TestDataFieldTransforms:
 
     def test_keep_selected_data_fields(self):
         """Test keeping selected fields.
-        
+
         Verifies that only specified fields are kept and others are removed.
         """
         data = self.keep_selected_fields(self.data.clone())

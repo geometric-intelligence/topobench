@@ -12,7 +12,7 @@ from topobench.transforms.liftings.hypergraph2combinatorial.base import (
 class UniversalStrictLifting(Hypergraph2CombinatorialLifting):
     r"""Lift hypergraphs to combinatorial complexes.
 
-    It works by assinging the smallest rank values such that subcells of any cell have strictly smaller rank.
+    It works by assigning the smallest rank values such that subcells of any cell have strictly smaller rank.
 
     Parameters
     ----------
@@ -100,12 +100,12 @@ class UniversalStrictLifting(Hypergraph2CombinatorialLifting):
         Create a list of pairs with the starts and lengths of hyperedges in ascending order of hyperedge size.
 
         Parameters
-        ------------
+        ----------
         hyperedges : torch.tensor
             A tensor with two rows: the first one for hyperedge indices, the second one for node indices.
 
         Returns
-        --------
+        -------
         list
             A list of pairs (start, length) sorted according to length (ascending).
         """

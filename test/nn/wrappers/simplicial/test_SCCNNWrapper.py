@@ -20,7 +20,7 @@ class TestSimplicialWrappers:
 
     def test_SCCNNWrapper(self, sg1_clique_lifted):
         """Test SCCNNWrapper.
-        
+
         Parameters
         ----------
         sg1_clique_lifted : torch_geometric.data.Data
@@ -33,8 +33,8 @@ class TestSimplicialWrappers:
         init_args = (data.x_0.shape[1], data.x_1.shape[1], data.x_2.shape[1]), (out_dim, out_dim, out_dim), conv_order, sc_order
 
         wrapper = SCCNNWrapper(
-            SCCNNCustom(*init_args), 
-            out_channels=out_dim, 
+            SCCNNCustom(*init_args),
+            out_channels=out_dim,
             num_cell_dimensions=3
         )
         out = wrapper(data)
@@ -44,7 +44,7 @@ class TestSimplicialWrappers:
 
     def test_SANWarpper(self, sg1_clique_lifted):
         """Test SANWarpper.
-        
+
         Parameters
         ----------
         sg1_clique_lifted : torch_geometric.data.Data
@@ -55,8 +55,8 @@ class TestSimplicialWrappers:
         hidden_channels = data.x_0.shape[1]
 
         wrapper = SANWrapper(
-            SAN(data.x_0.shape[1], hidden_channels), 
-            out_channels=out_dim, 
+            SAN(data.x_0.shape[1], hidden_channels),
+            out_channels=out_dim,
             num_cell_dimensions=3
         )
         out = wrapper(data)
@@ -66,7 +66,7 @@ class TestSimplicialWrappers:
 
     def test_SCNWrapper(self, sg1_clique_lifted):
         """Test SCNWrapper.
-        
+
         Parameters
         ----------
         sg1_clique_lifted : torch_geometric.data.Data
@@ -76,8 +76,8 @@ class TestSimplicialWrappers:
         out_dim = data.x_0.shape[1]
 
         wrapper = SCNWrapper(
-            SCN2(data.x_0.shape[1], data.x_1.shape[1], data.x_2.shape[1]), 
-            out_channels=out_dim, 
+            SCN2(data.x_0.shape[1], data.x_1.shape[1], data.x_2.shape[1]),
+            out_channels=out_dim,
             num_cell_dimensions=3
         )
         out = wrapper(data)
@@ -87,7 +87,7 @@ class TestSimplicialWrappers:
 
     def test_SCCNWrapper(self, sg1_clique_lifted):
         """Test SCCNWrapper.
-        
+
         Parameters
         ----------
         sg1_clique_lifted : torch_geometric.data.Data
@@ -98,12 +98,11 @@ class TestSimplicialWrappers:
         max_rank = 2
 
         wrapper = SCCNWrapper(
-            SCCN(data.x_0.shape[1], max_rank), 
-            out_channels=out_dim, 
+            SCCN(data.x_0.shape[1], max_rank),
+            out_channels=out_dim,
             num_cell_dimensions=3
         )
         out = wrapper(data)
         # Assert keys in output
         for key in ["labels", "batch_0", "x_0", "x_1", "x_2"]:
             assert key in out
-

@@ -2,6 +2,5 @@ transform_name: "InfereRadiusConnectivity"
 transform_type: "data manipulation"
 args:
   r: 1. # Number of nearest neighbors to consider
-  max_num_neighbors: 10 # The maximum number of neighbors to return for each element in y. 
+  max_num_neighbors: 10 # The maximum number of neighbors to return for each element in y.
   # Add additional parameters below if needed (see https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.pool.radius_graph.html#torch_geometric.nn.pool.radius_graph)
-

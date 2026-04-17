@@ -6,7 +6,7 @@ model_domain: graph
 feature_encoder:
   _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
   encoder_name: AllCellFeatureEncoder
-  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}} 
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
   out_channels: 64
   proj_dropout: 0.0
 
@@ -30,7 +30,7 @@ backbone_wrapper:
 
 readout:
   _target_: topobench.nn.readouts.${model.readout.readout_name}
-  readout_name: MLPReadout 
+  readout_name: MLPReadout
   num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
   in_channels: ${model.feature_encoder.out_channels}
   hidden_layers: [16]
