@@ -80,6 +80,54 @@ def test_split_dir_created_concurrently(tmp_path, monkeypatch):
     assert set(result.keys()) == {"train", "valid", "test"}
 
 
+def test_npz_write_is_atomic(tmp_path, monkeypatch):
+    """Regression test for atomic fold-file writes (issue #310).
+
+    Monkeypatches ``np.savez`` to write a few bytes and then raise,
+    mimicking a process killed while serializing the split. Asserts
+    that the canonical fold path does not exist after the simulated
+    crash.
+
+    Parameters
+    ----------
+    tmp_path : pathlib.Path
+        Pytest-provided temporary directory.
+    monkeypatch : pytest.MonkeyPatch
+        Fixture used to replace ``np.savez`` with a stub that writes
+        partial content and then raises.
+    """
+    split_dir = str(tmp_path / "splits")
+
+    def partial_savez_and_crash(file_or_path, **kw):
+        """Write a few bytes and raise, simulating a crash.
+
+        Handles both a path string (the pre-fix call style) and an
+        already-open file object (the post-fix call style).
+
+        Parameters
+        ----------
+        file_or_path : str or file-like
+            The destination np.savez was called with.
+        **kw : dict
+            Ignored keyword arguments from the real np.savez signature.
+        """
+        if hasattr(file_or_path, "write"):
+            file_or_path.write(b"partial corrupt content")
+        else:
+            with open(file_or_path, "wb") as f:
+                f.write(b"partial corrupt content")
+        raise RuntimeError("simulated crash mid-write")
+
+    monkeypatch.setattr(np, "savez", partial_savez_and_crash)
+
+    with pytest.raises(RuntimeError):
+        _generate_or_load_cached_splits(
+            split_dir, 0, _one_split_generator()
+        )
+
+    assert not os.path.exists(os.path.join(split_dir, "0.npz"))
+
+
 class TestLoadInductiveSplits:
     """Test load_inductive_splits function."""
 
