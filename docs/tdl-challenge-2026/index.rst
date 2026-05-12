@@ -1,5 +1,5 @@
-TAG-DS TDL Challenge 2026
--------------------------
+TDL Challenge 2026
+-------------------
 
 Welcome to the **Topological Deep Learning Challenge 2026: Bridging the Gap**, sponsored by `New Theory <https://www.newtheory.ai/>`__ and hosted at the second `Topology, Algebra, and Geometry in Data Science (TAG-DS) Conference <https://www.tagds.com/events/tag-ds-2026>`__.
 

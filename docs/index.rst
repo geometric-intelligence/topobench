@@ -990,7 +990,6 @@ domains <https://arxiv.org/pdf/2402.02441>`__
    :hidden:
    :maxdepth: 2
 
-   tdl-challenge/index
    tdl-challenge-2026/index
    tdl-challenge-2025/index
    api/index

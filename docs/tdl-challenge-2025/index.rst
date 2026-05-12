@@ -1,5 +1,5 @@
-TAG-DS TDL Challenge 2025
--------------------------
+TDL Challenge 2025
+------------------
 
 .. note::
    **Archived edition.** This page documents the 2025 edition of the TDL Challenge. For the current edition, see :doc:`../tdl-challenge-2026/index`.
