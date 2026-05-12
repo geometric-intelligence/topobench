@@ -1,7 +1,7 @@
 """InfereRadiusConnectivity class definition."""
 
 import torch_geometric
-from torch_geometric.nn import radius_graph
+from torch_cluster import radius_graph
 
 
 class InfereRadiusConnectivity(torch_geometric.transforms.BaseTransform):

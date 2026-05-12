@@ -1,7 +1,7 @@
 """InfereKNNConnectivity class definition."""
 
 import torch_geometric
-from torch_geometric.nn import knn_graph
+from torch_cluster import knn_graph
 
 
 class InfereKNNConnectivity(torch_geometric.transforms.BaseTransform):

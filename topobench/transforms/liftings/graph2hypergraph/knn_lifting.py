@@ -2,6 +2,7 @@
 
 import torch
 import torch_geometric
+from torch_cluster import knn_graph
 
 from topobench.transforms.liftings.graph2hypergraph import (
     Graph2HypergraphLifting,
@@ -43,7 +44,6 @@ class HypergraphKNNLifting(Graph2HypergraphLifting):
 
         self.k = k_value
         self.loop = loop
-        self.transform = torch_geometric.transforms.KNNGraph(self.k, self.loop)
 
     def lift_topology(self, data: torch_geometric.data.Data) -> dict:
         r"""Lift a graph to hypergraph by considering k-nearest neighbors.
@@ -59,27 +59,27 @@ class HypergraphKNNLifting(Graph2HypergraphLifting):
             The lifted topology.
         """
         num_nodes = data.x.shape[0]
-        data.pos = data.x
         num_hyperedges = num_nodes
         incidence_1 = torch.zeros(num_nodes, num_nodes)
-        data_lifted = self.transform(data)
+        edge_index = knn_graph(data.x, self.k, loop=self.loop)
+        data.edge_index = edge_index
         # check for loops, since KNNGraph is inconsistent with nodes with equal features
         if self.loop:
             for i in range(num_nodes):
                 if not torch.any(
                     torch.all(
-                        data_lifted.edge_index == torch.tensor([[i, i]]).T,
+                        data.edge_index == torch.tensor([[i, i]]).T,
                         dim=0,
                     )
                 ):
-                    connected_nodes = data_lifted.edge_index[
-                        0, data_lifted.edge_index[1] == i
+                    connected_nodes = data.edge_index[
+                        0, data.edge_index[1] == i
                     ]
                     dists = torch.sqrt(
                         torch.sum(
                             (
-                                data.pos[connected_nodes]
-                                - data.pos[i].unsqueeze(0) ** 2
+                                data.x[connected_nodes]
+                                - data.x[i].unsqueeze(0) ** 2
                             ),
                             dim=1,
                         )
@@ -87,16 +87,16 @@ class HypergraphKNNLifting(Graph2HypergraphLifting):
                     furthest = torch.argmax(dists)
                     idx = torch.where(
                         torch.all(
-                            data_lifted.edge_index
+                            data.edge_index
                             == torch.tensor(
                                 [[connected_nodes[furthest], i]]
                             ).T,
                             dim=0,
                         )
                     )[0]
-                    data_lifted.edge_index[:, idx] = torch.tensor([[i, i]]).T
+                    data.edge_index[:, idx] = torch.tensor([[i, i]]).T
 
-        incidence_1[data_lifted.edge_index[1], data_lifted.edge_index[0]] = 1
+        incidence_1[data.edge_index[1], data.edge_index[0]] = 1
         incidence_1 = torch.Tensor(incidence_1).to_sparse_coo()
         return {
             "incidence_hyperedges": incidence_1,
