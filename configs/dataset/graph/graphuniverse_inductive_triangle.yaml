@@ -1,0 +1,51 @@
+# GraphUniverse inductive: triangle counting (graph-level regression).
+# Same loader / splits / dataloader defaults as ``graphuniverse_inductive.yaml``;
+# generation task and dataset head differ. Use with ``dataset=graph/graphuniverse_inductive_triangle``.
+
+loader:
+  _target_: topobench.data.loaders.GraphUniverseDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: GraphUniverse
+    data_name: GraphUniverse
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+    generation_parameters:
+      task: triangle_counting
+      universe_parameters:
+        K: 20
+        feature_dim: 15
+        center_variance: 0.2
+        cluster_variance: 0.4
+        edge_propensity_variance: 1.0
+        seed: 42
+      family_parameters:
+        n_graphs: 1000
+        n_nodes_range: [50, 200]
+        n_communities_range: [3, 7]
+        homophily_range: [0.4, 0.8]
+        avg_degree_range: [1.0, 2.0]
+        degree_separation_range: [0.5, 1.0]
+        power_law_exponent_range: [1.5, 2.5]
+        seed: ${dataset.loader.parameters.generation_parameters.universe_parameters.seed}
+    
+
+parameters:
+  num_features: ${dataset.loader.parameters.generation_parameters.universe_parameters.feature_dim}
+  num_classes: 1
+  task: regression
+  loss_type: mse
+  monitor_metric: mse
+  task_level: graph
+
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${dataset.loader.parameters.data_dir}/data_splits
+  data_seed: 0
+  split_type: random
+  k: 10
+  train_prop: 0.7
+
+dataloader_params:
+  batch_size: 16 
+  num_workers: 0
+  pin_memory: False
