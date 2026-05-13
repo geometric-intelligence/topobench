@@ -411,7 +411,7 @@ def run_challenge_grid(
                     dataset_group,
                     f"model={model_config}",
                     f"logger.wandb.project={wandb_project}",
-                    f"logger.wandb.name={_hydra_override_string_value(wandb_name)}",
+                    f"+logger.wandb.name={_hydra_override_string_value(wandb_name)}",
                     f"paths.output_dir={run_dir.as_posix()}",
                     f"paths.work_dir={_work.as_posix()}",
                     f"tags=[gu_challenge,{mode_name},{run_slug},s{train_seed}]",
