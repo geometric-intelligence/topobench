@@ -26,17 +26,13 @@ representations. Yet, the broader geometric deep learning field still lacks a
 unified, side-by-side comparison.
 
 The **2026 TDL Challenge: Bridging the Gap** sets out to unite these worlds.
-Rather than treating topological tools as an isolated ecosystem, this year's
-challenge invites researchers from both communities to collaboratively map the
-frontier of relational learning. We invite participants to contribute and
-implement recent **State-of-the-Art (SOTA)** models across two dedicated
+We invite participants to contribute and implement recent **State-of-the-Art (SOTA)** models across two dedicated
 tracks: **Track 1** for GNNs, and **Track 2** for TNNs.
 
 For the first time, the TDL Challenge will go beyond implementation to feature
 a rigorous **performance analysis** of the submitted models. To achieve a
 truly objective comparison, both tracks will be evaluated through a shared
-pipeline powered by **TopoBench** and **GraphUniverse**. By leveraging
-GraphUniverse's framework for generating controlled synthetic graphs, models
+pipeline powered by **TopoBench** `[Telyatnikov et al. 2025] <https://openreview.net/forum?id=07sTzyEVtY>`_ and **GraphUniverse** `[Van Langendonck et al. 2026] <https://openreview.net/pdf?id=jRWxvQnqUt>`_. By leveraging GraphUniverse's framework for generating controlled synthetic graphs, models
 will be tested against specific structural properties. This will allow both
 communities to gain insight on how different architectures from both domains
 handle varying degrees of homophily, heterophily, and complex degree
@@ -57,8 +53,7 @@ Description of the Challenge
 ----------------------------
 
 We propose that participants implement **recent, SOTA message-passing models**
-from either the GNN or TDL literature. The core objective is to move beyond
-standard leaderboard metrics and rigorously evaluate how these different
+from either the GNN or TDL literature. The core objective is to rigorously evaluate how these different
 architectures behave under specific, controlled topological conditions.
 
 To achieve this, participants will integrate their models into the
@@ -66,16 +61,15 @@ To achieve this, participants will integrate their models into the
 by GraphUniverse**. By leveraging this framework, participants will conduct a
 performance analysis that tests their implemented models against strict,
 predefined graph properties—such as varying homophily/heterophily ratios and
-complex degree distributions.
+complex degree distributions. We will publish a leaderboard on this website for results to be tracked live.
 
 **Embracing Modularity.** Beyond just the core message-passing backbone, we
 strongly encourage participants to take full advantage of TopoBench's modular
 architecture. For example, if your chosen SOTA model relies on a novel
 **feature encoder**, a specialized **readout mechanism**, or a custom **loss
 function**, you can seamlessly integrate these components into the pipeline.
-Beyond ensuring faithful implementations of complex architectures, this will
-help enrich the TopoBench ecosystem with highly reusable modules for future
-research across both communities.
+This will help enrich the TopoBench ecosystem with highly reusable modules for future
+research across both communities. Note that no minimum training performance is required and the top-performing model might not necessarily win (see Evaluation Criteria).
 
 To foster fair and structured comparison, the challenge is divided into two
 distinct tracks:
@@ -183,17 +177,9 @@ Guidelines
     GraphUniverse evaluation pipeline.
   - Tag the PR with the appropriate track (one of:
     ``track-1-gnn``, ``track-2-tnn``).
-  - Respect all code, documentation, and submission requirements.
-  - Run the official evaluation pipeline on the provided GraphUniverse
-    settings and report the results in the PR. *[Exact evaluation procedure
-    TBD — see TODO below.]*
+  - Respect all code, documentation, and submission requirements. Note: no minimum training performance is required.
+  - Run the official GraphUniverse Jupyter Notebook on the implemented model and include the automatically generated results file in the PR.
 
-  .. admonition:: TODO
-     :class: warning
-
-     Replace the **Run Evaluation** bullet above with the finalized evaluation
-     procedure (exact GraphUniverse settings, reporting format, evaluation
-     notebook reference).
 
 - **Model Implementations:**
 
