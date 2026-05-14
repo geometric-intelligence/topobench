@@ -1,0 +1,51 @@
+name: "Leaderboard: Refresh TDL Challenge 2026"
+
+on:
+  schedule:
+    # Every 2 days at 06:00 UTC
+    - cron: "0 6 */2 * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/scripts/fetch_leaderboard_results.py"
+      - ".github/workflows/update_leaderboard.yml"
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: leaderboard-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    if: github.repository == 'geometric-intelligence/TopoBench'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch results from labeled PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python docs/scripts/fetch_leaderboard_results.py
+
+      - name: Commit changes (if any)
+        run: |
+          set -euo pipefail
+          DATA_FILE="docs/_static/leaderboard/data/leaderboard.json"
+          if [ -z "$(git status --porcelain "$DATA_FILE")" ]; then
+            echo "No leaderboard changes to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DATA_FILE"
+          git commit -m "docs(leaderboard): refresh TDL Challenge 2026 results [skip ci]"
+          git push
