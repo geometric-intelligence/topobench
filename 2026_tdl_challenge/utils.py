@@ -534,6 +534,86 @@ def run_challenge_grid(
     return results, sid
 
 
+def check_challenge_grid(
+    *,
+    project_root: Path | None = None,
+    model_config: str = "graph/gin",
+    extra_overrides: list[str] | None = None,
+    quiet: bool = True,
+) -> None:
+    """Quickly check that all configurations run correctly (1 epoch, 1 seed, no wandb)."""
+    root = project_root or resolve_project_root()
+    ensure_repo_on_path(root)
+    if not GlobalHydra.instance().is_initialized():
+        register_all_resolvers()
+
+    modes = [
+        ("community_detection", "dataset=graph/graphuniverse_inductive", []),
+        ("triangle_counting", "dataset=graph/graphuniverse_inductive_triangle", []),
+    ]
+
+    all_settings = list(iter_challenge_settings())
+    total_checks = len(modes) * len(all_settings)
+    check_ix = 0
+
+    if not quiet:
+        print(f"Starting sanity check for {total_checks} configurations...")
+
+    for mode_name, dataset_group, mode_overrides in modes:
+        for setting in all_settings:
+            check_ix += 1
+            run_slug = setting.run_slug
+
+            # Temporary directory for check logs
+            run_dir = root / "logs" / "check" / f"{mode_name}_{run_slug}"
+            run_dir.mkdir(parents=True, exist_ok=True)
+
+            overrides: list[str] = [
+                dataset_group,
+                f"model={model_config}",
+                "logger=csv",
+                f"paths.output_dir={run_dir.as_posix()}",
+                f"paths.work_dir={run_dir.as_posix()}",
+                "seed=42",
+                "trainer.max_epochs=1",
+                "trainer.check_val_every_n_epoch=1",
+            ]
+            overrides.extend(mode_overrides)
+            overrides.extend(challenge_setting_to_hydra_overrides(setting))
+            if extra_overrides:
+                overrides.extend(extra_overrides)
+
+            GlobalHydra.instance().clear()
+            with initialize_config_dir(version_base="1.3", config_dir=str(root / "configs")):
+                cfg = compose(config_name="run.yaml", overrides=overrides)
+
+            apply_challenge_feature_encoder_out_channels(cfg)
+
+            if OmegaConf.is_config(cfg) and cfg.get("trainer") is not None:
+                with open_dict(cfg.trainer):
+                    cfg.trainer.enable_progress_bar = False
+
+            pl.seed_everything(cfg.seed, workers=True)
+
+            if not quiet:
+                print(f"[{check_ix}/{total_checks}] Checking {mode_name} | {run_slug} ...", end=" ", flush=True)
+
+            with _challenge_quiet(True):
+                try:
+                    run(cfg)
+                    if not quiet:
+                        print("OK")
+                except Exception as e:
+                    if not quiet:
+                        print("FAILED")
+                    print(f"\n❌ CHECK FAILED: {mode_name} | {run_slug}")
+                    print(f"Error: {e}")
+                    raise e
+
+    if not quiet:
+        print(f"\n✅ All {total_checks} configurations passed the sanity check.")
+
+
 # =============================================================================
 # VISUALIZATION HELPERS
 # =============================================================================
