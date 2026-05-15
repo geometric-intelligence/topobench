@@ -1,0 +1,56 @@
+# Config file for loading Bowen et al. mouse auditory cortex calcium imaging dataset.
+
+# This script downloads and processes the original dataset introduced in:
+
+# [Citation] Bowen et al. (2024), "Fractured columnar small-world functional network
+# organization in volumes of L2/3 of mouse auditory cortex," PNAS Nexus, 3(2): pgae074.
+# https://doi.org/10.1093/pnasnexus/pgae074
+
+# We apply the preprocessing and graph-construction steps defined in this module to obtain
+# a representation of neuronal activity suitable for our experiments.
+
+# Please cite the original paper when using this dataset or any derivatives.
+
+# Dataset loader config for A123 Cortex M
+loader:
+  _target_: topobench.data.loaders.A123DatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: A123CortexM
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type} # Use data_dir from dataset config
+    data_name: a123 # Use data_name from dataset config
+    num_graphs: 10
+    is_undirected: True
+    num_channels: ${dataset.parameters.num_features} # Use num_features for node feature dim
+    num_classes: ${dataset.parameters.num_classes} # Use num_classes for output dim
+
+# Dataset-specific parameters
+parameters:
+  num_features: 3
+  task: classification       
+  specific_task: classification   # Current task selection (classification | triangle_classification | triangle_common_neighbors)
+  num_classes: 9                      
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+  min_neurons: 3
+  corr_threshold: 0.2
+  
+
+# Splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random # 'k-fold' or 'random' strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.7 # for "random" strategy splitting
+  val_prop: 0.15 # for "random" strategy splitting
+  test_prop: 0.15 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 32
+  num_workers: 0
+  pin_memory: False
+
