@@ -16,7 +16,7 @@ class TestBuNNLayer:
     """Test the BuNN diffusion layer."""
 
     def test_bundle_maps_are_orthogonal(self):
-        """Node-wise bundle maps should be valid 2D rotations."""
+        """Node-wise bundle maps should cover both O(2) components."""
         layer = BuNNLayer(
             hidden_channels=16,
             num_bundles=4,
@@ -26,11 +26,20 @@ class TestBuNNLayer:
         x = torch.randn(5, 16)
 
         maps = layer._compute_bundle_maps(x)
-        identity = torch.eye(2).expand(5, 4, 2, 2)
+        identity = torch.eye(2, dtype=maps.dtype, device=maps.device).expand(
+            5, 4, 2, 2
+        )
         product = maps @ maps.transpose(-1, -2)
+        determinants = torch.linalg.det(maps)
+        expected_determinants = maps.new_tensor([1.0, 1.0, -1.0, -1.0])
 
         assert maps.shape == (5, 4, 2, 2)
         assert torch.allclose(product, identity, atol=1e-5)
+        assert torch.allclose(
+            determinants,
+            expected_determinants.expand_as(determinants),
+            atol=1e-5,
+        )
 
     def test_invalid_bundle_dimension_raises(self):
         """Only 2D bundles are supported by the direct parameterization."""
@@ -41,6 +50,11 @@ class TestBuNNLayer:
         """The hidden width must split cleanly into bundle channels."""
         with pytest.raises(ValueError, match="divisible"):
             BuNNLayer(hidden_channels=18, num_bundles=4, bundle_dim=2)
+
+    def test_reflection_parameterization_requires_even_bundles(self):
+        """The paper-style O(2) split needs matched rotations/reflections."""
+        with pytest.raises(ValueError, match="even"):
+            BuNNLayer(hidden_channels=18, num_bundles=3, bundle_dim=2)
 
     def test_random_walk_laplacian_handles_edgeless_graph(self):
         """Isolated nodes should have a zero random-walk Laplacian."""

@@ -22,6 +22,7 @@ backbone:
   dropout: 0.1
   act: gelu
   angle_hidden_channels: 16
+  include_reflections: true
   residual: false
   norm: null
 

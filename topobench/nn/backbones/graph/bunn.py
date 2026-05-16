@@ -67,6 +67,9 @@ class BuNNLayer(nn.Module):
         Hidden width of the angle network. If ``None``, twice the number of
         bundles is used, matching the compact angle-network width described
         for the paper's LRGB experiments. Default is ``None``.
+    include_reflections : bool, optional
+        Whether to parameterize half of the 2D bundles as determinant -1
+        orthogonal maps. Default is ``True``, following Appendix E.
     residual : bool, optional
         Whether to add a residual connection around the BuNN layer. Default is
         ``False``, matching the core Equations (1)--(4).
@@ -85,6 +88,7 @@ class BuNNLayer(nn.Module):
         dropout: float = 0.0,
         act: str = "gelu",
         angle_hidden_channels: int | None = None,
+        include_reflections: bool = True,
         residual: bool = False,
         norm: str | None = None,
     ) -> None:
@@ -94,8 +98,14 @@ class BuNNLayer(nn.Module):
             raise ValueError("BuNNLayer currently supports bundle_dim=2 only.")
         if num_bundles <= 0:
             raise ValueError("num_bundles must be a positive integer.")
+        if include_reflections and num_bundles % 2 != 0:
+            raise ValueError(
+                "num_bundles must be even when include_reflections=True."
+            )
         if taylor_degree < 0:
             raise ValueError("taylor_degree must be non-negative.")
+        if angle_hidden_channels is not None and angle_hidden_channels <= 0:
+            raise ValueError("angle_hidden_channels must be positive.")
 
         bundle_width = num_bundles * bundle_dim
         if hidden_channels % bundle_width != 0:
@@ -111,6 +121,7 @@ class BuNNLayer(nn.Module):
         self.t = float(t)
         self.taylor_degree = int(taylor_degree)
 
+        self.include_reflections = include_reflections
         self.residual = residual
         self.norm_name = norm
 
@@ -131,13 +142,27 @@ class BuNNLayer(nn.Module):
             raise ValueError("Unsupported norm. Use None or 'layer_norm'.")
 
     def _compute_bundle_maps(self, x: torch.Tensor) -> torch.Tensor:
-        """Compute one 2D rotation matrix per node and bundle."""
+        """Compute one 2D orthogonal matrix per node and bundle."""
         angles = self.angle_network(x)
         cos = torch.cos(angles)
         sin = torch.sin(angles)
-        return torch.stack((cos, -sin, sin, cos), dim=-1).reshape(
+        maps = torch.stack((cos, -sin, sin, cos), dim=-1).reshape(
             x.shape[0], self.num_bundles, 2, 2
         )
+        if not self.include_reflections:
+            return maps
+
+        reflection_start = self.num_bundles // 2
+        reflection_maps = torch.stack(
+            (
+                cos[:, reflection_start:],
+                sin[:, reflection_start:],
+                sin[:, reflection_start:],
+                -cos[:, reflection_start:],
+            ),
+            dim=-1,
+        ).reshape(x.shape[0], self.num_bundles - reflection_start, 2, 2)
+        return torch.cat((maps[:, :reflection_start], reflection_maps), dim=1)
 
     def _to_bundle_fields(self, x: torch.Tensor) -> torch.Tensor:
         """Reshape node features into bundle and vector-field channels."""
@@ -303,6 +328,9 @@ class BuNN(nn.Module):
     angle_hidden_channels : int or None, optional
         Hidden width of each angle network. If ``None``, twice the number of
         bundles is used. Default is ``None``.
+    include_reflections : bool, optional
+        Whether to parameterize half of the 2D bundles as determinant -1
+        orthogonal maps. Default is ``True``.
     residual : bool, optional
         Whether to add residual connections around BuNN layers. Default is
         ``False``.
@@ -323,6 +351,7 @@ class BuNN(nn.Module):
         dropout: float = 0.0,
         act: str = "gelu",
         angle_hidden_channels: int | None = None,
+        include_reflections: bool = True,
         residual: bool = False,
         norm: str | None = None,
         **kwargs,
@@ -340,6 +369,7 @@ class BuNN(nn.Module):
         self.bundle_dim = bundle_dim
         self.t = float(t)
         self.taylor_degree = int(taylor_degree)
+        self.include_reflections = include_reflections
 
         if in_channels == hidden_channels:
             self.input_projection = nn.Identity()
@@ -357,6 +387,7 @@ class BuNN(nn.Module):
                     dropout=dropout,
                     act=act,
                     angle_hidden_channels=angle_hidden_channels,
+                    include_reflections=include_reflections,
                     residual=residual,
                     norm=norm,
                 )
@@ -415,6 +446,7 @@ class BuNN(nn.Module):
             f"num_layers={self.num_layers}, "
             f"num_bundles={self.num_bundles}, "
             f"bundle_dim={self.bundle_dim}, "
+            f"include_reflections={self.include_reflections}, "
             f"t={self.t}, "
             f"taylor_degree={self.taylor_degree})"
         )
