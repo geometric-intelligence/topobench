@@ -55,6 +55,13 @@ def _require_non_negative_int(name: str, value: int) -> int:
     return value
 
 
+def _require_bool(name: str, value: bool) -> bool:
+    """Validate boolean feature flags from configs and CLI overrides."""
+    if not isinstance(value, bool):
+        raise ValueError(f"{name} must be a boolean.")
+    return value
+
+
 class BuNNLayer(nn.Module):
     r"""Single flat-bundle heat diffusion layer.
 
@@ -129,6 +136,10 @@ class BuNNLayer(nn.Module):
             angle_hidden_channels = _require_positive_int(
                 "angle_hidden_channels", angle_hidden_channels
             )
+        include_reflections = _require_bool(
+            "include_reflections", include_reflections
+        )
+        residual = _require_bool("residual", residual)
 
         if bundle_dim != 2:
             raise ValueError("BuNNLayer currently supports bundle_dim=2 only.")
@@ -245,6 +256,8 @@ class BuNNLayer(nn.Module):
                 raise ValueError(
                     "edge_weight must have one scalar per edge_index column."
                 )
+            if not torch.isfinite(edge_weight).all():
+                raise ValueError("edge_weight must be finite.")
             if (edge_weight < 0).any():
                 raise ValueError("edge_weight must be non-negative.")
 
@@ -422,6 +435,10 @@ class BuNN(nn.Module):
             "hidden_channels", hidden_channels
         )
         num_layers = _require_positive_int("num_layers", num_layers)
+        include_reflections = _require_bool(
+            "include_reflections", include_reflections
+        )
+        residual = _require_bool("residual", residual)
 
         self.in_channels = in_channels
         self.hidden_channels = hidden_channels

@@ -71,6 +71,26 @@ class TestBuNNLayer:
                 angle_hidden_channels=8.0,
             )
 
+    def test_non_boolean_include_reflections_raises(self):
+        """Reflection mode should not be inferred from truthy strings."""
+        with pytest.raises(ValueError, match="include_reflections.*boolean"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                include_reflections="false",
+            )
+
+    def test_non_boolean_residual_raises(self):
+        """Residual mode should be an explicit boolean config value."""
+        with pytest.raises(ValueError, match="residual.*boolean"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                residual="false",
+            )
+
     def test_invalid_diffusion_time_raises(self):
         """Diffusion time is a non-negative heat-equation parameter."""
         with pytest.raises(ValueError, match="finite and non-negative"):
@@ -173,6 +193,15 @@ class TestBuNNLayer:
         edge_weight = torch.tensor([-1.0])
 
         with pytest.raises(ValueError, match="non-negative"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_edge_weights_must_be_finite(self):
+        """Invalid weights should not silently poison heat diffusion."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([float("nan")])
+
+        with pytest.raises(ValueError, match="finite"):
             BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
 
     def test_zero_time_identity_update_recovers_input(self):
@@ -294,3 +323,14 @@ class TestBuNN:
         """The graph encoder needs a positive input feature width."""
         with pytest.raises(ValueError, match="in_channels"):
             BuNN(in_channels=0, hidden_channels=16)
+
+    def test_non_boolean_model_flags_raise(self):
+        """Top-level boolean flags should not accept truthy strings."""
+        with pytest.raises(ValueError, match="include_reflections.*boolean"):
+            BuNN(
+                in_channels=8,
+                hidden_channels=16,
+                include_reflections="false",
+            )
+        with pytest.raises(ValueError, match="residual.*boolean"):
+            BuNN(in_channels=8, hidden_channels=16, residual="false")
