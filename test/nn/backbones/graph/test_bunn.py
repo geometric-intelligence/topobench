@@ -70,6 +70,14 @@ class TestBuNNLayer:
 
         assert torch.equal(out, torch.zeros_like(x))
 
+    def test_random_walk_laplacian_requires_coo_edge_index(self):
+        """The Laplacian expects PyG COO connectivity."""
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[2, num_edges\]"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
     def test_random_walk_laplacian_symmetrizes_edges(self):
         """A one-way edge should be treated as an undirected graph edge."""
         x = torch.tensor([[0.0], [2.0]])
@@ -95,6 +103,15 @@ class TestBuNNLayer:
         edge_weight = torch.tensor([1.0, 1.0])
 
         with pytest.raises(ValueError, match="one scalar per edge"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_edge_weights_must_be_non_negative(self):
+        """Random-walk diffusion uses non-negative edge weights."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([-1.0])
+
+        with pytest.raises(ValueError, match="non-negative"):
             BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
 
     def test_zero_time_identity_update_recovers_input(self):
