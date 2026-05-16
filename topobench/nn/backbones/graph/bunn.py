@@ -295,6 +295,8 @@ class BuNNLayer(nn.Module):
             raise ValueError("edge_index must have shape [2, num_edges].")
         if edge_index.dtype != torch.long:
             raise ValueError("edge_index must be a torch.long tensor.")
+        if edge_index.device != x.device:
+            raise ValueError("edge_index must be on the same device as x.")
 
         source, target = edge_index
         if source.numel() > 0 and (

@@ -201,6 +201,14 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="torch.long"):
             BuNNLayer._random_walk_laplacian(x, edge_index)
 
+    def test_random_walk_laplacian_requires_edge_index_device_match(self):
+        """Connectivity should live on the same device as node features."""
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(2, 0, dtype=torch.long, device="meta")
+
+        with pytest.raises(ValueError, match="same device"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
     def test_random_walk_laplacian_requires_tensor_edge_index(self):
         """Connectivity should fail clearly before tensor operations."""
         x = torch.randn(3, 8)
