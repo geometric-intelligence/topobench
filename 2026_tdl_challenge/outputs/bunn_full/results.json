@@ -2,7 +2,7 @@
   "metadata": {
     "study_id": "bunn_full",
     "model_config": "graph/bunn",
-    "generated_at_utc": "2026-05-16T06:06:54.792597+00:00",
+    "generated_at_utc": "2026-05-16T06:15:43.506502+00:00",
     "n_runs": 72,
     "train_seeds": [
       42,

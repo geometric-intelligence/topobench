@@ -51,6 +51,11 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="divisible"):
             BuNNLayer(hidden_channels=18, num_bundles=4, bundle_dim=2)
 
+    def test_invalid_diffusion_time_raises(self):
+        """Diffusion time is a non-negative heat-equation parameter."""
+        with pytest.raises(ValueError, match="non-negative"):
+            BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2, t=-0.1)
+
     def test_reflection_parameterization_requires_even_bundles(self):
         """The paper-style O(2) split needs matched rotations/reflections."""
         with pytest.raises(ValueError, match="even"):
@@ -73,6 +78,24 @@ class TestBuNNLayer:
         out = BuNNLayer._random_walk_laplacian(x, edge_index)
 
         assert torch.allclose(out, torch.tensor([[-2.0], [2.0]]))
+
+    def test_random_walk_laplacian_ignores_self_loops(self):
+        """Self-loops are not part of the paper's simple graph Laplacian."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0, 0], [0, 1]])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [2.0]]))
+
+    def test_edge_weight_length_must_match_edges(self):
+        """Weighted Laplacians need one scalar weight per edge."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([1.0, 1.0])
+
+        with pytest.raises(ValueError, match="one scalar per edge"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
 
     def test_zero_time_identity_update_recovers_input(self):
         """Synchronization and desynchronization should cancel for identity W."""

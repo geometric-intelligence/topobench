@@ -102,6 +102,8 @@ class BuNNLayer(nn.Module):
             raise ValueError(
                 "num_bundles must be even when include_reflections=True."
             )
+        if t < 0:
+            raise ValueError("t must be non-negative.")
         if taylor_degree < 0:
             raise ValueError("taylor_degree must be non-negative.")
         if angle_hidden_channels is not None and angle_hidden_channels <= 0:
@@ -199,6 +201,17 @@ class BuNNLayer(nn.Module):
             edge_weight = edge_weight.to(dtype=x.dtype, device=x.device).view(
                 -1
             )
+            if edge_weight.shape[0] != source.shape[0]:
+                raise ValueError(
+                    "edge_weight must have one scalar per edge_index column."
+                )
+
+        non_loop = source != target
+        source = source[non_loop]
+        target = target[non_loop]
+        edge_weight = edge_weight[non_loop]
+        if source.numel() == 0:
+            return torch.zeros_like(x)
 
         source, target = (
             torch.cat((source, target), dim=0),
