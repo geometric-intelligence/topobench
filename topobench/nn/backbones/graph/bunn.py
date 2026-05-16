@@ -12,7 +12,7 @@ local frames.
 from __future__ import annotations
 
 import math
-from numbers import Integral
+from numbers import Integral, Real
 
 import torch
 import torch.nn as nn
@@ -59,6 +59,26 @@ def _require_bool(name: str, value: bool) -> bool:
     """Validate boolean feature flags from configs and CLI overrides."""
     if not isinstance(value, bool):
         raise ValueError(f"{name} must be a boolean.")
+    return value
+
+
+def _require_non_negative_float(name: str, value: float) -> float:
+    """Validate finite non-negative scalar hyperparameters."""
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise ValueError(f"{name} must be a numeric scalar.")
+    value = float(value)
+    if not math.isfinite(value) or value < 0:
+        raise ValueError(f"{name} must be finite and non-negative.")
+    return value
+
+
+def _require_probability(name: str, value: float) -> float:
+    """Validate probability-valued regularization hyperparameters."""
+    if isinstance(value, bool) or not isinstance(value, Real):
+        raise ValueError(f"{name} must be a probability in [0, 1].")
+    value = float(value)
+    if not math.isfinite(value) or value < 0 or value > 1:
+        raise ValueError(f"{name} must be a finite probability in [0, 1].")
     return value
 
 
@@ -140,6 +160,8 @@ class BuNNLayer(nn.Module):
             "include_reflections", include_reflections
         )
         residual = _require_bool("residual", residual)
+        diffusion_time = _require_non_negative_float("t", t)
+        dropout = _require_probability("dropout", dropout)
 
         if bundle_dim != 2:
             raise ValueError("BuNNLayer currently supports bundle_dim=2 only.")
@@ -147,9 +169,6 @@ class BuNNLayer(nn.Module):
             raise ValueError(
                 "num_bundles must be even when include_reflections=True."
             )
-        diffusion_time = float(t)
-        if not math.isfinite(diffusion_time) or diffusion_time < 0:
-            raise ValueError("t must be finite and non-negative.")
 
         bundle_width = num_bundles * bundle_dim
         if hidden_channels % bundle_width != 0:
@@ -435,18 +454,23 @@ class BuNN(nn.Module):
             "hidden_channels", hidden_channels
         )
         num_layers = _require_positive_int("num_layers", num_layers)
+        taylor_degree = _require_non_negative_int(
+            "taylor_degree", taylor_degree
+        )
         include_reflections = _require_bool(
             "include_reflections", include_reflections
         )
         residual = _require_bool("residual", residual)
+        diffusion_time = _require_non_negative_float("t", t)
+        dropout = _require_probability("dropout", dropout)
 
         self.in_channels = in_channels
         self.hidden_channels = hidden_channels
         self.num_layers = num_layers
         self.num_bundles = num_bundles
         self.bundle_dim = bundle_dim
-        self.t = float(t)
-        self.taylor_degree = int(taylor_degree)
+        self.t = diffusion_time
+        self.taylor_degree = taylor_degree
         self.include_reflections = include_reflections
 
         if in_channels == hidden_channels:
@@ -460,7 +484,7 @@ class BuNN(nn.Module):
                     hidden_channels=hidden_channels,
                     num_bundles=num_bundles,
                     bundle_dim=bundle_dim,
-                    t=t,
+                    t=diffusion_time,
                     taylor_degree=taylor_degree,
                     dropout=dropout,
                     act=act,

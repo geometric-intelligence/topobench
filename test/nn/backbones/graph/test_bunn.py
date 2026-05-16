@@ -103,6 +103,11 @@ class TestBuNNLayer:
                 hidden_channels=16, num_bundles=4, bundle_dim=2, t=float("inf")
             )
 
+    def test_non_numeric_diffusion_time_raises(self):
+        """The heat diffusion time should not accept boolean coercion."""
+        with pytest.raises(ValueError, match="t.*numeric scalar"):
+            BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2, t=True)
+
     def test_non_integer_taylor_degree_raises(self):
         """Taylor approximation degree should not be silently truncated."""
         with pytest.raises(ValueError, match="integer"):
@@ -111,6 +116,26 @@ class TestBuNNLayer:
                 num_bundles=4,
                 bundle_dim=2,
                 taylor_degree=2.5,
+            )
+
+    def test_invalid_dropout_raises(self):
+        """Dropout should be a finite probability."""
+        with pytest.raises(ValueError, match="dropout.*finite probability"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                dropout=float("nan"),
+            )
+
+    def test_non_numeric_dropout_raises(self):
+        """Dropout should not accept boolean probability coercion."""
+        with pytest.raises(ValueError, match="dropout.*probability"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                dropout=True,
             )
 
     def test_reflection_parameterization_requires_even_bundles(self):
@@ -318,6 +343,21 @@ class TestBuNN:
         """Layer count should not be silently coerced from a float."""
         with pytest.raises(ValueError, match="num_layers.*integer"):
             BuNN(in_channels=8, hidden_channels=16, num_layers=2.0)
+
+    def test_non_integer_model_taylor_degree_raises(self):
+        """The full encoder should validate Taylor degree before building."""
+        with pytest.raises(ValueError, match="taylor_degree.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, taylor_degree=2.5)
+
+    def test_non_numeric_model_diffusion_time_raises(self):
+        """The top-level diffusion time should not accept booleans."""
+        with pytest.raises(ValueError, match="t.*numeric scalar"):
+            BuNN(in_channels=8, hidden_channels=16, t=True)
+
+    def test_invalid_model_dropout_raises(self):
+        """The full encoder should reject invalid dropout probabilities."""
+        with pytest.raises(ValueError, match="dropout.*finite probability"):
+            BuNN(in_channels=8, hidden_channels=16, dropout=float("nan"))
 
     def test_invalid_input_width_raises(self):
         """The graph encoder needs a positive input feature width."""
