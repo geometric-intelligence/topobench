@@ -404,6 +404,15 @@ class TestBuNN:
         assert out.shape == x.shape
         assert torch.isfinite(out).all()
 
+    def test_forward_rejects_unexpected_kwargs(self):
+        """Forward-only graph attributes should not be silently ignored."""
+        model = BuNN(in_channels=8, hidden_channels=16, num_layers=1)
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="unexpected.*edge_attr"):
+            model(x=x, edge_index=edge_index, edge_attr=torch.empty(0, 1))
+
     def test_forward_requires_input_width(self, simple_graph_0):
         """The full encoder should reject mismatched node feature widths."""
         edge_index = _undirected_edge_index(simple_graph_0)
@@ -456,6 +465,11 @@ class TestBuNN:
         """At least one BuNN layer is required."""
         with pytest.raises(ValueError, match="num_layers"):
             BuNN(in_channels=8, hidden_channels=16, num_layers=0)
+
+    def test_unexpected_model_init_kwargs_raise(self):
+        """Constructor config typos should not be silently ignored."""
+        with pytest.raises(ValueError, match="unexpected.*typo_param"):
+            BuNN(in_channels=8, hidden_channels=16, typo_param=1)
 
     def test_non_integer_num_layers_raises(self):
         """Layer count should not be silently coerced from a float."""

@@ -101,6 +101,15 @@ def _require_node_feature_matrix(
         )
 
 
+def _reject_unexpected_kwargs(context: str, kwargs: dict) -> None:
+    """Fail fast on misspelled or unsupported integration arguments."""
+    if kwargs:
+        unexpected = ", ".join(sorted(kwargs))
+        raise ValueError(
+            f"{context} got unexpected keyword argument(s): {unexpected}."
+        )
+
+
 class BuNNLayer(nn.Module):
     r"""Single flat-bundle heat diffusion layer.
 
@@ -484,7 +493,7 @@ class BuNN(nn.Module):
         **kwargs,
     ) -> None:
         super().__init__()
-        del kwargs
+        _reject_unexpected_kwargs("BuNN", kwargs)
 
         in_channels = _require_positive_int("in_channels", in_channels)
         hidden_channels = _require_positive_int(
@@ -573,14 +582,16 @@ class BuNN(nn.Module):
         edge_weight : torch.Tensor or None, optional
             Optional scalar edge weights. Default is ``None``.
         **kwargs
-            Additional keyword arguments accepted for PyG compatibility.
+            Unsupported keyword arguments raise ``ValueError`` to avoid silent
+            configuration mistakes.
 
         Returns
         -------
         torch.Tensor
             Node embeddings of shape ``[num_nodes, hidden_channels]``.
         """
-        del batch, kwargs
+        del batch
+        _reject_unexpected_kwargs("BuNN.forward", kwargs)
 
         _require_node_feature_matrix(x, self.in_channels, "in_channels")
         x = self.input_projection(x)
