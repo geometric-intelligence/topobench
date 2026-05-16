@@ -344,6 +344,32 @@ class TestBuNN:
         with pytest.raises(ValueError, match="num_layers.*integer"):
             BuNN(in_channels=8, hidden_channels=16, num_layers=2.0)
 
+    def test_non_integer_model_num_bundles_raises(self):
+        """The top-level encoder should validate bundle count directly."""
+        with pytest.raises(ValueError, match="num_bundles.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, num_bundles=4.0)
+
+    def test_invalid_model_bundle_dimension_raises(self):
+        """The full encoder should report unsupported bundle dimensions."""
+        with pytest.raises(ValueError, match="bundle_dim=2"):
+            BuNN(
+                in_channels=8, hidden_channels=16, num_bundles=2, bundle_dim=4
+            )
+
+    def test_invalid_model_hidden_width_raises(self):
+        """Top-level hidden width should split into bundle channels."""
+        with pytest.raises(ValueError, match="divisible"):
+            BuNN(in_channels=8, hidden_channels=18, num_bundles=4)
+
+    def test_non_integer_model_angle_hidden_channels_raises(self):
+        """The top-level encoder should validate angle-network width."""
+        with pytest.raises(ValueError, match="angle_hidden_channels.*integer"):
+            BuNN(
+                in_channels=8,
+                hidden_channels=16,
+                angle_hidden_channels=8.0,
+            )
+
     def test_non_integer_model_taylor_degree_raises(self):
         """The full encoder should validate Taylor degree before building."""
         with pytest.raises(ValueError, match="taylor_degree.*integer"):

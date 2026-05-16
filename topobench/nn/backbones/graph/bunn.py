@@ -454,15 +454,32 @@ class BuNN(nn.Module):
             "hidden_channels", hidden_channels
         )
         num_layers = _require_positive_int("num_layers", num_layers)
+        num_bundles = _require_positive_int("num_bundles", num_bundles)
+        bundle_dim = _require_positive_int("bundle_dim", bundle_dim)
         taylor_degree = _require_non_negative_int(
             "taylor_degree", taylor_degree
         )
+        if angle_hidden_channels is not None:
+            angle_hidden_channels = _require_positive_int(
+                "angle_hidden_channels", angle_hidden_channels
+            )
         include_reflections = _require_bool(
             "include_reflections", include_reflections
         )
         residual = _require_bool("residual", residual)
         diffusion_time = _require_non_negative_float("t", t)
         dropout = _require_probability("dropout", dropout)
+        if bundle_dim != 2:
+            raise ValueError("BuNN currently supports bundle_dim=2 only.")
+        if include_reflections and num_bundles % 2 != 0:
+            raise ValueError(
+                "num_bundles must be even when include_reflections=True."
+            )
+        if hidden_channels % (num_bundles * bundle_dim) != 0:
+            raise ValueError(
+                "hidden_channels must be divisible by "
+                "num_bundles * bundle_dim."
+            )
 
         self.in_channels = in_channels
         self.hidden_channels = hidden_channels
