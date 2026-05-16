@@ -92,6 +92,11 @@ def _require_node_feature_matrix(
         or x.shape[1] != expected_channels
     ):
         raise ValueError(f"x must have shape [num_nodes, {channel_name}].")
+    if not torch.is_floating_point(x):
+        raise ValueError(
+            "x must be a floating point tensor with shape "
+            f"[num_nodes, {channel_name}]."
+        )
 
 
 class BuNNLayer(nn.Module):
@@ -266,6 +271,11 @@ class BuNNLayer(nn.Module):
         """
         if not isinstance(x, torch.Tensor) or x.dim() != 2:
             raise ValueError("x must have shape [num_nodes, num_features].")
+        if not torch.is_floating_point(x):
+            raise ValueError(
+                "x must be a floating point tensor with shape "
+                "[num_nodes, num_features]."
+            )
         if (
             not isinstance(edge_index, torch.Tensor)
             or edge_index.dim() != 2

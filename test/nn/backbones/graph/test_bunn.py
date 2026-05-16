@@ -175,6 +175,14 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
             BuNNLayer._random_walk_laplacian([[0.0], [1.0]], edge_index)
 
+    def test_random_walk_laplacian_requires_float_node_features(self):
+        """Heat diffusion should operate on real-valued node signals."""
+        x = torch.tensor([[0], [2]])
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="floating point"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
     def test_random_walk_laplacian_requires_long_edge_index(self):
         """PyG edge indices should use integer node ids."""
         x = torch.randn(3, 8)
@@ -260,6 +268,15 @@ class TestBuNNLayer:
         with pytest.raises(
             ValueError, match=r"\[num_nodes, hidden_channels\]"
         ):
+            layer(x, edge_index)
+
+    def test_forward_requires_float_hidden_features(self):
+        """Layer input features should be real-valued signals."""
+        layer = BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2)
+        x = torch.ones(3, 16, dtype=torch.long)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="floating point"):
             layer(x, edge_index)
 
     def test_zero_time_identity_update_recovers_input(self):
@@ -362,6 +379,21 @@ class TestBuNN:
         )
 
         with pytest.raises(ValueError, match=r"\[num_nodes, in_channels\]"):
+            model(x=x, edge_index=edge_index)
+
+    def test_forward_requires_float_input_features(self, simple_graph_0):
+        """The full encoder should reject integer node features clearly."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.ones(simple_graph_0.num_nodes, 8, dtype=torch.long)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        with pytest.raises(ValueError, match="floating point"):
             model(x=x, edge_index=edge_index)
 
     def test_forward_backward(self, simple_graph_0):
