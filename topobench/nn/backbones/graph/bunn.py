@@ -531,6 +531,7 @@ class BuNN(nn.Module):
 
         self.in_channels = in_channels
         self.hidden_channels = hidden_channels
+        self.out_channels = hidden_channels
         self.num_layers = num_layers
         self.num_bundles = num_bundles
         self.bundle_dim = bundle_dim

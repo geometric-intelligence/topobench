@@ -5,6 +5,7 @@ import torch
 from torch_geometric.utils import to_undirected
 
 from topobench.nn.backbones.graph.bunn import BuNN, BuNNLayer
+from topobench.nn.wrappers.graph.gnn_wrapper import GNNWrapper
 
 
 def _undirected_edge_index(data):
@@ -364,12 +365,20 @@ class TestBuNN:
 
         assert model.in_channels == 8
         assert model.hidden_channels == 16
+        assert model.out_channels == 16
         assert model.num_layers == 3
         assert model.num_bundles == 4
         assert model.t == 0.5
         assert model.taylor_degree == 2
         assert len(model.layers) == 3
         assert model.layers[0].angle_network[0].out_features == 8
+
+    def test_wrapper_repr_uses_output_channels(self):
+        """TopoBench wrappers expect graph backbones to expose out_channels."""
+        model = BuNN(in_channels=8, hidden_channels=16, num_layers=1)
+        wrapper = GNNWrapper(model, out_channels=16, num_cell_dimensions=1)
+
+        assert "out_channels=16" in repr(wrapper)
 
     def test_forward_shape(self, simple_graph_0):
         """BuNN returns one hidden vector per node."""
