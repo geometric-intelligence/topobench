@@ -56,6 +56,21 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="hidden_channels"):
             BuNNLayer(hidden_channels=0, num_bundles=4, bundle_dim=2)
 
+    def test_non_integer_hidden_channels_raises(self):
+        """Feature widths should not be accepted as floats."""
+        with pytest.raises(ValueError, match="hidden_channels.*integer"):
+            BuNNLayer(hidden_channels=16.0, num_bundles=4, bundle_dim=2)
+
+    def test_non_integer_angle_hidden_channels_raises(self):
+        """Angle-network widths should be explicit integers."""
+        with pytest.raises(ValueError, match="angle_hidden_channels.*integer"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                angle_hidden_channels=8.0,
+            )
+
     def test_invalid_diffusion_time_raises(self):
         """Diffusion time is a non-negative heat-equation parameter."""
         with pytest.raises(ValueError, match="finite and non-negative"):
@@ -269,6 +284,11 @@ class TestBuNN:
         """At least one BuNN layer is required."""
         with pytest.raises(ValueError, match="num_layers"):
             BuNN(in_channels=8, hidden_channels=16, num_layers=0)
+
+    def test_non_integer_num_layers_raises(self):
+        """Layer count should not be silently coerced from a float."""
+        with pytest.raises(ValueError, match="num_layers.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, num_layers=2.0)
 
     def test_invalid_input_width_raises(self):
         """The graph encoder needs a positive input feature width."""

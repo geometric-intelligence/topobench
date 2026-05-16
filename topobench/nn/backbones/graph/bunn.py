@@ -12,6 +12,7 @@ local frames.
 from __future__ import annotations
 
 import math
+from numbers import Integral
 
 import torch
 import torch.nn as nn
@@ -32,6 +33,26 @@ def _get_activation(name: str) -> nn.Module:
             f"Unsupported activation '{name}'. Use one of {supported}."
         )
     return activations[name]()
+
+
+def _require_positive_int(name: str, value: int) -> int:
+    """Validate positive integer hyperparameters before module construction."""
+    if isinstance(value, bool) or not isinstance(value, Integral):
+        raise ValueError(f"{name} must be an integer.")
+    value = int(value)
+    if value <= 0:
+        raise ValueError(f"{name} must be a positive integer.")
+    return value
+
+
+def _require_non_negative_int(name: str, value: int) -> int:
+    """Validate non-negative integer hyperparameters."""
+    if isinstance(value, bool) or not isinstance(value, Integral):
+        raise ValueError(f"{name} must be an integer.")
+    value = int(value)
+    if value < 0:
+        raise ValueError(f"{name} must be non-negative.")
+    return value
 
 
 class BuNNLayer(nn.Module):
@@ -96,12 +117,21 @@ class BuNNLayer(nn.Module):
     ) -> None:
         super().__init__()
 
+        hidden_channels = _require_positive_int(
+            "hidden_channels", hidden_channels
+        )
+        num_bundles = _require_positive_int("num_bundles", num_bundles)
+        bundle_dim = _require_positive_int("bundle_dim", bundle_dim)
+        taylor_degree = _require_non_negative_int(
+            "taylor_degree", taylor_degree
+        )
+        if angle_hidden_channels is not None:
+            angle_hidden_channels = _require_positive_int(
+                "angle_hidden_channels", angle_hidden_channels
+            )
+
         if bundle_dim != 2:
             raise ValueError("BuNNLayer currently supports bundle_dim=2 only.")
-        if hidden_channels <= 0:
-            raise ValueError("hidden_channels must be a positive integer.")
-        if num_bundles <= 0:
-            raise ValueError("num_bundles must be a positive integer.")
         if include_reflections and num_bundles % 2 != 0:
             raise ValueError(
                 "num_bundles must be even when include_reflections=True."
@@ -109,13 +139,6 @@ class BuNNLayer(nn.Module):
         diffusion_time = float(t)
         if not math.isfinite(diffusion_time) or diffusion_time < 0:
             raise ValueError("t must be finite and non-negative.")
-        taylor_degree_int = int(taylor_degree)
-        if taylor_degree_int != taylor_degree:
-            raise ValueError("taylor_degree must be an integer.")
-        if taylor_degree_int < 0:
-            raise ValueError("taylor_degree must be non-negative.")
-        if angle_hidden_channels is not None and angle_hidden_channels <= 0:
-            raise ValueError("angle_hidden_channels must be positive.")
 
         bundle_width = num_bundles * bundle_dim
         if hidden_channels % bundle_width != 0:
@@ -129,7 +152,7 @@ class BuNNLayer(nn.Module):
         self.bundle_dim = bundle_dim
         self.channels_per_bundle = hidden_channels // bundle_width
         self.t = diffusion_time
-        self.taylor_degree = taylor_degree_int
+        self.taylor_degree = taylor_degree
 
         self.include_reflections = include_reflections
         self.residual = residual
@@ -394,12 +417,11 @@ class BuNN(nn.Module):
         super().__init__()
         del kwargs
 
-        if in_channels <= 0:
-            raise ValueError("in_channels must be a positive integer.")
-        if hidden_channels <= 0:
-            raise ValueError("hidden_channels must be a positive integer.")
-        if num_layers <= 0:
-            raise ValueError("num_layers must be a positive integer.")
+        in_channels = _require_positive_int("in_channels", in_channels)
+        hidden_channels = _require_positive_int(
+            "hidden_channels", hidden_channels
+        )
+        num_layers = _require_positive_int("num_layers", num_layers)
 
         self.in_channels = in_channels
         self.hidden_channels = hidden_channels
