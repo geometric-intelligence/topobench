@@ -288,6 +288,16 @@ class TestBuNNLayer:
 
         assert torch.allclose(out, torch.tensor([[-2.0], [0.0], [2.0]]))
 
+    def test_weighted_laplacian_uses_random_walk_average(self):
+        """Non-uniform weights should change the neighbor average."""
+        x = torch.tensor([[0.0], [2.0], [10.0]])
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+        edge_weight = torch.tensor([1.0, 3.0])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [-5.5], [8.0]]))
+
     def test_edge_weights_must_be_non_negative(self):
         """Random-walk diffusion uses non-negative edge weights."""
         x = torch.tensor([[0.0], [2.0]])
