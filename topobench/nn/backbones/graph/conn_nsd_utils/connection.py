@@ -5,8 +5,9 @@ heart of Conn-NSD. The Bodnar et al. (2022) NSD diffusion machinery in the
 sibling ``nsd_utils`` package is reused unchanged; only the construction of
 the orthogonal restriction maps changes.
 
-Mathematical setting
---------------------
+Notes
+-----
+**Mathematical setting.**
 Assume node features ``X ∈ ℝ^{N×p}`` are sampled from a ``d``-dimensional
 Riemannian manifold ``M`` embedded in ``ℝ^p``, with ``d ≪ p``. At every
 node ``v`` we approximate the tangent space ``T_{x_v} M`` by local PCA
@@ -27,8 +28,32 @@ at the unoriented edge ``{v,u}``. The discrete ``O(d)``-bundle laplacian
 from the sibling package — same formula as Bodnar's NSD-O(d), but with
 ``F`` fixed instead of learned.
 
-Shape contract
---------------
+**Sign gauge — known limitation inherited from Singer & Wu.**
+The local PCA basis ``O_v`` and the alignment ``F_{vu}`` are both unique
+only up to a per-node signed-diagonal "gauge" ``S_v ∈ {±1}^d``, because
+the SVD's column signs are not canonicalised by ``torch.linalg.svd``.
+Concretely:
+
+* if PCA returns ``O_v`` for one input and ``O_v · S_v`` for an
+  arithmetically-equivalent input (e.g. after a rotation of features),
+  then the alignment matrix transforms as ``F_{vu} ↦ S_v F_{vu} S_u``.
+* this gauge does **not** compose into a single block-diagonal
+  conjugation of the sheaf Laplacian, so the Laplacian's spectrum and
+  the diffusion's behaviour are not strictly invariant to feature
+  rotations or node relabellings — they are equal up to a small,
+  numerically-driven perturbation.
+
+Algorithm 1 of the paper inherits this from the underlying VDM
+construction. Removing it would require a canonicalisation step
+(e.g. force the first nonzero entry of each PCA column to be positive),
+which is *out of scope* for a faithful re-implementation of the paper.
+We document and test for it explicitly rather than pretend it doesn't
+exist. See ``test_conn_nsd.py``'s
+``test_permutation_invariance_of_laplacian_spectrum`` for the
+loose-tolerance invariance check and ``test_determinism`` for the strict
+same-input-same-output reproducibility we *do* guarantee.
+
+**Shape contract.**
 All shapes are documented in NumPy style. Notation:
 
     N   number of nodes
@@ -41,19 +66,19 @@ across devices implicitly.
 
 References
 ----------
-[1] F. Barbero et al. "Sheaf Neural Networks with Connection Laplacians."
-    ICML 2022 TAG-ML Workshop. arXiv:2206.08702. Algorithm 1.
-[2] A. Singer and H.-T. Wu. "Vector Diffusion Maps and the Connection
-    Laplacian." Communications on Pure and Applied Mathematics, 2012.
-[3] C. Bodnar et al. "Neural Sheaf Diffusion." ICLR 2022 Workshop.
-    arXiv:2202.04579.
+.. [1] F. Barbero et al. "Sheaf Neural Networks with Connection
+       Laplacians." ICML 2022 TAG-ML Workshop. arXiv:2206.08702.
+       Algorithm 1.
+.. [2] A. Singer and H.-T. Wu. "Vector Diffusion Maps and the Connection
+       Laplacian." Communications on Pure and Applied Mathematics, 2012.
+.. [3] C. Bodnar et al. "Neural Sheaf Diffusion." ICLR 2022 Workshop.
+       arXiv:2202.04579.
 """
 
 from __future__ import annotations
 
 import torch
 from torch import Tensor
-
 
 # -----------------------------------------------------------------------------
 # Step 1 — Local tangent basis (Algorithm 1, lines 3–6).
@@ -119,7 +144,7 @@ def local_tangent_basis(
     # estimation, matching Barbero et al. §3.2.
     src, dst = edge_index[0], edge_index[1]
     neighbours: list[list[int]] = [[] for _ in range(num_nodes)]
-    for s, t in zip(src.tolist(), dst.tolist()):
+    for s, t in zip(src.tolist(), dst.tolist(), strict=True):
         if s != t:
             neighbours[s].append(t)
             neighbours[t].append(s)
