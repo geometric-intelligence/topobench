@@ -51,6 +51,37 @@ class TestBuNNLayer:
 
         assert torch.equal(out, torch.zeros_like(x))
 
+    def test_random_walk_laplacian_symmetrizes_edges(self):
+        """A one-way edge should be treated as an undirected graph edge."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [2.0]]))
+
+    def test_zero_time_identity_update_recovers_input(self):
+        """Synchronization and desynchronization should cancel for identity W."""
+        layer = BuNNLayer(
+            hidden_channels=8,
+            num_bundles=2,
+            bundle_dim=2,
+            t=0.0,
+            act="identity",
+            dropout=0.0,
+            residual=False,
+            norm=None,
+        )
+        with torch.no_grad():
+            layer.channel_mixer.weight.copy_(torch.eye(8))
+            layer.channel_mixer.bias.zero_()
+        x = torch.randn(4, 8)
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+
+        out = layer(x, edge_index)
+
+        assert torch.allclose(out, x, atol=1e-5)
+
 
 class TestBuNN:
     """Test the full BuNN graph encoder."""
@@ -73,6 +104,7 @@ class TestBuNN:
         assert model.t == 0.5
         assert model.taylor_degree == 2
         assert len(model.layers) == 3
+        assert model.layers[0].angle_network[0].out_features == 8
 
     def test_forward_shape(self, simple_graph_0):
         """BuNN returns one hidden vector per node."""

@@ -21,6 +21,9 @@ backbone:
   taylor_degree: 3
   dropout: 0.1
   act: gelu
+  angle_hidden_channels: 16
+  residual: false
+  norm: null
 
 backbone_wrapper:
   _target_: topobench.nn.wrappers.GNNWrapper

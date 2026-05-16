@@ -20,6 +20,7 @@ def _get_activation(name: str) -> nn.Module:
     activations = {
         "elu": nn.ELU,
         "gelu": nn.GELU,
+        "identity": nn.Identity,
         "relu": nn.ReLU,
         "tanh": nn.Tanh,
     }
@@ -60,11 +61,18 @@ class BuNNLayer(nn.Module):
     dropout : float, optional
         Dropout probability applied after the layer activation. Default is 0.0.
     act : str, optional
-        Activation name. One of ``relu``, ``gelu``, ``elu``, or ``tanh``.
-        Default is ``gelu``.
+        Activation name. One of ``relu``, ``gelu``, ``elu``, ``tanh``, or
+        ``identity``. Default is ``gelu``.
     angle_hidden_channels : int or None, optional
-        Hidden width of the angle network. If ``None``, ``hidden_channels`` is
-        used. Default is ``None``.
+        Hidden width of the angle network. If ``None``, twice the number of
+        bundles is used, matching the compact angle-network width described
+        for the paper's LRGB experiments. Default is ``None``.
+    residual : bool, optional
+        Whether to add a residual connection around the BuNN layer. Default is
+        ``False``, matching the core Equations (1)--(4).
+    norm : str or None, optional
+        Optional normalization applied after the layer. Use ``layer_norm`` for
+        ``torch.nn.LayerNorm``. Default is ``None``.
     """
 
     def __init__(
@@ -77,6 +85,8 @@ class BuNNLayer(nn.Module):
         dropout: float = 0.0,
         act: str = "gelu",
         angle_hidden_channels: int | None = None,
+        residual: bool = False,
+        norm: str | None = None,
     ) -> None:
         super().__init__()
 
@@ -101,7 +111,10 @@ class BuNNLayer(nn.Module):
         self.t = float(t)
         self.taylor_degree = int(taylor_degree)
 
-        angle_hidden_channels = angle_hidden_channels or hidden_channels
+        self.residual = residual
+        self.norm_name = norm
+
+        angle_hidden_channels = angle_hidden_channels or 2 * num_bundles
         self.angle_network = nn.Sequential(
             nn.Linear(hidden_channels, angle_hidden_channels),
             nn.GELU(),
@@ -110,7 +123,12 @@ class BuNNLayer(nn.Module):
         self.channel_mixer = nn.Linear(hidden_channels, hidden_channels)
         self.activation = _get_activation(act)
         self.dropout = nn.Dropout(dropout)
-        self.norm = nn.LayerNorm(hidden_channels)
+        if norm is None:
+            self.norm = nn.Identity()
+        elif norm == "layer_norm":
+            self.norm = nn.LayerNorm(hidden_channels)
+        else:
+            raise ValueError("Unsupported norm. Use None or 'layer_norm'.")
 
     def _compute_bundle_maps(self, x: torch.Tensor) -> torch.Tensor:
         """Compute one 2D rotation matrix per node and bundle."""
@@ -241,7 +259,9 @@ class BuNNLayer(nn.Module):
         out = self._from_bundle_fields(desynchronized)
         out = self.activation(out)
         out = self.dropout(out)
-        return self.norm(out + residual)
+        if self.residual:
+            out = out + residual
+        return self.norm(out)
 
     def reset_parameters(self) -> None:
         """Reset learnable parameters."""
@@ -281,7 +301,14 @@ class BuNN(nn.Module):
     act : str, optional
         Activation name. Default is ``gelu``.
     angle_hidden_channels : int or None, optional
-        Hidden width of each angle network. Default is ``None``.
+        Hidden width of each angle network. If ``None``, twice the number of
+        bundles is used. Default is ``None``.
+    residual : bool, optional
+        Whether to add residual connections around BuNN layers. Default is
+        ``False``.
+    norm : str or None, optional
+        Optional layer normalization mode. Use ``layer_norm`` to enable
+        ``torch.nn.LayerNorm``. Default is ``None``.
     """
 
     def __init__(
@@ -296,6 +323,8 @@ class BuNN(nn.Module):
         dropout: float = 0.0,
         act: str = "gelu",
         angle_hidden_channels: int | None = None,
+        residual: bool = False,
+        norm: str | None = None,
         **kwargs,
     ) -> None:
         super().__init__()
@@ -328,6 +357,8 @@ class BuNN(nn.Module):
                     dropout=dropout,
                     act=act,
                     angle_hidden_channels=angle_hidden_channels,
+                    residual=residual,
+                    norm=norm,
                 )
                 for _ in range(num_layers)
             ]
