@@ -168,6 +168,13 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
             BuNNLayer._random_walk_laplacian(x, edge_index)
 
+    def test_random_walk_laplacian_requires_tensor_node_features(self):
+        """Node features should fail clearly before tensor operations."""
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
+            BuNNLayer._random_walk_laplacian([[0.0], [1.0]], edge_index)
+
     def test_random_walk_laplacian_requires_long_edge_index(self):
         """PyG edge indices should use integer node ids."""
         x = torch.randn(3, 8)
@@ -175,6 +182,13 @@ class TestBuNNLayer:
 
         with pytest.raises(ValueError, match="torch.long"):
             BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_tensor_edge_index(self):
+        """Connectivity should fail clearly before tensor operations."""
+        x = torch.randn(3, 8)
+
+        with pytest.raises(ValueError, match=r"\[2, num_edges\]"):
+            BuNNLayer._random_walk_laplacian(x, [[0], [1]])
 
     def test_random_walk_laplacian_rejects_out_of_range_nodes(self):
         """Invalid node ids should not be interpreted as tensor indices."""
@@ -210,6 +224,14 @@ class TestBuNNLayer:
 
         with pytest.raises(ValueError, match="one scalar per edge"):
             BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_edge_weight_must_be_tensor(self):
+        """Edge weights should fail clearly before tensor conversion."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+
+        with pytest.raises(ValueError, match="edge_weight.*torch.Tensor"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, [1.0])
 
     def test_edge_weights_must_be_non_negative(self):
         """Random-walk diffusion uses non-negative edge weights."""

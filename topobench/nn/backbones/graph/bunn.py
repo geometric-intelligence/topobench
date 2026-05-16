@@ -264,9 +264,13 @@ class BuNNLayer(nn.Module):
         symmetrized before computing random-walk neighbor averages. Duplicate
         reverse edges do not change the normalized average.
         """
-        if x.dim() != 2:
+        if not isinstance(x, torch.Tensor) or x.dim() != 2:
             raise ValueError("x must have shape [num_nodes, num_features].")
-        if edge_index.dim() != 2 or edge_index.shape[0] != 2:
+        if (
+            not isinstance(edge_index, torch.Tensor)
+            or edge_index.dim() != 2
+            or edge_index.shape[0] != 2
+        ):
             raise ValueError("edge_index must have shape [2, num_edges].")
         if edge_index.dtype != torch.long:
             raise ValueError("edge_index must be a torch.long tensor.")
@@ -280,6 +284,8 @@ class BuNNLayer(nn.Module):
         if edge_weight is None:
             edge_weight = x.new_ones(source.shape[0])
         else:
+            if not isinstance(edge_weight, torch.Tensor):
+                raise ValueError("edge_weight must be a torch.Tensor.")
             edge_weight = edge_weight.to(dtype=x.dtype, device=x.device).view(
                 -1
             )
