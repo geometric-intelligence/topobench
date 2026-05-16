@@ -89,6 +89,7 @@ def local_tangent_basis(
     node_features: Tensor,
     edge_index: Tensor,
     stalk_dim: int,
+    batch: Tensor | None = None,
 ) -> Tensor:
     """Approximate the tangent space at each node by local PCA.
 
@@ -100,8 +101,8 @@ def local_tangent_basis(
     When ``|N(v)| < d`` the 1-hop set is *topped up* with the
     Euclidean-nearest non-neighbour nodes (Barbero et al., 2022, §3.2,
     "To solve the problem for nodes which have less than d neighbours…").
-    Fully isolated nodes (and the unrealistic case ``N ≤ d``) are treated
-    by ranking every other node by Euclidean distance.
+    Fully isolated nodes are treated by ranking every other same-graph node
+    by Euclidean distance.
 
     Parameters
     ----------
@@ -113,6 +114,9 @@ def local_tangent_basis(
         ``N(v)``.
     stalk_dim : int
         Tangent-space dimension ``d`` (``> 0``).
+    batch : torch.Tensor, shape ``[N]``, optional
+        PyG batch vector. If present, fallback nearest-neighbour candidates
+        are restricted to the same graph as ``v``.
 
     Returns
     -------
@@ -138,6 +142,13 @@ def local_tangent_basis(
     num_nodes, ambient_dim = node_features.shape
     device = node_features.device
     dtype = node_features.dtype
+    if batch is None:
+        batch = torch.zeros(num_nodes, dtype=torch.long, device=device)
+    else:
+        assert batch.dim() == 1 and batch.numel() == num_nodes, (
+            f"batch must be [N] with N={num_nodes}, got {tuple(batch.shape)}"
+        )
+        batch = batch.to(device=device)
 
     # Build 1-hop neighbour lists from the (possibly directed) edge index.
     # We treat the edge set as undirected for the purposes of tangent
@@ -157,12 +168,19 @@ def local_tangent_basis(
         num_nodes, ambient_dim, stalk_dim, device=device, dtype=dtype
     )
 
-    # Distance to all other nodes (needed for the fallback). Computed lazily.
+    # Distance to same-graph nodes (needed for the fallback). Computed lazily.
     all_pair_dist: Tensor | None = None
 
     for v in range(num_nodes):
         own = node_features[v]
         ns = neighbours[v]
+        same_graph = batch == batch[v]
+        graph_size = int(same_graph.sum().item())
+        if graph_size <= stalk_dim:
+            raise ValueError(
+                f"graph too small: N={graph_size}, stalk_dim={stalk_dim} "
+                f"requires N >= {stalk_dim + 1}"
+            )
 
         if len(ns) < stalk_dim:
             # Top-up rule: take Euclidean-nearest non-neighbours, excluding v
@@ -171,11 +189,19 @@ def local_tangent_basis(
                 all_pair_dist = torch.cdist(node_features, node_features)
             assert all_pair_dist is not None  # for type-checkers
             dists = all_pair_dist[v].clone()
+            dists[~same_graph] = float("inf")
             dists[v] = float("inf")
             for n in ns:
                 dists[n] = float("inf")
             needed = stalk_dim - len(ns)
-            extra = torch.topk(dists, k=needed, largest=False).indices.tolist()
+            available = int(torch.isfinite(dists).sum().item())
+            k = min(needed, available)
+            if k < needed:
+                raise ValueError(
+                    f"graph too small: N={graph_size}, stalk_dim={stalk_dim} "
+                    f"requires N >= {stalk_dim + 1}"
+                )
+            extra = torch.topk(dists, k=k, largest=False).indices.tolist()
             ns = list(ns) + extra
 
         # Centred neighbour matrix:  X̂_v[:, k] = x_{n_k} − x_v   ∈  ℝ^p
@@ -252,6 +278,7 @@ def build_connection(
     node_features: Tensor,
     edge_index: Tensor,
     stalk_dim: int,
+    batch: Tensor | None = None,
 ) -> Tensor:
     """Build orthogonal restriction maps for every edge — Algorithm 1.
 
@@ -270,6 +297,9 @@ def build_connection(
         passing a bidirectional edge index if a symmetric sheaf is desired.
     stalk_dim : int
         Tangent-space / stalk dimension ``d``.
+    batch : torch.Tensor, shape ``[N]``, optional
+        PyG batch vector used to keep fallback nearest-neighbour candidates
+        inside each graph of a mini-batch.
 
     Returns
     -------
@@ -290,7 +320,7 @@ def build_connection(
     These are verified in ``test/nn/backbones/graph/test_conn_nsd.py``.
     """
     tangent_basis = local_tangent_basis(
-        node_features, edge_index, stalk_dim
+        node_features, edge_index, stalk_dim, batch=batch
     )  # [N, p, d]
     src, dst = edge_index[0], edge_index[1]
     return optimal_alignment(

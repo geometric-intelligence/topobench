@@ -77,8 +77,9 @@ class ConnNSDEncoder(nn.Module):
         Dropout on the initial feature lift.
     connection_features : str, default ``"raw"``
         Which features to feed Algorithm 1.
-        - ``"raw"``: the raw, un-encoded node features ``X`` (paper default;
-          the manifold assumption is on the data as given).
+        - ``"raw"``: features as received by this backbone, before ``lin1``.
+          In the standard TopoBench composition this is post-feature-encoder
+          data, because ``AllCellFeatureEncoder`` runs before every backbone.
         - ``"lifted"``: the post-``lin1`` encoded features. Off-spec — kept
           as an ablation knob but not the default behaviour.
     **kwargs : dict
@@ -179,8 +180,9 @@ class ConnNSDEncoder(nn.Module):
             requires a symmetric sheaf Laplacian.
         edge_attr, edge_weight : ignored
             Conn-NSD operates on node features only, by construction.
-        batch : ignored
-            All graph-level batching is handled by the wrapper/readout.
+        batch : torch.Tensor, optional
+            PyG batch vector. Used to keep the local-PCA fallback inside each
+            graph of a mini-batch.
         **kwargs : dict
             Ignored. Present for forward-call compatibility with the
             generic ``GNNWrapper`` signature.
@@ -200,7 +202,10 @@ class ConnNSDEncoder(nn.Module):
         else:  # "lifted"
             features_for_connection = self.lin1(x).detach()
         restriction_maps = build_connection(
-            features_for_connection, edge_index, stalk_dim=self.stalk_dim
+            features_for_connection,
+            edge_index,
+            stalk_dim=self.stalk_dim,
+            batch=batch,
         )  # [E, d, d]
 
         # ---- Step 2. Assemble the normalised Δ_F once. -------------------

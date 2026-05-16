@@ -30,7 +30,7 @@ backbone:
   stalk_dim: 4                                        # SWEEP candidate: [2, 3, 4]
   dropout: 0.0                                        # SWEEP candidate: [0.0, 0.25, 0.5]
   input_dropout: 0.0
-  connection_features: raw                            # paper default; "lifted" is an ablation
+  connection_features: raw                            # features as seen by the backbone, after TopoBench feature encoding
 
 backbone_wrapper:
   _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}

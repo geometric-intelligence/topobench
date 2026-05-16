@@ -25,12 +25,11 @@ import pytest
 import torch
 from torch import Tensor
 
+from topobench.nn.backbones.graph.conn_nsd import ConnNSDEncoder
 from topobench.nn.backbones.graph.conn_nsd_utils.connection import (
     build_connection,
     local_tangent_basis,
-    optimal_alignment,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -484,6 +483,83 @@ class TestFallback:
         maps = build_connection(node_features, edge_index, stalk_dim=3)
         for e in range(maps.size(0)):
             assert _is_orthogonal(maps[e], atol=1e-8)
+
+    def test_fallback_respects_batch_boundaries(self):
+        """Fallback nearest neighbours must not cross PyG graph boundaries."""
+        torch.manual_seed(0)
+        node_features = torch.randn(5, 5)
+        node_features[2:] = node_features[2:] + 50.0
+        edge_index = torch.tensor(
+            [[0, 1, 1, 0, 2, 3, 3, 2], [1, 0, 0, 1, 3, 2, 2, 3]],
+            dtype=torch.long,
+        )
+        second_graph_features = node_features + 0.01
+        batched_features = torch.cat([node_features, second_graph_features], dim=0)
+        batched_edges = torch.cat([edge_index, edge_index + 5], dim=1)
+        batch = torch.tensor([0, 0, 0, 0, 0, 1, 1, 1, 1, 1], dtype=torch.long)
+
+        single = build_connection(node_features, edge_index, stalk_dim=4)
+        batched = build_connection(
+            batched_features,
+            batched_edges,
+            stalk_dim=4,
+            batch=batch,
+        )
+
+        assert torch.allclose(single, batched[: edge_index.size(1)], atol=1e-6)
+
+    @pytest.mark.parametrize("num_nodes,stalk_dim", [(3, 3), (3, 4)])
+    def test_too_small_graph_raises_clear_error(self, num_nodes, stalk_dim):
+        """A graph must have at least d + 1 nodes for the fallback rule.
+
+        Parameters
+        ----------
+        num_nodes : int
+            Number of nodes in the test graph.
+        stalk_dim : int
+            Tangent-space dimension requested from the fallback rule.
+        """
+        node_features = torch.randn(num_nodes, 5)
+        edge_index = torch.tensor([[0, 1], [1, 0]], dtype=torch.long)
+        with pytest.raises(ValueError, match="graph too small"):
+            local_tangent_basis(node_features, edge_index, stalk_dim=stalk_dim)
+
+
+class TestBatching:
+    """Conn-NSD must be invariant to PyG mini-batch grouping."""
+
+    def test_encoder_matches_unbatched_outputs_with_low_degree_fallback(self):
+        """The same graph alone or inside a batch receives the same output."""
+        torch.manual_seed(0)
+        model = ConnNSDEncoder(
+            input_dim=5,
+            hidden_dim=8,
+            stalk_dim=4,
+            num_layers=1,
+            dropout=0.0,
+            input_dropout=0.0,
+        ).eval()
+
+        node_features = torch.randn(5, 5)
+        node_features[2:] = node_features[2:] + 50.0
+        edge_index = torch.tensor(
+            [[0, 1, 1, 0, 2, 3, 3, 2], [1, 0, 0, 1, 3, 2, 2, 3]],
+            dtype=torch.long,
+        )
+        second_graph_features = node_features + 0.01
+        batched_features = torch.cat([node_features, second_graph_features], dim=0)
+        batched_edges = torch.cat([edge_index, edge_index + 5], dim=1)
+        batch = torch.tensor([0, 0, 0, 0, 0, 1, 1, 1, 1, 1], dtype=torch.long)
+
+        with torch.no_grad():
+            single = model(
+                node_features,
+                edge_index,
+                batch=torch.zeros(5, dtype=torch.long),
+            )
+            batched = model(batched_features, batched_edges, batch=batch)[:5]
+
+        assert torch.allclose(single, batched, atol=1e-6)
 
 
 # ---------------------------------------------------------------------------
