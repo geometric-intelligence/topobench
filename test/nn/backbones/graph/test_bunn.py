@@ -229,6 +229,17 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="finite"):
             BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
 
+    def test_forward_requires_hidden_width(self):
+        """Layer input features should match the configured hidden width."""
+        layer = BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2)
+        x = torch.randn(3, 15)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(
+            ValueError, match=r"\[num_nodes, hidden_channels\]"
+        ):
+            layer(x, edge_index)
+
     def test_zero_time_identity_update_recovers_input(self):
         """Synchronization and desynchronization should cancel for identity W."""
         layer = BuNNLayer(
@@ -315,6 +326,21 @@ class TestBuNN:
 
         assert out.shape == x.shape
         assert torch.isfinite(out).all()
+
+    def test_forward_requires_input_width(self, simple_graph_0):
+        """The full encoder should reject mismatched node feature widths."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.randn(simple_graph_0.num_nodes, 7)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, in_channels\]"):
+            model(x=x, edge_index=edge_index)
 
     def test_forward_backward(self, simple_graph_0):
         """Gradients should flow through bundle maps and diffusion."""

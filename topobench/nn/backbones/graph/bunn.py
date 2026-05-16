@@ -82,6 +82,18 @@ def _require_probability(name: str, value: float) -> float:
     return value
 
 
+def _require_node_feature_matrix(
+    x: torch.Tensor, expected_channels: int, channel_name: str
+) -> None:
+    """Validate node-feature matrices before learnable projections."""
+    if (
+        not isinstance(x, torch.Tensor)
+        or x.dim() != 2
+        or x.shape[1] != expected_channels
+    ):
+        raise ValueError(f"x must have shape [num_nodes, {channel_name}].")
+
+
 class BuNNLayer(nn.Module):
     r"""Single flat-bundle heat diffusion layer.
 
@@ -353,6 +365,9 @@ class BuNNLayer(nn.Module):
         torch.Tensor
             Updated node features of shape ``[num_nodes, hidden_channels]``.
         """
+        _require_node_feature_matrix(
+            x, self.hidden_channels, "hidden_channels"
+        )
         residual = x
         bundle_maps = self._compute_bundle_maps(x)
         fields = self._to_bundle_fields(x)
@@ -545,6 +560,7 @@ class BuNN(nn.Module):
         """
         del batch, kwargs
 
+        _require_node_feature_matrix(x, self.in_channels, "in_channels")
         x = self.input_projection(x)
         for layer in self.layers:
             x = layer(x, edge_index=edge_index, edge_weight=edge_weight)
