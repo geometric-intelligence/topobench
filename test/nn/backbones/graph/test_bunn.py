@@ -51,10 +51,32 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="divisible"):
             BuNNLayer(hidden_channels=18, num_bundles=4, bundle_dim=2)
 
+    def test_invalid_hidden_channels_raises(self):
+        """A BuNN layer needs a positive feature width."""
+        with pytest.raises(ValueError, match="hidden_channels"):
+            BuNNLayer(hidden_channels=0, num_bundles=4, bundle_dim=2)
+
     def test_invalid_diffusion_time_raises(self):
         """Diffusion time is a non-negative heat-equation parameter."""
-        with pytest.raises(ValueError, match="non-negative"):
+        with pytest.raises(ValueError, match="finite and non-negative"):
             BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2, t=-0.1)
+
+    def test_non_finite_diffusion_time_raises(self):
+        """The heat kernel needs a finite diffusion time."""
+        with pytest.raises(ValueError, match="finite and non-negative"):
+            BuNNLayer(
+                hidden_channels=16, num_bundles=4, bundle_dim=2, t=float("inf")
+            )
+
+    def test_non_integer_taylor_degree_raises(self):
+        """Taylor approximation degree should not be silently truncated."""
+        with pytest.raises(ValueError, match="integer"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                taylor_degree=2.5,
+            )
 
     def test_reflection_parameterization_requires_even_bundles(self):
         """The paper-style O(2) split needs matched rotations/reflections."""
@@ -247,3 +269,8 @@ class TestBuNN:
         """At least one BuNN layer is required."""
         with pytest.raises(ValueError, match="num_layers"):
             BuNN(in_channels=8, hidden_channels=16, num_layers=0)
+
+    def test_invalid_input_width_raises(self):
+        """The graph encoder needs a positive input feature width."""
+        with pytest.raises(ValueError, match="in_channels"):
+            BuNN(in_channels=0, hidden_channels=16)

@@ -11,6 +11,8 @@ local frames.
 
 from __future__ import annotations
 
+import math
+
 import torch
 import torch.nn as nn
 
@@ -96,15 +98,21 @@ class BuNNLayer(nn.Module):
 
         if bundle_dim != 2:
             raise ValueError("BuNNLayer currently supports bundle_dim=2 only.")
+        if hidden_channels <= 0:
+            raise ValueError("hidden_channels must be a positive integer.")
         if num_bundles <= 0:
             raise ValueError("num_bundles must be a positive integer.")
         if include_reflections and num_bundles % 2 != 0:
             raise ValueError(
                 "num_bundles must be even when include_reflections=True."
             )
-        if t < 0:
-            raise ValueError("t must be non-negative.")
-        if taylor_degree < 0:
+        diffusion_time = float(t)
+        if not math.isfinite(diffusion_time) or diffusion_time < 0:
+            raise ValueError("t must be finite and non-negative.")
+        taylor_degree_int = int(taylor_degree)
+        if taylor_degree_int != taylor_degree:
+            raise ValueError("taylor_degree must be an integer.")
+        if taylor_degree_int < 0:
             raise ValueError("taylor_degree must be non-negative.")
         if angle_hidden_channels is not None and angle_hidden_channels <= 0:
             raise ValueError("angle_hidden_channels must be positive.")
@@ -120,8 +128,8 @@ class BuNNLayer(nn.Module):
         self.num_bundles = num_bundles
         self.bundle_dim = bundle_dim
         self.channels_per_bundle = hidden_channels // bundle_width
-        self.t = float(t)
-        self.taylor_degree = int(taylor_degree)
+        self.t = diffusion_time
+        self.taylor_degree = taylor_degree_int
 
         self.include_reflections = include_reflections
         self.residual = residual
@@ -386,6 +394,10 @@ class BuNN(nn.Module):
         super().__init__()
         del kwargs
 
+        if in_channels <= 0:
+            raise ValueError("in_channels must be a positive integer.")
+        if hidden_channels <= 0:
+            raise ValueError("hidden_channels must be a positive integer.")
         if num_layers <= 0:
             raise ValueError("num_layers must be a positive integer.")
 
