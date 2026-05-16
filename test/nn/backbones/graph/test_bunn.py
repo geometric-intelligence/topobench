@@ -78,6 +78,30 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match=r"\[2, num_edges\]"):
             BuNNLayer._random_walk_laplacian(x, edge_index)
 
+    def test_random_walk_laplacian_requires_2d_node_features(self):
+        """Node features should be a matrix indexed by graph nodes."""
+        x = torch.randn(3)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_long_edge_index(self):
+        """PyG edge indices should use integer node ids."""
+        x = torch.randn(3, 8)
+        edge_index = torch.tensor([[0.0], [1.0]])
+
+        with pytest.raises(ValueError, match="torch.long"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_rejects_out_of_range_nodes(self):
+        """Invalid node ids should not be interpreted as tensor indices."""
+        x = torch.randn(3, 8)
+        edge_index = torch.tensor([[0, -1], [1, 3]])
+
+        with pytest.raises(ValueError, match=r"\[0, num_nodes\)"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
     def test_random_walk_laplacian_symmetrizes_edges(self):
         """A one-way edge should be treated as an undirected graph edge."""
         x = torch.tensor([[0.0], [2.0]])
