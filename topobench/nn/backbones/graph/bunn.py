@@ -300,6 +300,8 @@ class BuNNLayer(nn.Module):
                 raise ValueError("edge_weight must be a torch.Tensor.")
             if edge_weight.dtype == torch.bool:
                 raise ValueError("edge_weight must be numeric, not boolean.")
+            if edge_weight.is_complex():
+                raise ValueError("edge_weight must be real-valued.")
             edge_weight = edge_weight.to(
                 dtype=x.dtype, device=x.device
             ).reshape(-1)

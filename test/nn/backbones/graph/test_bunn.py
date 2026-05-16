@@ -260,6 +260,15 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="numeric"):
             BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
 
+    def test_complex_edge_weights_are_rejected(self):
+        """Diffusion weights should be real-valued graph scalars."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([1.0 + 1.0j])
+
+        with pytest.raises(ValueError, match="real-valued"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
     def test_non_contiguous_edge_weights_are_accepted(self):
         """Flattening edge weights should not require contiguous storage."""
         x = torch.tensor([[0.0], [2.0], [4.0]])
