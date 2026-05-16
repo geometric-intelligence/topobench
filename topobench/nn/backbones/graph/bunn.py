@@ -296,9 +296,9 @@ class BuNNLayer(nn.Module):
         else:
             if not isinstance(edge_weight, torch.Tensor):
                 raise ValueError("edge_weight must be a torch.Tensor.")
-            edge_weight = edge_weight.to(dtype=x.dtype, device=x.device).view(
-                -1
-            )
+            edge_weight = edge_weight.to(
+                dtype=x.dtype, device=x.device
+            ).reshape(-1)
             if edge_weight.shape[0] != source.shape[0]:
                 raise ValueError(
                     "edge_weight must have one scalar per edge_index column."

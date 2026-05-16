@@ -241,6 +241,16 @@ class TestBuNNLayer:
         with pytest.raises(ValueError, match="edge_weight.*torch.Tensor"):
             BuNNLayer._random_walk_laplacian(x, edge_index, [1.0])
 
+    def test_non_contiguous_edge_weights_are_accepted(self):
+        """Flattening edge weights should not require contiguous storage."""
+        x = torch.tensor([[0.0], [2.0], [4.0]])
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+        edge_weight = torch.ones(1, 2).transpose(0, 1)
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [0.0], [2.0]]))
+
     def test_edge_weights_must_be_non_negative(self):
         """Random-walk diffusion uses non-negative edge weights."""
         x = torch.tensor([[0.0], [2.0]])
