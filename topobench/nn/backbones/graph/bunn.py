@@ -20,6 +20,8 @@ import torch.nn as nn
 
 def _get_activation(name: str) -> nn.Module:
     """Return an activation module from a small supported set."""
+    if not isinstance(name, str):
+        raise ValueError("act must be a string activation name.")
     activations = {
         "elu": nn.ELU,
         "gelu": nn.GELU,

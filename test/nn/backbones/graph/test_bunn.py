@@ -138,6 +138,16 @@ class TestBuNNLayer:
                 dropout=True,
             )
 
+    def test_non_string_activation_raises(self):
+        """Activation names should fail clearly before dictionary lookup."""
+        with pytest.raises(ValueError, match="act.*string"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                act=["gelu"],
+            )
+
     def test_reflection_parameterization_requires_even_bundles(self):
         """The paper-style O(2) split needs matched rotations/reflections."""
         with pytest.raises(ValueError, match="even"):
@@ -483,6 +493,11 @@ class TestBuNN:
         """The full encoder should reject invalid dropout probabilities."""
         with pytest.raises(ValueError, match="dropout.*finite probability"):
             BuNN(in_channels=8, hidden_channels=16, dropout=float("nan"))
+
+    def test_non_string_model_activation_raises(self):
+        """The top-level encoder should validate activation config values."""
+        with pytest.raises(ValueError, match="act.*string"):
+            BuNN(in_channels=8, hidden_channels=16, act=["gelu"])
 
     def test_invalid_input_width_raises(self):
         """The graph encoder needs a positive input feature width."""
