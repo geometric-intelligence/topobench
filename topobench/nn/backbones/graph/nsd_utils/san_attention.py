@@ -52,11 +52,7 @@ class SheafGATAttention(nn.Module):
         super().__init__()
         assert num_heads >= 1
         if head_dim is None:
-            assert in_channels % num_heads == 0, (
-                "in_channels must be divisible by num_heads "
-                "when head_dim is not specified"
-            )
-            head_dim = in_channels // num_heads
+            head_dim = max(1, in_channels // num_heads)
         assert head_dim >= 1
 
         self.in_channels = in_channels

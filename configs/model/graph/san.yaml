@@ -17,7 +17,7 @@ backbone:
   num_layers: 2 # SWEEP: [2, 4, 8]
   dropout: 0.4 # SWEEP: [0.0, 0.25, 0.5]
   sheaf_type: bundle # SWEEP: [diag, bundle, general]
-  d: 3 # paper setting
+  d: 3 # paper setting; hidden_channels = hidden_dim // d internally
   input_dropout: 0.0
   num_heads: 4 # SWEEP: [1, 4, 8]
   residual: false # toggle for Res-SheafAN

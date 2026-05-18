@@ -102,10 +102,6 @@ class SANEncoder(Module):
             self.sheaf_class = InductiveSheafAttentionDiag
         elif sheaf_type == "bundle":
             assert d > 1
-            assert hidden_dim % d == 0, (
-                f"hidden_dim must be divisible by d for the bundle "
-                f"variant; got hidden_dim={hidden_dim}, d={d}"
-            )
             self.sheaf_class = InductiveSheafAttentionBundle
         elif sheaf_type == "general":
             assert d > 1

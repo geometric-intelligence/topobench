@@ -123,12 +123,25 @@ class TestSANEncoderInit:
                 input_dim=8, hidden_dim=12, sheaf_type="general", d=1
             )
 
-    def test_bundle_requires_divisibility(self):
-        """Bundle variant rejects ``hidden_dim`` not divisible by ``d``."""
-        with pytest.raises(AssertionError, match="hidden_dim must be"):
-            SANEncoder(
-                input_dim=8, hidden_dim=10, sheaf_type="bundle", d=3
-            )
+    def test_bundle_silent_channel_truncation(self):
+        """Bundle silently truncates hidden_channels = hidden_dim // d.
+
+        Mirrors NSD's permissive contract: when ``hidden_dim`` is not
+        divisible by ``d`` the inner model uses ``hidden_channels * d``
+        internally; the outer projection still produces an output of
+        size ``hidden_dim``.
+        """
+        model = SANEncoder(
+            input_dim=8, hidden_dim=10, sheaf_type="bundle", d=3,
+        )
+        # Internal channels rounded down.
+        assert model.san_model.hidden_channels == 10 // 3
+        assert model.san_model.hidden_dim == (10 // 3) * 3
+        # Outer projection still emits the requested dim.
+        x = torch.randn(4, 8)
+        edge_index = _make_undirected_edge_index([(0, 1), (1, 2), (2, 3)])
+        out = model(x, edge_index)
+        assert out.shape == (4, 10)
 
     def test_residual_flag_propagated(self):
         """The ``residual`` kwarg flows into the inductive model."""
@@ -379,10 +392,15 @@ class TestSheafGATAttention:
         assert attn.head_dim == 5
         assert attn.lin.out_features == 10
 
-    def test_in_channels_divisibility_assert(self):
-        """``head_dim=None`` requires ``in_channels`` divisible by num_heads."""
-        with pytest.raises(AssertionError):
-            SheafGATAttention(in_channels=7, num_heads=2)
+    def test_non_divisible_head_split_uses_floor(self):
+        """``head_dim`` defaults to floor(in_channels / num_heads).
+
+        Mirrors PyG's ``GATConv`` behaviour: the input channel count need
+        not be divisible by the number of heads.
+        """
+        attn = SheafGATAttention(in_channels=7, num_heads=2)
+        assert attn.head_dim == 3
+        assert attn.lin.out_features == 6
 
     def test_zero_heads_rejected(self):
         """``num_heads`` must be at least 1."""
