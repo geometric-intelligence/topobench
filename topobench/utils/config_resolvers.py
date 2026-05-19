@@ -354,9 +354,21 @@ def infer_in_channels(dataset, transforms):
     list
         List with dimensions of the input channels.
     """
+    import omegaconf
+
     num_features = dataset.parameters.num_features
-    if isinstance(num_features, int) and transforms is not None:
-        num_features = num_features + check_pses_in_transforms(transforms)
+    if transforms is not None:
+        added_features = check_pses_in_transforms(transforms)
+        if isinstance(num_features, int):
+            num_features = num_features + added_features
+        elif (
+            isinstance(
+                num_features, (list, tuple, omegaconf.listconfig.ListConfig)
+            )
+            and len(num_features) > 0
+        ):
+            num_features = list(num_features)
+            num_features[0] = num_features[0] + added_features
 
     # Make it possible to pass lifting configuration as file path
     if transforms is not None and transforms.keys() == {"liftings"}:

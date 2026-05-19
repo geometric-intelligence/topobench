@@ -66,7 +66,8 @@ class LoadManager:
 
             try:
                 # Use importlib to safely import the module
-                module_name = f"{package_dir.stem}.{file_path.stem}"
+                package_name = package_dir.parent.stem + "." + package_dir.stem
+                module_name = f"{package_name}.{file_path.stem}"
                 module = importlib.import_module(module_name)
 
                 # Find all loss classes in the module

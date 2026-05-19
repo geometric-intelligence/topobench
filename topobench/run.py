@@ -230,6 +230,11 @@ def rerun_best_model_checkpoint(
                 f"Loading best model from checkpoint at {callback.best_model_path}"
             )
             model_path = Path(callback.best_model_path)
+            if str(model_path) == "." or not str(model_path):
+                log.warning(
+                    "No valid best checkpoint found. Skipping testing with the best model."
+                )
+                break
             ckpt = torch.load(
                 model_path, map_location="cpu", weights_only=False
             )
