@@ -53,7 +53,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: leaderboard/refresh-tdl-challenge-2026
+          branch: bot/refresh-tdl-challenge-2026-leaderboard
           base: main
           add-paths: docs/_static/leaderboard/data/leaderboard.json
           commit-message: "docs(leaderboard): refresh TDL Challenge 2026 results [skip ci]"
