@@ -1,0 +1,41 @@
+
+# Dataset loader config for HypBench synthetic dataset
+loader:
+  _target_: topobench.data.loaders.graph.hypbench_dataset.HypBenchDatasetLoader
+  parameters:
+    N_n: 1000
+    beta: 1.5
+    gamma: 2.5
+    kmean: 10.0
+    N_f: 500
+    beta_b: 1.5
+    gamma_n: 2.5
+    gamma_f: 2.5
+    kmean_n: 10.0
+    N_c: 5
+    alpha: 10.0
+    data_domain: graph
+    data_type: synthetic
+    data_name: HypBench
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+parameters:
+  num_features: 500
+  num_classes: 5
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/hypbench
+  data_seed: 0
+  split_type: random
+  k: 10
+  train_prop: 0.5
+
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 1
+  pin_memory: False

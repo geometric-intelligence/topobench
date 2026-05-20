@@ -386,6 +386,7 @@ Specially useful in pre-processing steps, these are the general data manipulatio
 | Tolokers | Classification | Heterophilic dataset. | [Source](https://arxiv.org/pdf/2302.11640) |
 | US-county-demos | Regression | In turn each node attribute is used as the target label. | [Source](https://arxiv.org/pdf/2002.08274) |
 | ZINC | Regression | Graph-level regression. | [Source](https://pubs.acs.org/doi/10.1021/ci3001277) |
+| HypBench | Classification | Synthetic complex networks | [Source](https://arxiv.org/abs/2406.02772)
 
 **Remark:** GraphUniverse is a synthetic graph generator for community-structured data, enabling control over graph properties like homophily, feature-signal and degree structure. Live Demo: [Demo](https://graphuniverse.streamlit.app/). Package release: [PyPi](https://pypi.org/project/graph-universe/0.1.2/). GitHub repository: [Repo](https://github.com/LouisVanLangendonck/GraphUniverse).
 
