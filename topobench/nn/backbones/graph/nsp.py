@@ -1,10 +1,11 @@
 """This module implements a Discrete Neural Sheaf Propagation-based model[1] that can be used with the training framework.
 
 Neural Sheaf Propagation is a method for learning representations of graphs using sheaf structure: node and edge stalks communicating via transport maps / restriction maps.
-Adapted and simplified from Bodnar et al. [1]
+Adapted and simplified from Suk et al. [2] and Bodnar et al. [1].
 
-[1] Bodnar et al. "Neural Sheaf Propagation: A Topological Perspective on Heterophily and Oversmoothing in GNNs"
-https://arxiv.org/abs/2202.04579
+[1] Bodnar et al. "Neural Sheaf Diffusion: A Topological Perspective on Heterophily and Oversmoothing in GNNs" https://arxiv.org/abs/2202.04579
+[2] Suk et al. "Surfing on the Neural Sheaf" https://openreview.net/pdf?id=xOXFkyRzTlu
+
 """
 
 from torch.nn import Module
