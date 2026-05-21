@@ -49,14 +49,14 @@ STANDARD_GENERATION_PARAMETERS: dict[str, Any] = {
         "feature_dim": 15,
         "center_variance": 0.2,
         "cluster_variance": 0.4,
-        "edge_propensity_variance": 1.0,
+        "edge_propensity_variance": 0.5,
         "seed": 42,
     },
     "family_parameters": {
-        "n_graphs": 50,
-        "n_nodes_range": [50, 200],
-        "n_communities_range": [3, 7],
-        "homophily_range": [0.4, 0.8],
+        "n_graphs": 1000,
+        "n_nodes_range": [50, 300],
+        "n_communities_range": [5, 10],
+        "homophily_range": [0.4, 0.6],
         "avg_degree_range": [1.0, 2.0],
         "degree_separation_range": [0.5, 1.0],
         "power_law_exponent_range": [1.5, 2.5],
@@ -71,7 +71,7 @@ HOMOPHILY_LEVELS: dict[str, list[float]] = {
 }
 
 AVG_DEGREE_LEVELS: dict[str, list[float]] = {
-    "d_lo": [1.0, 2.0],
+    "d_lo": [1.0, 2.5],
     "d_hi": [4.0, 5.0],
 }
 
@@ -94,7 +94,18 @@ DEFAULT_EXPERIMENT_MODES: list[tuple[str, str, str, list[str]]] = [
     ("triangle_counting", DEFAULT_WANDB_PROJECT_TRI, "dataset=graph/graphuniverse_inductive_triangle", []),
 ]
 
-MAX_EPOCHS = 10
+MAX_EPOCHS = 500
+
+# Hydra overrides for `run_challenge_grid` only (repo `configs/` defaults stay unchanged).
+CHECK_VAL_EVERY_N_EPOCH = 1
+EARLY_STOPPING_PATIENCE = 10
+
+CHALLENGE_GRID_HYDRA_OVERRIDES: list[str] = [
+    f"trainer.check_val_every_n_epoch={CHECK_VAL_EVERY_N_EPOCH}",
+    f"callbacks.early_stopping.patience={EARLY_STOPPING_PATIENCE}",
+]
+
+CHALLENGE_FEATURE_ENCODER_OUT_CHANNELS = 64
 
 # =============================================================================
 # GRID SETTINGS
@@ -173,6 +184,22 @@ def challenge_setting_to_hydra_overrides(
     setting: GraphUniverseChallengeSetting,
 ) -> list[str]:
     return generation_parameters_to_hydra_overrides(setting.generation_parameters)
+
+
+def apply_challenge_feature_encoder_out_channels(cfg: Any) -> None:
+    """If ``model.feature_encoder.out_channels`` exists, force it for challenge runs (utils-only)."""
+    if not OmegaConf.is_config(cfg):
+        return
+    model = cfg.get("model")
+    if model is None or not OmegaConf.is_config(model):
+        return
+    fe = model.get("feature_encoder")
+    if fe is None or not OmegaConf.is_config(fe):
+        return
+    if "out_channels" not in fe:
+        return
+    with open_dict(fe):
+        fe.out_channels = CHALLENGE_FEATURE_ENCODER_OUT_CHANNELS
 
 
 def resolve_project_root(here: Path | None = None) -> Path:
@@ -372,6 +399,7 @@ def run_challenge_grid(
     quiet: bool = False,
     train_seeds: tuple[int, ...] = CHALLENGE_TRAIN_SEEDS,
 ) -> tuple[list[dict[str, Any]], str]:
+    """Run the full challenge grid; prepends ``CHALLENGE_GRID_HYDRA_OVERRIDES`` to Hydra overrides."""
     root = project_root or resolve_project_root()
     ensure_repo_on_path(root)
     if register_resolvers:
@@ -381,7 +409,7 @@ def run_challenge_grid(
         ("community_detection", wandb_project_cd, "dataset=graph/graphuniverse_inductive", []),
         ("triangle_counting", wandb_project_tri, "dataset=graph/graphuniverse_inductive_triangle", []),
     ]
-    extra = list(extra_overrides or [])
+    extra = list(CHALLENGE_GRID_HYDRA_OVERRIDES) + list(extra_overrides or [])
     _work = (work_dir or Path.cwd()).resolve()
     sid = study_id or datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     results: list[dict[str, Any]] = []
@@ -425,6 +453,8 @@ def run_challenge_grid(
                 GlobalHydra.instance().clear()
                 with initialize_config_dir(version_base="1.3", config_dir=str(root / "configs")):
                     cfg = compose(config_name="run.yaml", overrides=overrides)
+
+                apply_challenge_feature_encoder_out_channels(cfg)
 
                 if OmegaConf.is_config(cfg) and cfg.get("trainer") is not None:
                     with open_dict(cfg.trainer):
@@ -478,7 +508,8 @@ def run_challenge_grid(
                         quiet=quiet,
                     )
 
-                results.append({
+                wandb_cfg_metrics = _read_wandb_run_metrics_from_config_yaml(run_dir)
+                row: dict[str, Any] = {
                     "experiment": mode_name,
                     "wandb_project": wandb_project,
                     "wandb_run_name": wandb_name,
@@ -494,10 +525,93 @@ def run_challenge_grid(
                     "test_mse_by_total_triangles": float(mse_by_tri) if mse_by_tri is not None else float("nan"),
                     "ood_test": ood_test,
                     "output_dir": str(run_dir),
-                })
+                }
+                if wandb_cfg_metrics:
+                    row["wandb_config"] = wandb_cfg_metrics
+                results.append(row)
 
     print(f"\nFinished {len(results)} run(s).")
     return results, sid
+
+
+def check_challenge_grid(
+    *,
+    project_root: Path | None = None,
+    model_config: str = "graph/gin",
+    extra_overrides: list[str] | None = None,
+    quiet: bool = True,
+) -> None:
+    """Quickly check that all configurations run correctly (1 epoch, 1 seed, no wandb)."""
+    root = project_root or resolve_project_root()
+    ensure_repo_on_path(root)
+    if not GlobalHydra.instance().is_initialized():
+        register_all_resolvers()
+
+    modes = [
+        ("community_detection", "dataset=graph/graphuniverse_inductive", []),
+        ("triangle_counting", "dataset=graph/graphuniverse_inductive_triangle", []),
+    ]
+
+    all_settings = list(iter_challenge_settings())
+    total_checks = len(modes) * len(all_settings)
+    check_ix = 0
+
+    if not quiet:
+        print(f"Starting sanity check for {total_checks} configurations...")
+
+    for mode_name, dataset_group, mode_overrides in modes:
+        for setting in all_settings:
+            check_ix += 1
+            run_slug = setting.run_slug
+
+            # Temporary directory for check logs
+            run_dir = root / "logs" / "check" / f"{mode_name}_{run_slug}"
+            run_dir.mkdir(parents=True, exist_ok=True)
+
+            overrides: list[str] = [
+                dataset_group,
+                f"model={model_config}",
+                "logger=csv",
+                f"paths.output_dir={run_dir.as_posix()}",
+                f"paths.work_dir={run_dir.as_posix()}",
+                "seed=42",
+                "trainer.max_epochs=1",
+                "trainer.check_val_every_n_epoch=1",
+            ]
+            overrides.extend(mode_overrides)
+            overrides.extend(challenge_setting_to_hydra_overrides(setting))
+            if extra_overrides:
+                overrides.extend(extra_overrides)
+
+            GlobalHydra.instance().clear()
+            with initialize_config_dir(version_base="1.3", config_dir=str(root / "configs")):
+                cfg = compose(config_name="run.yaml", overrides=overrides)
+
+            apply_challenge_feature_encoder_out_channels(cfg)
+
+            if OmegaConf.is_config(cfg) and cfg.get("trainer") is not None:
+                with open_dict(cfg.trainer):
+                    cfg.trainer.enable_progress_bar = False
+
+            pl.seed_everything(cfg.seed, workers=True)
+
+            if not quiet:
+                print(f"[{check_ix}/{total_checks}] Checking {mode_name} | {run_slug} ...", end=" ", flush=True)
+
+            with _challenge_quiet(True):
+                try:
+                    run(cfg)
+                    if not quiet:
+                        print("OK")
+                except Exception as e:
+                    if not quiet:
+                        print("FAILED")
+                    print(f"\n❌ CHECK FAILED: {mode_name} | {run_slug}")
+                    print(f"Error: {e}")
+                    raise e
+
+    if not quiet:
+        print(f"\n✅ All {total_checks} configurations passed the sanity check.")
 
 
 # =============================================================================
@@ -1022,6 +1136,49 @@ def plot_ood_delta_by_homophily_figure(
 # =============================================================================
 # RESULTS EXPORT
 # =============================================================================
+
+_WANDB_RUN_CONFIG_KEYS: tuple[str, ...] = (
+    "AvgTime/train_epoch_mean",
+    "AvgTime/train_epoch_std",
+    "model/params/total",
+    "model/params/trainable",
+    "model/params/non_trainable",
+)
+
+
+def _find_wandb_run_config_yaml(output_dir: Path) -> Path | None:
+    wandb_dir = output_dir / "wandb"
+    if not wandb_dir.is_dir():
+        return None
+    candidates = list(wandb_dir.glob("run-*/files/config.yaml"))
+    if not candidates:
+        return None
+    return max(candidates, key=lambda p: p.stat().st_mtime)
+
+
+def _read_wandb_run_metrics_from_config_yaml(output_dir: Path) -> dict[str, Any]:
+    """Read selected flat keys from wandb's exported ``config.yaml`` under ``output_dir``."""
+    path = _find_wandb_run_config_yaml(output_dir)
+    if path is None:
+        return {}
+    try:
+        cfg = OmegaConf.load(str(path))
+        data = OmegaConf.to_container(cfg, resolve=False)
+    except Exception:
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    out: dict[str, Any] = {}
+    for key in _WANDB_RUN_CONFIG_KEYS:
+        node = data.get(key)
+        if node is None:
+            continue
+        if isinstance(node, dict) and "value" in node:
+            out[key] = node["value"]
+        else:
+            out[key] = node
+    return out
+
 
 def _json_sanitize(obj: Any) -> Any:
     if isinstance(obj, dict):
