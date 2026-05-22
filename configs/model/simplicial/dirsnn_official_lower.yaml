@@ -1,0 +1,52 @@
+_target_: topobench.model.TBModel
+
+model_name: dirsnn_official_lower
+model_domain: simplicial
+
+# Official-experimental variant of Dir-SNN: uses only the four *lower*
+# directed edge adjacencies (Eq. (3) of arXiv:2409.08389), matching the
+# narrower setup actually used in the upstream reference repository
+# (`compute_lower_adj` of `repos/DirSNN/compute_adj.py`). The paper's
+# general formulation (Eqs. (6)-(10)) is a template over all 10 directed
+# adjacencies; the paper's published experiments use only these four
+# lower ones. See `DirSNNWrapper(adj_subset="lower")`.
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+
+backbone:
+  _target_: topobench.nn.backbones.simplicial.dirsnn.DirSNN
+  edge_channels: ${model.feature_encoder.out_channels}
+  n_hid: ${model.feature_encoder.out_channels}
+  n_layers: 2
+  conv_order: 1
+  n_adjs: 4  # 4 directed lower edge adjacencies only (official setup)
+  aggr_norm: False
+  update_func: "relu"
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.DirSNNWrapper
+  _partial_: true
+  wrapper_name: DirSNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  adj_subset: "lower"
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
