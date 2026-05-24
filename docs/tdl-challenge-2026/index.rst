@@ -351,6 +351,13 @@ The evaluation notebook provided with the challenge must also run successfully
 with your submitted model. **No minimum training performance is required** —
 the goal is to evaluate architectural correctness, not accuracy.
 
+.. note::
+   The ``results.json`` produced by the evaluation notebook and committed to
+   your PR feeds the :doc:`2026 Challenge Leaderboard </leaderboard/index>`.
+   It is refreshed every two days from PRs labeled ``track-1-gnn`` or
+   ``track-2-tnn`` — make sure your PR carries the correct label so your run
+   is picked up automatically.
+
 .. tip::
    For **Track 1** models that map directly onto PyG's standard GCN/GAT/GIN
    API, the existing ``GNNWrapper`` and ``AllCellFeatureEncoder`` can be

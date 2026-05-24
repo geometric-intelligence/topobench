@@ -1,0 +1,70 @@
+name: "Leaderboard: Refresh TDL Challenge 2026"
+
+on:
+  schedule:
+    # Every 2 days at 06:00 UTC
+    - cron: "0 6 */2 * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "docs/scripts/fetch_leaderboard_results.py"
+      - ".github/workflows/update_leaderboard.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: leaderboard-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    if: github.repository == 'geometric-intelligence/TopoBench'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch results from labeled PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python docs/scripts/fetch_leaderboard_results.py
+
+      - name: Check for leaderboard changes
+        id: changes
+        run: |
+          set -euo pipefail
+          DATA_FILE="docs/_static/leaderboard/data/leaderboard.json"
+          if [ -z "$(git status --porcelain "$DATA_FILE")" ]; then
+            echo "No leaderboard changes detected."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open / update pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: bot/refresh-tdl-challenge-2026-leaderboard
+          base: main
+          add-paths: docs/_static/leaderboard/data/leaderboard.json
+          commit-message: "docs(leaderboard): refresh TDL Challenge 2026 results [skip ci]"
+          title: "docs(leaderboard): refresh TDL Challenge 2026 results"
+          body: |
+            Automated refresh of the TDL Challenge 2026 leaderboard.
+
+            This PR was opened automatically by the `Leaderboard: Refresh TDL Challenge 2026` workflow because `main` is a protected branch and direct pushes are not allowed.
+          labels: |
+            leaderboard
+            automated
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          delete-branch: true

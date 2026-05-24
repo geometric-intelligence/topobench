@@ -89,8 +89,10 @@ tutorials/lightning_logs/*
 tutorials/checkpoints
 tutorials/checkpoints/*
 
-# GraphUniverse challenge notebook outputs (JSON + figures)
-2026_tdl_challenge/outputs/
+# GraphUniverse challenge notebook outputs (JSON + figures); keep results.json tracked
+2026_tdl_challenge/outputs/**
+!2026_tdl_challenge/outputs/**/
+!2026_tdl_challenge/outputs/**/results.json
 
 # IPython
 profile_default/
