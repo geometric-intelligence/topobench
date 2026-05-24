@@ -5,7 +5,6 @@ from typing import Any
 
 import torch
 import torch_geometric
-from torch_sparse import SparseTensor
 
 
 class DomainData(torch_geometric.data.Data):
@@ -70,6 +69,8 @@ def to_data_list(batch):
     list
         List of data objects.
     """
+    from torch_sparse import SparseTensor
+
     for key, _ in batch:
         if batch[key].is_sparse:
             sparse_data = batch[key].coalesce()

@@ -70,7 +70,7 @@ TopoBench now uses [**uv**](https://docs.astral.sh/uv/), an extremely fast Pytho
 3.  **Initialize Environment**:
     Use our centralized setup script to handle Python 3.11 virtualization and specialized hardware (CUDA) mapping.
     ```bash
-    # Usage: source uv_env_setup.sh [cpu|cu118|cu121]
+    # Usage: source uv_env_setup.sh [cpu|cu118|cu121|cu128]
     source uv_env_setup.sh cpu
     ```
     *This script performs the following:*

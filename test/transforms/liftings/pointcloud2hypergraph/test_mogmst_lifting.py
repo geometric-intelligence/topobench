@@ -28,7 +28,7 @@ class TestMoGMSTLifting:
                 [0.16, 0.45],
             ]
         )
-        self.data = Data(x=pos, y=torch.tensor(y))
+        self.data = Data(x=pos, y=y)
 
         # Initialise the HypergraphKHopLifting class
         self.lifting = MoGMSTLifting(min_components=3, random_state=0)

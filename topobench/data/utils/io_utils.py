@@ -12,7 +12,6 @@ import torch
 import torch_geometric
 from toponetx.classes import SimplicialComplex
 from torch_geometric.data import Data
-from torch_sparse import coalesce
 
 from topobench.data.utils import get_complex_connectivity
 
@@ -370,6 +369,8 @@ def load_hypergraph_pickle_dataset(data_dir, data_name):
     torch_geometric.data.Data
         Hypergraph dataset.
     """
+    from torch_sparse import coalesce
+
     data_dir = osp.join(data_dir, data_name)
 
     # Load node features:
@@ -478,6 +479,8 @@ def load_hypergraph_content_dataset(data_dir, data_name):
     torch_geometric.data.Data
         Hypergraph dataset.
     """
+    from torch_sparse import coalesce
+
     # data_dir = osp.join(data_dir, data_name)
 
     p2idx_features_labels = osp.join(data_dir, f"{data_name}.content")

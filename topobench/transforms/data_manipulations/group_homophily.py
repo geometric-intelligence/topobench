@@ -85,7 +85,9 @@ class GroupCombinatorialHomophily(torch_geometric.transforms.BaseTransform):
             if max_k != 1:
                 H_k = H[:, torch.where(he_cardinalities == max_k)[0]].clone()
 
-                he_cardinalities_k = torch.tensor(H_k.sum(0), dtype=torch.long)
+                he_cardinalities_k = (
+                    H_k.sum(0).detach().clone().to(dtype=torch.long)
+                )
                 Dt, D = self.calculate_D_matrix(
                     H_k,
                     labels,

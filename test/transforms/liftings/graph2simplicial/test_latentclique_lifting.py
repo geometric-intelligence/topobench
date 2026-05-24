@@ -73,7 +73,7 @@ class TestLatentCliqueCoverLifting:
         # (or, equivalently, the SC has a simplex in its facets set if complex_dim = |maximal_clique|-1)
 
         # Convert adjacency matrix to NetworkX graph
-        G_from_latent_complex = nx.from_numpy_matrix(
+        G_from_latent_complex = nx.from_numpy_array(
             edge_prob_one_adj.to_dense().numpy()
         )
         G_input = nx.Graph()
@@ -95,7 +95,7 @@ class TestLatentCliqueCoverLifting:
         # (or, equivalently, there is no subset of the 1-skeleton of the SC isomorphic to the input graph)
 
         # Convert adjacency matrix to NetworkX graph
-        G_from_latent_complex = nx.from_numpy_matrix(
+        G_from_latent_complex = nx.from_numpy_array(
             edge_prob_any_adj.to_dense().numpy()
         )
         G_input = nx.Graph()

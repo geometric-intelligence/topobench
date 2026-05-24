@@ -1,0 +1,31 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.WikipediaNetworkDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: wikipedia_network
+    data_name: Squirrel
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 2089
+  num_classes: 5
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: fixed
+  k: 10
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 0
+  pin_memory: False

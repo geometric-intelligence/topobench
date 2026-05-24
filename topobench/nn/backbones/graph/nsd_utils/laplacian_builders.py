@@ -14,7 +14,6 @@ import sys
 import torch
 from torch import nn
 from torch_geometric.utils import degree
-from torch_scatter import scatter_add
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from .laplace import (
@@ -170,6 +169,8 @@ class DiagLaplacianBuilder(LaplacianBuilder):
         saved_tril_maps : torch.Tensor
             Saved lower triangular restriction maps for analysis.
         """
+        from torch_scatter import scatter_add
+
         assert len(maps.size()) == 2
         assert maps.size(1) == self.d
         left_idx, right_idx = self.left_right_idx
@@ -352,6 +353,8 @@ class GeneralLaplacianBuilder(LaplacianBuilder):
         saved_tril_maps : torch.Tensor
             Saved lower triangular transport maps for analysis.
         """
+        from torch_scatter import scatter_add
+
         left_idx, right_idx = self.left_right_idx
         tril_row, tril_col = self.vertex_tril_idx
         tril_indices, diag_indices = self.tril_indices, self.diag_indices

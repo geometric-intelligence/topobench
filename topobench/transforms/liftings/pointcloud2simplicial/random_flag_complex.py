@@ -85,7 +85,7 @@ class RandomFlagComplexLifting(PointCloud2SimplicialLifting):
         for i in range(n):
             st.insert([i])
 
-        graph: nx.Graph = nx.from_numpy_matrix(adj_mat).to_undirected()
+        graph: nx.Graph = nx.from_numpy_array(adj_mat).to_undirected()
 
         # Insert all edges
         for v, u in graph.edges:
