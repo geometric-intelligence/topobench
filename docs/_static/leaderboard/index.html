@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TDL Challenge 2026 — Leaderboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      html,
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        background: white;
+      }
+      table.lb {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+      table.lb th,
+      table.lb td {
+        padding: 0.6rem 0.85rem;
+        text-align: left;
+        border-bottom: 1px solid #f1f5f9;
+        white-space: nowrap;
+      }
+      table.lb thead th {
+        background: #f8fafc;
+        font-weight: 600;
+        color: #334155;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        user-select: none;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      table.lb thead th .sort-indicator {
+        display: inline-block;
+        width: 0.9rem;
+        opacity: 0.4;
+      }
+      table.lb thead th.sorted .sort-indicator {
+        opacity: 1;
+      }
+      table.lb tbody tr:hover {
+        background: #f8fafc;
+      }
+      table.lb tbody tr.gold td:first-child {
+        color: #b45309;
+        font-weight: 700;
+      }
+      table.lb tbody tr.silver td:first-child {
+        color: #6b7280;
+        font-weight: 700;
+      }
+      table.lb tbody tr.bronze td:first-child {
+        color: #92400e;
+        font-weight: 700;
+      }
+      .pill {
+        display: inline-block;
+        padding: 0.1rem 0.55rem;
+        border-radius: 9999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+      }
+      .pill-track1 {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .pill-track2 {
+        background: #ede9fe;
+        color: #6d28d9;
+      }
+      .pill-unknown {
+        background: #e2e8f0;
+        color: #475569;
+      }
+      select {
+        background: white;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        padding: 0.45rem 2rem 0.45rem 0.75rem;
+        font-size: 0.9rem;
+        color: #0f172a;
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'><path fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd' /></svg>");
+        background-repeat: no-repeat;
+        background-position: right 0.5rem center;
+        background-size: 1.1rem;
+      }
+      select:focus {
+        outline: 2px solid #6366f1;
+        outline-offset: 1px;
+      }
+      .field label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #475569;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .empty {
+        padding: 3rem 1rem;
+        text-align: center;
+        color: #64748b;
+      }
+      .meta-line {
+        font-size: 0.78rem;
+        color: #64748b;
+      }
+      a.pr-link {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      a.pr-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <header class="mb-6">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">
+          TDL Challenge 2026 — Leaderboard
+        </h1>
+        <p class="mt-1 text-slate-600 text-sm sm:text-base">
+          In-distribution test performance for submissions tagged
+          <span class="mono">track-1-gnn</span> or
+          <span class="mono">track-2-tnn</span>. Pick a task and the dataset
+          axes to drill into a specific
+          <span class="mono">(homophily × avg degree × power-law)</span>
+          configuration, or leave them on <em>All</em> for the overall view.
+        </p>
+        <p id="lastUpdated" class="meta-line mt-2"></p>
+      </header>
+
+      <section
+        class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5"
+        id="filters"
+      >
+        <div class="field">
+          <label for="f-task">Task</label>
+          <select id="f-task" class="w-full">
+            <option value="all">All tasks</option>
+            <option value="community_detection">Community Detection</option>
+            <option value="triangle_counting">Triangle Counting</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-h">Homophily</label>
+          <select id="f-h" class="w-full">
+            <option value="all">All</option>
+            <option value="h_lo">Low (0 – 0.1)</option>
+            <option value="h_mid">Mid (0.4 – 0.6)</option>
+            <option value="h_hi">High (0.9 – 1.0)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-d">Avg degree</label>
+          <select id="f-d" class="w-full">
+            <option value="all">All</option>
+            <option value="d_lo">Low (1 – 2)</option>
+            <option value="d_hi">High (4 – 5)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-p">Power-law γ</label>
+          <select id="f-p" class="w-full">
+            <option value="all">All</option>
+            <option value="pl_lo">Low (1.5 – 2)</option>
+            <option value="pl_hi">High (4 – 5)</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="tables" class="space-y-8">
+        <!-- Tables get populated by JS -->
+      </section>
+
+      <footer class="mt-10 text-xs text-slate-500">
+        <p>
+          Score = mean ± std of the in-distribution test metric across the
+          rows matching the current filter (3 train seeds when all axes are
+          fixed; up to 36 rows when an axis is set to <em>All</em>).
+          Results are pulled from the
+          <span class="mono">results.json</span> committed in each labeled
+          pull request. Refreshes automatically every two days.
+        </p>
+      </footer>
+    </main>
+
+    <template id="tpl-table">
+      <div>
+        <div class="flex items-baseline justify-between mb-2">
+          <h2 class="text-lg font-semibold tracking-tight" data-role="title"></h2>
+          <span class="meta-line" data-role="subtitle"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="lb">
+            <thead>
+              <tr>
+                <th data-key="rank" class="w-12">#</th>
+                <th data-key="model_config">Model</th>
+                <th data-key="track">Track</th>
+                <th data-key="pr_title">Submission</th>
+                <th data-key="pr_author">Author</th>
+                <th data-key="score" class="text-right">
+                  Score <span class="sort-indicator">↕</span>
+                </th>
+                <th data-key="n" class="text-right"># samples</th>
+                <th data-key="submitted_at_utc">Submitted</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="empty hidden" data-role="empty">
+          No submissions match the current filter for this task yet.
+        </div>
+      </div>
+    </template>
+
+    <script>
+      const TASKS = {
+        community_detection: {
+          label: "Community Detection",
+          metric: "Accuracy",
+          metricShort: "acc",
+          decimals: 4,
+          direction: "max", // higher is better
+        },
+        triangle_counting: {
+          label: "Triangle Counting",
+          metric: "MSE / total triangles",
+          metricShort: "mse/tri",
+          decimals: 4,
+          direction: "min", // lower is better
+        },
+      };
+
+      const STATE = {
+        data: null,
+        sort: { key: "score", asc: null }, // asc=null defaults to "best first"
+      };
+
+      function fmt(n, decimals) {
+        if (n === null || n === undefined || Number.isNaN(n)) return "—";
+        return Number(n).toFixed(decimals);
+      }
+
+      function formatDate(s) {
+        if (!s) return "—";
+        try {
+          const d = new Date(s);
+          if (Number.isNaN(d.getTime())) return s;
+          return d.toISOString().slice(0, 10);
+        } catch (_e) {
+          return s;
+        }
+      }
+
+      function meanStd(values) {
+        const n = values.length;
+        if (n === 0) return { mean: null, std: null, n: 0 };
+        let sum = 0;
+        for (const v of values) sum += v;
+        const mean = sum / n;
+        if (n === 1) return { mean, std: 0, n };
+        let sse = 0;
+        for (const v of values) sse += (v - mean) ** 2;
+        return { mean, std: Math.sqrt(sse / (n - 1)), n };
+      }
+
+      function trackPill(track) {
+        if (track === "track-1-gnn")
+          return '<span class="pill pill-track1">Track 1 · GNN</span>';
+        if (track === "track-2-tnn")
+          return '<span class="pill pill-track2">Track 2 · TNN</span>';
+        return '<span class="pill pill-unknown">—</span>';
+      }
+
+      function filterRows(submission, taskKey, h, d, p) {
+        return submission.rows.filter(
+          (r) =>
+            r.task === taskKey &&
+            (h === "all" || r.homophily === h) &&
+            (d === "all" || r.avg_degree === d) &&
+            (p === "all" || r.power_law === p),
+        );
+      }
+
+      function buildTaskTable(taskKey, filters) {
+        const meta = TASKS[taskKey];
+        const submissions = STATE.data?.submissions ?? [];
+
+        const rows = submissions
+          .map((sub) => {
+            const subset = filterRows(
+              sub,
+              taskKey,
+              filters.h,
+              filters.d,
+              filters.p,
+            );
+            const stats = meanStd(subset.map((r) => r.score));
+            return {
+              submission: sub,
+              stats,
+            };
+          })
+          .filter((r) => r.stats.n > 0);
+
+        // Sort: by score (best first respecting direction) unless user clicked.
+        const sortKey = STATE.sort.key;
+        const asc = STATE.sort.asc;
+        rows.sort((a, b) => {
+          let av, bv;
+          switch (sortKey) {
+            case "score":
+              av = a.stats.mean;
+              bv = b.stats.mean;
+              if (asc === null)
+                return meta.direction === "max" ? bv - av : av - bv;
+              return asc ? av - bv : bv - av;
+            case "n":
+              av = a.stats.n;
+              bv = b.stats.n;
+              return (asc ?? false) ? av - bv : bv - av;
+            case "submitted_at_utc":
+              av = new Date(a.submission.submitted_at_utc || 0).getTime();
+              bv = new Date(b.submission.submitted_at_utc || 0).getTime();
+              return (asc ?? false) ? av - bv : bv - av;
+            default:
+              av = String(a.submission[sortKey] ?? "");
+              bv = String(b.submission[sortKey] ?? "");
+              return (asc ?? true)
+                ? av.localeCompare(bv)
+                : bv.localeCompare(av);
+          }
+        });
+
+        const tpl = document.getElementById("tpl-table");
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        node.querySelector('[data-role="title"]').textContent =
+          `${meta.label} — ${meta.metric} (${meta.direction === "max" ? "higher is better" : "lower is better"})`;
+
+        const dimSummary = describeFilter(filters);
+        node.querySelector('[data-role="subtitle"]').textContent =
+          dimSummary === "" ? "all settings" : dimSummary;
+
+        const tbody = node.querySelector("tbody");
+        if (rows.length === 0) {
+          node.querySelector('[data-role="empty"]').classList.remove("hidden");
+        } else {
+          rows.forEach((r, idx) => {
+            const tr = document.createElement("tr");
+            const sub = r.submission;
+            const rankClass =
+              idx === 0
+                ? "gold"
+                : idx === 1
+                  ? "silver"
+                  : idx === 2
+                    ? "bronze"
+                    : "";
+            if (rankClass) tr.classList.add(rankClass);
+            const prHref = sub.pr_url || "#";
+            const prLabel = sub.pr_number
+              ? `#${sub.pr_number} · ${sub.pr_title ?? ""}`
+              : sub.pr_title || "—";
+
+            tr.innerHTML = [
+              `<td>${idx + 1}</td>`,
+              `<td class="mono">${escapeHtml(sub.model_config ?? "—")}</td>`,
+              `<td>${trackPill(sub.track)}</td>`,
+              `<td><a class="pr-link" href="${escapeAttr(prHref)}" target="_blank" rel="noreferrer noopener">${escapeHtml(prLabel)}</a></td>`,
+              `<td class="mono">${escapeHtml(sub.pr_author ?? "—")}</td>`,
+              `<td class="text-right mono">${fmt(r.stats.mean, meta.decimals)}<span class="text-slate-400"> ± ${fmt(r.stats.std, meta.decimals)}</span></td>`,
+              `<td class="text-right mono">${r.stats.n}</td>`,
+              `<td class="mono">${formatDate(sub.submitted_at_utc)}</td>`,
+            ].join("");
+            tbody.appendChild(tr);
+          });
+        }
+
+        // Wire header sorting.
+        node.querySelectorAll("thead th").forEach((th) => {
+          const key = th.getAttribute("data-key");
+          if (!key || key === "rank") return;
+          if (key === sortKey) {
+            th.classList.add("sorted");
+            const ind = th.querySelector(".sort-indicator");
+            if (ind) ind.textContent = STATE.sort.asc ? "↑" : "↓";
+          }
+          th.addEventListener("click", () => {
+            if (STATE.sort.key === key)
+              STATE.sort.asc = STATE.sort.asc === null ? false : !STATE.sort.asc;
+            else {
+              STATE.sort.key = key;
+              STATE.sort.asc = false;
+            }
+            render();
+          });
+        });
+
+        return node;
+      }
+
+      function describeFilter(f) {
+        const parts = [];
+        const HMAP = {
+          h_lo: "Homophily low",
+          h_mid: "Homophily mid",
+          h_hi: "Homophily high",
+        };
+        const DMAP = { d_lo: "Avg degree low", d_hi: "Avg degree high" };
+        const PMAP = { pl_lo: "γ low", pl_hi: "γ high" };
+        if (f.h !== "all") parts.push(HMAP[f.h]);
+        if (f.d !== "all") parts.push(DMAP[f.d]);
+        if (f.p !== "all") parts.push(PMAP[f.p]);
+        return parts.join(" · ");
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"]/g, (c) =>
+          c === "&"
+            ? "&amp;"
+            : c === "<"
+              ? "&lt;"
+              : c === ">"
+                ? "&gt;"
+                : "&quot;",
+        );
+      }
+
+      function escapeAttr(s) {
+        return escapeHtml(s);
+      }
+
+      function currentFilters() {
+        return {
+          task: document.getElementById("f-task").value,
+          h: document.getElementById("f-h").value,
+          d: document.getElementById("f-d").value,
+          p: document.getElementById("f-p").value,
+        };
+      }
+
+      function render() {
+        const filters = currentFilters();
+        const container = document.getElementById("tables");
+        container.innerHTML = "";
+        const tasksToRender =
+          filters.task === "all" ? Object.keys(TASKS) : [filters.task];
+        for (const t of tasksToRender) {
+          container.appendChild(buildTaskTable(t, filters));
+        }
+      }
+
+      async function load() {
+        try {
+          const resp = await fetch("./data/leaderboard.json", {
+            cache: "no-store",
+          });
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          STATE.data = await resp.json();
+        } catch (err) {
+          document.getElementById("tables").innerHTML =
+            `<div class="empty">Could not load leaderboard data: ${escapeHtml(err.message)}</div>`;
+          return;
+        }
+        const last = STATE.data?.generated_at_utc;
+        if (last) {
+          document.getElementById("lastUpdated").textContent =
+            `Last updated: ${formatDate(last)} (UTC)`;
+        }
+        render();
+      }
+
+      ["f-task", "f-h", "f-d", "f-p"].forEach((id) =>
+        document.getElementById(id).addEventListener("change", () => {
+          STATE.sort = { key: "score", asc: null };
+          render();
+        }),
+      );
+
+      load();
+    </script>
+  </body>
+</html>
