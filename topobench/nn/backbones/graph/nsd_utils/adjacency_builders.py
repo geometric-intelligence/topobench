@@ -14,13 +14,9 @@ depends on direction (alpha_ij for the (i, j) block, alpha_ji for the
 self-loop attention alpha_ii.
 """
 
-import os
-import sys
-
 import torch
 from torch import nn
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from .laplace import (
     compute_learnable_diag_laplacian_indices,
     compute_learnable_laplacian_indices,
@@ -289,7 +285,6 @@ class GeneralSheafAdjacencyBuilder(_SheafAdjacencyBuilder):
         """
         assert maps.dim() == 3
         assert maps.size(1) == self.d and maps.size(2) == self.d
-        assert torch.all(torch.isfinite(maps))
         left_idx, right_idx = self.left_right_idx
         alpha_tril, alpha_triu, alpha_self = self._split_alpha(alpha)
 

@@ -37,7 +37,7 @@ class SheafGATAttention(nn.Module):
         Number of attention heads. Default is 1.
     head_dim : int or None, optional
         Per-head projection dimension. If None, falls back to
-        in_channels // num_heads and requires divisibility.
+        max(1, in_channels // num_heads) (floor division with min of 1).
     negative_slope : float, optional
         Slope of the LeakyReLU non-linearity. Default is 0.2.
     """

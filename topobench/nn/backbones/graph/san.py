@@ -14,7 +14,7 @@ https://openreview.net/forum?id=LIDvgVjpkZr
 """
 
 from torch.nn import Module
-from torch_geometric.utils import to_undirected
+from torch_geometric.utils import remove_self_loops, to_undirected
 
 from topobench.nn.backbones.graph.nsd_utils.inductive_attention_models import (
     InductiveSheafAttentionBundle,
@@ -40,7 +40,8 @@ class SANEncoder(Module):
     input_dim : int
         Dimension of input node features.
     hidden_dim : int
-        Dimension of hidden layers. Must be divisible by ``d``.
+        Dimension of hidden layers. Internal hidden_channels computed as
+        hidden_dim // d (floor division); output dimension is hidden_dim.
     num_layers : int, optional
         Number of SheafAN layers. Default is 2.
     sheaf_type : str, optional
@@ -48,7 +49,8 @@ class SANEncoder(Module):
         ``'general'``. Default is ``'bundle'`` (paper setting).
     d : int, optional
         Dimension of the stalk space. For ``'diag'``, ``d >= 1``; for
-        ``'bundle'`` and ``'general'``, ``d > 1``. Default is 2.
+        ``'bundle'`` and ``'general'``, ``d > 1``. Internal hidden_channels
+        = hidden_dim // d. Default is 2.
     dropout : float, optional
         Dropout rate applied between layers. Default is 0.1.
     input_dropout : float, optional
@@ -160,6 +162,7 @@ class SANEncoder(Module):
         torch.Tensor
             Output node feature matrix of shape [num_nodes, hidden_dim].
         """
+        edge_index = remove_self_loops(edge_index)[0]
         edge_index = to_undirected(edge_index)
         return self.san_model(x, edge_index)
 
