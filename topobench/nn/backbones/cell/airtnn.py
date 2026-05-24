@@ -31,11 +31,30 @@ class AirTNNLayer(nn.Module):
     (self) contributions, each passed through a learnable linear map:
 
     .. math::
-        y = H_0 x + \sum_{j=1}^{k} \big( U_j\, S_u^{(j)} x + L_j\, S_d^{(j)} x \big),
+        y = H_0 x + \sum_{j=1}^{k+1} \big( U_j\, S_u^{(j)} x + L_j\, S_d^{(j)} x \big),
 
     where :math:`S_u, S_d` are the upper/lower shift operators. Over the air,
     each application of a shift multiplies the operator entries by sampled
     channel fading and adds white noise (see :meth:`_shift`).
+
+    Notes
+    -----
+    The shift operators :math:`S_d, S_u` are instantiated as the lower/upper
+    Hodge Laplacians :math:`L_d = B_1^\top B_1` and :math:`L_u = B_2 B_2^\top`
+    supplied by TopoBench, matching the cell-complex FIR filter of [1, Eq. (2)]
+    (the standard convolutional filter of Yang et al. and Barbarossa--
+    Sardellitti). Per [1, Eq. (8)-(9)], the over-the-air channel gains are
+    placed on exactly the nonzero entries of the shift operator; since the
+    Hodge Laplacians carry a populated diagonal (the lower/upper cell degrees),
+    fading is applied to those diagonal entries as well, by design -- the paper
+    constrains only the *off-support* entries (:math:`[S]_{ij}=0` iff cells are
+    not neighbors) and leaves :math:`S` as the Laplacian.
+
+    The order-0 (self) contribution :math:`H_0 x` -- the :math:`w_0`,
+    :math:`S^0 = I` term of the filter polynomial -- is realized by the
+    separate ``h_lin`` branch acting directly on ``x``. It never passes through
+    :meth:`_fade` or the noise injection, so each cell retains exact, un-faded
+    knowledge of its own state independently of the diagonal of :math:`S`.
 
     Parameters
     ----------
@@ -44,7 +63,9 @@ class AirTNNLayer(nn.Module):
     c_out : int
         Number of output channels.
     k : int, optional
-        Number of shift orders per neighborhood (default: 1).
+        Filter-order parameter: each neighborhood branch spans shift orders
+        ``1..k+1`` (i.e. ``k+1`` learnable maps per branch), in addition to the
+        order-0 self term. Default: 1.
     snr_db : float, optional
         Channel signal-to-noise ratio in dB. Use ``100`` for the ideal,
         noise-free filter (default: 100).
@@ -61,7 +82,7 @@ class AirTNNLayer(nn.Module):
         self.snr_lin = 10 ** (snr_db / 10)
         self.delta = float(delta)
 
-        # One linear map per shift order (0..k) for each of the two
+        # One linear map per shift order (1..k+1) for each of the two
         # neighborhoods, plus an order-0 self map.
         self.up_lins = nn.ModuleList(
             [Linear(c_in, c_out, bias=False) for _ in range(k + 1)]
@@ -142,7 +163,9 @@ class AirTNNLayer(nn.Module):
         r"""Apply one over-the-air topological shift ``L @ x``.
 
         Ideal channel (``snr_db == 100``) is a plain sparse matmul; otherwise
-        the operator is faded and white noise is added.
+        the operator is faded and white noise is added. Fading is applied to
+        every nonzero of the Hodge Laplacian per [1, Eq. (8)-(9)], diagonal
+        included; the un-faded self term is handled separately by ``h_lin``.
 
         Parameters
         ----------
@@ -208,7 +231,8 @@ class AirTNN(nn.Module):
     n_layers : int, optional
         Number of AirTNN layers (default: 2).
     k : int, optional
-        Shift orders per layer (default: 1).
+        Per-layer filter-order parameter; each layer spans neighborhood shift
+        orders ``1..k+1`` (default: 1).
     snr_db : float, optional
         Channel SNR in dB; ``100`` is the ideal noise-free filter (default: 100).
     delta : float, optional
