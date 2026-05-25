@@ -1,4 +1,4 @@
-"""TopNets graph backbone with learned-filtration PH features.
+"""TopNets graph route operator with learned-filtration PH features.
 
 This module ports the challenge-relevant graph-classification model from the
 reference TopNets repository. The original graph models combine a GCN/GIN
@@ -9,8 +9,8 @@ with message-passing features.
 
 The reference code calls compiled ``ph_cpu``/``rephine_mt`` extensions. This
 TopoBench implementation keeps the same standard graph-filtration branch in
-portable PyTorch: it computes 0-dimensional union-find pairs and graph-cycle
-1-dimensional proxy pairs from the learned filtration values.
+portable PyTorch using batched proxy persistence pairs from the learned
+filtration values.
 """
 
 from __future__ import annotations
@@ -198,14 +198,24 @@ class _TopologicalFiltrationLayer(nn.Module):
         self, persistence: torch.Tensor
     ) -> torch.Tensor:
         """Apply TOGL coordinate functions to persistence pairs."""
-        per_filtration = [
-            torch.cat(
-                [module(filtration_pairs) for module in self.coord_modules],
-                dim=1,
+        num_filtrations, num_items, _ = persistence.shape
+        if num_items == 0:
+            return persistence.new_zeros((0, self.topological_dim))
+
+        flat_pairs = persistence.reshape(num_filtrations * num_items, 2)
+        flat_activations = torch.cat(
+            [module(flat_pairs) for module in self.coord_modules],
+            dim=1,
+        )
+        return (
+            flat_activations.view(
+                num_filtrations,
+                num_items,
+                self.coord_dim,
             )
-            for filtration_pairs in persistence
-        ]
-        return torch.cat(per_filtration, dim=1)
+            .transpose(0, 1)
+            .reshape(num_items, self.topological_dim)
+        )
 
     def _collapse_dim1(
         self,
@@ -238,48 +248,76 @@ class _TopologicalFiltrationLayer(nn.Module):
         edge_batch: torch.Tensor,
         num_graphs: int,
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Compute standard graph-filtration H0 pairs and H1 cycle pairs."""
-        persistence0 = []
-        persistence1 = []
+        """Compute batched proxy H0 and H1 persistence pairs."""
+        num_nodes = filtrations.shape[0]
+        graph_max = scatter(
+            filtrations,
+            batch,
+            dim=0,
+            reduce="max",
+            dim_size=num_graphs,
+        )
 
-        for filtration_id in range(self.num_filtrations):
-            values = filtrations[:, filtration_id]
-            pairs0 = values.new_zeros(values.shape[0], 2)
-            pairs1 = values.new_zeros(edge_index.shape[1], 2)
+        if edge_index.numel() == 0:
+            persistence0 = torch.stack(
+                [filtrations.t(), filtrations.t()],
+                dim=2,
+            )
+            persistence1 = filtrations.new_zeros(
+                (self.num_filtrations, 0, 2)
+            )
+            return persistence0, persistence1
 
-            for graph_id in range(num_graphs):
-                node_idx = (batch == graph_id).nonzero(as_tuple=False).view(-1)
-                if node_idx.numel() == 0:
-                    continue
+        row, col = edge_index
+        edge_values = self._edge_filtration_values(filtrations, edge_index)
 
-                edge_idx = (
-                    (edge_batch == graph_id).nonzero(as_tuple=False).view(-1)
-                )
-                graph_max = values[node_idx].max()
-                if edge_idx.numel() > 0:
-                    edge_values = self._edge_filtration_values(
-                        values, edge_index[:, edge_idx]
-                    )
-                    graph_max = torch.maximum(graph_max, edge_values.max())
-                    self._fill_graph_pairs(
-                        values=values,
-                        edge_index=edge_index,
-                        edge_idx=edge_idx,
-                        edge_values=edge_values,
-                        node_idx=node_idx,
-                        graph_max=graph_max,
-                        pairs0=pairs0,
-                        pairs1=pairs1,
-                    )
-                else:
-                    pairs0[node_idx] = torch.stack(
-                        [values[node_idx], values[node_idx]], dim=1
-                    )
+        incident_nodes = torch.cat([row, col], dim=0)
+        incident_values = torch.cat([edge_values, edge_values], dim=0)
+        min_incident_death = scatter(
+            incident_values,
+            incident_nodes,
+            dim=0,
+            reduce="min",
+            dim_size=num_nodes,
+        )
 
-            persistence0.append(pairs0)
-            persistence1.append(pairs1)
+        has_incident_edge = torch.zeros(
+            num_nodes,
+            dtype=torch.bool,
+            device=filtrations.device,
+        )
+        has_incident_edge[incident_nodes] = True
 
-        return torch.stack(persistence0), torch.stack(persistence1)
+        graph_edge_count = scatter(
+            torch.ones(
+                edge_batch.shape[0],
+                dtype=filtrations.dtype,
+                device=filtrations.device,
+            ),
+            edge_batch,
+            dim=0,
+            reduce="sum",
+            dim_size=num_graphs,
+        )
+        graph_has_edges = graph_edge_count > 0
+
+        death0 = torch.where(
+            has_incident_edge[:, None],
+            min_incident_death,
+            graph_max[batch],
+        )
+        death0 = torch.where(
+            graph_has_edges[batch, None],
+            death0,
+            filtrations,
+        )
+        persistence0 = torch.stack([filtrations.t(), death0.t()], dim=2)
+
+        persistence1 = torch.stack(
+            [edge_values.t(), graph_max[edge_batch].t()],
+            dim=2,
+        )
+        return persistence0, persistence1
 
     @staticmethod
     def _edge_filtration_values(
@@ -287,78 +325,8 @@ class _TopologicalFiltrationLayer(nn.Module):
     ) -> torch.Tensor:
         return torch.maximum(values[edge_index[0]], values[edge_index[1]])
 
-    @staticmethod
-    def _fill_graph_pairs(
-        values: torch.Tensor,
-        edge_index: torch.Tensor,
-        edge_idx: torch.Tensor,
-        edge_values: torch.Tensor,
-        node_idx: torch.Tensor,
-        graph_max: torch.Tensor,
-        pairs0: torch.Tensor,
-        pairs1: torch.Tensor,
-    ) -> None:
-        """Populate persistence pairs for a single graph and filtration."""
-        parent = list(range(node_idx.numel()))
-        birth = list(range(node_idx.numel()))
-        paired_nodes: set[int] = set()
-        local_of_global = {
-            int(node.item()): pos for pos, node in enumerate(node_idx)
-        }
 
-        def find(component: int) -> int:
-            while parent[component] != component:
-                parent[component] = parent[parent[component]]
-                component = parent[component]
-            return component
-
-        for edge_position in torch.argsort(edge_values).tolist():
-            global_edge_pos = int(edge_idx[edge_position].item())
-            source = int(edge_index[0, global_edge_pos].item())
-            target = int(edge_index[1, global_edge_pos].item())
-            source_root = find(local_of_global[source])
-            target_root = find(local_of_global[target])
-            death = edge_values[edge_position]
-
-            if source_root == target_root:
-                pairs1[global_edge_pos] = torch.stack([death, graph_max])
-                continue
-
-            source_birth = values[node_idx[birth[source_root]]]
-            target_birth = values[node_idx[birth[target_root]]]
-            source_birth_value = float(source_birth.detach())
-            target_birth_value = float(target_birth.detach())
-            source_birth_pos = birth[source_root]
-            target_birth_pos = birth[target_root]
-
-            if (
-                source_birth_value > target_birth_value
-                or (
-                    source_birth_value == target_birth_value
-                    and source_birth_pos > target_birth_pos
-                )
-            ):
-                dying_root = source_root
-                surviving_root = target_root
-            else:
-                dying_root = target_root
-                surviving_root = source_root
-
-            dying_node = int(node_idx[birth[dying_root]].item())
-            pairs0[dying_node] = torch.stack([values[dying_node], death])
-            paired_nodes.add(dying_node)
-            parent[dying_root] = surviving_root
-
-        for local_pos, global_node in enumerate(node_idx.tolist()):
-            root = find(local_pos)
-            birth_node = int(node_idx[birth[root]].item())
-            if global_node == birth_node and global_node not in paired_nodes:
-                pairs0[global_node] = torch.stack(
-                    [values[global_node], graph_max]
-                )
-
-
-class TopNetsBackbone(nn.Module):
+class _TopNetsRouteOperator(nn.Module):
     """Continuous TopNets-style graph backbone for TopoBench.
 
     Parameters

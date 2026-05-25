@@ -1,10 +1,10 @@
-"""Unit tests for the TopNets graph backbone."""
+"""Unit tests for the TopNets graph route operator."""
 
 import pytest
 import torch
 from torch_geometric.data import Batch, Data
 
-from topobench.nn.backbones.graph.topnets import TopNetsBackbone
+from topobench.nn.backbones.graph.topnets import _TopNetsRouteOperator
 from topobench.nn.wrappers.graph import GNNWrapper
 
 
@@ -34,7 +34,7 @@ def _batch_data() -> Batch:
 def test_topnets_forward_shape_and_gradients():
     """TopNets returns finite node embeddings and supports backprop."""
     batch = _batch_data()
-    model = TopNetsBackbone(
+    model = _TopNetsRouteOperator(
         in_channels=5,
         hidden_channels=8,
         num_steps=2,
@@ -55,7 +55,7 @@ def test_topnets_forward_shape_and_gradients():
 def test_topnets_gin_variant():
     """TopNets supports the GIN branch used in the reference code."""
     batch = _batch_data()
-    model = TopNetsBackbone(
+    model = _TopNetsRouteOperator(
         in_channels=5,
         hidden_channels=8,
         num_steps=2,
@@ -74,7 +74,7 @@ def test_topnets_gin_variant():
 def test_topnets_wrapper_output():
     """The graph wrapper exposes TopNets outputs in TopoBench format."""
     batch = _batch_data()
-    model = TopNetsBackbone(
+    model = _TopNetsRouteOperator(
         in_channels=5,
         hidden_channels=8,
         num_steps=2,
@@ -101,7 +101,7 @@ def test_topnets_without_edges():
     x = torch.randn(3, 5)
     edge_index = torch.empty((2, 0), dtype=torch.long)
     batch = torch.zeros(3, dtype=torch.long)
-    model = TopNetsBackbone(
+    model = _TopNetsRouteOperator(
         in_channels=5,
         hidden_channels=8,
         num_steps=2,
@@ -119,7 +119,7 @@ def test_topnets_without_edges():
 def test_topnets_invalid_parameters():
     """Invalid TopNets construction parameters raise clear errors."""
     with pytest.raises(ValueError, match="num_steps must be positive"):
-        TopNetsBackbone(in_channels=5, hidden_channels=8, num_steps=0)
+        _TopNetsRouteOperator(in_channels=5, hidden_channels=8, num_steps=0)
 
     with pytest.raises(ValueError, match="gnn_type"):
-        TopNetsBackbone(in_channels=5, hidden_channels=8, gnn_type="gat")
+        _TopNetsRouteOperator(in_channels=5, hidden_channels=8, gnn_type="gat")
