@@ -1,6 +1,7 @@
 """Unit tests for the HiD-Net graph backbone."""
 
 import torch
+
 from topobench.nn.backbones.graph import HiDNet
 
 
@@ -51,8 +52,8 @@ class TestHiDNet:
 
         assert out.shape == x.shape
 
-    def test_supports_weighted_cached_propagation(self):
-        """Test weighted diffusion and normalized adjacency caching."""
+    def test_supports_weighted_propagation(self):
+        """Test propagation with supplied graph edge weights."""
         x = torch.randn(4, self.in_channels)
         edge_index = torch.tensor(
             [[0, 1, 2, 3, 0], [1, 2, 3, 0, 2]], dtype=torch.long
@@ -63,16 +64,15 @@ class TestHiDNet:
             in_channels=self.in_channels,
             hidden_channels=self.in_channels,
             num_layers=2,
-            cached=True,
         )
         model.eval()
 
         out_first = model(x, edge_index, edge_weight=edge_weight)
-        out_cached = model(x, edge_index, edge_weight=edge_weight)
+        out_second = model(x, edge_index, edge_weight=edge_weight)
 
-        assert model._cached_edge_index is not None
-        assert model._cached_grad_edge_index is not None
-        assert torch.allclose(out_first, out_cached)
+        assert out_first.shape == x.shape
+        assert torch.isfinite(out_first).all()
+        assert torch.allclose(out_first, out_second)
 
     def test_backward_produces_finite_gradients(self):
         """Test that gradients propagate through the backbone."""

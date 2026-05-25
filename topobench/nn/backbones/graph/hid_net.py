@@ -2,22 +2,15 @@
 
 Adapted from:
 Li et al., "A Generalized Neural Diffusion Framework on Graphs", AAAI 2024.
-Official implementation: https://github.com/BUPT-GAMMA/HiD-Net
-
-TopoBench adaptation:
-- returns node embeddings instead of log-softmax class predictions;
-- uses explicit constructor arguments instead of an argparse namespace;
-- accepts TopoBench GNNWrapper's forward signature;
-- keeps feature normalization differentiable in PyTorch.
+Official implementation: https://github.com/BUPT-GAMMA/HiD-Net,
+we return node embeddings instead of log-softmax class predictions for general use
 """
 
 from __future__ import annotations
 
 import torch
-from torch import Tensor
-from torch import nn
 import torch.nn.functional as F
-
+from torch import Tensor, nn
 from torch_geometric.nn.conv.gcn_conv import gcn_norm
 from torch_geometric.nn.dense.linear import Linear
 from torch_scatter import scatter
@@ -25,11 +18,6 @@ from torch_scatter import scatter
 
 def feature_norm(x: Tensor, eps: float = 1e-12) -> Tensor:
     """Normalize each node feature vector by its L1 norm.
-
-    The upstream HiD-Net utility obtains the denominator through NumPy, which
-    detaches it from autograd. This adaptation performs the same normalization
-    directly in PyTorch so gradients pass through the denominator.
-
     Parameters
     ----------
     x : torch.Tensor
@@ -52,10 +40,6 @@ def cal_g_gradient3(
     edge_weight: Tensor,
 ) -> Tensor:
     """HiD-Net g3 high-order gradient term.
-
-    This mirrors the official implementation's default g3 variant:
-    first aggregate weighted neighbor differences, then aggregate the
-    resulting one-step gradients again and normalize.
 
     Parameters
     ----------
@@ -115,9 +99,6 @@ class HiDNet(nn.Module):
     add_self_loops : bool
         Whether to add self-loops to the normalized graph used for ordinary
         diffusion.
-    cached : bool
-        Keep False for TopoBench/GraphUniverse unless you are certain each
-        module instance sees one fixed graph.
     """
 
     def __init__(
@@ -130,7 +111,6 @@ class HiDNet(nn.Module):
         gamma: float = 0.5,
         dropout: float = 0.0,
         add_self_loops: bool = True,
-        cached: bool = False,
         **kwargs,
     ) -> None:
         super().__init__()
@@ -145,7 +125,6 @@ class HiDNet(nn.Module):
         self.gamma = gamma
         self.dropout = dropout
         self.add_self_loops = add_self_loops
-        self.cached = cached
 
         self.lin1 = Linear(
             in_channels,
@@ -160,18 +139,9 @@ class HiDNet(nn.Module):
             weight_initializer="glorot",
         )
 
-        self._cached_edge_index = None
-        self._cached_edge_weight = None
-        self._cached_grad_edge_index = None
-        self._cached_grad_edge_weight = None
-
     def reset_parameters(self) -> None:
         self.lin1.reset_parameters()
         self.lin2.reset_parameters()
-        self._cached_edge_index = None
-        self._cached_edge_weight = None
-        self._cached_grad_edge_index = None
-        self._cached_grad_edge_weight = None
 
     def _get_norms(
         self,
@@ -181,14 +151,6 @@ class HiDNet(nn.Module):
         dtype: torch.dtype,
     ) -> tuple[Tensor, Tensor, Tensor, Tensor]:
         """Return normalized graph for diffusion and gradient term."""
-
-        if self.cached and self._cached_edge_index is not None:
-            return (
-                self._cached_edge_index,
-                self._cached_edge_weight,
-                self._cached_grad_edge_index,
-                self._cached_grad_edge_weight,
-            )
 
         # Ordinary diffusion graph: with self-loops, as in official model.py.
         norm_edge_index, norm_edge_weight = gcn_norm(
@@ -210,13 +172,12 @@ class HiDNet(nn.Module):
             dtype=dtype,
         )
 
-        if self.cached:
-            self._cached_edge_index = norm_edge_index
-            self._cached_edge_weight = norm_edge_weight
-            self._cached_grad_edge_index = grad_edge_index
-            self._cached_grad_edge_weight = grad_edge_weight
-
-        return norm_edge_index, norm_edge_weight, grad_edge_index, grad_edge_weight
+        return (
+            norm_edge_index,
+            norm_edge_weight,
+            grad_edge_index,
+            grad_edge_weight,
+        )
 
     @staticmethod
     def _spmm(edge_index: Tensor, edge_weight: Tensor, x: Tensor) -> Tensor:

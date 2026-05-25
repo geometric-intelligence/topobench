@@ -20,7 +20,6 @@ backbone:
   gamma: 0.5
   dropout: 0.0
   add_self_loops: true
-  cached: false
 
 backbone_wrapper:
   _target_: topobench.nn.wrappers.GNNWrapper
