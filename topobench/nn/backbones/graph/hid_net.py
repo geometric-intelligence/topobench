@@ -18,6 +18,7 @@ from torch_scatter import scatter
 
 def feature_norm(x: Tensor, eps: float = 1e-12) -> Tensor:
     """Normalize each node feature vector by its L1 norm.
+    
     Parameters
     ----------
     x : torch.Tensor
