@@ -8,7 +8,7 @@ https://arxiv.org/abs/2202.04579
 """
 
 from torch.nn import Module
-from torch_geometric.utils import to_undirected
+from torch_geometric.utils import remove_self_loops, to_undirected
 
 from topobench.nn.backbones.graph.nsd_utils.inductive_discrete_models import (
     InductiveDiscreteBundleSheafDiffusion,
@@ -30,12 +30,12 @@ class NSDEncoder(Module):
     input_dim : int
         Dimension of input node features.
     hidden_dim : int
-        Dimension of hidden layers. Must be divisible by d.
+        Dimension of the output node embeddings.
     num_layers : int, optional
         Number of sheaf diffusion layers. Default is 2.
     sheaf_type : str, optional
         Type of sheaf structure. Options are 'diag', 'bundle', or 'general'.
-        Default is 'diag'.
+        Default is 'bundle'.
     d : int, optional
         Dimension of the stalk space. For 'diag', d >= 1. For 'bundle' and 'general', d > 1.
         Default is 2.
@@ -60,7 +60,7 @@ class NSDEncoder(Module):
         input_dim,
         hidden_dim,
         num_layers=2,
-        sheaf_type="diag",
+        sheaf_type="bundle",
         d=2,
         dropout=0.1,
         input_dropout=0.1,
@@ -73,6 +73,7 @@ class NSDEncoder(Module):
 
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
+        self.out_channels = hidden_dim
         self.sheaf_type = sheaf_type
         self.d = d
         self.num_layers = num_layers
@@ -109,7 +110,7 @@ class NSDEncoder(Module):
     def forward(
         self,
         x,
-        edge_index,
+        edge_index=None,
         edge_attr=None,
         edge_weight=None,
         batch=None,
@@ -138,9 +139,14 @@ class NSDEncoder(Module):
         torch.Tensor
             Output node feature matrix of shape [num_nodes, hidden_dim].
         """
-        # Neural Sheaf Diffusion requires undirected graphs (bidirectional edges)
-        # Convert to undirected if not already
-        edge_index = to_undirected(edge_index)
+        if edge_index is None:
+            edge_index = x.edge_index
+            x = x.x if hasattr(x, "x") else x.x_0
+
+        # The sheaf Laplacian builders expect paired directed edges without
+        # self-loops. Keep isolated nodes by passing the explicit node count.
+        edge_index, _ = remove_self_loops(edge_index)
+        edge_index = to_undirected(edge_index, num_nodes=x.size(0))
 
         # Run through the sheaf model (no edge attributes)
         return self.sheaf_model(x, edge_index)

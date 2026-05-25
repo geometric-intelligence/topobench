@@ -17,7 +17,7 @@ backbone:
   num_layers: 2 # SWEEP: [2,4] (3 if we have a lot of time)
   dropout: 0.4 # SWEEP: [0.0, 0.25, 0.5]
   sheaf_type: bundle # SWEEP: [diag, bundle]
-  d: 3 # no sweep.
+  d: 4 # no sweep.
   input_dropout: 0.0 # no sweep.
 
 backbone_wrapper:

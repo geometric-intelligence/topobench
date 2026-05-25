@@ -2,7 +2,7 @@
 
 import pytest
 import torch
-from torch_geometric.data import Batch
+from torch_geometric.data import Batch, Data
 
 from topobench.nn.backbones.graph.nsd import NSDEncoder
 
@@ -45,8 +45,9 @@ class TestNSDEncoder:
 
         assert model.input_dim == self.input_dim
         assert model.hidden_dim == self.hidden_dim
+        assert model.out_channels == self.hidden_dim
         assert model.num_layers == 2  # default
-        assert model.sheaf_type == "diag"  # default
+        assert model.sheaf_type == "bundle"  # default
         assert model.d == 2  # default
         assert model.sheaf_model is not None
 
@@ -233,6 +234,21 @@ class TestNSDEncoder:
             x=x,
             edge_index=simple_graph_0.edge_index
         )
+
+        assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
+
+    def test_forward_data_object(self, simple_graph_0):
+        """Test forward pass with a PyG data object."""
+        x = self._prepare_features(simple_graph_0.num_nodes)
+        data = Data(x=x, edge_index=simple_graph_0.edge_index)
+
+        model = NSDEncoder(
+            input_dim=self.input_dim,
+            hidden_dim=self.hidden_dim,
+            num_layers=2
+        )
+
+        out = model(data)
 
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 

@@ -355,8 +355,11 @@ def infer_in_channels(dataset, transforms):
         List with dimensions of the input channels.
     """
     num_features = dataset.parameters.num_features
-    if isinstance(num_features, int) and transforms is not None:
-        num_features = num_features + check_pses_in_transforms(transforms)
+    added_features = (
+        check_pses_in_transforms(transforms) if transforms is not None else 0
+    )
+    if isinstance(num_features, int):
+        num_features = num_features + added_features
 
     # Make it possible to pass lifting configuration as file path
     if transforms is not None and transforms.keys() == {"liftings"}:
@@ -458,7 +461,7 @@ def infer_in_channels(dataset, transforms):
             # If preserve_edge_attr == False
             if not transforms[lifting].preserve_edge_attr:
                 if feature_lifting == "Concatenation":
-                    return_value = [num_features[0]]
+                    return_value = [num_features[0] + added_features]
                     for i in range(2, transforms[lifting].complex_dim + 2):
                         return_value += [int(return_value[-1]) * i]
 
@@ -466,12 +469,14 @@ def infer_in_channels(dataset, transforms):
 
                 else:
                     # ProjectionSum feature lifting by default
-                    return [num_features[0]] * (
+                    return [num_features[0] + added_features] * (
                         transforms[lifting].complex_dim + 1
                     )
             # If preserve_edge_attr == True
             else:
-                return list(num_features) + [num_features[1]] * (
+                return_value = list(num_features)
+                return_value[0] += added_features
+                return return_value + [num_features[1]] * (
                     transforms[lifting].complex_dim + 1 - len(num_features)
                 )
 
@@ -501,7 +506,7 @@ def infer_in_channels(dataset, transforms):
             return [num_features]
 
         else:
-            return [num_features[0]]
+            return [num_features[0] + added_features]
 
     # This else is never executed
     else:
