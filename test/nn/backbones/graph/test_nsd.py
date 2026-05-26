@@ -103,11 +103,11 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
 
         assert model.sheaf_type == "general"
-        assert model.d == 3
+        assert model.d == 4
 
     def test_initialization_invalid_sheaf_type(self):
         """Test that invalid sheaf type raises error."""
@@ -186,6 +186,16 @@ class TestNSDEncoder:
                 hidden_dim=self.hidden_dim,
                 sheaf_type="general",
                 d=1
+            )
+
+    def test_initialization_hidden_dim_must_be_divisible_by_d(self):
+        """Test that stalk dimension divides hidden dimension exactly."""
+        with pytest.raises(ValueError, match="hidden_dim .* must be divisible by d"):
+            NSDEncoder(
+                input_dim=self.input_dim,
+                hidden_dim=31,
+                sheaf_type="bundle",
+                d=4
             )
 
     def test_forward_basic(self, simple_graph_0):
@@ -375,7 +385,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
 
         out = model(
@@ -1118,7 +1128,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3,
+            d=4,
             orth="matrix_exp"
         )
 
@@ -1182,7 +1192,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
         model.train()
 

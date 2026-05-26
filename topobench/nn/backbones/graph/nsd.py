@@ -91,6 +91,10 @@ class NSDEncoder(Module):
         else:
             raise ValueError(f"Unknown sheaf type: {sheaf_type}")
 
+        if hidden_dim % d != 0:
+            msg = f"hidden_dim ({hidden_dim}) must be divisible by d ({d})."
+            raise ValueError(msg)
+
         self.sheaf_config = {
             "d": d,
             "layers": num_layers,
