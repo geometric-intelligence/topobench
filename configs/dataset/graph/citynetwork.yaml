@@ -1,0 +1,31 @@
+loader:
+  _target_: topobench.data.loaders.graph.citynetwork_dataset_loader.CityNetworkDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: pyg
+    data_name: CityNetwork
+    city: paris                 # options: paris, shanghai, la, london
+    augmented: true             # use augmented node features
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+parameters:
+  num_features: 37
+  num_classes: 10
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+split_params:
+  learning_setting: transductive
+  data_seed: 0
+  split_type: random
+  train_prop: 0.5
+  val_prop: 0.2
+  standardize: false
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}_${dataset.loader.parameters.city}
+
+dataloader_params:
+  batch_size: 1                 # single giant graph
+  num_workers: 0
+  pin_memory: false
