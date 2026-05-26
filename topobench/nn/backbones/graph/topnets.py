@@ -1,6 +1,6 @@
 """TopNets graph route operator with learned-filtration PH features.
 
-This module ports the challenge-relevant graph-classification model from the
+This module adapts the challenge-relevant graph-classification route from the
 reference TopNets repository. The original graph models combine a GCN/GIN
 state evolution with a TOGL/RePHINE-style topological layer: node embeddings
 parameterize graph filtrations, persistence pairs are transformed by learned
@@ -8,9 +8,9 @@ coordinate functions, and the resulting topological features are fused back
 with message-passing features.
 
 The reference code calls compiled ``ph_cpu``/``rephine_mt`` extensions. This
-TopoBench implementation keeps the same standard graph-filtration branch in
-portable PyTorch using batched proxy persistence pairs from the learned
-filtration values.
+TopoBench implementation keeps the learned standard-filtration interface while
+replacing compiled persistence with portable PyTorch proxy pairs from the
+learned filtration values.
 """
 
 from __future__ import annotations
