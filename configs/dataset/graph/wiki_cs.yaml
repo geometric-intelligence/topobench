@@ -1,0 +1,34 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.WikiCsDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: cambridge
+    data_name: Wiki-CS
+    year: 2020
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 300
+  num_classes: 10
+  num_nodes: 11701
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 0
+  pin_memory: False

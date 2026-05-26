@@ -385,6 +385,7 @@ Specially useful in pre-processing steps, these are the general data manipulatio
 | Empire | Classification | Heterophilic dataset. | [Source](https://arxiv.org/pdf/2302.11640) |
 | Tolokers | Classification | Heterophilic dataset. | [Source](https://arxiv.org/pdf/2302.11640) |
 | US-county-demos | Regression | In turn each node attribute is used as the target label. | [Source](https://arxiv.org/pdf/2002.08274) |
+| Wiki-CS | Classification | Wiki-CS dataset (node classification) | [Source](https://arxiv.org/pdf/2007.02901) |
 | ZINC | Regression | Graph-level regression. | [Source](https://pubs.acs.org/doi/10.1021/ci3001277) |
 
 **Remark:** GraphUniverse is a synthetic graph generator for community-structured data, enabling control over graph properties like homophily, feature-signal and degree structure. Live Demo: [Demo](https://graphuniverse.streamlit.app/). Package release: [PyPi](https://pypi.org/project/graph-universe/0.1.2/). GitHub repository: [Repo](https://github.com/LouisVanLangendonck/GraphUniverse).
