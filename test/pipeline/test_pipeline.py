@@ -1,11 +1,11 @@
 """Test pipeline for a particular dataset and model."""
-
 import hydra
 from test._utils.simplified_pipeline import run
 
 
-DATASET = "graph/MUTAG"                                                 # ADD YOUR DATASET HERE
-MODELS   = ["graph/gcn", "cell/topotune", "simplicial/topotune"]        # ADD ONE OR SEVERAL MODELS OF YOUR CHOICE HERE
+
+DATASET = "graph/DAC"                                                 # ADD YOUR DATASET HERE
+MODELS   = ["graph/gcn"]        # ADD ONE OR SEVERAL MODELS OF YOUR CHOICE HERE
 
 
 class TestPipeline:

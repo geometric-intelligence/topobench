@@ -1,0 +1,37 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.DACDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: 4-325-1
+    data_name: 4-325-1
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_type}
+    split_num: 2
+
+# Dataset parameters
+parameters:
+  num_features: 2
+  num_classes: 8
+  num_nodes: 3224
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+  
+
+#splits
+split_params:
+  learning_setting: inductive
+  # data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_split_dir: ${paths.data_dir}/${dataset.loader.parameters.data_name}/processed
+  data_seed: 0
+  split_type: fixed #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+  standardize: False
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 4495 # Fixed
+  num_workers: 0
+  pin_memory: False
