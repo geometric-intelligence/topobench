@@ -1,0 +1,63 @@
+# QM9 Molecular Dataset Configuration
+# Dataset for quantum chemical property prediction of small organic molecules
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.graph.qm9_dataset_loader.QM9DatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: molecular
+    data_name: QM9
+    target_property: gap  # Target molecular property (HOMO-LUMO gap by default)
+    subset_size: null     # Use full dataset (set to integer for subset)
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1        # Number of node features (atomic numbers)
+  num_edge_features: 4   # Number of edge features (bond types)
+  num_classes: 1         # Regression task (single target)
+  num_molecules: 134000  # Approximate number of molecules in QM9
+  task: regression
+  loss_type: mse
+  monitor_metric: mae
+  task_level: graph      # Graph-level prediction
+
+# Available target properties for regression
+# mu: Dipole moment (D)
+# alpha: Isotropic polarizability (Bohr^3)  
+# homo: Highest occupied molecular orbital energy (eV)
+# lumo: Lowest unoccupied molecular orbital energy (eV)
+# gap: HOMO-LUMO gap (eV) [DEFAULT]
+# r2: Electronic spatial extent (Bohr^2)
+# zpve: Zero point vibrational energy (eV)
+# u0: Internal energy at 0K (eV)
+# u298: Internal energy at 298.15K (eV)
+# h298: Enthalpy at 298.15K (eV)
+# g298: Free energy at 298.15K (eV)
+# cv: Heat capacity at 298.15K (cal/(mol*K))
+# u0_atom: Atomization energy at 0K (eV)
+# u298_atom: Atomization energy at 298.15K (eV)
+# h298_atom: Atomization enthalpy at 298.15K (eV)
+# g298_atom: Atomization free energy at 298.15K (eV)
+# A: Rotational constant A (GHz)
+# B: Rotational constant B (GHz)
+# C: Rotational constant C (GHz)
+
+# Splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 42
+  split_type: random
+  train_prop: 0.8
+  val_prop: 0.1
+  test_prop: 0.1
+  standardize: True  # Standardize target values
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 32
+  num_workers: 4
+  pin_memory: True
+  shuffle: True
