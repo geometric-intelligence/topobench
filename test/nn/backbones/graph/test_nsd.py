@@ -140,7 +140,7 @@ class TestNSDEncoder:
         assert model.d == 1
 
         # Should fail with d < 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="diag sheaf requires d >= 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
@@ -160,7 +160,7 @@ class TestNSDEncoder:
         assert model.d == 2
 
         # Should fail with d <= 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="bundle sheaf requires d > 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
@@ -180,7 +180,7 @@ class TestNSDEncoder:
         assert model.d == 2
 
         # Should fail with d <= 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="general sheaf requires d > 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,

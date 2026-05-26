@@ -80,13 +80,19 @@ class NSDEncoder(Module):
         self.device = device
 
         if sheaf_type == "diag":
-            assert d >= 1
+            if d < 1:
+                msg = "diag sheaf requires d >= 1."
+                raise ValueError(msg)
             self.sheaf_class = InductiveDiscreteDiagSheafDiffusion
         elif sheaf_type == "bundle":
-            assert d > 1
+            if d <= 1:
+                msg = "bundle sheaf requires d > 1."
+                raise ValueError(msg)
             self.sheaf_class = InductiveDiscreteBundleSheafDiffusion
         elif sheaf_type == "general":
-            assert d > 1
+            if d <= 1:
+                msg = "general sheaf requires d > 1."
+                raise ValueError(msg)
             self.sheaf_class = InductiveDiscreteGeneralSheafDiffusion
         else:
             raise ValueError(f"Unknown sheaf type: {sheaf_type}")
