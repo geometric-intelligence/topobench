@@ -158,6 +158,32 @@ def test_wrapper_adj_subset_invalid_raises(directed_lifted):
         )
 
 
+def test_wrapper_n_adjs_mismatch_raises(directed_lifted):
+    """Construction rejects a backbone/subset adjacency-count mismatch.
+
+    Parameters
+    ----------
+    directed_lifted : torch_geometric.data.Data
+        Lifted-graph fixture (only used to size the backbone).
+    """
+    edge_channels = directed_lifted.x_1.shape[1]
+    backbone = DirSNN(
+        edge_channels=edge_channels,
+        n_layers=1,
+        n_hid=edge_channels,
+        conv_order=1,
+        n_adjs=10,
+        update_func="relu",
+    )
+    with pytest.raises(ValueError, match="backbone.n_adjs=4"):
+        DirSNNWrapper(
+            backbone,
+            adj_subset="lower",
+            out_channels=edge_channels,
+            num_cell_dimensions=2,
+        )
+
+
 # ---------------------------------------------------------------------------
 # Hydra config wiring for the new official-lower variant
 # ---------------------------------------------------------------------------

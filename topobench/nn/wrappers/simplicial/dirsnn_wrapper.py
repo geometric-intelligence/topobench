@@ -102,6 +102,14 @@ class DirSNNWrapper(AbstractWrapper):
         else:  # "upper"
             self._adj_keys = _DIRSNN_UPPER_KEYS
 
+        expected_n_adjs = len(self._adj_keys)
+        actual_n_adjs = getattr(backbone, "n_adjs", None)
+        if actual_n_adjs != expected_n_adjs:
+            raise ValueError(
+                f"DirSNNWrapper expected backbone.n_adjs={expected_n_adjs} "
+                f"for adj_subset={adj_subset!r}, got {actual_n_adjs!r}."
+            )
+
     def forward(self, batch):
         r"""Forward pass for the Dir-SNN wrapper.
 
