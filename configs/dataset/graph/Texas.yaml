@@ -1,0 +1,33 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.WebKBDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: WebKB
+    data_name: Texas
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1703   # bag-of-words feature dimension
+  num_classes: 5       # {student, project, course, staff, faculty}
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+# Splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random      # or "k-fold"
+  k: 10                   # used if split_type == "k-fold"
+  train_prop: 0.5         # used if split_type == "random"
+
+# Dataloader parameters
+dataloader_params:
+  # For full-batch node classification on a single graph, batching is not used.
+  batch_size: 1
+  num_workers: 0
+  pin_memory: False
