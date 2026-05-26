@@ -3,11 +3,13 @@
 import os
 
 import pytest
+import torch
 from hydra import compose, initialize_config_dir
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
 
 from topobench.nn.backbones.simplicial.dirsnn import DirSNN
+from topobench.nn.readouts.propagate_signal_down import PropagateSignalDown
 from topobench.nn.wrappers.simplicial.dirsnn_wrapper import (
     DIRSNN_ADJ_KEYS,
     DirSNNWrapper,
@@ -39,8 +41,8 @@ def directed_lifted(simple_graph_1):
     data = lifting(simple_graph_1)
     # ``DirSNNWrapper.forward`` reads ``batch.batch_0``; the test
     # fixture is not run through a DataLoader, so we set it manually
-    # (mirroring ``sg1_clique_lifted`` in ``test/conftest.py``).
-    data.batch_0 = "null"
+    # to a single graph assignment for readout compatibility.
+    data.batch_0 = torch.zeros(data.x_0.shape[0], dtype=torch.long)
     return data
 
 
@@ -84,6 +86,16 @@ def _make_wrapper(data, adj_subset, n_adjs):
     )
 
 
+def _assert_wrapper_output(out, data):
+    """Validate the semantic shape and numerical sanity of wrapper output."""
+    for key in ("labels", "batch_0", "x_0", "x_1"):
+        assert key in out
+    assert out["x_0"].shape == (data.x_0.shape[0], data.x_1.shape[1])
+    assert out["x_1"].shape == data.x_1.shape
+    assert torch.isfinite(out["x_0"]).all()
+    assert torch.isfinite(out["x_1"]).all()
+
+
 def test_wrapper_adj_subset_default_uses_all_ten(directed_lifted):
     """``adj_subset=None`` selects the full 10-adjacency tuple.
 
@@ -96,8 +108,7 @@ def test_wrapper_adj_subset_default_uses_all_ten(directed_lifted):
     assert wrapper._adj_keys == DIRSNN_ADJ_KEYS
     assert len(wrapper._adj_keys) == 10
     out = wrapper(directed_lifted)
-    for key in ("labels", "batch_0", "x_0", "x_1"):
-        assert key in out
+    _assert_wrapper_output(out, directed_lifted)
 
 
 def test_wrapper_adj_subset_lower(directed_lifted):
@@ -112,8 +123,7 @@ def test_wrapper_adj_subset_lower(directed_lifted):
     assert wrapper._adj_keys == DIRSNN_ADJ_KEYS[:4]
     assert all(k.startswith("dir_lower_adj_") for k in wrapper._adj_keys)
     out = wrapper(directed_lifted)
-    for key in ("labels", "batch_0", "x_0", "x_1"):
-        assert key in out
+    _assert_wrapper_output(out, directed_lifted)
 
 
 def test_wrapper_adj_subset_upper(directed_lifted):
@@ -128,8 +138,51 @@ def test_wrapper_adj_subset_upper(directed_lifted):
     assert wrapper._adj_keys == DIRSNN_ADJ_KEYS[4:]
     assert all(k.startswith("dir_upper_adj_") for k in wrapper._adj_keys)
     out = wrapper(directed_lifted)
-    for key in ("labels", "batch_0", "x_0", "x_1"):
-        assert key in out
+    _assert_wrapper_output(out, directed_lifted)
+
+
+def test_wrapper_forward_backward(directed_lifted):
+    """Wrapper output remains differentiable through the Dir-SNN backbone.
+
+    Parameters
+    ----------
+    directed_lifted : torch_geometric.data.Data
+        Lifted-graph fixture.
+    """
+    wrapper = _make_wrapper(directed_lifted, adj_subset=None, n_adjs=10)
+    out = wrapper(directed_lifted)
+    loss = out["x_0"].square().mean() + out["x_1"].square().mean()
+    loss.backward()
+    grads = [p.grad for p in wrapper.parameters() if p.requires_grad]
+    assert grads
+    assert all(g is not None and torch.isfinite(g).all() for g in grads)
+
+
+def test_wrapper_graph_readout_with_signed_projection(directed_lifted):
+    """Current signed edge-to-node projection works with graph readout.
+
+    This guards the submitted architecture: the wrapper provides an
+    edge-derived 0-cell signal and ``PropagateSignalDown`` combines it
+    with a learned downward propagation before graph-level sum pooling.
+
+    Parameters
+    ----------
+    directed_lifted : torch_geometric.data.Data
+        Lifted-graph fixture.
+    """
+    wrapper = _make_wrapper(directed_lifted, adj_subset=None, n_adjs=10)
+    model_out = wrapper(directed_lifted)
+    readout = PropagateSignalDown(
+        readout_name="PropagateSignalDown",
+        num_cell_dimensions=2,
+        hidden_dim=directed_lifted.x_1.shape[1],
+        out_channels=1,
+        task_level="graph",
+        pooling_type="sum",
+    )
+    out = readout(model_out, directed_lifted)
+    assert out["logits"].shape == (1, 1)
+    assert torch.isfinite(out["logits"]).all()
 
 
 def test_wrapper_adj_subset_invalid_raises(directed_lifted):
@@ -258,5 +311,4 @@ def test_official_lower_config_instantiates_and_runs(directed_lifted):
     assert wrapper._adj_keys == DIRSNN_ADJ_KEYS[:4]
 
     out = wrapper(directed_lifted)
-    for key in ("labels", "batch_0", "x_0", "x_1"):
-        assert key in out
+    _assert_wrapper_output(out, directed_lifted)
