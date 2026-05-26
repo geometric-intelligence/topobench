@@ -137,9 +137,9 @@ def test_proxy_persistence_pairs_for_single_edge():
         coord_fun_count=1,
     )
     filtrations = torch.tensor([[0.2], [0.7], [0.5]])
-    edge_index = torch.tensor([[0, 1], [1, 0]], dtype=torch.long)
+    edge_index = torch.tensor([[0], [1]], dtype=torch.long)
     batch = torch.zeros(3, dtype=torch.long)
-    edge_batch = torch.zeros(2, dtype=torch.long)
+    edge_batch = torch.zeros(1, dtype=torch.long)
 
     persistence0, persistence1 = layer._compute_persistence(
         filtrations=filtrations,
@@ -150,6 +150,6 @@ def test_proxy_persistence_pairs_for_single_edge():
     )
 
     expected0 = torch.tensor([[[0.2, 0.7], [0.7, 0.7], [0.5, 0.7]]])
-    expected1 = torch.tensor([[[0.7, 0.7], [0.7, 0.7]]])
+    expected1 = torch.tensor([[[0.7, 0.7]]])
     torch.testing.assert_close(persistence0, expected0)
     torch.testing.assert_close(persistence1, expected1)
