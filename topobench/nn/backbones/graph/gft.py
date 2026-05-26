@@ -8,7 +8,8 @@ vocabulary for task adaptation.  TopoBench challenge runs do not ship the
 pretrained vocabulary, LLM/text features, reconstruction heads, or prototype
 task heads, so this backbone keeps the dependency-free core:
 
-* a SAGE/GCN/GIN/GAT message-passing encoder mirroring the reference encoder;
+* a SAGE/GCN/GIN/GAT message-passing encoder modeled after the reference
+  encoder choices;
 * a structural computation-tree descriptor built by repeated neighborhood
   aggregation of root structural statistics;
 * a cosine vector-quantized tree vocabulary fallback that is learned with the
