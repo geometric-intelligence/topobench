@@ -1,0 +1,32 @@
+# Dataset loader config
+loader:
+    _target_: topobench.data.loaders.BA2MotifDatasetLoader
+    parameters:
+        data_domain: graph
+        data_type: BA2MotifDataset
+        data_name: BA2MotifDataset # IGNORE: kept for compatibility
+        data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+    num_features: 10
+    num_classes: 2
+    task: classification
+    loss_type: cross_entropy
+    monitor_metric: accuracy
+    task_level: graph
+
+#splits
+split_params:
+    learning_setting: inductive
+    data_split_dir: ${paths.data_dir}/data_splits
+    data_seed: 0
+    split_type: random #'k-fold' # either "k-fold" or "random" strategies
+    k: 10 # for "k-fold" Cross-Validation
+    train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+    batch_size: 10
+    num_workers: 0
+    pin_memory: False
