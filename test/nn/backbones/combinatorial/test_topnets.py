@@ -269,3 +269,57 @@ def test_activation_variants_and_invalid_activation():
             ranks=(0,),
             activation="bad",
         )
+
+
+def test_interrank_route_zero_initializes_destination_features():
+    """Inter-rank routes send source-cell signal into zero-initialized destinations."""
+
+    class SpyRoute:
+        def __init__(self):
+            self.x = None
+            self.edge_index = None
+            self.batch = None
+
+        def __call__(self, x, edge_index, batch, edge_weight=None):
+            self.x = x.clone()
+            self.edge_index = edge_index.clone()
+            self.batch = batch.clone()
+            return torch.arange(
+                x.numel(), dtype=x.dtype, device=x.device
+            ).view_as(x)
+
+    batch = _mock_complex_batch()
+    model = CombinatorialTopNetsBackbone(
+        in_channels=8,
+        hidden_channels=8,
+        neighborhoods=["down_incidence-1"],
+        num_layers=1,
+        num_steps=1,
+        num_filtrations=2,
+        filtration_hidden=4,
+        coord_fun_count=1,
+    )
+    spy = SpyRoute()
+
+    out = model._interrank_forward(
+        batch=batch,
+        route_model=spy,
+        neighborhood="down_incidence-1",
+        src_x=batch.x_1,
+        dst_x=batch.x_0,
+        src_batch=batch.batch_1,
+        dst_batch=batch.batch_0,
+    )
+
+    num_dst = batch.x_0.shape[0]
+    expected_route_out = torch.arange(
+        spy.x.numel(),
+        dtype=spy.x.dtype,
+        device=spy.x.device,
+    ).view_as(spy.x)
+    torch.testing.assert_close(spy.x[:num_dst], torch.zeros_like(batch.x_0))
+    torch.testing.assert_close(spy.x[num_dst:], batch.x_1)
+    torch.testing.assert_close(out, expected_route_out[:num_dst])
+    assert spy.edge_index.shape[0] == 2
+    assert spy.edge_index.max() < spy.x.shape[0]
+    assert spy.batch.shape[0] == spy.x.shape[0]

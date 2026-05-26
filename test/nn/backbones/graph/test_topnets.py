@@ -4,7 +4,10 @@ import pytest
 import torch
 from torch_geometric.data import Batch, Data
 
-from topobench.nn.backbones.graph.topnets import _TopNetsRouteOperator
+from topobench.nn.backbones.graph.topnets import (
+    _TopNetsRouteOperator,
+    _TopologicalFiltrationLayer,
+)
 from topobench.nn.wrappers.graph import GNNWrapper
 
 
@@ -123,3 +126,30 @@ def test_topnets_invalid_parameters():
 
     with pytest.raises(ValueError, match="gnn_type"):
         _TopNetsRouteOperator(in_channels=5, hidden_channels=8, gnn_type="gat")
+
+
+def test_proxy_persistence_pairs_for_single_edge():
+    """Proxy persistence uses node births, incident edge deaths, and graph maxima."""
+    layer = _TopologicalFiltrationLayer(
+        channels=2,
+        num_filtrations=1,
+        filtration_hidden=2,
+        coord_fun_count=1,
+    )
+    filtrations = torch.tensor([[0.2], [0.7], [0.5]])
+    edge_index = torch.tensor([[0, 1], [1, 0]], dtype=torch.long)
+    batch = torch.zeros(3, dtype=torch.long)
+    edge_batch = torch.zeros(2, dtype=torch.long)
+
+    persistence0, persistence1 = layer._compute_persistence(
+        filtrations=filtrations,
+        edge_index=edge_index,
+        batch=batch,
+        edge_batch=edge_batch,
+        num_graphs=1,
+    )
+
+    expected0 = torch.tensor([[[0.2, 0.7], [0.7, 0.7], [0.5, 0.7]]])
+    expected1 = torch.tensor([[[0.7, 0.7], [0.7, 0.7]]])
+    torch.testing.assert_close(persistence0, expected0)
+    torch.testing.assert_close(persistence1, expected1)
