@@ -1,0 +1,32 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.HICDatasetLoader
+  parameters: 
+    data_domain: hypergraph
+    data_type: hic
+    data_name: RHG_10
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1
+  num_classes: 10
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+
+# splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: k-fold
+  k: 10
+  # train_prop: 0.5
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1
+  num_workers: 1
+  pin_memory: False
