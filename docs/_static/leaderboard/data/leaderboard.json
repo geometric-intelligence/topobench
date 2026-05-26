@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-25T07:51:19+00:00",
+  "generated_at_utc": "2026-05-26T19:09:26+00:00",
   "tasks": {
     "community_detection": {
       "metric": "accuracy",
@@ -11,5 +11,5906 @@
       "direction": "min"
     }
   },
-  "submissions": []
+  "submissions": [
+    {
+      "pr_number": 335,
+      "pr_title": "Track: Track1; Team name: LangDiff; Model: HiD-Net",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/335",
+      "pr_author": "Mullerio",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/hid_net",
+      "study_id": "2026-05-25_12-13-20",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-25T14:45:21.980452+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3145771324634552
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3133165240287781
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3196195363998413
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3156467378139496
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3188173174858093
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3148445188999176
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3352051377296448
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3336007297039032
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3322637379169464
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.32550233602523804
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3302009403705597
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.32725954055786133
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.41038277745246887
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.40492016077041626
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.40560775995254517
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3938039541244507
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.393727570772171
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.39319276809692383
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.4397967755794525
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.42921537160873413
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.4334173798561096
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.4555733799934387
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.45125678181648254
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.4487355649471283
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.6061578392982483
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5979066491127014
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6057376265525818
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.620444655418396
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6146764755249023
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.6170448660850525
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.6909618973731995
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.6869890689849854
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6870654821395874
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.7337458729743958
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.7319505214691162
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.7313010692596436
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.03960542926183695
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.041028940711997086
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04697691947651184
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.020834644217240184
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.018057400301883096
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.022098739523636668
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1748945112521331
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.1543821066493648
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.178454205625474
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.0456136633420095
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.04716421756673671
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.04536647301633068
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.6270264487307949
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5842132181028724
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6350052318178022
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.12336599188559208
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.12550211693956445
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.1264993934433695
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 1.6818496162688092
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.7445348420374327
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 1.7727816810444919
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5093530749325129
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.4707460233597146
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.46914094682328916
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 1.359683551501871
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.3819243882631094
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 1.390922739184479
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.4672396701388889
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.4406374565972222
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.46622039930555553
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 3.672161507528025
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 3.6694996917525424
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 3.6744567492053437
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 1.7490635608556737
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.7810245681693375
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.755088207029105
+        }
+      ]
+    },
+    {
+      "pr_number": 334,
+      "pr_title": "Track: Track1; Team name: TJPaik; Model: GFT",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/334",
+      "pr_author": "TJPaik",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/gft",
+      "study_id": "gft",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-25T13:43:45.467468+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.32676294445991516
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3249293267726898
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.32427993416786194
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.31408053636550903
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.31083351373672485
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3128199279308319
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3478875458240509
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.34697073698043823
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.35010313987731934
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.33868134021759033
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3372679352760315
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.33978912234306335
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3877301514148712
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3851325511932373
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3769577443599701
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.36969974637031555
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.370005339384079
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.37092214822769165
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.43345558643341064
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.42948275804519653
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.42898616194725037
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.4473603665828705
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.4446863830089569
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.449728786945343
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5427840352058411
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5436626076698303
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5448086261749268
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5411795973777771
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.5386965870857239
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.5409504175186157
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.6312552690505981
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.6317518353462219
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6281610727310181
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.6687676906585693
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6720528602600098
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.6725112795829773
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.049183556944217735
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.027660622720416066
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04816837475691474
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008998438559080425
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.012270425495348479
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.010076434988724558
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.19381536339827454
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.12204160259942644
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.17748088352057262
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.050719937130703364
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.04871104323667109
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.05166264435318451
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.09332598302072896
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.09856856453793003
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.13498114392848196
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.05383150894613052
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.04706911801880093
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.0792986551920573
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.4744902753750232
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.6573160913117685
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 1.73425326984256
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3956055235284322
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.36180404686623546
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.4460661142809564
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3003258061583756
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.34222093308697266
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.294296137159452
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.12711259765625
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.165311328125
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.19747352430555556
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5888607693602027
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 3.697122128208319
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 1.0905787982308293
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 1.9952131487860483
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.732696871931839
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.7705653892716289
+        }
+      ]
+    },
+    {
+      "pr_number": 332,
+      "pr_title": "Track: Track1; Team name: TJPaik; Model: Neural Sheaf Diffusion (NSD)",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/332",
+      "pr_author": "TJPaik",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/nsd",
+      "study_id": "nsd",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-25T17:17:49.061228+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.29005271196365356
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3078157305717468
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3013599216938019
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.2840934991836548
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.2934907078742981
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2958209216594696
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.31450071930885315
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.29425472021102905
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.31098631024360657
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.2986859083175659
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.29925891757011414
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2982657253742218
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3579723536968231
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3742455542087555
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3764611482620239
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.33501413464546204
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3410879373550415
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3405149281024933
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3935365676879883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.4061807692050934
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.4057987630367279
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3950263559818268
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.40205517411231995
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.39758574962615967
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5050805807113647
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5072962045669556
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.498089998960495
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.49828100204467773
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.4816257953643799
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.4983955919742584
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5989380478858948
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.6086026430130005
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6098250150680542
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5995874404907227
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6429826617240906
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.6450454592704773
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.035185769930353085
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.038659516260328486
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.03001720967141627
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.001971065684368736
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.002259452876291777
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.001820523644748487
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.12158467911570914
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.28618852877915246
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.11786029860518582
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.007543230844259181
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.008000666660454124
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.005525891130766887
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.23344932051603207
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.1545206461099282
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.2965611235491817
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.06643024503875891
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.06750951447429229
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.055977256392773775
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.35826017580664826
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5350449512643972
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5959802379888074
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10287359609725583
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.08803858668084333
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.34759287820125156
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 1.3856246035483624
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.1046376031575171
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.7002854652019581
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3380439670138889
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3732724826388889
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3543350477430556
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 3.5574510339015646
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.6124659584516363
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 3.573716389715281
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.9756237857362754
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6621600451591699
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.1630497468507148
+        }
+      ]
+    },
+    {
+      "pr_number": 319,
+      "pr_title": "Track: Track1;  Team name: yeahkitory;  Model: Bundle Neural Networks (BuNN)",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/319",
+      "pr_author": "yeahkitoryisgood",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/bunn",
+      "study_id": "bunn_full",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-16T06:15:43.506502+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10206297785043716
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.09771987050771713
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.09663408994674683
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10314875096082687
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.09663408994674683
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.09771987050771713
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1064060777425766
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.10206297785043716
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10532030463218689
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.1074918583035469
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.10206297785043716
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10532030463218689
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.09880564361810684
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.1064060777425766
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.10206297785043716
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.09663408994674683
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1074918583035469
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10966341197490692
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.10206297785043716
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10966341197490692
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.1074918583035469
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.10857763141393661
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1064060777425766
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.1064060777425766
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.10532030463218689
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10423452407121658
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.11183496564626694
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.1074918583035469
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 3.890917264498197
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 2.9773600651667667
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.7504201302161584
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 6.856373469034831
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 4.102370897928874
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 5.123646418253581
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 4.65478702276854
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.8423327524727637
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 4.32723952360474
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.4896099545540066
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6569417551023151
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.555896304069309
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 18.51139970259233
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 4.8645196394486865
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 13.83479170365767
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.2919641137123108
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.4881103038787842
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.0464173555374146
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 15.55913754756043
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 16.647682128469114
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 17.392354311213072
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 5.280409134265988
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 3.5770130246184593
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 4.849178438408431
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 12.075713401617007
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 10.150449531022893
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 10.903870338617368
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 1.1345473069411058
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.5606671846829927
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.8784894209641676
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 10.233859850742848
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 9.930517184060895
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 10.24462353264857
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 10.78673691078347
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 12.683067423590185
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 12.00238612516143
+        }
+      ]
+    },
+    {
+      "pr_number": 327,
+      "pr_title": "Track: Track1; Team name: Prasanna28Devadiga; Model: Sheaf Neural Networks with Connection Laplacians",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/327",
+      "pr_author": "Prasanna28Devadiga",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/nsd",
+      "study_id": "2026-05-18_00-16-39",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-17T18:49:59.243022+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.04777415841817856
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04125950112938881
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.044516827911138535
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.06080347299575806
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.0673181340098381
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.05428881570696831
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.03474484384059906
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.03691639378666878
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.032573290169239044
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.038002170622348785
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.03691639378666878
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.038002170622348785
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.038002170622348785
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.03908794745802879
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.038002170622348785
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.02388707920908928
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.026058631017804146
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.02823018468916416
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.027144407853484154
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.027144407853484154
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.02388707920908928
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.6199835263765775
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.8094093616192157
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.4362161342914288
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.31398125489552814
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.24930582443873087
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.20202638705571493
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 4.699982902690176
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 6.431271800936544
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 3.4839673523509176
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.48625316094914706
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.9798091223480505
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.7489129162709648
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 5.2017690485174
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 11.418846823952414
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 8.63873360373757
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3819063603878021
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.3342567682266235
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.6761519312858582
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 38.9228017289615
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 43.86494586504028
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 45.80434128804834
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 9.406080804869186
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 5.406391942223837
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 8.3728515625
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 15.460145462390988
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 8.695846912472748
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 9.11507752884266
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 2.178333429189829
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 4.033878913292518
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 2.755731142484225
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 44.088777627476155
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 11.382663472120322
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 38.91162646735143
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 12.936537310320706
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 22.081358628390014
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 17.597718467498925
+        }
+      ]
+    },
+    {
+      "pr_number": 326,
+      "pr_title": "Track: Track1; Team name: howyadoin; Model: Neural Sheaf Propagation",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/326",
+      "pr_author": "lapry34",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/nsp",
+      "study_id": "2026-05-19_22-43-31",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-19T21:39:08.920135+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10314875096082687
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.05646036937832832
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.08251900225877762
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.055374592542648315
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.05971769988536835
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10097719728946686
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.06297502666711807
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.0673181340098381
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.044516827911138535
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.07817589491605759
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.07600434124469757
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.048859935253858566
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.08469055593013763
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.048859935253858566
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.09011943638324738
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.04125950112938881
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04125950112938881
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.08251900225877762
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.0401737242937088
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.08143322169780731
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.03474484384059906
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.08469055593013763
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.21686684168302095
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3914257563077487
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.22380236478952262
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5607725381851196
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.388075311978658
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.22060040632883707
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 2.8685048887853593
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 2.3577593415519877
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 2.834686372622802
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.6972757042001146
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3914688530318234
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.40742342187723984
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 5.455231059681285
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 8.83991865678267
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 8.768049760298295
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3859253227710724
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6672329306602478
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.7030543088912964
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 19.52348645926589
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 17.899355486235454
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 19.932350534355415
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 6.839240211664245
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 7.171077284702035
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 2.0518743470657705
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 5.873429764148801
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 14.469963606013808
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 4.868956454964572
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 2.6194816002478967
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 1.3593328916109526
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 3.0428546025202823
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 9.396259400220103
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 10.110910417048789
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 10.799590459922964
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 27.820717754520018
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 8.921297386192423
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 11.464208963355574
+        }
+      ]
+    },
+    {
+      "pr_number": 322,
+      "pr_title": "Track: Track1;  Team name: howyadoin;  Model: SheafAN",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/322",
+      "pr_author": "dario-loi",
+      "pr_state": "open",
+      "track": "track-1-gnn",
+      "model_config": "graph/san",
+      "study_id": "2026-05-18_22-59-56",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-18T21:01:57.461920+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.03474484384059906
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.04560260474681854
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.019543973729014397
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.02280130237340927
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.01845819689333439
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.043431054800748825
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04560260474681854
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.05428881570696831
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.0401737242937088
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.048859935253858566
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04125950112938881
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.04234527796506882
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.04777415841817856
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.05211726203560829
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.04777415841817856
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.05211726203560829
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.0532030388712883
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008686210960149765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.05103148892521858
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.049945712089538574
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.7106846295870267
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.26200406367962176
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.29492897253770095
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.16726171970367432
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.2922829786936442
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.4874194065729777
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 6.4716796875
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 3.98246555153383
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 2.9022935406512804
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 1.251213423702695
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6892096843194524
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.6094123070393134
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 4.912695798006925
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 7.657758539373225
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 7.202522277832031
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.8683448433876038
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.954594612121582
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.474381923675537
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 12.876053498489258
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 40.526696788272154
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 25.148287125111906
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 1.85516357421875
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 9.340971339026163
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 1.9294331395348838
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 17.8962033293968
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 9.493592018304868
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 4.979750522347384
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 4.10050289447491
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 2.624158712533804
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 4.317284217247596
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 19.67869015957447
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 27.11568002567865
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 10.311709722349596
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 8.029846743166164
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 13.974892716853207
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 15.35362744834266
+        }
+      ]
+    },
+    {
+      "pr_number": 333,
+      "pr_title": "Track: Track2; Team name: TJPaik; Model: TopNets",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/333",
+      "pr_author": "TJPaik",
+      "pr_state": "open",
+      "track": "track-2-tnn",
+      "model_config": "combinatorial/topnets",
+      "study_id": "topnets",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-25T18:15:19.993577+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.2005118727684021
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.20089387893676758
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.1931774765253067
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.2138436883687973
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.21399648487567902
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.21502788364887238
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.19409427046775818
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.18851707875728607
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.17801207304000854
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.21877148747444153
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.2108640819787979
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2225532829761505
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.2966231107711792
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.2955153286457062
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.2994499206542969
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.28825730085372925
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.30269691348075867
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3013599216938019
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.30281153321266174
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3217969238758087
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.2967759072780609
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.28107571601867676
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.33722972869873047
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.323515921831131
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.33218732476234436
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3826495409011841
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.36141034960746765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3789059519767761
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.37149515748023987
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2906639277935028
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.32294294238090515
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.44823896884918213
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.4202001690864563
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.40411797165870667
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.488616406917572
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3926961421966553
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.013101965274865757
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.014960097991767465
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.01338968909095962
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.008815318032314903
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.007998034828587582
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.011758146787944592
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.10253390564265738
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.10524755137229806
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.10587228103076413
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.0074020561884258745
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.01115126267482345
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.009689457054125326
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1126069929572687
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.060332416134352036
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.07235821741138528
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.06797560591360036
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.062006869670228844
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.08264639134645874
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.19833280480796026
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.1530956400829289
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.1953101869455926
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.13383083961368059
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.1530114477337067
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.1718022302764777
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.1368721122102299
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.1423742552515826
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.19638846323731995
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.10646631944444444
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.08680128038194444
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.10157136501736111
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.19486110924544417
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.35318793532883497
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.2784218207385496
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.23340022509381292
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.293202502267319
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.29324098428685536
+        }
+      ]
+    },
+    {
+      "pr_number": 329,
+      "pr_title": "Track: Track2; Team name: r2; Model: AirTNN",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/329",
+      "pr_author": "aniervs",
+      "pr_state": "open",
+      "track": "track-2-tnn",
+      "model_config": "cell/airtnn",
+      "study_id": "2026-05-24_00-02-52",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-24T01:30:11.274385+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.31965771317481995
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3190847337245941
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.3227137327194214
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.31003132462501526
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3106043338775635
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3125525116920471
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.09316983819007874
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.09993124008178711
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.10585223883390427
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.11819084733724594
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.11780884861946106
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.11964245140552521
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3025059103965759
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.3091527223587036
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.30170372128486633
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3598059415817261
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3658415377140045
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.36347314715385437
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.22816869616508484
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.27251890301704407
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.22721369564533234
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3716479539871216
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.36847734451293945
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3687829375267029
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5179539918899536
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5135610103607178
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5135610103607178
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5207043886184692
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.5263962149620056
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.5289174318313599
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5556955933570862
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5636793971061707
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5529070496559143
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5875544548034668
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.5898464322090149
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.5778516530990601
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.06038602559642077
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.06027277745843277
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.06535950036832167
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.010160254804711593
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.010167485789248818
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.010884379085741545
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.23039951664415054
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.22428303943875616
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.22191929157186197
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.025333220684693084
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.023493022037990814
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.024745957876320515
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5161096607277054
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.517042091996493
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.440995500114813
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.09567744332479895
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.07662585691672738
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.07589688737569489
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 1.2270994007465632
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.2845058735254504
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 1.3838638966131804
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.24169651406491025
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.22528465612291404
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2350506063698552
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.7570292577304065
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.7599399235609205
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.9494123705725562
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.28773895399305555
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.2114873046875
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.19225499131944446
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 2.4407288214200875
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 1.7781337666708144
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 2.197845555297897
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.9605773160975488
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.9628760967375568
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.65656299142579
+        }
+      ]
+    },
+    {
+      "pr_number": 328,
+      "pr_title": "Track: Track2; Team name: TJPaik; Model: Directed Simplicial Neural Networks (Dir-SNN)",
+      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/328",
+      "pr_author": "TJPaik",
+      "pr_state": "open",
+      "track": "track-2-tnn",
+      "model_config": "simplicial/dirsnn",
+      "study_id": "2026-05-26_09-23-26",
+      "n_runs": 72,
+      "submitted_at_utc": "2026-05-26T04:12:32.630368+00:00",
+      "rows": [
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.27958589792251587
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.2908167243003845
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.2926885187625885
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.23974329233169556
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.24016349017620087
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.24188250303268433
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.308312326669693
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.31507372856140137
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.30961111187934875
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.24341049790382385
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.24234089255332947
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.2520436942577362
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.27496370673179626
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.28516310453414917
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.291160523891449
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.2687753140926361
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.2760715186595917
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.27725571393966675
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.32752692699432373
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.31694552302360535
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.32836732268333435
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.3574375510215759
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.31167393922805786
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.3255787193775177
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.5033615827560425
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.49652379751205444
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5121093988418579
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.5352967977523804
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.5294139981269836
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.5317060351371765
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.603636622428894
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.5863320231437683
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.5896172523498535
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.6676216721534729
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.6489800810813904
+        },
+        {
+          "task": "community_detection",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.655512273311615
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.011779601017405045
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.010212881764348715
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.0065430708508670155
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.0015617329823343377
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.0022279795847441023
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.0014465628485930593
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.026638302099627892
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.035411736636980946
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.0505984130211296
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.00445069742797399
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.004228967667268831
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_lo",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.00388335345930068
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.07757006526072979
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.09322208055433784
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.09769596973895708
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.020919916749206437
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.02091596863636287
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.020684634259739484
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.14280720809434794
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.13920399089872051
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.1190574911033578
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.04439399921447728
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.036032105776057005
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_mid",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.03994073521420558
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 0.3904036978926393
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.2797678365193629
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.32286142873962015
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.17161876085069444
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.17274155815972222
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_lo",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.1506620334201389
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 42,
+          "score": 1.1687608876395597
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 43,
+          "score": 0.9775184382882934
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_lo",
+          "train_seed": 44,
+          "score": 0.6743885688975487
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 42,
+          "score": 0.23342934662211073
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 43,
+          "score": 0.3085588106663838
+        },
+        {
+          "task": "triangle_counting",
+          "homophily": "h_hi",
+          "avg_degree": "d_hi",
+          "power_law": "pl_hi",
+          "train_seed": 44,
+          "score": 0.31477310429251326
+        }
+      ]
+    }
+  ]
 }
