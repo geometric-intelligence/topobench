@@ -1,0 +1,38 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.GraphlandDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: graphland
+    data_name: web-traffic
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+    drop_missing_y: True
+    impute_missing_x: 
+      _target_: sklearn.impute.SimpleImputer
+      strategy: most_frequent
+      copy: true # if false, the input X is modified directly
+      add_indicator: false # if true, adds a boolean indicator for missing values
+
+# Dataset parameters
+parameters:
+  num_features: 267
+  num_classes: 1
+  task: regression
+  loss_type: mae
+  monitor_metric: mse
+  task_level: node
+
+#splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1 # Fixed
+  num_workers: 0
+  pin_memory: False
