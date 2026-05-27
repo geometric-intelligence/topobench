@@ -646,16 +646,20 @@ def check_pses_in_transforms(transforms):
                         is omegaconf.listconfig.ListConfig
                         else kernel_param
                     )
-        elif "LapPE" in key:
+        elif "LapPE" in key and omegaconf.OmegaConf.is_dict(transforms[key]):
             if transforms[key].get("include_eigenvalues"):
                 added_features += transforms[key].get("max_pe_dim") * 2
             else:
                 added_features += transforms[key].get("max_pe_dim")
-        elif "RWSE" in key or "SheafConnLapPE" in key:
+        elif ("RWSE" in key or "SheafConnLapPE" in key) and omegaconf.OmegaConf.is_dict(
+            transforms[key]
+        ):
             added_features += transforms[key].get("max_pe_dim")
-        elif "ElectrostaticPE" in key:
+        elif "ElectrostaticPE" in key and omegaconf.OmegaConf.is_dict(
+            transforms[key]
+        ):
             added_features += 7
-        elif "HKdiagSE" in key:
+        elif "HKdiagSE" in key and omegaconf.OmegaConf.is_dict(transforms[key]):
             kernel_param = transforms[key].get("kernel_param_HKdiagSE")
             added_features += (
                 (kernel_param[1] - kernel_param[0])
@@ -751,14 +755,14 @@ def check_fes_in_transforms(transforms):
                         .get(fe)
                         .get("max_pe_dim")
                     )
-        elif "HKFE" in key:
+        elif "HKFE" in key and omegaconf.OmegaConf.is_dict(transforms[key]):
             kernel_param = transforms[key].get("kernel_param_HKFE")
             added_features += (
                 (kernel_param[1] - kernel_param[0])
                 if type(kernel_param) is omegaconf.listconfig.ListConfig
                 else kernel_param
             )
-        elif "KHopFE" in key:
+        elif "KHopFE" in key and omegaconf.OmegaConf.is_dict(transforms[key]):
             # max_hop - 1 because the 0th hop is the features themselves
             added_features += transforms[key].get("max_hop") - 1
         elif "PPRFE" in key and omegaconf.OmegaConf.is_dict(transforms[key]):
@@ -770,7 +774,9 @@ def check_fes_in_transforms(transforms):
                 added_features += alpha_param[1]
             else:
                 added_features += alpha_param
-        elif "SheafConnLapPE" in key:
+        elif "SheafConnLapPE" in key and omegaconf.OmegaConf.is_dict(
+            transforms[key]
+        ):
             added_features += transforms[key].get("max_pe_dim")
     return added_features
 
