@@ -203,7 +203,7 @@ class SheafConnLapPE(BaseTransform):
 
         # Node degrees from the symmetrised edge_index (used for diagonal blocks)
         deg_np = (
-            degree(ei_sym[0], num_nodes=num_nodes).numpy().astype(np.int64)
+            degree(ei_sym[0], num_nodes=num_nodes).to('cpu').numpy().astype(np.int64)
         )
 
         # Build adjacency
