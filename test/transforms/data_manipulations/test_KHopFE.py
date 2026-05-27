@@ -56,3 +56,11 @@ class TestKHopFE:
         out = t(small_graph)
         assert hasattr(out, "KHopFE")
         assert out.KHopFE.shape[0] == small_graph.num_nodes
+
+    def test_debug_mode(self, small_graph, capsys):
+        """Test KHopFE with debug=True."""
+        t = KHopFE(max_hop=2, debug=True)
+        out = t(small_graph)
+        captured = capsys.readouterr()
+        assert "KHopFE Debug Report" in captured.out
+        assert out.x.shape[0] == small_graph.num_nodes

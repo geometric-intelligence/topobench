@@ -46,3 +46,11 @@ class TestHKdiagSE:
         out = t(small_graph)
         assert hasattr(out, "HKdiagSE")
         assert out.HKdiagSE.shape[0] == small_graph.num_nodes
+
+    def test_debug_mode(self, small_graph, capsys):
+        """Test HKdiagSE with debug=True."""
+        t = HKdiagSE(kernel_param_HKdiagSE=(1, 3), debug=True)
+        out = t(small_graph)
+        captured = capsys.readouterr()
+        assert "HKdiagSE Debug Report" in captured.out
+        assert out.x.shape[0] == small_graph.num_nodes

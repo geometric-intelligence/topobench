@@ -526,3 +526,17 @@ class TestLapPE:
 
         expected_dim = 2 * max_pe_dim if include_eigenvalues else max_pe_dim
         assert transformed.LapPE.shape == (3, expected_dim)
+
+    def test_debug_mode(self, capsys):
+        """Test LapPE with debug=True."""
+        transform = LapPE(max_pe_dim=2, debug=True)
+        edge_index = torch.tensor([[0, 1, 2], [1, 2, 0]])
+        data = Data(edge_index=edge_index, num_nodes=3)
+        
+        # This should run without error and print debug info
+        transformed = transform(data)
+        
+        captured = capsys.readouterr()
+        # Verify that some debug information was printed
+        assert "LapPE Debug Report" in captured.out or "method" in captured.out.lower()
+        assert transformed.x.shape == (3, 2)

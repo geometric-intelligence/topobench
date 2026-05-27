@@ -67,3 +67,11 @@ class TestHKFE:
         t = HKFE(kernel_param_HKFE=(1, 3), concat_to_x=False)
         out = t(data)
         assert torch.all(out.HKFE == 0.0)
+
+    def test_debug_mode(self, small_graph, capsys):
+        """Test HKFE with debug=True."""
+        t = HKFE(kernel_param_HKFE=(1, 3), debug=True)
+        out = t(small_graph)
+        captured = capsys.readouterr()
+        assert "HKFE Debug Report" in captured.out
+        assert out.x.shape == (small_graph.num_nodes, small_graph.x.shape[1] + t.fe_dim)

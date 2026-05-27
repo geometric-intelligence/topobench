@@ -42,3 +42,11 @@ class TestElectrostaticPE:
         out = t(small_graph)
         assert hasattr(out, "ElectrostaticPE")
         assert out.ElectrostaticPE.shape == (small_graph.num_nodes, 7)
+
+    def test_debug_mode(self, small_graph, capsys):
+        """Test ElectrostaticPE with debug=True."""
+        t = ElectrostaticPE(debug=True)
+        out = t(small_graph)
+        captured = capsys.readouterr()
+        assert "ElectrostaticPE Debug Report" in captured.out
+        assert out.x.shape == (small_graph.num_nodes, small_graph.x.shape[1] + 7)
