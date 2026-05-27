@@ -140,8 +140,9 @@ def register_all_resolvers():
 
     OmegaConf.register_new_resolver(
         "get_hop_num_gpse",
-        lambda x: int(x)
-        + 1,  # 2-hop if copy_initial = True else 1-hop (only GPSE info)
+        lambda x: (
+            int(x) + 1
+        ),  # 2-hop if copy_initial = True else 1-hop (only GPSE info)
         replace=True,
     )
     OmegaConf.register_new_resolver(

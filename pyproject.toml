@@ -155,7 +155,7 @@ docstring-code-format = false
 [tool.ruff.lint]
 select = ["F", "E", "W", "I", "UP", "B", "PIE", "Q", "RET", "SIM", "NPY", "PERF"]
 fixable = ["ALL"]
-ignore = ["E501", "RET504", "RET505", "NPY002", "UP038", "W293", "PERF203"]
+ignore = ["E501", "RET504", "RET505", "NPY002", "W293", "PERF203"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
