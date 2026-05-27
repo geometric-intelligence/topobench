@@ -1,0 +1,41 @@
+# Twitch Dataset Configuration
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.graph.twitch_dataset_loader.TwitchDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: social
+    language: EN        # Language subset to use: 'DE', 'EN', 'ES', 'FR', 'PT', 'RU'
+    data_name: Twitch
+    subset_size: null
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 128      
+  num_edge_features: 0    
+  num_classes: 2          # Binary classification: whether mature content is streamed or not
+  num_nodes: null         # Will be inferred after processing
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node        # Node-level prediction
+
+# Splits
+split_params:
+  learning_setting: transductive 
+  data_split_dir: ${paths.data_dir}/data_splits/${..loader.parameters.language}
+  data_seed: 42
+  split_type: random
+  train_prop: 0.8
+  val_prop: 0.1
+  test_prop: 0.1
+  standardize: False          # Classification labels, no standardization
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1       # Node-level single graph dataset
+  num_workers: 4
+  pin_memory: True
+  shuffle: False      
