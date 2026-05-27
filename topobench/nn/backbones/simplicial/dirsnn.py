@@ -86,6 +86,7 @@ class DirSNN(torch.nn.Module):
         super().__init__()
         self.edge_channels = edge_channels
         self.n_hid = n_hid
+        self.out_channels = n_hid
         self.n_layers = n_layers
         self.conv_order = conv_order
         self.n_adjs = n_adjs

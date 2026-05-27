@@ -158,6 +158,20 @@ def test_wrapper_forward_backward(directed_lifted):
     assert all(g is not None and torch.isfinite(g).all() for g in grads)
 
 
+def test_wrapper_repr_includes_backbone_out_channels(directed_lifted):
+    """Wrapper ``repr`` works for Dir-SNN's edge-hidden dimension.
+
+    Parameters
+    ----------
+    directed_lifted : torch_geometric.data.Data
+        Lifted-graph fixture.
+    """
+    wrapper = _make_wrapper(directed_lifted, adj_subset=None, n_adjs=10)
+    repr_text = repr(wrapper)
+    assert "DirSNNWrapper" in repr_text
+    assert f"out_channels={directed_lifted.x_1.shape[1]}" in repr_text
+
+
 def test_wrapper_graph_readout_with_signed_projection(directed_lifted):
     """Current signed edge-to-node projection works with graph readout.
 
