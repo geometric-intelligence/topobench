@@ -25,10 +25,12 @@ class TestPipeline:
                     config_name="run.yaml",
                     overrides=[
                         f"model={MODEL}",
-                        f"dataset={DATASET}", # IF YOU IMPLEMENT A LARGE DATASET WITH AN OPTION TO USE A SLICE OF IT, ADD BELOW THE CORRESPONDING OPTION
+                        f"dataset={DATASET}",
                         "trainer.max_epochs=2",
                         "trainer.min_epochs=1",
                         "trainer.check_val_every_n_epoch=1",
+                        "trainer.accelerator=cpu",
+                        "trainer.devices=1",
                         "paths=test",
                         "callbacks=model_checkpoint",
                     ],

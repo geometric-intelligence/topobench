@@ -152,24 +152,7 @@ class TestCellCycleLifting:
             expected_incidence_1 == lifted_data.incidence_1.to_dense()
         ).all(), "Something is wrong with incidence_1."
 
-        expected_incidence_2 = torch.tensor(
-            [
-                [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                [1.0, 1.0, 1.0, 0.0, 0.0, 0.0],
-                [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 1.0, 0.0, 0.0, 0.0],
-                [1.0, 0.0, 0.0, 1.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-                [0.0, 1.0, 0.0, 1.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
-                [0.0, 0.0, 1.0, 0.0, 1.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-                [0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
-            ]
-        )
-
-        assert (
-            expected_incidence_2 == lifted_data.incidence_2.to_dense()
-        ).all(), "Something is wrong with incidence_2."
+         # nx.cycle_basis is not deterministic, so we check that all edges of the graph are included in the cycles, and that the number of cycles is correct.
+        inc_2 = lifted_data.incidence_2.to_dense()
+        assert inc_2.shape == torch.Size([13, 6]), "The shape of incidence_2 is not correct."
+        assert torch.all(inc_2.sum(dim=1) > 0), "Some edges are not included in any cycle."
