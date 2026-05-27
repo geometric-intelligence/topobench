@@ -11,6 +11,7 @@ from topobench.nn.backbones.combinatorial.topnets import (
     _node_adjacency_from_incidence,
     _rank_neighborhood_matrix,
 )
+from topobench.nn.readouts.propagate_signal_down import PropagateSignalDown
 from topobench.nn.wrappers.combinatorial import TuneWrapper
 
 
@@ -120,6 +121,58 @@ def test_combinatorial_topnets_tune_wrapper_output():
     assert torch.equal(model_out["batch_0"], batch.batch_0)
 
 
+def test_combinatorial_topnets_omits_unconfigured_rank_three():
+    """Rank-3 cells from complex_dim=3 lifting are not exposed to rank-2 readouts."""
+    batch = _mock_complex_batch()
+    batch.x_3 = torch.randn(2, 8)
+    batch.batch_3 = torch.zeros(2, dtype=torch.long)
+    batch["incidence_3"] = torch.sparse_coo_tensor(
+        indices=torch.tensor([[0, 0], [0, 1]]),
+        values=torch.ones(2),
+        size=(1, 2),
+    ).coalesce()
+
+    model = CombinatorialTopNetsBackbone(
+        in_channels=8,
+        hidden_channels=8,
+        neighborhoods=[
+            "down_incidence-1",
+            "down_incidence-2",
+            "up_incidence-1",
+        ],
+        num_layers=1,
+        num_steps=1,
+        num_filtrations=2,
+        filtration_hidden=4,
+        coord_fun_count=1,
+    )
+
+    out = model(batch)
+
+    assert set(out) == {0, 1, 2}
+
+    wrapper = TuneWrapper(
+        model,
+        out_channels=8,
+        num_cell_dimensions=3,
+        residual_connections=False,
+    )
+    model_out = wrapper(batch)
+    assert "x_3" not in model_out
+
+    readout = PropagateSignalDown(
+        readout_name="PropagateSignalDown",
+        num_cell_dimensions=3,
+        hidden_dim=8,
+        out_channels=2,
+        task_level="graph",
+        pooling_type="sum",
+    )
+    readout_out = readout(model_out, batch)
+    assert readout_out["logits"].shape == (1, 2)
+    assert torch.isfinite(readout_out["logits"]).all()
+
+
 def test_combinatorial_topnets_updates_without_adjacency_keys():
     """Incidence-only combinatorial neighborhoods are enough to run TopNets."""
     batch = _mock_complex_batch()
@@ -174,9 +227,9 @@ def test_rank_fallback_updates_intrarank_routes():
 
     out = model(batch)
 
+    assert set(out) == {0, 1}
     assert out[0].shape == batch.x_0.shape
     assert out[1].shape == batch.x_1.shape
-    assert out[2].shape == batch.x_2.shape
 
 
 def test_membership_fallbacks():

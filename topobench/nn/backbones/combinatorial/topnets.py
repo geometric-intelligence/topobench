@@ -162,7 +162,11 @@ class CombinatorialTopNetsBackbone(nn.Module):
             for rank, outputs in route_outputs.items():
                 x_by_rank[rank] = self.activation(torch.stack(outputs).sum(dim=0))
 
-        return {rank: x_by_rank[rank] for rank in sorted(x_by_rank)}
+        return {
+            rank: x_by_rank[rank]
+            for rank in range(self.max_rank + 1)
+            if rank in x_by_rank
+        }
 
     def _intrarank_forward(
         self,
