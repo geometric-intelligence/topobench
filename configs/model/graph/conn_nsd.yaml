@@ -1,0 +1,58 @@
+# Sheaf Neural Network with Connection Laplacians (Conn-NSD).
+#
+# Barbero et al., "Sheaf Neural Networks with Connection Laplacians,"
+# ICML 2022 TAG-ML Workshop, arXiv:2206.08702.
+#
+# The sheaf is constructed deterministically by Algorithm 1 of the paper:
+# local PCA over each node's 1-hop neighbourhood gives an orthonormal
+# tangent basis O_v; the restriction map F_{vu} = U V^T is the orthogonal
+# Procrustes solution from the SVD of O_v^T O_u. There are no learnable
+# sheaf parameters — only the diffusion weights W_1, W_2 (left/right) and
+# the residual gates epsilon.
+
+_target_: topobench.model.TBModel
+
+model_name: conn_nsd
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.ConnNSDEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  hidden_dim: ${model.feature_encoder.out_channels}   # must be divisible by stalk_dim
+  num_layers: 2                                       # SWEEP candidate: [2, 4]
+  stalk_dim: 4                                        # SWEEP candidate: [2, 3, 4]
+  dropout: 0.0                                        # SWEEP candidate: [0.0, 0.25, 0.5]
+  input_dropout: 0.0
+  connection_features: raw                            # features as seen by the backbone, after TopoBench feature encoding
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+# compile model for faster training with pytorch 2.0
+compile: false

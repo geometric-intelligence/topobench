@@ -227,9 +227,19 @@ def rerun_best_model_checkpoint(
     for callback in callbacks:
         if isinstance(callback, ModelCheckpoint):
             log.info(
-                f"Loading best model from checkpoint at {callback.best_model_path}"
+                f"Loading best model from checkpoint at '{callback.best_model_path}'"
             )
+            if not callback.best_model_path:
+                log.warning(
+                    "best_model_path is empty, skipping checkpoint reload."
+                )
+                return
             model_path = Path(callback.best_model_path)
+            if model_path.is_dir():
+                log.warning(
+                    f"best_model_path '{model_path}' is a directory, skipping checkpoint reload."
+                )
+                return
             ckpt = torch.load(
                 model_path, map_location="cpu", weights_only=False
             )
