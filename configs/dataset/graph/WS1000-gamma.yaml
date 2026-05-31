@@ -1,0 +1,43 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.graph.ws1000_gamma_dataset_loader.WS1000GammaDatasetLoader
+  parameters:
+    data_domain: graph                # primary domain
+    data_type: synthetic              # you can rename this if you like
+    data_name: WS1000-gamma           # must match your dataset's 'name' argument
+    # WS1000_gamma generation parameters (can be overridden from CLI)
+    num_nodes: 1000
+    feature_dim: 1000
+    mean_degree: 4
+    beta: 0.5
+    gamma: 0.0
+    noise_scale: 1.0
+    seed: 0
+    # where to store processed data
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1000                  # = feature_dim
+  num_classes: ${dataset.parameters.num_nodes}  # upper bound on possible distances
+  num_nodes: 1000
+  task: classification                # we treat distance as a class label
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node                    # node-level prediction
+
+# Splits
+split_params:
+  learning_setting: transductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random                  # or 'k-fold'
+  k: 10                               # used only if split_type='k-fold'
+  train_prop: 0.5                     # used only if split_type='random'
+  standardize: False                   # standardize node features
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1                       # fixed for transductive single-graph setting
+  num_workers: 0
+  pin_memory: False
