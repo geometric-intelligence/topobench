@@ -15,7 +15,7 @@ from lightning.pytorch.loggers import Logger
 from lightning.pytorch.loggers.wandb import WandbLogger
 from omegaconf import DictConfig
 
-from topobench.data.preprocessor import PreProcessor
+from topobench.data.preprocessor import OnDiskPreProcessor, PreProcessor
 from topobench.dataloader import TBDataloader
 from topobench.utils import (
     RankedLogger,
@@ -113,10 +113,23 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     log.info(f"Instantiating loader <{cfg.dataset.loader._target_}>")
     dataset_loader = hydra.utils.instantiate(cfg.dataset.loader)
     dataset, dataset_dir = dataset_loader.load()
+
     # Preprocess dataset and load the splits
     log.info("Instantiating preprocessor...")
     transform_config = cfg.get("transforms", None)
-    preprocessor = PreProcessor(dataset, dataset_dir, transform_config)
+
+    use_on_disk_preprocessing = cfg.dataset.get(
+        "use_on_disk_preprocessing", False
+    )
+
+    if use_on_disk_preprocessing:
+        log.info("Using on-disk preprocessing...")
+        preprocessor = OnDiskPreProcessor(
+            dataset, dataset_dir, transform_config
+        )
+    else:
+        preprocessor = PreProcessor(dataset, dataset_dir, transform_config)
+
     dataset_train, dataset_val, dataset_test = (
         preprocessor.load_dataset_splits(cfg.dataset.split_params)
     )

@@ -1,0 +1,39 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.TUDatasetLoader
+  parameters: 
+    data_domain: graph
+    data_type: TUDataset
+    data_name: MUTAG
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+use_on_disk_preprocessing: true
+
+# Dataset parameters
+parameters:
+  num_features:
+    - 7 # initial node features
+    - 4 # initial edge features
+  num_classes: 2
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+  # Lifting parameters
+  max_dim_if_lifted: 3 # This is the maximum dimension of the simplicial complex in the dataset
+  preserve_edge_attr_if_lifted: True
+
+#splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  k: 10 # for "k-fold" Cross-Validation
+  train_prop: 0.5 # for "random" strategy splitting
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 10
+  num_workers: 0
+  pin_memory: False
