@@ -1,9 +1,6 @@
 """Test pipeline for a particular dataset and model."""
 
-from omegaconf import OmegaConf
 import hydra
-from lightning import Callback, Trainer
-from lightning.pytorch.loggers import Logger
 from omegaconf import DictConfig, OmegaConf
 
 from topobench.data.preprocessor import PreProcessor
@@ -18,6 +15,7 @@ from topobench.utils.config_resolvers import (
     get_required_lifting,
     infer_in_channels,
     infer_num_cell_dimensions,
+    infer_topotune_num_cell_dimensions,
 )
 
 OmegaConf.register_new_resolver(
@@ -45,8 +43,14 @@ OmegaConf.register_new_resolver(
     "infer_num_cell_dimensions", infer_num_cell_dimensions, replace=True
 )
 OmegaConf.register_new_resolver(
+    "infer_topotune_num_cell_dimensions",
+    infer_topotune_num_cell_dimensions,
+    replace=True,
+)
+OmegaConf.register_new_resolver(
     "parameter_multiplication", lambda x, y: int(int(x) * int(y)), replace=True
 )
+
 
 def run(cfg: DictConfig) -> DictConfig:
     """Run pipeline with given configuration.
