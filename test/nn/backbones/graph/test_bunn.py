@@ -1,0 +1,566 @@
+"""Unit tests for the Bundle Neural Network graph backbone."""
+
+import pytest
+import torch
+from torch_geometric.utils import to_undirected
+
+from topobench.nn.backbones.graph.bunn import BuNN, BuNNLayer
+from topobench.nn.wrappers.graph.gnn_wrapper import GNNWrapper
+
+
+def _undirected_edge_index(data):
+    """Return an undirected edge index for stable diffusion tests."""
+    return to_undirected(data.edge_index, num_nodes=data.num_nodes)
+
+
+class TestBuNNLayer:
+    """Test the BuNN diffusion layer."""
+
+    def test_bundle_maps_are_orthogonal(self):
+        """Node-wise bundle maps should cover both O(2) components."""
+        layer = BuNNLayer(
+            hidden_channels=16,
+            num_bundles=4,
+            bundle_dim=2,
+            dropout=0.0,
+        )
+        x = torch.randn(5, 16)
+
+        maps = layer._compute_bundle_maps(x)
+        identity = torch.eye(2, dtype=maps.dtype, device=maps.device).expand(
+            5, 4, 2, 2
+        )
+        product = maps @ maps.transpose(-1, -2)
+        determinants = torch.linalg.det(maps)
+        expected_determinants = maps.new_tensor([1.0, 1.0, -1.0, -1.0])
+
+        assert maps.shape == (5, 4, 2, 2)
+        assert torch.allclose(product, identity, atol=1e-5)
+        assert torch.allclose(
+            determinants,
+            expected_determinants.expand_as(determinants),
+            atol=1e-5,
+        )
+
+    def test_invalid_bundle_dimension_raises(self):
+        """Only 2D bundles are supported by the direct parameterization."""
+        with pytest.raises(ValueError, match="bundle_dim=2"):
+            BuNNLayer(hidden_channels=16, num_bundles=2, bundle_dim=4)
+
+    def test_invalid_hidden_width_raises(self):
+        """The hidden width must split cleanly into bundle channels."""
+        with pytest.raises(ValueError, match="divisible"):
+            BuNNLayer(hidden_channels=18, num_bundles=4, bundle_dim=2)
+
+    def test_invalid_hidden_channels_raises(self):
+        """A BuNN layer needs a positive feature width."""
+        with pytest.raises(ValueError, match="hidden_channels"):
+            BuNNLayer(hidden_channels=0, num_bundles=4, bundle_dim=2)
+
+    def test_non_integer_hidden_channels_raises(self):
+        """Feature widths should not be accepted as floats."""
+        with pytest.raises(ValueError, match="hidden_channels.*integer"):
+            BuNNLayer(hidden_channels=16.0, num_bundles=4, bundle_dim=2)
+
+    def test_non_integer_angle_hidden_channels_raises(self):
+        """Angle-network widths should be explicit integers."""
+        with pytest.raises(ValueError, match="angle_hidden_channels.*integer"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                angle_hidden_channels=8.0,
+            )
+
+    def test_non_boolean_include_reflections_raises(self):
+        """Reflection mode should not be inferred from truthy strings."""
+        with pytest.raises(ValueError, match="include_reflections.*boolean"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                include_reflections="false",
+            )
+
+    def test_non_boolean_residual_raises(self):
+        """Residual mode should be an explicit boolean config value."""
+        with pytest.raises(ValueError, match="residual.*boolean"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                residual="false",
+            )
+
+    def test_invalid_diffusion_time_raises(self):
+        """Diffusion time is a non-negative heat-equation parameter."""
+        with pytest.raises(ValueError, match="finite and non-negative"):
+            BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2, t=-0.1)
+
+    def test_non_finite_diffusion_time_raises(self):
+        """The heat kernel needs a finite diffusion time."""
+        with pytest.raises(ValueError, match="finite and non-negative"):
+            BuNNLayer(
+                hidden_channels=16, num_bundles=4, bundle_dim=2, t=float("inf")
+            )
+
+    def test_non_numeric_diffusion_time_raises(self):
+        """The heat diffusion time should not accept boolean coercion."""
+        with pytest.raises(ValueError, match="t.*numeric scalar"):
+            BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2, t=True)
+
+    def test_non_integer_taylor_degree_raises(self):
+        """Taylor approximation degree should not be silently truncated."""
+        with pytest.raises(ValueError, match="integer"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                taylor_degree=2.5,
+            )
+
+    def test_invalid_dropout_raises(self):
+        """Dropout should be a finite probability."""
+        with pytest.raises(ValueError, match="dropout.*finite probability"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                dropout=float("nan"),
+            )
+
+    def test_non_numeric_dropout_raises(self):
+        """Dropout should not accept boolean probability coercion."""
+        with pytest.raises(ValueError, match="dropout.*probability"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                dropout=True,
+            )
+
+    def test_non_string_activation_raises(self):
+        """Activation names should fail clearly before dictionary lookup."""
+        with pytest.raises(ValueError, match="act.*string"):
+            BuNNLayer(
+                hidden_channels=16,
+                num_bundles=4,
+                bundle_dim=2,
+                act=["gelu"],
+            )
+
+    def test_reflection_parameterization_requires_even_bundles(self):
+        """The paper-style O(2) split needs matched rotations/reflections."""
+        with pytest.raises(ValueError, match="even"):
+            BuNNLayer(hidden_channels=18, num_bundles=3, bundle_dim=2)
+
+    def test_random_walk_laplacian_handles_edgeless_graph(self):
+        """Isolated nodes should have a zero random-walk Laplacian."""
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index)
+
+        assert torch.equal(out, torch.zeros_like(x))
+
+    def test_random_walk_laplacian_requires_coo_edge_index(self):
+        """The Laplacian expects PyG COO connectivity."""
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[2, num_edges\]"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_2d_node_features(self):
+        """Node features should be a matrix indexed by graph nodes."""
+        x = torch.randn(3)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_tensor_node_features(self):
+        """Node features should fail clearly before tensor operations."""
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, num_features\]"):
+            BuNNLayer._random_walk_laplacian([[0.0], [1.0]], edge_index)
+
+    def test_random_walk_laplacian_requires_float_node_features(self):
+        """Heat diffusion should operate on real-valued node signals."""
+        x = torch.tensor([[0], [2]])
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="floating point"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_long_edge_index(self):
+        """PyG edge indices should use integer node ids."""
+        x = torch.randn(3, 8)
+        edge_index = torch.tensor([[0.0], [1.0]])
+
+        with pytest.raises(ValueError, match="torch.long"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_edge_index_device_match(self):
+        """Connectivity should live on the same device as node features."""
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(2, 0, dtype=torch.long, device="meta")
+
+        with pytest.raises(ValueError, match="same device"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_requires_tensor_edge_index(self):
+        """Connectivity should fail clearly before tensor operations."""
+        x = torch.randn(3, 8)
+
+        with pytest.raises(ValueError, match=r"\[2, num_edges\]"):
+            BuNNLayer._random_walk_laplacian(x, [[0], [1]])
+
+    def test_random_walk_laplacian_rejects_out_of_range_nodes(self):
+        """Invalid node ids should not be interpreted as tensor indices."""
+        x = torch.randn(3, 8)
+        edge_index = torch.tensor([[0, -1], [1, 3]])
+
+        with pytest.raises(ValueError, match=r"\[0, num_nodes\)"):
+            BuNNLayer._random_walk_laplacian(x, edge_index)
+
+    def test_random_walk_laplacian_symmetrizes_edges(self):
+        """A one-way edge should be treated as an undirected graph edge."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [2.0]]))
+
+    def test_random_walk_laplacian_ignores_self_loops(self):
+        """Self-loops are not part of the paper's simple graph Laplacian."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0, 0], [0, 1]])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [2.0]]))
+
+    def test_edge_weight_length_must_match_edges(self):
+        """Weighted Laplacians need one scalar weight per edge."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([1.0, 1.0])
+
+        with pytest.raises(ValueError, match="one scalar per edge"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_edge_weight_must_be_tensor(self):
+        """Edge weights should fail clearly before tensor conversion."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+
+        with pytest.raises(ValueError, match="edge_weight.*torch.Tensor"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, [1.0])
+
+    def test_boolean_edge_weights_are_rejected(self):
+        """Boolean edge weights should not be coerced into numeric weights."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([True])
+
+        with pytest.raises(ValueError, match="numeric"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_complex_edge_weights_are_rejected(self):
+        """Diffusion weights should be real-valued graph scalars."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([1.0 + 1.0j])
+
+        with pytest.raises(ValueError, match="real-valued"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_non_contiguous_edge_weights_are_accepted(self):
+        """Flattening edge weights should not require contiguous storage."""
+        x = torch.tensor([[0.0], [2.0], [4.0]])
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+        edge_weight = torch.ones(1, 2).transpose(0, 1)
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [0.0], [2.0]]))
+
+    def test_weighted_laplacian_uses_random_walk_average(self):
+        """Non-uniform weights should change the neighbor average."""
+        x = torch.tensor([[0.0], [2.0], [10.0]])
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+        edge_weight = torch.tensor([1.0, 3.0])
+
+        out = BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+        assert torch.allclose(out, torch.tensor([[-2.0], [-5.5], [8.0]]))
+
+    def test_edge_weights_must_be_non_negative(self):
+        """Random-walk diffusion uses non-negative edge weights."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([-1.0])
+
+        with pytest.raises(ValueError, match="non-negative"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_edge_weights_must_be_finite(self):
+        """Invalid weights should not silently poison heat diffusion."""
+        x = torch.tensor([[0.0], [2.0]])
+        edge_index = torch.tensor([[0], [1]])
+        edge_weight = torch.tensor([float("nan")])
+
+        with pytest.raises(ValueError, match="finite"):
+            BuNNLayer._random_walk_laplacian(x, edge_index, edge_weight)
+
+    def test_forward_requires_hidden_width(self):
+        """Layer input features should match the configured hidden width."""
+        layer = BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2)
+        x = torch.randn(3, 15)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(
+            ValueError, match=r"\[num_nodes, hidden_channels\]"
+        ):
+            layer(x, edge_index)
+
+    def test_forward_requires_float_hidden_features(self):
+        """Layer input features should be real-valued signals."""
+        layer = BuNNLayer(hidden_channels=16, num_bundles=4, bundle_dim=2)
+        x = torch.ones(3, 16, dtype=torch.long)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="floating point"):
+            layer(x, edge_index)
+
+    def test_zero_time_identity_update_recovers_input(self):
+        """Synchronization and desynchronization should cancel for identity W."""
+        layer = BuNNLayer(
+            hidden_channels=8,
+            num_bundles=2,
+            bundle_dim=2,
+            t=0.0,
+            act="identity",
+            dropout=0.0,
+            residual=False,
+            norm=None,
+        )
+        with torch.no_grad():
+            layer.channel_mixer.weight.copy_(torch.eye(8))
+            layer.channel_mixer.bias.zero_()
+        x = torch.randn(4, 8)
+        edge_index = torch.tensor([[0, 1], [1, 2]])
+
+        out = layer(x, edge_index)
+
+        assert torch.allclose(out, x, atol=1e-5)
+
+
+class TestBuNN:
+    """Test the full BuNN graph encoder."""
+
+    def test_initialization(self):
+        """BuNN stores its main architectural parameters."""
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=3,
+            num_bundles=4,
+            t=0.5,
+            taylor_degree=2,
+        )
+
+        assert model.in_channels == 8
+        assert model.hidden_channels == 16
+        assert model.out_channels == 16
+        assert model.num_layers == 3
+        assert model.num_bundles == 4
+        assert model.t == 0.5
+        assert model.taylor_degree == 2
+        assert len(model.layers) == 3
+        assert model.layers[0].angle_network[0].out_features == 8
+
+    def test_wrapper_repr_uses_output_channels(self):
+        """TopoBench wrappers expect graph backbones to expose out_channels."""
+        model = BuNN(in_channels=8, hidden_channels=16, num_layers=1)
+        wrapper = GNNWrapper(model, out_channels=16, num_cell_dimensions=1)
+
+        assert "out_channels=16" in repr(wrapper)
+
+    def test_forward_shape(self, simple_graph_0):
+        """BuNN returns one hidden vector per node."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.randn(simple_graph_0.num_nodes, 8)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=2,
+            num_bundles=4,
+            taylor_degree=2,
+            dropout=0.0,
+        )
+
+        out = model(x=x, edge_index=edge_index)
+
+        assert out.shape == (simple_graph_0.num_nodes, 16)
+        assert torch.isfinite(out).all()
+
+    def test_forward_with_edge_weights(self, simple_graph_0):
+        """BuNN accepts scalar edge weights from the graph wrapper."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        edge_weight = torch.ones(edge_index.shape[1])
+        x = torch.randn(simple_graph_0.num_nodes, 16)
+        model = BuNN(
+            in_channels=16,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        out = model(
+            x=x,
+            edge_index=edge_index,
+            edge_weight=edge_weight,
+            batch=torch.zeros(simple_graph_0.num_nodes, dtype=torch.long),
+        )
+
+        assert out.shape == x.shape
+        assert torch.isfinite(out).all()
+
+    def test_forward_rejects_unexpected_kwargs(self):
+        """Forward-only graph attributes should not be silently ignored."""
+        model = BuNN(in_channels=8, hidden_channels=16, num_layers=1)
+        x = torch.randn(3, 8)
+        edge_index = torch.empty(2, 0, dtype=torch.long)
+
+        with pytest.raises(ValueError, match="unexpected.*edge_attr"):
+            model(x=x, edge_index=edge_index, edge_attr=torch.empty(0, 1))
+
+    def test_forward_requires_input_width(self, simple_graph_0):
+        """The full encoder should reject mismatched node feature widths."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.randn(simple_graph_0.num_nodes, 7)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        with pytest.raises(ValueError, match=r"\[num_nodes, in_channels\]"):
+            model(x=x, edge_index=edge_index)
+
+    def test_forward_requires_float_input_features(self, simple_graph_0):
+        """The full encoder should reject integer node features clearly."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.ones(simple_graph_0.num_nodes, 8, dtype=torch.long)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        with pytest.raises(ValueError, match="floating point"):
+            model(x=x, edge_index=edge_index)
+
+    def test_forward_backward(self, simple_graph_0):
+        """Gradients should flow through bundle maps and diffusion."""
+        edge_index = _undirected_edge_index(simple_graph_0)
+        x = torch.randn(simple_graph_0.num_nodes, 8, requires_grad=True)
+        model = BuNN(
+            in_channels=8,
+            hidden_channels=16,
+            num_layers=1,
+            num_bundles=4,
+            dropout=0.0,
+        )
+
+        loss = model(x=x, edge_index=edge_index).sum()
+        loss.backward()
+
+        assert x.grad is not None
+        assert torch.isfinite(x.grad).all()
+
+    def test_invalid_num_layers_raises(self):
+        """At least one BuNN layer is required."""
+        with pytest.raises(ValueError, match="num_layers"):
+            BuNN(in_channels=8, hidden_channels=16, num_layers=0)
+
+    def test_unexpected_model_init_kwargs_raise(self):
+        """Constructor config typos should not be silently ignored."""
+        with pytest.raises(ValueError, match="unexpected.*typo_param"):
+            BuNN(in_channels=8, hidden_channels=16, typo_param=1)
+
+    def test_non_integer_num_layers_raises(self):
+        """Layer count should not be silently coerced from a float."""
+        with pytest.raises(ValueError, match="num_layers.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, num_layers=2.0)
+
+    def test_non_integer_model_num_bundles_raises(self):
+        """The top-level encoder should validate bundle count directly."""
+        with pytest.raises(ValueError, match="num_bundles.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, num_bundles=4.0)
+
+    def test_invalid_model_bundle_dimension_raises(self):
+        """The full encoder should report unsupported bundle dimensions."""
+        with pytest.raises(ValueError, match="bundle_dim=2"):
+            BuNN(
+                in_channels=8, hidden_channels=16, num_bundles=2, bundle_dim=4
+            )
+
+    def test_invalid_model_hidden_width_raises(self):
+        """Top-level hidden width should split into bundle channels."""
+        with pytest.raises(ValueError, match="divisible"):
+            BuNN(in_channels=8, hidden_channels=18, num_bundles=4)
+
+    def test_non_integer_model_angle_hidden_channels_raises(self):
+        """The top-level encoder should validate angle-network width."""
+        with pytest.raises(ValueError, match="angle_hidden_channels.*integer"):
+            BuNN(
+                in_channels=8,
+                hidden_channels=16,
+                angle_hidden_channels=8.0,
+            )
+
+    def test_non_integer_model_taylor_degree_raises(self):
+        """The full encoder should validate Taylor degree before building."""
+        with pytest.raises(ValueError, match="taylor_degree.*integer"):
+            BuNN(in_channels=8, hidden_channels=16, taylor_degree=2.5)
+
+    def test_non_numeric_model_diffusion_time_raises(self):
+        """The top-level diffusion time should not accept booleans."""
+        with pytest.raises(ValueError, match="t.*numeric scalar"):
+            BuNN(in_channels=8, hidden_channels=16, t=True)
+
+    def test_invalid_model_dropout_raises(self):
+        """The full encoder should reject invalid dropout probabilities."""
+        with pytest.raises(ValueError, match="dropout.*finite probability"):
+            BuNN(in_channels=8, hidden_channels=16, dropout=float("nan"))
+
+    def test_non_string_model_activation_raises(self):
+        """The top-level encoder should validate activation config values."""
+        with pytest.raises(ValueError, match="act.*string"):
+            BuNN(in_channels=8, hidden_channels=16, act=["gelu"])
+
+    def test_invalid_input_width_raises(self):
+        """The graph encoder needs a positive input feature width."""
+        with pytest.raises(ValueError, match="in_channels"):
+            BuNN(in_channels=0, hidden_channels=16)
+
+    def test_non_boolean_model_flags_raise(self):
+        """Top-level boolean flags should not accept truthy strings."""
+        with pytest.raises(ValueError, match="include_reflections.*boolean"):
+            BuNN(
+                in_channels=8,
+                hidden_channels=16,
+                include_reflections="false",
+            )
+        with pytest.raises(ValueError, match="residual.*boolean"):
+            BuNN(in_channels=8, hidden_channels=16, residual="false")
