@@ -1,0 +1,20 @@
+# Default transform pipeline for the Dir-SNN (official-experimental
+# lower-only) model.
+#
+# Same as the default Dir-SNN model_defaults: we need the directed
+# simplicial lifting on the batch so the four ``dir_lower_adj_*``
+# tensors are available. The wrapper restricts itself to the four
+# lower adjacencies via ``adj_subset="lower"`` -- the six upper
+# adjacencies are still produced by the lifting but are ignored.
+#
+# Reference-parity mode: this official-experimental config opts into
+# spectral normalization of the directed adjacencies, mirroring
+# ``repos/DirSNN/utils.py:16-20`` applied to the four lower
+# adjacencies in ``repos/DirSNN/train.py:29-33`` before they are fed
+# to the model.
+defaults:
+  - data_manipulations: identity
+  - /transforms/liftings/graph2simplicial@graph2simplicial_lifting: directed_simplicial
+
+graph2simplicial_lifting:
+  spectral_normalize: True

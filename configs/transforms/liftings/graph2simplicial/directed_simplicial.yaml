@@ -1,0 +1,9 @@
+transform_type: 'lifting'
+transform_name: "DirectedSimplicialLifting"
+complex_dim: 2  # locked: paper defines edge adjacencies only up to triangles
+preserve_edge_attr: ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted,False}
+signed: True  # signed incidences keep the orientation information
+feature_lifting: ProjectionSum
+neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+directed_input: False  # locked: directed-input path is guarded (NotImplementedError) until canonical orientation is threaded through incidence_1
+spectral_normalize: False  # opt-in: divides each directed adjacency by its largest eigenvalue, mirroring upstream utils.py/train.py normalization. Default off keeps raw binary adjacencies.

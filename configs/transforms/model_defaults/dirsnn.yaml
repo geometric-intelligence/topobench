@@ -1,0 +1,9 @@
+# Default transform pipeline for the Dir-SNN model.
+#
+# Dir-SNN (Lecha et al. 2024, arXiv:2409.08389) operates on edge
+# signals propagated through ten directed edge adjacencies, so we must
+# replace the default undirected clique lifting with
+# DirectedSimplicialLifting.
+defaults:
+  - data_manipulations: identity
+  - /transforms/liftings/graph2simplicial@graph2simplicial_lifting: directed_simplicial
