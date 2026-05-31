@@ -2,7 +2,7 @@
 
 import pytest
 import torch
-from torch_geometric.data import Batch
+from torch_geometric.data import Batch, Data
 
 from topobench.nn.backbones.graph.nsd import NSDEncoder
 
@@ -45,8 +45,9 @@ class TestNSDEncoder:
 
         assert model.input_dim == self.input_dim
         assert model.hidden_dim == self.hidden_dim
+        assert model.out_channels == self.hidden_dim
         assert model.num_layers == 2  # default
-        assert model.sheaf_type == "diag"  # default
+        assert model.sheaf_type == "bundle"  # default
         assert model.d == 2  # default
         assert model.sheaf_model is not None
 
@@ -102,11 +103,11 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
 
         assert model.sheaf_type == "general"
-        assert model.d == 3
+        assert model.d == 4
 
     def test_initialization_invalid_sheaf_type(self):
         """Test that invalid sheaf type raises error."""
@@ -139,7 +140,7 @@ class TestNSDEncoder:
         assert model.d == 1
 
         # Should fail with d < 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="diag sheaf requires d >= 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
@@ -159,7 +160,7 @@ class TestNSDEncoder:
         assert model.d == 2
 
         # Should fail with d <= 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="bundle sheaf requires d > 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
@@ -179,12 +180,22 @@ class TestNSDEncoder:
         assert model.d == 2
 
         # Should fail with d <= 1
-        with pytest.raises(AssertionError):
+        with pytest.raises(ValueError, match="general sheaf requires d > 1"):
             NSDEncoder(
                 input_dim=self.input_dim,
                 hidden_dim=self.hidden_dim,
                 sheaf_type="general",
                 d=1
+            )
+
+    def test_initialization_hidden_dim_must_be_divisible_by_d(self):
+        """Test that stalk dimension divides hidden dimension exactly."""
+        with pytest.raises(ValueError, match="hidden_dim .* must be divisible by d"):
+            NSDEncoder(
+                input_dim=self.input_dim,
+                hidden_dim=31,
+                sheaf_type="bundle",
+                d=4
             )
 
     def test_forward_basic(self, simple_graph_0):
@@ -233,6 +244,21 @@ class TestNSDEncoder:
             x=x,
             edge_index=simple_graph_0.edge_index
         )
+
+        assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
+
+    def test_forward_data_object(self, simple_graph_0):
+        """Test forward pass with a PyG data object."""
+        x = self._prepare_features(simple_graph_0.num_nodes)
+        data = Data(x=x, edge_index=simple_graph_0.edge_index)
+
+        model = NSDEncoder(
+            input_dim=self.input_dim,
+            hidden_dim=self.hidden_dim,
+            num_layers=2
+        )
+
+        out = model(data)
 
         assert out.shape == (simple_graph_0.num_nodes, self.hidden_dim)
 
@@ -359,7 +385,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
 
         out = model(
@@ -1102,7 +1128,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3,
+            d=4,
             orth="matrix_exp"
         )
 
@@ -1166,7 +1192,7 @@ class TestNSDEncoder:
             hidden_dim=self.hidden_dim,
             num_layers=2,
             sheaf_type="general",
-            d=3
+            d=4
         )
         model.train()
 
