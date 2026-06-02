@@ -22,7 +22,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    if: github.repository == 'geometric-intelligence/TopoBench'
+    if: github.repository == 'geometric-intelligence/topobench'
     steps:
       - uses: actions/checkout@v4
 

@@ -5,7 +5,10 @@ on:
     branches: [main, github-actions-test]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
+# Project site https://geometric-intelligence.github.io/topobench/ is published from
+# this repo's gh-pages branch — not from geometric-intelligence.github.io/topobench/.
 concurrency:
   group: topobench-docs-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
@@ -52,23 +55,15 @@ jobs:
         run: |
           source .venv/bin/activate
           sphinx-build -b html -D version=latest -D release=latest docs docs/_build
-          # Ensure GitHub Pages serves _static, _sources, etc. (see DOCUMENTATION_SITE.md).
+          # Disable Jekyll so paths like _static/ are served as static files.
           touch docs/_build/.nojekyll
 
-      # 5. Deploy
+      # 5. Deploy — same repo gh-pages powers https://geometric-intelligence.github.io/topobench/
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'geometric-intelligence/TopoBench' }}
+        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'geometric-intelligence/topobench' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
         with:
-          branch: main
+          branch: gh-pages
           folder: docs/_build
-          token: ${{ secrets.DOCUMENTATION_KEY }}
-          repository-name: geometric-intelligence/geometric-intelligence.github.io
-          target-folder: topobench
+          token: ${{ secrets.GITHUB_TOKEN }}
           clean: true
-          # Do not delete sibling trees under topobench/ that are not produced by Sphinx
-          # (e.g. challenge microsites maintained separately on the org Pages repo).
-          clean-exclude: |
-            leaderboard/**
-            tdl-challenge-2025/**
-            tdl-challenge-2026/**
