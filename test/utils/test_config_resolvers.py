@@ -6,6 +6,7 @@ import hydra
 import torch
 import os
 from topobench.utils.config_resolvers import (
+    register_all_resolvers,
     define_task_level,
     infer_in_channels,
     infer_num_cell_dimensions,
@@ -38,6 +39,7 @@ class TestConfigResolvers:
     def setup_method(self):
         """Setup method."""
         hydra.core.global_hydra.GlobalHydra.instance().clear()
+        register_all_resolvers()
         self.dataset_config_1 = OmegaConf.load("configs/dataset/graph/MUTAG.yaml")
         self.dataset_config_2 = OmegaConf.load("configs/dataset/graph/cocitation_cora.yaml")
         self.cliq_lift_transform = OmegaConf.load("configs/transforms/liftings/graph2simplicial/clique.yaml")
