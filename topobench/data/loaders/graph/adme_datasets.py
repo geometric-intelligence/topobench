@@ -7,6 +7,14 @@ import torch
 from omegaconf import DictConfig
 from torch_geometric.data import Data, InMemoryDataset
 
+try:
+    from ogb.utils.mol import smiles2graph
+    from tdc.single_pred import ADME
+
+    _ADME_DEPS_AVAILABLE = True
+except ImportError:
+    _ADME_DEPS_AVAILABLE = False
+
 from topobench.data.loaders.base import AbstractLoader
 
 
@@ -64,14 +72,11 @@ class ADMEDatasetLoader(AbstractLoader):
         ImportError
             If `PyTDC` or `rdkit` (via `ogb`) are not installed.
         """
-        try:
-            from ogb.utils.mol import smiles2graph
-            from tdc.single_pred import ADME
-        except ImportError as e:
+        if not _ADME_DEPS_AVAILABLE:
             raise ImportError(
                 "ADME datasets require additional dependencies. "
                 "Install them with: pip install PyTDC rdkit"
-            ) from e
+            )
 
         class _ADMEDataset(InMemoryDataset):
             """Internal InMemoryDataset for ADME data.
