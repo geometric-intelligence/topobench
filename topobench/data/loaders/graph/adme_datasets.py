@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 import torch
-from ogb.utils import smiles2graph
+from ogb.utils.mol import smiles2graph
 from omegaconf import DictConfig
 from tdc.single_pred import ADME
 from torch_geometric.data import Data, InMemoryDataset
