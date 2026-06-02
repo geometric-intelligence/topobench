@@ -56,6 +56,22 @@ jobs:
           touch docs/_build/.nojekyll
 
       # 5. Deploy
+      - name: Ensure .nojekyll at org Pages repo root
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'geometric-intelligence/TopoBench' }}
+        run: |
+          REPO_URL="https://x-access-token:${{ secrets.DOCUMENTATION_KEY }}@github.com/geometric-intelligence/geometric-intelligence.github.io.git"
+          git clone --depth 1 "$REPO_URL" /tmp/org-pages
+          if [ ! -f /tmp/org-pages/.nojekyll ]; then
+            touch /tmp/org-pages/.nojekyll
+            cd /tmp/org-pages
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .nojekyll
+            git commit -m "chore: add .nojekyll to prevent Jekyll from ignoring _static dirs"
+            git push
+          fi
+          rm -rf /tmp/org-pages
+
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'geometric-intelligence/TopoBench' }}
@@ -66,9 +82,3 @@ jobs:
           repository-name: geometric-intelligence/geometric-intelligence.github.io
           target-folder: topobench
           clean: true
-          # Do not delete sibling trees under topobench/ that are not produced by Sphinx
-          # (e.g. challenge microsites maintained separately on the org Pages repo).
-          clean-exclude: |
-            leaderboard/**
-            tdl-challenge-2025/**
-            tdl-challenge-2026/**
