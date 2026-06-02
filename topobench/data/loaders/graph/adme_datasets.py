@@ -4,9 +4,7 @@ import os
 from pathlib import Path
 
 import torch
-from ogb.utils.mol import smiles2graph
 from omegaconf import DictConfig
-from tdc.single_pred import ADME
 from torch_geometric.data import Data, InMemoryDataset
 
 from topobench.data.loaders.base import AbstractLoader
@@ -63,7 +61,17 @@ class ADMEDatasetLoader(AbstractLoader):
             If dataset loading or SMILES conversion fails.
         ValueError
             If invalid SMILES strings are encountered.
+        ImportError
+            If `PyTDC` or `rdkit` (via `ogb`) are not installed.
         """
+        try:
+            from ogb.utils.mol import smiles2graph
+            from tdc.single_pred import ADME
+        except ImportError as e:
+            raise ImportError(
+                "ADME datasets require additional dependencies. "
+                "Install them with: pip install PyTDC rdkit"
+            ) from e
 
         class _ADMEDataset(InMemoryDataset):
             """Internal InMemoryDataset for ADME data.
