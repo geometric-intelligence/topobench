@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T07:36:00+00:00",
+  "generated_at_utc": "2026-06-01T23:50:41+00:00",
   "tasks": {
     "community_detection": {
       "metric": "accuracy",
@@ -15,7 +15,7 @@
     {
       "pr_number": 327,
       "pr_title": "Track: Track1; Team name: Prasanna28Devadiga; Model: Sheaf Neural Networks with Connection Laplacians",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/327",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/327",
       "pr_author": "Prasanna28Devadiga",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -605,7 +605,7 @@
     {
       "pr_number": 332,
       "pr_title": "Track: Track1; Team name: TJPaik; Model: Neural Sheaf Diffusion (NSD)",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/332",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/332",
       "pr_author": "TJPaik",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -1195,7 +1195,7 @@
     {
       "pr_number": 335,
       "pr_title": "Track: Track1; Team name: LangDiff; Model: HiD-Net",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/335",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/335",
       "pr_author": "Mullerio",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -1785,7 +1785,7 @@
     {
       "pr_number": 334,
       "pr_title": "Track: Track1; Team name: TJPaik; Model: GFT",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/334",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/334",
       "pr_author": "TJPaik",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -2375,7 +2375,7 @@
     {
       "pr_number": 319,
       "pr_title": "Track: Track1;  Team name: yeahkitory;  Model: Bundle Neural Networks (BuNN)",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/319",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/319",
       "pr_author": "yeahkitoryisgood",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -2965,7 +2965,7 @@
     {
       "pr_number": 326,
       "pr_title": "Track: Track1; Team name: howyadoin; Model: Neural Sheaf Propagation",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/326",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/326",
       "pr_author": "lapry34",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -3555,7 +3555,7 @@
     {
       "pr_number": 322,
       "pr_title": "Track: Track1;  Team name: howyadoin;  Model: SheafAN",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/322",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/322",
       "pr_author": "dario-loi",
       "pr_state": "open",
       "track": "track-1-gnn",
@@ -4145,7 +4145,7 @@
     {
       "pr_number": 333,
       "pr_title": "Track: Track2; Team name: TJPaik; Model: TopNets",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/333",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/333",
       "pr_author": "TJPaik",
       "pr_state": "open",
       "track": "track-2-tnn",
@@ -4735,7 +4735,7 @@
     {
       "pr_number": 328,
       "pr_title": "Track: Track2; Team name: TJPaik; Model: Directed Simplicial Neural Networks (Dir-SNN)",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/328",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/328",
       "pr_author": "TJPaik",
       "pr_state": "open",
       "track": "track-2-tnn",
@@ -5325,7 +5325,7 @@
     {
       "pr_number": 329,
       "pr_title": "Track: Track2; Team name: r2; Model: AirTNN",
-      "pr_url": "https://github.com/geometric-intelligence/TopoBench/pull/329",
+      "pr_url": "https://github.com/geometric-intelligence/topobench/pull/329",
       "pr_author": "aniervs",
       "pr_state": "open",
       "track": "track-2-tnn",
