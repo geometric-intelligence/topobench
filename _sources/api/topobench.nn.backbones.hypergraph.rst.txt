@@ -1,0 +1,15 @@
+topobench.nn.backbones.hypergraph package
+=========================================
+
+.. automodule:: topobench.nn.backbones.hypergraph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.nn.backbones.hypergraph.edgnn

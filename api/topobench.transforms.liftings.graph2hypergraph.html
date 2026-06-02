@@ -1,0 +1,1166 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.transforms.liftings.graph2hypergraph package &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.transforms.liftings.graph2hypergraph';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.transforms.liftings.graph2hypergraph.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.transforms.liftings.graph2hypergraph.base module" href="topobench.transforms.liftings.graph2hypergraph.base.html" />
+    <link rel="prev" title="topobench.transforms.liftings.graph2combinatorial.graph_induced_cc module" href="topobench.transforms.liftings.graph2combinatorial.graph_induced_cc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.html" class="nav-link">topobench.transforms package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.liftings.html" class="nav-link">topobench.transforms.liftings package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.transforms.liftings.graph2hypergraph package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.transforms.liftings.graph2hypergraph">
+<span id="topobench-transforms-liftings-graph2hypergraph-package"></span><h1>topobench.transforms.liftings.graph2hypergraph package<a class="headerlink" href="#module-topobench.transforms.liftings.graph2hypergraph" title="Link to this heading">#</a></h1>
+<p>Graph2HypergraphLifting module with automated exports.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExpanderGraphLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_degree</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graphs to expander (hyper)graph. More precisely, the expander is a random Ramanujan graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>node_degree</strong><span class="classifier">int</span></dt><dd><p>The desired node degree of the expander graph. Must be even.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_degree</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the topology of a graph to an expander hypergraph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Graph2HypergraphLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.liftings.html#topobench.transforms.liftings.liftings.GraphLifting" title="topobench.transforms.liftings.liftings.GraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphLifting</span></code></a></p>
+<p>Abstract class for lifting graphs to hypergraphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HypergraphFormanRicciCurvatureLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weighted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'quantile'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'above'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graphs to hypergraph domain using Forman-Ricci curvature based backbone estimation.</p>
+<p>This lifting identifies a network’s structure-preserving, coarse geometry, i.e. its backbones, which lend themselves specifically to model information flows across wide areas of the network via hyperedges. To identify this coarse geometry we apply Forman-Ricci curvature to the original graph. Forman-Ricci curvature defines an edge-based network characteristic that reveals properties of a graph’s community structure. In particular high absolute Forman-Ricci curvature exhibits a network’s backbone, a coarse, structure preserving graph geometry that forms connections between major communities, most suitable to form hyperedges. In addition, Forman-Ricci curvature was found to be especially useful for network analysis since its intuitive notion allows for efficient computation that scales to large network sizes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>network_type</strong><span class="classifier">str, optional</span></dt><dd><p>Network type may be weighted or unweighted. Default is “weighted”.</p>
+</dd>
+<dt><strong>threshold_type</strong><span class="classifier">str, optional</span></dt><dd><p>Type of threshold (either based on quantile or absolute). Default is “quantile”.</p>
+</dd>
+<dt><strong>threshold_direction</strong><span class="classifier">str, optional</span></dt><dd><p>Direction whether to prune values above or below threshold. Default is “above”.</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">float, optional</span></dt><dd><p>Absolute value or quantile to estimate cutoff threshold from Forman-Ricci curvature distribution to prune network and reveal backbone. Default is 0.1.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">dict, optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weighted'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'quantile'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'above'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the topology of a graph to hypergraph domain using Forman-Ricci curvature based backbone estimation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HypergraphKHopLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graph to hypergraphs by considering k-hop neighborhoods.</p>
+<p>The class transforms graphs to hypergraph domain by considering k-hop neighborhoods of
+a node. This lifting extracts a number of hyperedges equal to the number of
+nodes in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>k_value</strong><span class="classifier">int, optional</span></dt><dd><p>The number of hops to consider. Default is 1.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift a graphs to hypergraphs by considering k-hop neighborhoods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HypergraphKNNLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graphs to hypergraph domain by considering k-nearest neighbors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>k_value</strong><span class="classifier">int, optional</span></dt><dd><p>The number of nearest neighbors to consider. Must be positive. Default is 1.</p>
+</dd>
+<dt><strong>loop</strong><span class="classifier">bool, optional</span></dt><dd><p>If True the hyperedges will contain the node they were created from.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>ValueError</dt><dd><p>If k_value is less than 1.</p>
+</dd>
+<dt>TypeError</dt><dd><p>If k_value is not an integer or if loop is not a boolean.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift a graph to hypergraph by considering k-nearest neighbors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HypergraphKernelLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'heat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'identity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'prod'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graphs to hypergraph domain by the kernel over graphs (features can be included).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>graph_kernel</strong><span class="classifier">str or callable</span></dt><dd><p>The kernel function to be applied to the graph topology, if a string, it specifies a predefined kernel type. Currently, only “heat” is supported. If a callable, it should be a function that takes the graph Laplacian and additional kwargs as input and returns a kernel matrix.</p>
+</dd>
+<dt><strong>feat_kernel</strong><span class="classifier">str or callable</span></dt><dd><p>The kernel function to be applied to the features, if a string, it specifies a predefined kernel type. Currently, only “identity” is supported. If a callable, it should be a function that takes the features and additional kwargs as input and returns a kernel matrix.</p>
+</dd>
+<dt><strong>C</strong><span class="classifier">str or callable</span></dt><dd><p>Default is “heat”.</p>
+</dd>
+<dt><strong>fraction</strong><span class="classifier">float</span></dt><dd><p>The fraction of the kernel to be considered for the hypergraph construction. Default is 0.5.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'heat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'identity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'prod'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the topology of a graph to hypergraph domain by considering the kernel over vertices or alternatively features.</p>
+<p>In a most generic form the kernel looks like:
+$$K =  C(K_v(v, v^{prime}) K_x(x, x^{prime})),$$
+where $K_v$ is a kernel over the graph (graph_kernel), $K_x$ is a kernel over the features (feat_kernel), and
+C is the function to combine those (for instance sum or prod).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>typing.Dict[str, torch.Tensor]</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError: if the input is incomplete or in incorrect format.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.MapperLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MapperLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laplacian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lift graphs to hypergraph domain using a Mapper construction for CC-pooling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filter_attr</strong><span class="classifier">str, optional</span></dt><dd><p>Name of the filter functional to filter data to 1-dimensional subspace.
+The filter attribute can be “laplacican”, “svd”, “pca”, “feature_sum”,
+“position_sum”. You may also define your own filter_attr string if
+the filter_func parameter is defined.
+Default is “laplacian”.</p>
+</dd>
+<dt><strong>resolution</strong><span class="classifier">int, optional</span></dt><dd><p>The number of intervals to construct the MapperCover.
+Default is 10.</p>
+</dd>
+<dt><strong>gain</strong><span class="classifier">float, optional</span></dt><dd><p>The percentage of overlap between consecutive intervals
+in MapperCover and should be a value between 0 and 0.5.
+Default is 0.3.</p>
+</dd>
+<dt><strong>filter_func</strong><span class="classifier">object, optional</span></dt><dd><p>Filter function used for Mapper construction.
+Self defined lambda function or transform to filter data.
+Function must output an (n_sample, 1) Tensor.
+If filter_func is not None, user must define filter_attr
+as a string not already listed above.
+Default is None.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>filtered_data</strong><span class="classifier">dict</span></dt><dd><p>Filtered data used to compute the Mapper lifting.
+Dictionary is of the form
+{filter_attr: filter_func(data)}.</p>
+</dd>
+<dt><strong>cover</strong><span class="classifier">(k, resolution) boolean Tensor</span></dt><dd><p>Mask computed from the MapperCover class
+to compute the Mapper lifting with k &lt; n_sample.</p>
+</dd>
+<dt><strong>clusters</strong><span class="classifier">dict</span></dt><dd><p>Distinct connected components in each cover set
+computed after fitting the Mapper cover.
+Dictionary has integer keys and tuple values
+of the form (cover_set_i, nodes_in_cluster).
+Each cluster is a rank 2 hyperedge in the
+hypergraph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The following are common filter functions which can be called with
+filter_attr.</p>
+<p>1. “laplacian” : Converts data to an undirected graph and then applies the
+torch_geometric.transforms.AddLaplacianEigenvectorPE(k=1) transform and
+projects onto the smallest nonzero eigenvector.</p>
+<p>2. “svd” : Applies the torch_geometric.transforms.SVDFeatureReduction(out_channels=1)
+transform to the node feature matrix (ie. torch_geometric.Data.data.x)
+to project data to a 1-dimensional subspace.</p>
+<p>3. “feature_pca” : Applies torch.pca_lowrank(q=1) transform to node feature matrix
+(ie. torch_geometric.Data.data.x) and then projects to the 1st principal component.</p>
+<p>4. “position_pca” : Applies torch.pca_lowrank(q=1) transform to node position matrix
+(ie. torch_geometric.Data.data.pos) and then projects to the 1st principal component.</p>
+<p>5. “feature_sum” : Applies torch.sum(dim=1) to the node feature matrix in the graph
+(ie. torch_geometric.Data.data.x).</p>
+<p>6. “position_sum” : Applies torch.sum(dim=1) to the node position matrix in the graph
+(ie. torch_geometric.Data.data.pos).</p>
+<p>You may also construct your own filter_attr and filter_func:</p>
+<p>7. “my_filter_attr” : Name of a self defined function
+my_filter_func = lambda data : my_filter_func(data)
+where my_filter_func(data) outputs a (n_sample, 1) Tensor.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="rfaba442e6a17-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Hajij, M., Zamzmi, G., Papamarkou, T., Miolane, N., Guzmán-Sáenz,
+A., Ramamurthy, K. N., et al. (2022).
+Topological deep learning: Going beyond graph data.
+arXiv preprint arXiv:2206.00606.</p>
+</div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.MapperLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laplacian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.MapperLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the topology of a graph to hypergraph domain by Mapper on Graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ModularityMaximizationLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_communities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting" title="topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a></p>
+<p>Lifts graphs to hypergraph domain using modularity maximization and community detection.</p>
+<p>This method creates hyperedges based on the community structure of the graph and
+k-nearest neighbors within each community.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>num_communities</strong><span class="classifier">int, optional</span></dt><dd><p>The number of communities to detect. Default is 2.</p>
+</dd>
+<dt><strong>k_neighbors</strong><span class="classifier">int, optional</span></dt><dd><p>The number of nearest neighbors to consider within each community. Default is 3.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the base class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_communities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.detect_communities">
+<span class="sig-name descname"><span class="pre">detect_communities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.detect_communities" title="Link to this definition">#</a></dt>
+<dd><p>Detect communities using spectral clustering on the modularity matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>b</strong><span class="classifier">torch.Tensor</span></dt><dd><p>The modularity matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>The community assignments for each node.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.kmeans">
+<span class="sig-name descname"><span class="pre">kmeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.kmeans" title="Link to this definition">#</a></dt>
+<dd><p>Perform k-means clustering on the input data.</p>
+<p>Note: This implementation uses random initialization, so results may vary
+between runs even for the same input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">torch.Tensor</span></dt><dd><p>The input data to cluster.</p>
+</dd>
+<dt><strong>n_clusters</strong><span class="classifier">int</span></dt><dd><p>The number of clusters to form.</p>
+</dd>
+<dt><strong>n_iterations</strong><span class="classifier">int, optional</span></dt><dd><p>The maximum number of iterations. Default is 100.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>The cluster assignments for each input point.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the graph topology to a hypergraph based on community structure and k-nearest neighbors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input graph data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>A dictionary containing the incidence matrix of the hypergraph, number of hyperedges,
+and the original node features.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.modularity_matrix">
+<span class="sig-name descname"><span class="pre">modularity_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.modularity_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute the modularity matrix B of the graph.</p>
+<p>B_ij = A_ij - (k_i * k_j) / (2m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input graph data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>The modularity matrix B.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html">topobench.transforms.liftings.graph2hypergraph.base module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.GraphLifting"><code class="docutils literal notranslate"><span class="pre">GraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.base.html#topobench.transforms.liftings.graph2hypergraph.base.GraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">GraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html">topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.ExpanderGraphLifting"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.ExpanderGraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.ExpanderGraphLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.html#topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting.maybe_regular_expander"><code class="docutils literal notranslate"><span class="pre">maybe_regular_expander()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html">topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html#topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html#topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html#topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.HypergraphFormanRicciCurvatureLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html#topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.HypergraphFormanRicciCurvatureLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.html#topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting.HypergraphFormanRicciCurvatureLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html">topobench.transforms.liftings.graph2hypergraph.kernel_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.HypergraphKernelLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.HypergraphKernelLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.HypergraphKernelLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.fmp"><code class="docutils literal notranslate"><span class="pre">fmp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.get_combination"><code class="docutils literal notranslate"><span class="pre">get_combination()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.get_feat_kernel"><code class="docutils literal notranslate"><span class="pre">get_feat_kernel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.get_graph_kernel"><code class="docutils literal notranslate"><span class="pre">get_graph_kernel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.graph_heat_kernel"><code class="docutils literal notranslate"><span class="pre">graph_heat_kernel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.kernel_lifting.html#topobench.transforms.liftings.graph2hypergraph.kernel_lifting.graph_matern_kernel"><code class="docutils literal notranslate"><span class="pre">graph_matern_kernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html">topobench.transforms.liftings.graph2hypergraph.khop_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html#topobench.transforms.liftings.graph2hypergraph.khop_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html#topobench.transforms.liftings.graph2hypergraph.khop_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html#topobench.transforms.liftings.graph2hypergraph.khop_lifting.HypergraphKHopLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html#topobench.transforms.liftings.graph2hypergraph.khop_lifting.HypergraphKHopLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.khop_lifting.html#topobench.transforms.liftings.graph2hypergraph.khop_lifting.HypergraphKHopLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html">topobench.transforms.liftings.graph2hypergraph.knn_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.HypergraphKNNLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.HypergraphKNNLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.HypergraphKNNLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.knn_lifting.html#topobench.transforms.liftings.graph2hypergraph.knn_lifting.knn_graph"><code class="docutils literal notranslate"><span class="pre">knn_graph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html">topobench.transforms.liftings.graph2hypergraph.mapper_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.AddLaplacianEigenvectorPE"><code class="docutils literal notranslate"><span class="pre">AddLaplacianEigenvectorPE</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.AddLaplacianEigenvectorPE.__init__"><code class="docutils literal notranslate"><span class="pre">AddLaplacianEigenvectorPE.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.AddLaplacianEigenvectorPE.forward"><code class="docutils literal notranslate"><span class="pre">AddLaplacianEigenvectorPE.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.AddLaplacianEigenvectorPE.SPARSE_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">AddLaplacianEigenvectorPE.SPARSE_THRESHOLD</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.Compose"><code class="docutils literal notranslate"><span class="pre">Compose</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.Compose.__init__"><code class="docutils literal notranslate"><span class="pre">Compose.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.Compose.forward"><code class="docutils literal notranslate"><span class="pre">Compose.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperCover"><code class="docutils literal notranslate"><span class="pre">MapperCover</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperCover.__init__"><code class="docutils literal notranslate"><span class="pre">MapperCover.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperCover.fit_transform"><code class="docutils literal notranslate"><span class="pre">MapperCover.fit_transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperLifting"><code class="docutils literal notranslate"><span class="pre">MapperLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperLifting.__init__"><code class="docutils literal notranslate"><span class="pre">MapperLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.MapperLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">MapperLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.SVDFeatureReduction"><code class="docutils literal notranslate"><span class="pre">SVDFeatureReduction</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.SVDFeatureReduction.__init__"><code class="docutils literal notranslate"><span class="pre">SVDFeatureReduction.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.SVDFeatureReduction.forward"><code class="docutils literal notranslate"><span class="pre">SVDFeatureReduction.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.ToUndirected"><code class="docutils literal notranslate"><span class="pre">ToUndirected</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.ToUndirected.__init__"><code class="docutils literal notranslate"><span class="pre">ToUndirected.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.mapper_lifting.html#topobench.transforms.liftings.graph2hypergraph.mapper_lifting.ToUndirected.forward"><code class="docutils literal notranslate"><span class="pre">ToUndirected.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html">topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting.__init__"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting.detect_communities"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.detect_communities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting.kmeans"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.kmeans()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.lift_topology()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.html#topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting.ModularityMaximizationLifting.modularity_matrix"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.modularity_matrix()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.transforms.liftings.graph2combinatorial.graph_induced_cc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.transforms.liftings.graph2combinatorial.graph_induced_cc module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.transforms.liftings.graph2hypergraph.base.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.transforms.liftings.graph2hypergraph.base module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ExpanderGraphLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">ExpanderGraphLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.Graph2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">Graph2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphFormanRicciCurvatureLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphFormanRicciCurvatureLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKHopLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKHopLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKNNLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKNNLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.__init__"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.HypergraphKernelLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">HypergraphKernelLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting"><code class="docutils literal notranslate"><span class="pre">MapperLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting.__init__"><code class="docutils literal notranslate"><span class="pre">MapperLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.MapperLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">MapperLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.__init__"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.detect_communities"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.detect_communities()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.kmeans"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.kmeans()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.lift_topology()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.graph2hypergraph.ModularityMaximizationLifting.modularity_matrix"><code class="docutils literal notranslate"><span class="pre">ModularityMaximizationLifting.modularity_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

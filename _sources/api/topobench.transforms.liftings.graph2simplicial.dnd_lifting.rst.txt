@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2simplicial.dnd\_lifting module
+==================================================================
+
+.. automodule:: topobench.transforms.liftings.graph2simplicial.dnd_lifting
+   :members:
+   :show-inheritance:
+   :undoc-members:

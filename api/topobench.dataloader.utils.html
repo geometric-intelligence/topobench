@@ -1,0 +1,1405 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.dataloader.utils module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.dataloader.utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.dataloader.utils.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.evaluator package" href="topobench.evaluator.html" />
+    <link rel="prev" title="topobench.dataloader.dataloader module" href="topobench.dataloader.dataloader.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.dataloader.html" class="nav-link">topobench.dataloader package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.dataloader.utils module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.dataloader.utils">
+<span id="topobench-dataloader-utils-module"></span><h1>topobench.dataloader.utils module<a class="headerlink" href="#module-topobench.dataloader.utils" title="Link to this heading">#</a></h1>
+<p>Dataloader utilities.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.Any">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.Any" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Special type indicating an unconstrained type.</p>
+<ul class="simple">
+<li><p>Any is compatible with every type.</p></li>
+<li><p>Any assumed to have all methods.</p></li>
+<li><p>All values assumed to be instances of Any.</p></li>
+</ul>
+<p>Note that all the above statements are true from the point of view of
+static type checkers. At runtime, Any should not be used with instance
+checks.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.DomainData">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DomainData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.DomainData" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.simplicial2combinatorial.coface_cc_lifting.html#topobench.transforms.liftings.simplicial2combinatorial.coface_cc_lifting.Data" title="torch_geometric.data.data.Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code></a></p>
+<p>Helper Data class so that not only sparse matrices with adj in the name can work with PyG dataloaders.</p>
+<p>It overwrites some methods from <cite>torch_geometric.data.Data</cite></p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.DomainData.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.DomainData.is_valid" title="Link to this definition">#</a></dt>
+<dd><p>Check if the string contains any of the valid names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>String to check.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>bool</dt><dd><p>Whether the string contains any of the valid names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowptr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.eye">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.eye" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_dense">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_dense" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_edge_index">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_edge_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_edge_index" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_storage">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_storage" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_torch_sparse_coo_tensor">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_torch_sparse_coo_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_torch_sparse_coo_tensor" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_torch_sparse_csr_tensor">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_torch_sparse_csr_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_torch_sparse_csr_tensor" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowptr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trust_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.add" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.add_">
+<span class="sig-name descname"><span class="pre">add_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.add_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.add_nnz">
+<span class="sig-name descname"><span class="pre">add_nnz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.add_nnz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.add_nnz_">
+<span class="sig-name descname"><span class="pre">add_nnz_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.add_nnz_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.avg_bandwidth">
+<span class="sig-name descname"><span class="pre">avg_bandwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.avg_bandwidth" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.avg_col_length">
+<span class="sig-name descname"><span class="pre">avg_col_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.avg_col_length" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.avg_row_length">
+<span class="sig-name descname"><span class="pre">avg_row_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.avg_row_length" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.bandwidth">
+<span class="sig-name descname"><span class="pre">bandwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.bandwidth" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.bandwidth_proportion">
+<span class="sig-name descname"><span class="pre">bandwidth_proportion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.bandwidth_proportion" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.bfloat16">
+<span class="sig-name descname"><span class="pre">bfloat16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.bfloat16" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.bool">
+<span class="sig-name descname"><span class="pre">bool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.bool" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.byte">
+<span class="sig-name descname"><span class="pre">byte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.byte" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.char">
+<span class="sig-name descname"><span class="pre">char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.char" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.clear_cache_">
+<span class="sig-name descname"><span class="pre">clear_cache_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.clear_cache_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.clone" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.coalesce">
+<span class="sig-name descname"><span class="pre">coalesce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.coalesce" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.coo">
+<span class="sig-name descname"><span class="pre">coo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.coo" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.copy" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.cpu">
+<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.cpu" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.csc">
+<span class="sig-name descname"><span class="pre">csc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.csc" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.csr">
+<span class="sig-name descname"><span class="pre">csr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.csr" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.cuda">
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.cuda" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.density">
+<span class="sig-name descname"><span class="pre">density</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.density" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.detach">
+<span class="sig-name descname"><span class="pre">detach</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.detach" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.detach_">
+<span class="sig-name descname"><span class="pre">detach_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.detach_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.device">
+<span class="sig-name descname"><span class="pre">device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.device" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.device_as">
+<span class="sig-name descname"><span class="pre">device_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.device_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.dim">
+<span class="sig-name descname"><span class="pre">dim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.dim" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.double">
+<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.double" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.dtype" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.fill_cache_">
+<span class="sig-name descname"><span class="pre">fill_cache_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.fill_cache_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.fill_diag">
+<span class="sig-name descname"><span class="pre">fill_diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.fill_diag" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.fill_value">
+<span class="sig-name descname"><span class="pre">fill_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.fill_value" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.fill_value_">
+<span class="sig-name descname"><span class="pre">fill_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.fill_value_" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.float">
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.float" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.from_scipy">
+<span class="sig-name descname"><span class="pre">from_scipy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">has_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.from_scipy" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.get_diag">
+<span class="sig-name descname"><span class="pre">get_diag</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.get_diag" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.half">
+<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.half" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.has_value">
+<span class="sig-name descname"><span class="pre">has_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.has_value" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.index_select">
+<span class="sig-name descname"><span class="pre">index_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.index_select" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.index_select_nnz">
+<span class="sig-name descname"><span class="pre">index_select_nnz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.index_select_nnz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.int">
+<span class="sig-name descname"><span class="pre">int</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.int" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_coalesced">
+<span class="sig-name descname"><span class="pre">is_coalesced</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_coalesced" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_cuda">
+<span class="sig-name descname"><span class="pre">is_cuda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_cuda" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_floating_point">
+<span class="sig-name descname"><span class="pre">is_floating_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_floating_point" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_pinned">
+<span class="sig-name descname"><span class="pre">is_pinned</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_pinned" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_quadratic">
+<span class="sig-name descname"><span class="pre">is_quadratic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_quadratic" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_shared">
+<span class="sig-name descname"><span class="pre">is_shared</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_shared" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.is_symmetric">
+<span class="sig-name descname"><span class="pre">is_symmetric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.is_symmetric" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.long">
+<span class="sig-name descname"><span class="pre">long</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.long" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.masked_select">
+<span class="sig-name descname"><span class="pre">masked_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.masked_select" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.masked_select_nnz">
+<span class="sig-name descname"><span class="pre">masked_select_nnz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.masked_select_nnz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.matmul">
+<span class="sig-name descname"><span class="pre">matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.matmul" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.max" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.mean" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.min" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.mul" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.mul_">
+<span class="sig-name descname"><span class="pre">mul_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.mul_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.mul_nnz">
+<span class="sig-name descname"><span class="pre">mul_nnz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.mul_nnz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.mul_nnz_">
+<span class="sig-name descname"><span class="pre">mul_nnz_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.mul_nnz_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.narrow">
+<span class="sig-name descname"><span class="pre">narrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.narrow" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.nnz">
+<span class="sig-name descname"><span class="pre">nnz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.nnz" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.numel">
+<span class="sig-name descname"><span class="pre">numel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.numel" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.partition">
+<span class="sig-name descname"><span class="pre">partition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.partition" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.permute">
+<span class="sig-name descname"><span class="pre">permute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.permute" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.pin_memory">
+<span class="sig-name descname"><span class="pre">pin_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.pin_memory" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.random_walk">
+<span class="sig-name descname"><span class="pre">random_walk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walk_length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.random_walk" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.remove_diag">
+<span class="sig-name descname"><span class="pre">remove_diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.remove_diag" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.requires_grad">
+<span class="sig-name descname"><span class="pre">requires_grad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.requires_grad" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.requires_grad_">
+<span class="sig-name descname"><span class="pre">requires_grad_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requires_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.requires_grad_" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.reverse_cuthill_mckee">
+<span class="sig-name descname"><span class="pre">reverse_cuthill_mckee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.reverse_cuthill_mckee" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.saint_subgraph">
+<span class="sig-name descname"><span class="pre">saint_subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.saint_subgraph" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_neighbors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sample" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sample_adj">
+<span class="sig-name descname"><span class="pre">sample_adj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_neighbors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sample_adj" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.select" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.set_diag">
+<span class="sig-name descname"><span class="pre">set_diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.set_diag" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.set_value" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.set_value_">
+<span class="sig-name descname"><span class="pre">set_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.set_value_" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.share_memory_">
+<span class="sig-name descname"><span class="pre">share_memory_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.share_memory_" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.short">
+<span class="sig-name descname"><span class="pre">short</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.short" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.size" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sizes">
+<span class="sig-name descname"><span class="pre">sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sizes" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sparse_reshape">
+<span class="sig-name descname"><span class="pre">sparse_reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cols</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sparse_reshape" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sparse_resize">
+<span class="sig-name descname"><span class="pre">sparse_resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse_sizes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sparse_resize" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sparse_size">
+<span class="sig-name descname"><span class="pre">sparse_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sparse_size" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sparse_sizes">
+<span class="sig-name descname"><span class="pre">sparse_sizes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sparse_sizes" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sparsity">
+<span class="sig-name descname"><span class="pre">sparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sparsity" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.spmm">
+<span class="sig-name descname"><span class="pre">spmm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.spmm" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.spspmm">
+<span class="sig-name descname"><span class="pre">spspmm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.spspmm" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.sum">
+<span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.sum" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.t">
+<span class="sig-name descname"><span class="pre">t</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.t" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_dense">
+<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_dense" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_device">
+<span class="sig-name descname"><span class="pre">to_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_device" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_scipy">
+<span class="sig-name descname"><span class="pre">to_scipy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_scipy" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_symmetric">
+<span class="sig-name descname"><span class="pre">to_symmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_symmetric" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_torch_sparse_coo_tensor">
+<span class="sig-name descname"><span class="pre">to_torch_sparse_coo_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_coo_tensor" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_torch_sparse_csc_tensor">
+<span class="sig-name descname"><span class="pre">to_torch_sparse_csc_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csc_tensor" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.to_torch_sparse_csr_tensor">
+<span class="sig-name descname"><span class="pre">to_torch_sparse_csr_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csr_tensor" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.type" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.type_as">
+<span class="sig-name descname"><span class="pre">type_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.type_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.SparseTensor.storage">
+<span class="sig-name descname"><span class="pre">storage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">SparseStorage</span></em><a class="headerlink" href="#topobench.dataloader.utils.SparseTensor.storage" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.defaultdict">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">defaultdict</span></span><a class="headerlink" href="#topobench.dataloader.utils.defaultdict" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>defaultdict(default_factory=None, /, […]) –&gt; dict with default factory</p>
+<p>The default factory is called without arguments to produce
+a new value when a key is not present, in __getitem__ only.
+A defaultdict compares equal to a dict with the same items.
+All remaining arguments are treated the same as if they were
+passed to the dict constructor, including keyword arguments.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.defaultdict.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.defaultdict.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.defaultdict.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">shallow</span> <span class="pre">copy</span> <span class="pre">of</span> <span class="pre">D.</span></span></span><a class="headerlink" href="#topobench.dataloader.utils.defaultdict.copy" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.defaultdict.default_factory">
+<span class="sig-name descname"><span class="pre">default_factory</span></span><a class="headerlink" href="#topobench.dataloader.utils.defaultdict.default_factory" title="Link to this definition">#</a></dt>
+<dd><p>Factory for default value called by __missing__().</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.collate_fn">
+<span class="sig-name descname"><span class="pre">collate_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.collate_fn" title="Link to this definition">#</a></dt>
+<dd><p>Overwrite <cite>torch_geometric.data.DataLoader</cite> collate function to use the <cite>DomainData</cite> class.</p>
+<p>This ensures that the <cite>torch_geometric</cite> dataloaders work with sparse matrices that are not necessarily named <cite>adj</cite>. The function also generates the batch slices for the different cell dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">list</span></dt><dd><p>List of data objects (e.g., <cite>torch_geometric.data.Data</cite>).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Batch</dt><dd><p>A <cite>torch_geometric.data.Batch</cite> object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.dataloader.utils.to_data_list">
+<span class="sig-name descname"><span class="pre">to_data_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.utils.to_data_list" title="Link to this definition">#</a></dt>
+<dd><p>Workaround needed since <cite>torch_geometric</cite> doesn’t work when using <cite>torch.sparse</cite> instead of <cite>torch_sparse</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">torch_geometric.data.Batch</span></dt><dd><p>The batch of data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd><p>List of data objects.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.dataloader.dataloader.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.dataloader.dataloader module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.evaluator.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.evaluator package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.Any"><code class="docutils literal notranslate"><span class="pre">Any</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.DomainData"><code class="docutils literal notranslate"><span class="pre">DomainData</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.DomainData.is_valid"><code class="docutils literal notranslate"><span class="pre">DomainData.is_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.eye"><code class="docutils literal notranslate"><span class="pre">SparseTensor.eye()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_dense"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_dense()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_edge_index"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_edge_index()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_storage"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_storage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_torch_sparse_coo_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_torch_sparse_coo_tensor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_torch_sparse_csr_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_torch_sparse_csr_tensor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.__init__"><code class="docutils literal notranslate"><span class="pre">SparseTensor.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.add"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.add_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.add_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_nnz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.add_nnz_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_nnz_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.avg_bandwidth"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_bandwidth()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.avg_col_length"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_col_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.avg_row_length"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_row_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.bandwidth"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bandwidth()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.bandwidth_proportion"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bandwidth_proportion()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.bfloat16"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bfloat16()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.bool"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bool()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.byte"><code class="docutils literal notranslate"><span class="pre">SparseTensor.byte()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.char"><code class="docutils literal notranslate"><span class="pre">SparseTensor.char()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.clear_cache_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.clear_cache_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.clone"><code class="docutils literal notranslate"><span class="pre">SparseTensor.clone()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.coalesce"><code class="docutils literal notranslate"><span class="pre">SparseTensor.coalesce()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.coo"><code class="docutils literal notranslate"><span class="pre">SparseTensor.coo()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.copy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.cpu"><code class="docutils literal notranslate"><span class="pre">SparseTensor.cpu()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.csc"><code class="docutils literal notranslate"><span class="pre">SparseTensor.csc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.csr"><code class="docutils literal notranslate"><span class="pre">SparseTensor.csr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.cuda"><code class="docutils literal notranslate"><span class="pre">SparseTensor.cuda()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.density"><code class="docutils literal notranslate"><span class="pre">SparseTensor.density()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.detach"><code class="docutils literal notranslate"><span class="pre">SparseTensor.detach()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.detach_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.detach_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.device"><code class="docutils literal notranslate"><span class="pre">SparseTensor.device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.device_as"><code class="docutils literal notranslate"><span class="pre">SparseTensor.device_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.dim"><code class="docutils literal notranslate"><span class="pre">SparseTensor.dim()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.double"><code class="docutils literal notranslate"><span class="pre">SparseTensor.double()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.dtype"><code class="docutils literal notranslate"><span class="pre">SparseTensor.dtype()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.fill_cache_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_cache_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.fill_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_diag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.fill_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_value()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.fill_value_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_value_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.float"><code class="docutils literal notranslate"><span class="pre">SparseTensor.float()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.from_scipy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_scipy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.get_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.get_diag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.half"><code class="docutils literal notranslate"><span class="pre">SparseTensor.half()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.has_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.has_value()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.index_select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.index_select()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.index_select_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.index_select_nnz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.int"><code class="docutils literal notranslate"><span class="pre">SparseTensor.int()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_coalesced"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_coalesced()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_cuda"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_cuda()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_floating_point"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_floating_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_pinned"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_pinned()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_quadratic"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_quadratic()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_shared"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_shared()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.is_symmetric"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_symmetric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.long"><code class="docutils literal notranslate"><span class="pre">SparseTensor.long()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.masked_select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.masked_select()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.masked_select_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.masked_select_nnz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.matmul"><code class="docutils literal notranslate"><span class="pre">SparseTensor.matmul()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.max"><code class="docutils literal notranslate"><span class="pre">SparseTensor.max()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.mean"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mean()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.min"><code class="docutils literal notranslate"><span class="pre">SparseTensor.min()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.mul"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.mul_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.mul_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_nnz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.mul_nnz_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_nnz_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.narrow"><code class="docutils literal notranslate"><span class="pre">SparseTensor.narrow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.nnz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.numel"><code class="docutils literal notranslate"><span class="pre">SparseTensor.numel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.partition"><code class="docutils literal notranslate"><span class="pre">SparseTensor.partition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.permute"><code class="docutils literal notranslate"><span class="pre">SparseTensor.permute()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.pin_memory"><code class="docutils literal notranslate"><span class="pre">SparseTensor.pin_memory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.random_walk"><code class="docutils literal notranslate"><span class="pre">SparseTensor.random_walk()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.remove_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.remove_diag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.requires_grad"><code class="docutils literal notranslate"><span class="pre">SparseTensor.requires_grad()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.requires_grad_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.requires_grad_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.reverse_cuthill_mckee"><code class="docutils literal notranslate"><span class="pre">SparseTensor.reverse_cuthill_mckee()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.saint_subgraph"><code class="docutils literal notranslate"><span class="pre">SparseTensor.saint_subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sample"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sample()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sample_adj"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sample_adj()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.select()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.set_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_diag()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.set_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_value()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.set_value_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_value_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.share_memory_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.share_memory_()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.short"><code class="docutils literal notranslate"><span class="pre">SparseTensor.short()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.size"><code class="docutils literal notranslate"><span class="pre">SparseTensor.size()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sizes"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sizes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sparse_reshape"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_reshape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sparse_resize"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_resize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sparse_size"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_size()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sparse_sizes"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_sizes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sparsity"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparsity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.spmm"><code class="docutils literal notranslate"><span class="pre">SparseTensor.spmm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.spspmm"><code class="docutils literal notranslate"><span class="pre">SparseTensor.spspmm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.sum"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.t"><code class="docutils literal notranslate"><span class="pre">SparseTensor.t()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_dense"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_dense()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_device"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_scipy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_scipy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_symmetric"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_symmetric()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_coo_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_coo_tensor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csc_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_csc_tensor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csr_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_csr_tensor()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.type"><code class="docutils literal notranslate"><span class="pre">SparseTensor.type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.type_as"><code class="docutils literal notranslate"><span class="pre">SparseTensor.type_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.SparseTensor.storage"><code class="docutils literal notranslate"><span class="pre">SparseTensor.storage</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.defaultdict"><code class="docutils literal notranslate"><span class="pre">defaultdict</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.defaultdict.__init__"><code class="docutils literal notranslate"><span class="pre">defaultdict.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.defaultdict.copy"><code class="docutils literal notranslate"><span class="pre">defaultdict.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.defaultdict.default_factory"><code class="docutils literal notranslate"><span class="pre">defaultdict.default_factory</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.collate_fn"><code class="docutils literal notranslate"><span class="pre">collate_fn()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.utils.to_data_list"><code class="docutils literal notranslate"><span class="pre">to_data_list()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

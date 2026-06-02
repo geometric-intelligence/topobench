@@ -1,0 +1,7 @@
+topobench.transforms.feature\_liftings.set module
+=================================================
+
+.. automodule:: topobench.transforms.feature_liftings.set
+   :members:
+   :show-inheritance:
+   :undoc-members:

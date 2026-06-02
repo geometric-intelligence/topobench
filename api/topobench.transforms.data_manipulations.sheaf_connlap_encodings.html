@@ -1,0 +1,1515 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.transforms.data_manipulations.sheaf_connlap_encodings module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.transforms.data_manipulations.sheaf_connlap_encodings';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.transforms.data_manipulations.sheaf_connlap_encodings.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.transforms.feature_liftings package" href="topobench.transforms.feature_liftings.html" />
+    <link rel="prev" title="topobench.transforms.data_manipulations.rename_fields module" href="topobench.transforms.data_manipulations.rename_fields.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.html" class="nav-link">topobench.transforms package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.data_manipulations.html" class="nav-link">topobench.transforms.data_manipulations package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.transforms.data_manipulations.sheaf_connlap_encodings module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.transforms.data_manipulations.sheaf_connlap_encodings">
+<span id="topobench-transforms-data-manipulations-sheaf-connlap-encodings-module"></span><h1>topobench.transforms.data_manipulations.sheaf_connlap_encodings module<a class="headerlink" href="#module-topobench.transforms.data_manipulations.sheaf_connlap_encodings" title="Link to this heading">#</a></h1>
+<p>Sheaf Connection Laplacian Positional Encoding (ConnLap) Transform.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseTransform</span></span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.optimizer.base.html#topobench.optimizer.base.ABC" title="abc.ABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>An abstract base class for writing transforms.</p>
+<p>Transforms are a general way to modify and customize
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects, either by implicitly
+passing them as an argument to a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>, or
+by applying them explicitly to individual
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch_geometric.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">T</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">TUDataset</span>
+
+<span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">T</span><span class="o">.</span><span class="n">ToUndirected</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">AddSelfLoops</span><span class="p">()])</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MUTAG&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Implicitly transform data on every access.</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MUTAG&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Explicitly transform data.</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform.forward">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform.forward" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseData</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureStore</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GraphStore</span></code></p>
+<p>A data object describing a homogeneous graph.
+The data object can hold node-level, link-level and graph-level attributes.
+In general, <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> tries to mimic the
+behavior of a regular <a href="#id1"><span class="problematic" id="id2">:python:`Python`</span></a> dictionary.
+In addition, it provides useful functionality for analyzing graph
+structures, and provides basic PyTorch tensor functionalities.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html#data-handling-of-graphs">here</a> for the accompanying
+tutorial.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">edge_index</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Add additional arguments to `data`:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">train_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">test_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+<span class="c1"># Analyzing the graph structure:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">23</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">False</span>
+
+<span class="c1"># PyTorch tensor functionality:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_node_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_index</strong> (<em>LongTensor</em><em>, </em><em>optional</em>) – Graph connectivity in COO format
+with shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">num_edges]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_attr</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Edge feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges,</span> <span class="pre">num_edge_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Graph-level or node-level ground-truth
+labels with arbitrary shape. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pos</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node position matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_dimensions]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>time</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – The timestamps for each event with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges]</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – Additional attributes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.from_dict">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.from_dict" title="Link to this definition">#</a></dt>
+<dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object from a
+dictionary.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.connected_components">
+<span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.connected_components" title="Link to this definition">#</a></dt>
+<dd><p>Extracts connected components of the graph using a union-find
+algorithm. The components are returned as a list of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> objects, where each object
+represents a connected component of the graph.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.1</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span>
+<span class="p">)</span>
+
+<span class="n">components</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">connected_components</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of disconnected components.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[<a class="reference internal" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data" title="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data"><em>Data</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.debug" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_subgraph">
+<span class="sig-name descname"><span class="pre">edge_subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the edge indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.
+Will currently preserve all the nodes in the graph, even if they are
+isolated after subgraph computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The edges to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_edge_attrs">
+<span class="sig-name descname"><span class="pre">get_all_edge_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_edge_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Returns all registered edge attributes.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_tensor_attrs">
+<span class="sig-name descname"><span class="pre">get_all_tensor_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_tensor_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Obtains all feature attributes stored in <cite>Data</cite>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_edge_attr">
+<span class="sig-name descname"><span class="pre">is_edge_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes an
+edge-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_node_attr">
+<span class="sig-name descname"><span class="pre">is_node_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_node_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes a
+node-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores_as">
+<span class="sig-name descname"><span class="pre">stores_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.subgraph">
+<span class="sig-name descname"><span class="pre">subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the node indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The nodes to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_dict" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_heterogeneous">
+<span class="sig-name descname"><span class="pre">to_heterogeneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_heterogeneous" title="Link to this definition">#</a></dt>
+<dd><p>Converts a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object to a
+heterogeneous <code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object.
+For this, node and edge attributes are splitted according to the
+node-level and edge-level vectors <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code> and
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type</span></code>, respectively.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type_names</span></code> can be used to give
+meaningful node and edge type names, respectively.
+That is, the node_type <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> is given by <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names[0]</span></code>.
+If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object was constructed via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">to_homogeneous()</span></code>, the object can
+be reconstructed without any need to pass in additional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – A node-level vector denoting
+the type of each node. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – An edge-level vector denoting
+the type of each edge. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>node_type_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – The names of node types.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type_names</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The names
+of edge types. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_namedtuple">
+<span class="sig-name descname"><span class="pre">to_namedtuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_namedtuple" title="Link to this definition">#</a></dt>
+<dd><p>Returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedTuple</span></code> of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the data object with the elements from another data object.
+Added elements will override existing ones (in case of duplicates).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.validate" title="Link to this definition">#</a></dt>
+<dd><p>Validates the correctness of the data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.batch">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.batch" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_attr">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_attr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_index">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_index" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">EdgeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_weight">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_weight" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.face">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.face" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.node_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">NodeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.node_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per edge in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of edge types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_faces">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_faces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_faces" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of faces in the mesh.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.
+Alias for <a class="reference internal" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_features" title="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_features"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_node_features</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of node types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_nodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_nodes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of nodes in the graph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of nodes in the data object is automatically inferred
+in case node-level attributes are present, <em>e.g.</em>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.x</span></code>.
+In some cases, however, a graph may only be given without any
+node-level attributes.
+<a href="#id3"><span class="problematic" id="id4">:pyg:`PyG`</span></a> then <em>guesses</em> the number of nodes according to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_index.max().item()</span> <span class="pre">+</span> <span class="pre">1</span></code>.
+However, in case there exists isolated nodes, this number does not
+have to be correct which can result in unexpected behavior.
+Thus, we recommend to set the number of nodes in your data object
+explicitly via <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.num_nodes</span> <span class="pre">=</span> <span class="pre">...</span></code>.
+You will be given a warning that requests you to do so.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.pos">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.pos" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.time">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.time" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.x">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.x" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.y">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.y" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SheafConnLapPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_pe_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stalk_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_to_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform" title="torch_geometric.transforms.base_transform.BaseTransform"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTransform</span></code></a></p>
+<p>Sheaf Connection Laplacian Positional Encoding (SheafConnLapPE) transform.</p>
+<p>Based on “Sheaf-based Positional Encodings for Graph Neural Networks”
+by He, Bodnar &amp; Liò (NeurIPS 2023 Workshop / PMLR 2024).
+<a class="reference external" href="https://openreview.net/pdf?id=ZtAabWUPu3">https://openreview.net/pdf?id=ZtAabWUPu3</a></p>
+<p>The Connection Laplacian generalises the standard graph Laplacian by
+replacing each scalar off-diagonal entry (-1) with a d×d orthogonal
+<em>restriction map</em> — a rotation encoding the geometric alignment between
+the local node-feature neighbourhoods of the two endpoints.</p>
+<p>For each edge (v, u), the algorithm:</p>
+<ol class="arabic simple">
+<li><p>Runs local PCA on the 1-hop feature neighbourhood of v and u separately,
+yielding orthonormal bases B_v, B_u ∈ R^{p×d} that approximate the
+local tangent spaces T_{x_v}M and T_{x_u}M under the manifold assumption.</p></li>
+<li><p>Solves the orthogonal Procrustes problem to find the rotation O_{vu} ∈ O(d)
+that best maps B_v onto B_u (closed form: SVD of B_v^T B_u).</p></li>
+<li><p>Sets the off-diagonal block L_F[v, u] = -O_{vu}.</p></li>
+</ol>
+<p>The resulting nd×nd block matrix L_F is symmetric positive semi-definite.
+Its k smallest non-trivial eigenvectors (each reshaped from nd to n×d) are
+concatenated column-wise to form a PE of total dimension k×d per node.</p>
+<p>On homophilic edges (similar features) O_{vu} ≈ I and the Connection
+Laplacian closely resembles the standard Laplacian. On heterophilic edges
+O_{vu} is a non-trivial rotation, introducing cross-dimensional coupling
+that encodes semantic disagreement — information the standard Laplacian
+cannot represent.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Feature dimension requirement :</strong> <code class="docutils literal notranslate"><span class="pre">data.x</span></code> must be present
+and <code class="docutils literal notranslate"><span class="pre">data.x.shape[1]</span> <span class="pre">&gt;=</span> <span class="pre">stalk_dim</span></code>. The method assumes that node
+features lie near a <code class="docutils literal notranslate"><span class="pre">stalk_dim</span></code>-dimensional manifold; if feature_dim
+&lt; stalk_dim this assumption is violated and the PCA basis would contain
+zero columns, making the Procrustes rotation degenerate and breaking
+the PSD property of L_F. A <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is raised in this case.</p>
+<p><strong>Isolated nodes :</strong> For isolated nodes (degree 0), the
+diagonal block of L_F is the zero matrix, making D^{-1/2} undefined.
+The normalisation substitutes 1.0 for these zero diagonal entries,
+which is equivalent to adding a unit self-loop for numerical purposes.
+The eigenvector components of isolated nodes are still well-defined
+(the corresponding rows of L_F remain all-zero), but their PE values
+will reflect their position in the global spectrum rather than local
+connectivity.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>max_pe_dim</strong><span class="classifier">int</span></dt><dd><p>Total output PE dimension. Must be divisible by <code class="docutils literal notranslate"><span class="pre">stalk_dim</span></code>.
+Internally, the number of eigenvectors used is
+<code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">max_pe_dim</span> <span class="pre">//</span> <span class="pre">stalk_dim</span></code>, so the output shape is always
+<code class="docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">max_pe_dim]</span></code> (zero-padded if fewer eigenvectors
+are available).</p>
+</dd>
+<dt><strong>stalk_dim</strong><span class="classifier">int, optional</span></dt><dd><p>Dimension d of each stalk / restriction map. Controls the rank of
+the local tangent-space approximation. Default is 3, as used in
+the paper experiments. Must be &lt;= feature_dim of <code class="docutils literal notranslate"><span class="pre">data.x</span></code>.</p>
+</dd>
+<dt><strong>include_first</strong><span class="classifier">bool, optional</span></dt><dd><p>If False (default), discards eigenvectors whose eigenvalue is below
+<code class="docutils literal notranslate"><span class="pre">eps</span></code> (the trivial zero-eigenvectors / global sections of the sheaf).</p>
+</dd>
+<dt><strong>concat_to_x</strong><span class="classifier">bool, optional</span></dt><dd><p>If True (default), concatenates the PE with <code class="docutils literal notranslate"><span class="pre">data.x</span></code>.
+If False, stores it as <code class="docutils literal notranslate"><span class="pre">data.SheafConnLapPE</span></code> instead.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, optional</span></dt><dd><p>Threshold below which eigenvalues are considered trivial. Default 1e-6.</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>Additional keyword arguments (unused; reserved for future extensions).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_pe_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stalk_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_to_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.forward" title="Link to this definition">#</a></dt>
+<dd><p>Compute and attach the ConnLap PE to a graph data object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">Data</span></dt><dd><p>Input graph. <code class="docutils literal notranslate"><span class="pre">data.x</span></code> must be set and
+<code class="docutils literal notranslate"><span class="pre">data.x.shape[1]</span> <span class="pre">&gt;=</span> <span class="pre">stalk_dim</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Data</dt><dd><p>Graph with PE concatenated to <code class="docutils literal notranslate"><span class="pre">data.x</span></code> (<code class="docutils literal notranslate"><span class="pre">concat_to_x=True</span></code>)
+or stored in <code class="docutils literal notranslate"><span class="pre">data.SheafConnLapPE</span></code> (<code class="docutils literal notranslate"><span class="pre">concat_to_x=False</span></code>).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">data.x</span></code> is None, or if <code class="docutils literal notranslate"><span class="pre">feature_dim</span> <span class="pre">&lt;</span> <span class="pre">stalk_dim</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.coo_matrix">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coo_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.coo_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.spmatrix.html#scipy.sparse.spmatrix" title="(in SciPy v1.17.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">spmatrix</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_coo_base</span></code></p>
+<p>A sparse matrix in COOrdinate format.</p>
+<p>Also known as the ‘ijv’ or ‘triplet’ format.</p>
+<dl>
+<dt>This can be instantiated in several ways:</dt><dd><dl>
+<dt>coo_matrix(D)</dt><dd><p>where D is a 2-D ndarray</p>
+</dd>
+<dt>coo_matrix(S)</dt><dd><p>with another sparse array or matrix S (equivalent to S.tocoo())</p>
+</dd>
+<dt>coo_matrix((M, N), [dtype])</dt><dd><p>to construct an empty matrix with shape (M, N)
+dtype is optional, defaulting to dtype=’d’.</p>
+</dd>
+<dt>coo_matrix((data, (i, j)), [shape=(M, N)])</dt><dd><dl class="simple">
+<dt>to construct from three arrays:</dt><dd><ol class="arabic simple">
+<li><p>data[:]   the entries of the matrix, in any order</p></li>
+<li><p>i[:]      the row indices of the matrix entries</p></li>
+<li><p>j[:]      the column indices of the matrix entries</p></li>
+</ol>
+</dd>
+</dl>
+<p>Where <code class="docutils literal notranslate"><span class="pre">A[i[k],</span> <span class="pre">j[k]]</span> <span class="pre">=</span> <span class="pre">data[k]</span></code>.  When shape is not
+specified, it is inferred from the index arrays</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dtype</strong><span class="classifier">dtype</span></dt><dd><p>Data type of the matrix</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code><span class="classifier">2-tuple</span></dt><dd><p>Shape of the matrix</p>
+</dd>
+<dt><strong>ndim</strong><span class="classifier">int</span></dt><dd><p>Number of dimensions (this is always 2)</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnz</span></code></dt><dd><p>Number of stored values, including explicit zeros.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></dt><dd><p>Number of stored values.</p>
+</dd>
+<dt><strong>data</strong></dt><dd><p>COO format data array of the matrix</p>
+</dd>
+<dt><strong>row</strong></dt><dd><p>COO format row index array of the matrix</p>
+</dd>
+<dt><strong>col</strong></dt><dd><p>COO format column index array of the matrix</p>
+</dd>
+<dt><strong>has_canonical_format</strong><span class="classifier">bool</span></dt><dd><p>Whether the matrix has sorted indices and no duplicates</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python.org/3/library/functions.html#format" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format</span></code></a></dt><dd><p>Format string for matrix.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></dt><dd><p>Transpose.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Sparse matrices can be used in arithmetic operations: they support
+addition, subtraction, multiplication, division, and matrix power.</p>
+<dl class="simple">
+<dt>Advantages of the COO format</dt><dd><ul class="simple">
+<li><p>facilitates fast conversion among sparse formats</p></li>
+<li><p>permits duplicate entries (see example)</p></li>
+<li><p>very fast conversion to and from CSR/CSC formats</p></li>
+</ul>
+</dd>
+<dt>Disadvantages of the COO format</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>does not directly support:</dt><dd><ul>
+<li><p>arithmetic operations</p></li>
+<li><p>slicing</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Intended Usage</dt><dd><ul class="simple">
+<li><p>COO is a fast format for constructing sparse matrices</p></li>
+<li><p>Once a COO matrix has been constructed, convert to CSR or
+CSC format for fast arithmetic and matrix vector operations</p></li>
+<li><p>By default when converting to CSR or CSC format, duplicate (i,j)
+entries will be summed together.  This facilitates efficient
+construction of finite element matrices and the like. (see example)</p></li>
+</ul>
+</dd>
+<dt>Canonical format</dt><dd><ul class="simple">
+<li><p>Entries and coordinates sorted by row, then column.</p></li>
+<li><p>There are no duplicate entries (i.e. duplicate (i,j) locations)</p></li>
+<li><p>Data arrays MAY have explicit zeros.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constructing an empty matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">coo_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coo_matrix</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, 0]], dtype=int8)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constructing a matrix using ijv format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[4, 0, 9, 0],</span>
+<span class="go">       [0, 7, 0, 0],</span>
+<span class="go">       [0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, 5]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constructing a matrix with duplicate coordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coo</span> <span class="o">=</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Duplicate coordinates are maintained until implicitly or explicitly summed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">coo</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coo</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[3, 0, 1, 0],</span>
+<span class="go">       [0, 2, 0, 0],</span>
+<span class="go">       [0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, 1]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.degree" title="Link to this definition">#</a></dt>
+<dd><p>Computes the (unweighted) degree of a given one-dimensional index
+tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>LongTensor</em>) – Index tensor.</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max_val</span> <span class="pre">+</span> <span class="pre">1</span></code> of <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>dtype</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.dtype</span></code>, optional) – The desired data type of the
+returned tensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">row</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">degree</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="go">tensor([3, 1, 1])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.remove_self_loops">
+<span class="sig-name descname"><span class="pre">remove_self_loops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.remove_self_loops" title="Link to this definition">#</a></dt>
+<dd><p>Removes every self-loop in the graph given by <code class="xref py py-attr docutils literal notranslate"><span class="pre">edge_index</span></code>, so
+that <span class="math notranslate nohighlight">\((i,i) \not\in \mathcal{E}\)</span> for every <span class="math notranslate nohighlight">\(i \in \mathcal{V}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_index</strong> (<em>LongTensor</em>) – The edge indices.</p></li>
+<li><p><strong>edge_attr</strong> (<em>Tensor</em><em>, </em><em>optional</em>) – Edge weights or multi-dimensional
+edge features. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">LongTensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edge_attr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edge_attr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">edge_attr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">remove_self_loops</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_attr</span><span class="p">)</span>
+<span class="go">(tensor([[0, 1],</span>
+<span class="go">        [1, 0]]),</span>
+<span class="go">tensor([[1, 2],</span>
+<span class="go">        [3, 4]]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.sp_diags">
+<span class="sig-name descname"><span class="pre">sp_diags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagonals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offsets=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.sp_diags" title="Link to this definition">#</a></dt>
+<dd><p>Construct a sparse matrix from diagonals.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function returns a sparse matrix – not a sparse array.
+You are encouraged to use <cite>diags_array</cite> to take advantage
+of the sparse array functionality.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>diagonals</strong><span class="classifier">sequence of array_like</span></dt><dd><p>Sequence of arrays containing the matrix diagonals,
+corresponding to <cite>offsets</cite>.</p>
+</dd>
+<dt><strong>offsets</strong><span class="classifier">sequence of int or an int, optional</span></dt><dd><dl class="simple">
+<dt>Diagonals to set (repeated offsets are not allowed):</dt><dd><ul class="simple">
+<li><p>k = 0  the main diagonal (default)</p></li>
+<li><p>k &gt; 0  the kth upper diagonal</p></li>
+<li><p>k &lt; 0  the kth lower diagonal</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><strong>shape</strong><span class="classifier">tuple of int, optional</span></dt><dd><p>Shape of the result. If omitted, a square matrix large enough
+to contain the diagonals is returned.</p>
+</dd>
+<dt><strong>format</strong><span class="classifier">{“dia”, “csr”, “csc”, “lil”, …}, optional</span></dt><dd><p>Matrix format of the result. By default (format=None) an
+appropriate sparse matrix format is returned. This choice is
+subject to change.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier">dtype, optional</span></dt><dd><p>Data type of the matrix.  If <cite>dtype</cite> is None, the output
+data type is determined by the data type of the input diagonals.</p>
+<p>Up until SciPy 1.19, the default behavior will be to return a matrix
+with an inexact (floating point) data type.  In particular, integer
+input will be converted to double precision floating point.  This
+behavior is deprecated, and in SciPy 1.19, the default behavior
+will be changed to return a matrix with the same data type as the
+input diagonals.  To adopt this behavior before version 1.19, use
+<cite>dtype=None</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>new_matrix</strong><span class="classifier">dia_matrix</span></dt><dd><p><cite>dia_matrix</cite> holding the values in <cite>diagonals</cite> offset from the main diagonal
+as indicated in <cite>offsets</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">spdiags</span></code></dt><dd><p>construct matrix from diagonals</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">diags_array</span></code></dt><dd><p>construct sparse array instead of sparse matrix</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Repeated diagonal offsets are disallowed.</p>
+<p>The result from <code class="docutils literal notranslate"><span class="pre">diags</span></code> is the sparse equivalent of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">+</span> <span class="o">...</span>
+<span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonals</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">offsets</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">diags</span></code> differs from <cite>dia_matrix</cite> in the way it handles off-diagonals.
+Specifically, <cite>dia_matrix</cite> assumes the data input includes padding
+(ignored values) at the start/end of the rows for positive/negative
+offset, while <code class="docutils literal notranslate"><span class="pre">diags</span></code> assumes the input data has no padding.
+Each value in the input <cite>diagonals</cite> is used.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.11.</span></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">diags</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diagonals</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diags</span><span class="p">(</span><span class="n">diagonals</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 0., 1., 0.],</span>
+<span class="go">       [1., 2., 0., 2.],</span>
+<span class="go">       [0., 2., 3., 0.],</span>
+<span class="go">       [0., 0., 3., 4.]])</span>
+</pre></div>
+</div>
+<p>Broadcasting of scalars is supported (but shape needs to be
+specified):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">diags</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[-2.,  1.,  0.,  0.],</span>
+<span class="go">       [ 1., -2.,  1.,  0.],</span>
+<span class="go">       [ 0.,  1., -2.,  1.],</span>
+<span class="go">       [ 0.,  0.,  1., -2.]])</span>
+</pre></div>
+</div>
+<p>If only one diagonal is wanted (as in <cite>numpy.diag</cite>), the following
+works as well:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">diags</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[ 0.,  1.,  0.,  0.],</span>
+<span class="go">       [ 0.,  0.,  2.,  0.],</span>
+<span class="go">       [ 0.,  0.,  0.,  3.],</span>
+<span class="go">       [ 0.,  0.,  0.,  0.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.svd">
+<span class="sig-name descname"><span class="pre">svd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_finite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lapack_driver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gesdd'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.svd" title="Link to this definition">#</a></dt>
+<dd><p>Singular Value Decomposition.</p>
+<p>Factorizes the matrix <cite>a</cite> into two unitary matrices <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Vh</span></code>, and
+a 1-D array <code class="docutils literal notranslate"><span class="pre">s</span></code> of singular values (real, non-negative) such that
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">U</span> <span class="pre">&#64;</span> <span class="pre">S</span> <span class="pre">&#64;</span> <span class="pre">Vh</span></code>, where <code class="docutils literal notranslate"><span class="pre">S</span></code> is a suitably shaped matrix of zeros with
+main diagonal <code class="docutils literal notranslate"><span class="pre">s</span></code>.</p>
+<p>The documentation is written assuming array arguments are of specified
+“core” shapes. However, array argument(s) of this function may have additional
+“batch” dimensions prepended to the core shape. In this case, the array is treated
+as a batch of lower-dimensional slices; see <a class="reference external" href="https://docs.scipy.org/doc/scipy/tutorial/linalg_batch.html#linalg-batch" title="(in SciPy v1.17.0)"><span>Batched Linear Operations</span></a> for details.
+Note that calls with zero-size batches are unsupported and will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>a</strong><span class="classifier">(M, N) array_like</span></dt><dd><p>Matrix to decompose.</p>
+</dd>
+<dt><strong>full_matrices</strong><span class="classifier">bool, optional</span></dt><dd><p>If True (default), <cite>U</cite> and <cite>Vh</cite> are of shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">M)</span></code>, <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">N)</span></code>.
+If False, the shapes are <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">K)</span></code> and <code class="docutils literal notranslate"><span class="pre">(K,</span> <span class="pre">N)</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">=</span> <span class="pre">min(M,</span> <span class="pre">N)</span></code>.</p>
+</dd>
+<dt><strong>compute_uv</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to compute also <code class="docutils literal notranslate"><span class="pre">U</span></code> and <code class="docutils literal notranslate"><span class="pre">Vh</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">s</span></code>.
+Default is True.</p>
+</dd>
+<dt><strong>overwrite_a</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to overwrite <cite>a</cite>; may improve performance.
+Default is False.</p>
+</dd>
+<dt><strong>check_finite</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to check that the input matrix contains only finite numbers.
+Disabling may give a performance gain, but may result in problems
+(crashes, non-termination) if the inputs do contain infinities or NaNs.</p>
+</dd>
+<dt><strong>lapack_driver</strong><span class="classifier">{‘gesdd’, ‘gesvd’}, optional</span></dt><dd><p>Whether to use the more efficient divide-and-conquer approach
+(<code class="docutils literal notranslate"><span class="pre">'gesdd'</span></code>) or general rectangular approach (<code class="docutils literal notranslate"><span class="pre">'gesvd'</span></code>)
+to compute the SVD. MATLAB and Octave use the <code class="docutils literal notranslate"><span class="pre">'gesvd'</span></code> approach.
+Default is <code class="docutils literal notranslate"><span class="pre">'gesdd'</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>U</strong><span class="classifier">ndarray</span></dt><dd><p>Unitary matrix having left singular vectors as columns.
+Of shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">M)</span></code> or <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">K)</span></code>, depending on <cite>full_matrices</cite>.</p>
+</dd>
+<dt><strong>s</strong><span class="classifier">ndarray</span></dt><dd><p>The singular values, sorted in non-increasing order.
+Of shape (K,), with <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">=</span> <span class="pre">min(M,</span> <span class="pre">N)</span></code>.</p>
+</dd>
+<dt><strong>Vh</strong><span class="classifier">ndarray</span></dt><dd><p>Unitary matrix having right singular vectors as rows.
+Of shape <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">N)</span></code> or <code class="docutils literal notranslate"><span class="pre">(K,</span> <span class="pre">N)</span></code> depending on <cite>full_matrices</cite>.</p>
+</dd>
+<dt>For <code class="docutils literal notranslate"><span class="pre">compute_uv=False</span></code>, only <code class="docutils literal notranslate"><span class="pre">s</span></code> is returned.</dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>LinAlgError</dt><dd><p>If SVD computation does not converge.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">svdvals()</span></code></dt><dd><p>Compute singular values of a matrix.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">diagsvd()</span></code></dt><dd><p>Construct the Sigma matrix, given the vector s.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linalg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="n">j</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Vh</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>  <span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Vh</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((9, 9), (6,), (6, 6))</span>
+</pre></div>
+</div>
+<p>Reconstruct the original matrix from the decomposition:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="n">sigma</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">Vh</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a1</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Alternatively, use <code class="docutils literal notranslate"><span class="pre">full_matrices=False</span></code> (notice that the shape of
+<code class="docutils literal notranslate"><span class="pre">U</span></code> is then <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">m)</span></code>):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Vh</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Vh</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((9, 6), (6,), (6, 6))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">Vh</span><span class="p">)))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">compute_uv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.sheaf_connlap_encodings.to_undirected">
+<span class="sig-name descname"><span class="pre">to_undirected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'???'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'add'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.to_undirected" title="Link to this definition">#</a></dt>
+<dd><p>Converts the graph given by <code class="xref py py-attr docutils literal notranslate"><span class="pre">edge_index</span></code> to an undirected graph
+such that <span class="math notranslate nohighlight">\((j,i) \in \mathcal{E}\)</span> for every edge <span class="math notranslate nohighlight">\((i,j) \in
+\mathcal{E}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_index</strong> (<em>LongTensor</em>) – The edge indices.</p></li>
+<li><p><strong>edge_attr</strong> (<em>Tensor</em><em> or </em><em>List</em><em>[</em><em>Tensor</em><em>]</em><em>, </em><em>optional</em>) – Edge weights or multi-
+dimensional edge features.
+If given as a list, will remove duplicates for all its entries.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max(edge_index)</span> <span class="pre">+</span> <span class="pre">1</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>reduce</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The reduce operation to use for merging edge
+features (<code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;add&quot;</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;mul&quot;</span></code>). (default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;add&quot;</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LongTensor</span></code> if <code class="xref py py-attr docutils literal notranslate"><span class="pre">edge_attr</span></code> is not passed, else
+(<code class="xref py py-class docutils literal notranslate"><span class="pre">LongTensor</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional[Tensor]</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">List[Tensor]]</span></code>)</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>From <a href="#id5"><span class="problematic" id="id6">:pyg:`PyG &gt;= 2.3.0`</span></a> onwards, this function will always return a
+tuple whenever <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attr</span></code> is passed as an argument (even in case
+it is set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>).</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_undirected</span><span class="p">(</span><span class="n">edge_index</span><span class="p">)</span>
+<span class="go">tensor([[0, 1, 1, 2],</span>
+<span class="go">        [1, 0, 2, 1]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edge_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_undirected</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_weight</span><span class="p">)</span>
+<span class="go">(tensor([[0, 1, 1, 2],</span>
+<span class="go">        [1, 0, 2, 1]]),</span>
+<span class="go">tensor([2., 2., 1., 1.]))</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use &#39;mean&#39; operation to merge edge features</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">to_undirected</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_weight</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="go">(tensor([[0, 1, 1, 2],</span>
+<span class="go">        [1, 0, 2, 1]]),</span>
+<span class="go">tensor([1., 1., 1., 1.]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.transforms.data_manipulations.rename_fields.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.transforms.data_manipulations.rename_fields module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.transforms.feature_liftings.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.transforms.feature_liftings package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform"><code class="docutils literal notranslate"><span class="pre">BaseTransform</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform.forward"><code class="docutils literal notranslate"><span class="pre">BaseTransform.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE"><code class="docutils literal notranslate"><span class="pre">SheafConnLapPE</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.__init__"><code class="docutils literal notranslate"><span class="pre">SheafConnLapPE.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.SheafConnLapPE.forward"><code class="docutils literal notranslate"><span class="pre">SheafConnLapPE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.coo_matrix"><code class="docutils literal notranslate"><span class="pre">coo_matrix</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.degree"><code class="docutils literal notranslate"><span class="pre">degree()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.remove_self_loops"><code class="docutils literal notranslate"><span class="pre">remove_self_loops()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.sp_diags"><code class="docutils literal notranslate"><span class="pre">sp_diags()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.svd"><code class="docutils literal notranslate"><span class="pre">svd()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.sheaf_connlap_encodings.to_undirected"><code class="docutils literal notranslate"><span class="pre">to_undirected()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

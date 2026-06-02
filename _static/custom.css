@@ -1,0 +1,496 @@
+/* Custom CSS for improved API documentation appearance */
+
+/* Improve section hierarchy visibility */
+div.section > h1 {
+    font-size: 2.5em;
+    border-bottom: 4px solid #2980b9;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+    color: #2c3e50;
+}
+
+div.section > h2 {
+    font-size: 2em;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.3em;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: #34495e;
+}
+
+div.section > h3 {
+    font-size: 1.5em;
+    border-bottom: 2px solid #95a5a6;
+    padding-bottom: 0.2em;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    color: #546e7a;
+}
+
+div.section > h4 {
+    font-size: 1.2em;
+    color: #607d8b;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+/* Improve class and function signatures */
+dl.py.class,
+dl.py.function,
+dl.py.method,
+dl.class.py,
+dl.function.py,
+dl.method.py {
+    margin-bottom: 2em;
+    padding: 1em;
+    background-color: #f8f9fa !important;
+    border-left: 4px solid #3498db;
+    border-radius: 4px;
+}
+
+dt.sig,
+dt.sig-object {
+    font-size: 1.1em;
+    padding: 0.5em;
+    background-color: #ecf0f1 !important;
+    border-radius: 4px;
+}
+
+/* Add spacing between items in module index */
+.toctree-wrapper ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toctree-wrapper li {
+    margin-bottom: 0.5em;
+    padding: 0.3em 0;
+}
+
+.toctree-wrapper a {
+    font-size: 1.05em;
+    text-decoration: none;
+    color: #2980b9;
+}
+
+.toctree-wrapper a:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+/* Improve parameter lists */
+dl.field-list {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+dl.field-list dt {
+    font-weight: 600;
+    color: #2c3e50 !important;
+    margin-top: 0.5em;
+}
+
+dl.field-list dd {
+    margin-left: 2em;
+    margin-bottom: 0.8em;
+}
+
+/* Better code block styling */
+div.highlight {
+    margin: 1em 0;
+    border-left: 4px solid #27ae60;
+    border-radius: 4px;
+}
+
+/* Improve note/warning boxes */
+div.admonition {
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 6px;
+}
+
+div.admonition.note {
+    background-color: #e8f4f8 !important;
+    border-left: 4px solid #3498db;
+}
+
+div.admonition.warning {
+    background-color: #fff3cd !important;
+    border-left: 4px solid #ffc107;
+}
+
+/* Add visual separation for module sections */
+.section {
+    margin-bottom: 2em;
+}
+
+/* Improve table of contents */
+div.contents {
+    background-color: #f0f4f8 !important;
+    padding: 1.5em;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    margin-bottom: 2em;
+}
+
+div.contents p.topic-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #2c3e50 !important;
+    margin-bottom: 0.8em;
+}
+
+/* Better module attribute documentation */
+dl.py.attribute,
+dl.attribute.py {
+    margin-top: 1em;
+    padding: 0.5em;
+    background-color: #fafbfc !important;
+    border-left: 3px solid #95a5a6;
+}
+
+/* Improve inheritance info */
+p.rubric {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2c3e50 !important;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 0.3em;
+}
+
+/* Better appearance for "Bases:" info */
+p.bases {
+    font-style: italic;
+    color: #7f8c8d !important;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+/* Improve source code link appearance */
+a.reference.internal .viewcode-link {
+    float: right;
+    font-size: 0.9em;
+    padding: 0.2em 0.5em;
+    background-color: #ecf0f1 !important;
+    border-radius: 3px;
+    color: #7f8c8d !important;
+}
+
+a.reference.internal .viewcode-link:hover {
+    background-color: #bdc3c7 !important;
+    color: #2c3e50 !important;
+}
+
+/* Add spacing in parameter descriptions */
+dd p {
+    margin-bottom: 0.5em;
+}
+
+/* Improve class method grouping */
+dl.py.method {
+    margin-top: 1.5em;
+}
+
+/* Better header hierarchy in API pages */
+.headerlink {
+    margin-left: 0.5em;
+    font-size: 0.8em;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+h1:hover .headerlink,
+h2:hover .headerlink,
+h3:hover .headerlink,
+h4:hover .headerlink {
+    opacity: 1;
+}
+
+/* Explicit light theme support */
+html[data-theme="light"] dl.py.class,
+html[data-theme="light"] dl.py.function,
+html[data-theme="light"] dl.py.method,
+html[data-theme="light"] dl.class.py,
+html[data-theme="light"] dl.function.py,
+html[data-theme="light"] dl.method.py {
+    background-color: #f8f9fa !important;
+    border-left-color: #3498db;
+}
+
+html[data-theme="light"] dt.sig,
+html[data-theme="light"] dt.sig-object {
+    background-color: #ecf0f1 !important;
+}
+
+html[data-theme="light"] div.admonition.note {
+    background-color: #e8f4f8 !important;
+}
+
+html[data-theme="light"] div.admonition.warning {
+    background-color: #fff3cd !important;
+}
+
+html[data-theme="light"] div.contents {
+    background-color: #f0f4f8 !important;
+    border-color: #d0d7de;
+}
+
+html[data-theme="light"] div.contents p.topic-title {
+    color: #2c3e50 !important;
+}
+
+html[data-theme="light"] dl.py.attribute,
+html[data-theme="light"] dl.attribute.py {
+    background-color: #fafbfc !important;
+}
+
+html[data-theme="light"] p.rubric {
+    color: #2c3e50 !important;
+    border-bottom-color: #bdc3c7;
+}
+
+html[data-theme="light"] p.bases {
+    color: #7f8c8d !important;
+}
+
+html[data-theme="light"] dl.field-list dt {
+    color: #2c3e50 !important;
+}
+
+html[data-theme="light"] a.reference.internal .viewcode-link {
+    background-color: #ecf0f1 !important;
+    color: #7f8c8d !important;
+}
+
+html[data-theme="light"] a.reference.internal .viewcode-link:hover {
+    background-color: #bdc3c7 !important;
+    color: #2c3e50 !important;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    /* Adjust section headers for dark mode */
+    div.section > h1 {
+        color: #e0e0e0;
+        border-bottom-color: #5dade2;
+    }
+
+    div.section > h2 {
+        color: #d0d0d0;
+        border-bottom-color: #5dade2;
+    }
+
+    div.section > h3 {
+        color: #c0c0c0;
+        border-bottom-color: #a8b9c0;
+    }
+
+    div.section > h4 {
+        color: #b0b0b0;
+    }
+
+    /* Improve class and function signatures in dark mode */
+    dl.py.class,
+    dl.py.function,
+    dl.py.method,
+    dl.class.py,
+    dl.function.py,
+    dl.method.py {
+        background-color: rgba(52, 152, 219, 0.15) !important;
+        border-left-color: #5dade2;
+    }
+
+    dt.sig,
+    dt.sig-object {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    /* Field lists in dark mode */
+    dl.field-list dt {
+        color: #e0e0e0 !important;
+    }
+
+    /* Table of contents in dark mode */
+    div.contents {
+        background-color: rgba(255, 255, 255, 0.03) !important;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    div.contents p.topic-title {
+        color: #e0e0e0;
+    }
+
+    /* Admonitions in dark mode */
+    div.admonition.note {
+        background-color: rgba(52, 152, 219, 0.15) !important;
+        border-left-color: #5dade2;
+    }
+
+    div.admonition.warning {
+        background-color: rgba(255, 193, 7, 0.2) !important;
+        border-left-color: #ffca28;
+    }
+
+    /* Module attributes in dark mode */
+    dl.py.attribute,
+    dl.attribute.py {
+        background-color: rgba(149, 165, 166, 0.1) !important;
+        border-left-color: #a8b9c0;
+    }
+
+    /* Rubric in dark mode */
+    p.rubric {
+        color: #e0e0e0 !important;
+        border-bottom-color: rgba(189, 195, 199, 0.3);
+    }
+
+    /* Bases in dark mode */
+    p.bases {
+        color: #a0a0a0 !important;
+    }
+
+    /* Source code links in dark mode */
+    a.reference.internal .viewcode-link {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        color: #a0a0a0 !important;
+    }
+
+    a.reference.internal .viewcode-link:hover {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        color: #e0e0e0 !important;
+    }
+}
+
+/* Explicit dark theme support for pydata-sphinx-theme */
+html[data-theme="dark"] div.section > h1 {
+    color: #e0e0e0;
+    border-bottom-color: #5dade2;
+}
+
+html[data-theme="dark"] div.section > h2 {
+    color: #d0d0d0;
+    border-bottom-color: #5dade2;
+}
+
+html[data-theme="dark"] div.section > h3 {
+    color: #c0c0c0;
+    border-bottom-color: #a8b9c0;
+}
+
+html[data-theme="dark"] div.section > h4 {
+    color: #b0b0b0;
+}
+
+html[data-theme="dark"] dl.py.class,
+html[data-theme="dark"] dl.py.function,
+html[data-theme="dark"] dl.py.method,
+html[data-theme="dark"] dl.class.py,
+html[data-theme="dark"] dl.function.py,
+html[data-theme="dark"] dl.method.py {
+    background-color: rgba(52, 152, 219, 0.15) !important;
+    border-left-color: #5dade2;
+}
+
+html[data-theme="dark"] dt.sig,
+html[data-theme="dark"] dt.sig-object {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-theme="dark"] dl.field-list dt {
+    color: #e0e0e0 !important;
+}
+
+html[data-theme="dark"] div.contents {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] div.contents p.topic-title {
+    color: #e0e0e0 !important;
+}
+
+html[data-theme="dark"] div.admonition.note {
+    background-color: rgba(52, 152, 219, 0.15) !important;
+    border-left-color: #5dade2;
+}
+
+html[data-theme="dark"] div.admonition.warning {
+    background-color: rgba(255, 193, 7, 0.2) !important;
+    border-left-color: #ffca28;
+}
+
+html[data-theme="dark"] dl.py.attribute,
+html[data-theme="dark"] dl.attribute.py {
+    background-color: rgba(149, 165, 166, 0.1) !important;
+    border-left-color: #a8b9c0;
+}
+
+html[data-theme="dark"] p.rubric {
+    color: #e0e0e0 !important;
+    border-bottom-color: rgba(189, 195, 199, 0.3);
+}
+
+html[data-theme="dark"] p.bases {
+    color: #a0a0a0 !important;
+}
+
+html[data-theme="dark"] a.reference.internal .viewcode-link {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #a0a0a0 !important;
+}
+
+html[data-theme="dark"] a.reference.internal .viewcode-link:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #e0e0e0 !important;
+}
+
+/* Package Reference page styling */
+/* Style the main section headers */
+.section > h1 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* Style the module links on the Package Reference page */
+.section dl.simple dt {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 0.8em;
+    margin-bottom: 0.3em;
+}
+
+.section dl.simple dd {
+    margin-left: 2em;
+    margin-bottom: 1.2em;
+    line-height: 1.6;
+}
+
+.section dl.simple dd ul {
+    margin-top: 0.5em;
+}
+
+.section dl.simple dd p {
+    margin-bottom: 0.3em;
+}
+
+/* Improve spacing for categorized sections */
+.section > .section {
+    margin-top: 2.5em;
+    margin-bottom: 2em;
+}
+
+.section > .section > h1 {
+    font-size: 1.8em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.4em;
+    margin-bottom: 1.2em;
+    text-align: left;
+}
+
+/* Dark mode for package reference */
+html[data-theme="dark"] .section > .section > h1 {
+    border-bottom-color: #5dade2;
+}

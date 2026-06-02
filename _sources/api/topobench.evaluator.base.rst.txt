@@ -1,0 +1,7 @@
+topobench.evaluator.base module
+===============================
+
+.. automodule:: topobench.evaluator.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

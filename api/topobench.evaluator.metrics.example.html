@@ -1,0 +1,1063 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.evaluator.metrics.example module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.evaluator.metrics.example';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.evaluator.metrics.example.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.evaluator.base module" href="topobench.evaluator.base.html" />
+    <link rel="prev" title="topobench.evaluator.metrics package" href="topobench.evaluator.metrics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.evaluator.html" class="nav-link">topobench.evaluator package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.evaluator.metrics.html" class="nav-link">topobench.evaluator.metrics package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.evaluator.metrics.example module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.evaluator.metrics.example">
+<span id="topobench-evaluator-metrics-example-module"></span><h1>topobench.evaluator.metrics.example module<a class="headerlink" href="#module-topobench.evaluator.metrics.example" title="Link to this heading">#</a></h1>
+<p>Loss module for the topobench package.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Any">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Any" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Special type indicating an unconstrained type.</p>
+<ul class="simple">
+<li><p>Any is compatible with every type.</p></li>
+<li><p>Any assumed to have all methods.</p></li>
+<li><p>All values assumed to be instances of Any.</p></li>
+</ul>
+<p>Note that all the above statements are true from the point of view of
+static type checkers. At runtime, Any should not be used with instance
+checks.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExampleRegressionMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_outputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric" title="torchmetrics.metric.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a></p>
+<p>Example metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>squared</strong><span class="classifier">bool</span></dt><dd><p>Whether to compute the squared error (default: True).</p>
+</dd>
+<dt><strong>num_outputs</strong><span class="classifier">int</span></dt><dd><p>The number of outputs.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">Any</span></dt><dd><p>Additional keyword arguments.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_outputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.compute" title="Link to this definition">#</a></dt>
+<dd><p>Compute mean squared error over state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>Mean squared error.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.update" title="Link to this definition">#</a></dt>
+<dd><p>Update state with predictions and targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>preds</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Predictions from model.</p>
+</dd>
+<dt><strong>target</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Ground truth values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.full_state_update">
+<span class="sig-name descname"><span class="pre">full_state_update</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.full_state_update" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.higher_is_better">
+<span class="sig-name descname"><span class="pre">higher_is_better</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.higher_is_better" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.is_differentiable">
+<span class="sig-name descname"><span class="pre">is_differentiable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.is_differentiable" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.sum_squared_error">
+<span class="sig-name descname"><span class="pre">sum_squared_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.sum_squared_error" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.ExampleRegressionMetric.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.total" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>, <a class="reference internal" href="topobench.optimizer.base.html#topobench.optimizer.base.ABC" title="abc.ABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Base class for all metrics present in the Metrics API.</p>
+<p>This class is inherited by all metrics and implements the following functionality:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Handles the transfer of metric states to the correct device.</p></li>
+<li><p>Handles the synchronization of metric states across processes.</p></li>
+<li><p>Provides properties and methods to control the overall behavior of the metric and its states.</p></li>
+</ol>
+</div></blockquote>
+<p>The three core methods of the base class are: <code class="docutils literal notranslate"><span class="pre">add_state()</span></code>, <code class="docutils literal notranslate"><span class="pre">forward()</span></code> and <code class="docutils literal notranslate"><span class="pre">reset()</span></code> which should almost
+never be overwritten by child classes. Instead, the following methods should be overwritten <code class="docutils literal notranslate"><span class="pre">update()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">compute()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – <p>additional keyword arguments, see <span class="xref std std-ref">Metric kwargs</span> for more info.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>compute_on_cpu</strong>:</dt><dd><p>If metric state should be stored on CPU during computations. Only works for list states.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>dist_sync_on_step</strong>:</dt><dd><p>If metric state should synchronize on <code class="docutils literal notranslate"><span class="pre">forward()</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>process_group</strong>:</dt><dd><p>The process group on which the synchronization is called. Default is the world.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>dist_sync_fn</strong>:</dt><dd><p>Function that performs the allgather option on the metric state. Default is a custom
+implementation that calls <code class="docutils literal notranslate"><span class="pre">torch.distributed.all_gather</span></code> internally.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>distributed_available_fn</strong>:</dt><dd><p>Function that checks if the distributed backend is available. Defaults to a
+check of <code class="docutils literal notranslate"><span class="pre">torch.distributed.is_available()</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.distributed.is_initialized()</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>sync_on_compute</strong>:</dt><dd><p>If metric state should synchronize when <code class="docutils literal notranslate"><span class="pre">compute</span></code> is called. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>compute_with_cache</strong>:</dt><dd><p>If results from <code class="docutils literal notranslate"><span class="pre">compute</span></code> should be cached. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.add_state">
+<span class="sig-name descname"><span class="pre">add_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_reduce_fx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.add_state" title="Link to this definition">#</a></dt>
+<dd><p>Add metric state variable. Only used by subclasses.</p>
+<p>Metric state variables are either <cite>:class:`~torch.Tensor</cite> or an empty list, which can be appended to by the
+metric. Each state variable must have a unique name associated with it. State variables are accessible as
+attributes of the metric i.e, if <code class="docutils literal notranslate"><span class="pre">name</span></code> is <code class="docutils literal notranslate"><span class="pre">&quot;my_state&quot;</span></code> then its value can be accessed from an instance
+<code class="docutils literal notranslate"><span class="pre">metric</span></code> as <code class="docutils literal notranslate"><span class="pre">metric.my_state</span></code>. Metric states behave like buffers and parameters of <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>
+as they are also updated when <code class="docutils literal notranslate"><span class="pre">.to()</span></code> is called. Unlike parameters and buffers, metric states are not by
+default saved in the modules <code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The name of the state variable. The variable will then be accessible at <code class="docutils literal notranslate"><span class="pre">self.name</span></code>.</p></li>
+<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> | </em><em>Tensor</em>) – Default value of the state; can either be a <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> or an empty list.
+The state will be reset to this value when <code class="docutils literal notranslate"><span class="pre">self.reset()</span></code> is called.</p></li>
+<li><p><strong>dist_reduce_fx</strong> (<em>Optional</em>) – Function to reduce state across multiple processes in distributed mode.
+If value is <code class="docutils literal notranslate"><span class="pre">&quot;sum&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cat&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code> we will use <code class="docutils literal notranslate"><span class="pre">torch.sum</span></code>,
+<code class="docutils literal notranslate"><span class="pre">torch.mean</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.cat</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.min</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.max`</span></code> respectively, each with argument
+<code class="docutils literal notranslate"><span class="pre">dim=0</span></code>. Note that the <code class="docutils literal notranslate"><span class="pre">&quot;cat&quot;</span></code> reduction only makes sense if the state is a list, and not
+a tensor. The user can also pass a custom function in this parameter.</p></li>
+<li><p><strong>persistent</strong> (<em>Optional</em>) – whether the state will be saved as part of the modules <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">dist_reduce_fx</span></code> to None will return the metric state synchronized across different processes.
+However, there won’t be any reduction function applied to the synchronized metric state.</p>
+<p>The metric states would be synced as follows</p>
+<ul class="simple">
+<li><p>If the metric state is <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, the synced value will be a stacked <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>
+across the process dimension if the metric state was a <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>. The original
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> metric state retains dimension and hence the synchronized output will be of shape
+<code class="docutils literal notranslate"><span class="pre">(num_process,</span> <span class="pre">...)</span></code>.</p></li>
+<li><p>If the metric state is a <code class="docutils literal notranslate"><span class="pre">list</span></code>, the synced value will be a <code class="docutils literal notranslate"><span class="pre">list</span></code> containing the
+combined elements from all processes.</p></li>
+</ul>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When passing a custom function to <code class="docutils literal notranslate"><span class="pre">dist_reduce_fx</span></code>, expect the synchronized metric state to follow
+the format discussed in the above note.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The values inserted into a list state are deleted whenever <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.reset" title="topobench.evaluator.metrics.example.Metric.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called. This allows
+device memory to be automatically reallocated, but may produce unexpected effects when referencing list
+states. To retain such values after <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.reset" title="topobench.evaluator.metrics.example.Metric.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called, you must first copy them to another
+object.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">default</span></code> is not a <code class="docutils literal notranslate"><span class="pre">tensor</span></code> or an <code class="docutils literal notranslate"><span class="pre">empty</span> <span class="pre">list</span></code>.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">dist_reduce_fx</span></code> is not callable or one of <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sum&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cat&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>,
+    <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.clone" title="Link to this definition">#</a></dt>
+<dd><p>Make a copy of the metric.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.compute">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.compute" title="Link to this definition">#</a></dt>
+<dd><p>Override this method to compute the final metric value.</p>
+<p>This method will automatically synchronize state variables when running in distributed backend.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.double">
+<span class="sig-name descname"><span class="pre">double</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.double" title="Link to this definition">#</a></dt>
+<dd><p>Override default and prevent dtype casting.</p>
+<p>Please use <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.set_dtype" title="topobench.evaluator.metrics.example.Metric.set_dtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Metric.set_dtype()</span></code></a> instead.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.float">
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.float" title="Link to this definition">#</a></dt>
+<dd><p>Override default and prevent dtype casting.</p>
+<p>Please use <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.set_dtype" title="topobench.evaluator.metrics.example.Metric.set_dtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Metric.set_dtype()</span></code></a> instead.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.forward" title="Link to this definition">#</a></dt>
+<dd><p>Aggregate and evaluate batch input directly.</p>
+<p>Serves the dual purpose of both computing the metric on the current batch of inputs but also add the batch
+statistics to the overall accumulating metric state. Input arguments are the exact same as corresponding
+<code class="docutils literal notranslate"><span class="pre">update</span></code> method. The returned output is the exact same as the output of <code class="docutils literal notranslate"><span class="pre">compute</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Any arguments as required by the metric <code class="docutils literal notranslate"><span class="pre">update</span></code> method.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Any keyword arguments as required by the metric <code class="docutils literal notranslate"><span class="pre">update</span></code> method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The output of the <code class="docutils literal notranslate"><span class="pre">compute</span></code> method evaluated on the current batch.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TorchMetricsUserError</strong> – If the metric is already synced and <code class="docutils literal notranslate"><span class="pre">forward</span></code> is called again.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.half">
+<span class="sig-name descname"><span class="pre">half</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.half" title="Link to this definition">#</a></dt>
+<dd><p>Override default and prevent dtype casting.</p>
+<p>Please use <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.set_dtype" title="topobench.evaluator.metrics.example.Metric.set_dtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Metric.set_dtype()</span></code></a> instead.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.merge_state">
+<span class="sig-name descname"><span class="pre">merge_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incoming_state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.merge_state" title="Link to this definition">#</a></dt>
+<dd><p>Merge incoming metric state to the current state of the metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>incoming_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><a class="reference internal" href="#topobench.evaluator.metrics.example.Metric" title="torchmetrics.metric.Metric"><em>Metric</em></a>) – either a dict containing a metric state similar to the metric itself or an instance of the
+metric class.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the incoming state is neither a dict nor an instance of the metric class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> – If the metric has <code class="docutils literal notranslate"><span class="pre">full_state_update=True</span></code> or <code class="docutils literal notranslate"><span class="pre">dist_sync_on_step=True</span></code>. In these cases, the metric
+    cannot be merged with another metric state in a simple way. The user should overwrite the method in the
+    metric class to handle the merge operation.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the incoming state is a metric instance but the class is different from the current metric class.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example with a metric instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torchmetrics.aggregation</span><span class="w"> </span><span class="kn">import</span> <span class="n">SumMetric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric1</span> <span class="o">=</span> <span class="n">SumMetric</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric2</span> <span class="o">=</span> <span class="n">SumMetric</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric1</span><span class="o">.</span><span class="n">merge_state</span><span class="p">(</span><span class="n">metric2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric1</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="go">tensor(3.)</span>
+</pre></div>
+</div>
+<p>Example with a dict:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">torchmetrics.aggregation</span><span class="w"> </span><span class="kn">import</span> <span class="n">SumMetric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span> <span class="o">=</span> <span class="n">SumMetric</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># SumMetric has one state variable called `sum_value`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span><span class="o">.</span><span class="n">merge_state</span><span class="p">({</span><span class="s2">&quot;sum_value&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">2</span><span class="p">)})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="go">tensor(3.)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.persistent">
+<span class="sig-name descname"><span class="pre">persistent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.persistent" title="Link to this definition">#</a></dt>
+<dd><p>Change post-init if metric states should be saved to its state_dict.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">__</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.plot" title="Link to this definition">#</a></dt>
+<dd><p>Override this method plot the metric value.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.reset" title="Link to this definition">#</a></dt>
+<dd><p>Reset metric state variables to their default value.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.set_dtype">
+<span class="sig-name descname"><span class="pre">set_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.set_dtype" title="Link to this definition">#</a></dt>
+<dd><p>Transfer all metric state to specific dtype. Special version of standard <cite>type</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dst_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>dtype</em>) – the desired type as string or dtype object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.state_dict">
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.state_dict" title="Link to this definition">#</a></dt>
+<dd><p>Get the current state of metric as an dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – Optional dictionary, that if provided, the state of module will be updated into the dict and
+the same object is returned. Otherwise, an <code class="docutils literal notranslate"><span class="pre">OrderedDict</span></code> will be created and returned.</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – optional string, a prefix added to parameter and buffer names to compose the keys in state_dict.</p></li>
+<li><p><strong>keep_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – by default the <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> returned in the state dict are detached from autograd.
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, detaching will not be performed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.sync">
+<span class="sig-name descname"><span class="pre">sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_sync_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_sync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distributed_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.sync" title="Link to this definition">#</a></dt>
+<dd><p>Sync function for manually controlling when metrics states should be synced across processes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dist_sync_fn</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><em>None</em>) – Function to be used to perform states synchronization</p></li>
+<li><p><strong>process_group</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em> | </em><em>None</em>) – Specify the process group on which synchronization is called.
+default: <cite>None</cite> (which selects the entire world)</p></li>
+<li><p><strong>should_sync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to apply to state synchronization. This will have an impact
+only when running in a distributed setting.</p></li>
+<li><p><strong>distributed_available</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><em>None</em>) – Function to determine if we are running inside a distributed setting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TorchMetricsUserError</strong> – If the metric is already synced and <code class="docutils literal notranslate"><span class="pre">sync</span></code> is called again.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.sync_context">
+<span class="sig-name descname"><span class="pre">sync_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_sync_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_sync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">should_unsync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distributed_available</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.sync_context" title="Link to this definition">#</a></dt>
+<dd><p>Context manager to synchronize states.</p>
+<p>This context manager is used in distributed setting and makes sure that the local cache states are restored
+after yielding the synchronized state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dist_sync_fn</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><em>None</em>) – Function to be used to perform states synchronization</p></li>
+<li><p><strong>process_group</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em> | </em><em>None</em>) – Specify the process group on which synchronization is called.
+default: <cite>None</cite> (which selects the entire world)</p></li>
+<li><p><strong>should_sync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to apply to state synchronization. This will have an impact
+only when running in a distributed setting.</p></li>
+<li><p><strong>should_unsync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to restore the cache state so that the metrics can
+continue to be accumulated.</p></li>
+<li><p><strong>distributed_available</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a><em> | </em><em>None</em>) – Function to determine if we are running inside a distributed setting</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.type" title="Link to this definition">#</a></dt>
+<dd><p>Override default and prevent dtype casting.</p>
+<p>Please use <a class="reference internal" href="#topobench.evaluator.metrics.example.Metric.set_dtype" title="topobench.evaluator.metrics.example.Metric.set_dtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Metric.set_dtype()</span></code></a> instead.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.unsync">
+<span class="sig-name descname"><span class="pre">unsync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">should_unsync</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.unsync" title="Link to this definition">#</a></dt>
+<dd><p>Unsync function for manually controlling when metrics states should be reverted back to their local states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>should_unsync</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to perform unsync</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.update">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">__</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.update" title="Link to this definition">#</a></dt>
+<dd><p>Override this method to update the state variables of your metric class.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.device">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">device</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.device" title="Link to this definition">#</a></dt>
+<dd><p>Return the device of the metric.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.dtype">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dtype</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.dtype" title="Link to this definition">#</a></dt>
+<dd><p>Return the default dtype of the metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.full_state_update">
+<span class="sig-name descname"><span class="pre">full_state_update</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.full_state_update" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.higher_is_better">
+<span class="sig-name descname"><span class="pre">higher_is_better</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.higher_is_better" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.is_differentiable">
+<span class="sig-name descname"><span class="pre">is_differentiable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.is_differentiable" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.metric_state">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metric_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.metric_state" title="Link to this definition">#</a></dt>
+<dd><p>Get the current state of the metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.plot_legend_name">
+<span class="sig-name descname"><span class="pre">plot_legend_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.plot_legend_name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.plot_lower_bound">
+<span class="sig-name descname"><span class="pre">plot_lower_bound</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.plot_lower_bound" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.plot_upper_bound">
+<span class="sig-name descname"><span class="pre">plot_upper_bound</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.plot_upper_bound" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.update_called">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_called</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.update_called" title="Link to this definition">#</a></dt>
+<dd><p>Returns <cite>True</cite> if <cite>update</cite> or <cite>forward</cite> has been called initialization or last <cite>reset</cite>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.evaluator.metrics.example.Metric.update_count">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.evaluator.metrics.example.Metric.update_count" title="Link to this definition">#</a></dt>
+<dd><p>Get the number of times <cite>update</cite> and/or <cite>forward</cite> has been called since initialization or last <cite>reset</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.evaluator.metrics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.evaluator.metrics package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.evaluator.base.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.evaluator.base module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Any"><code class="docutils literal notranslate"><span class="pre">Any</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.__init__"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.compute"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.compute()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.update"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.full_state_update"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.full_state_update</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.higher_is_better"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.higher_is_better</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.is_differentiable"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.is_differentiable</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.sum_squared_error"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.sum_squared_error</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.ExampleRegressionMetric.total"><code class="docutils literal notranslate"><span class="pre">ExampleRegressionMetric.total</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric"><code class="docutils literal notranslate"><span class="pre">Metric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.__init__"><code class="docutils literal notranslate"><span class="pre">Metric.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.add_state"><code class="docutils literal notranslate"><span class="pre">Metric.add_state()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.clone"><code class="docutils literal notranslate"><span class="pre">Metric.clone()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.compute"><code class="docutils literal notranslate"><span class="pre">Metric.compute()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.double"><code class="docutils literal notranslate"><span class="pre">Metric.double()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.float"><code class="docutils literal notranslate"><span class="pre">Metric.float()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.forward"><code class="docutils literal notranslate"><span class="pre">Metric.forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.half"><code class="docutils literal notranslate"><span class="pre">Metric.half()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.merge_state"><code class="docutils literal notranslate"><span class="pre">Metric.merge_state()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.persistent"><code class="docutils literal notranslate"><span class="pre">Metric.persistent()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.plot"><code class="docutils literal notranslate"><span class="pre">Metric.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.reset"><code class="docutils literal notranslate"><span class="pre">Metric.reset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.set_dtype"><code class="docutils literal notranslate"><span class="pre">Metric.set_dtype()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.state_dict"><code class="docutils literal notranslate"><span class="pre">Metric.state_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.sync"><code class="docutils literal notranslate"><span class="pre">Metric.sync()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.sync_context"><code class="docutils literal notranslate"><span class="pre">Metric.sync_context()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.type"><code class="docutils literal notranslate"><span class="pre">Metric.type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.unsync"><code class="docutils literal notranslate"><span class="pre">Metric.unsync()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.update"><code class="docutils literal notranslate"><span class="pre">Metric.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.device"><code class="docutils literal notranslate"><span class="pre">Metric.device</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.dtype"><code class="docutils literal notranslate"><span class="pre">Metric.dtype</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.full_state_update"><code class="docutils literal notranslate"><span class="pre">Metric.full_state_update</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.higher_is_better"><code class="docutils literal notranslate"><span class="pre">Metric.higher_is_better</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.is_differentiable"><code class="docutils literal notranslate"><span class="pre">Metric.is_differentiable</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.metric_state"><code class="docutils literal notranslate"><span class="pre">Metric.metric_state</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.plot_legend_name"><code class="docutils literal notranslate"><span class="pre">Metric.plot_legend_name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.plot_lower_bound"><code class="docutils literal notranslate"><span class="pre">Metric.plot_lower_bound</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.plot_upper_bound"><code class="docutils literal notranslate"><span class="pre">Metric.plot_upper_bound</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.update_called"><code class="docutils literal notranslate"><span class="pre">Metric.update_called</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.evaluator.metrics.example.Metric.update_count"><code class="docutils literal notranslate"><span class="pre">Metric.update_count</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

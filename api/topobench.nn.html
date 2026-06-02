@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.nn package &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.nn';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.nn.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.nn.backbones package" href="topobench.nn.backbones.html" />
+    <link rel="prev" title="topobench.model.model module" href="topobench.model.model.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.nn package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.nn">
+<span id="topobench-nn-package"></span><h1>topobench.nn package<a class="headerlink" href="#module-topobench.nn" title="Link to this heading">#</a></h1>
+<p>Empty file to make the directory a package.</p>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.backbones.html">topobench.nn.backbones package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CCCN"><code class="docutils literal notranslate"><span class="pre">CCCN</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CCCN.__init__"><code class="docutils literal notranslate"><span class="pre">CCCN.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CCCN.forward"><code class="docutils literal notranslate"><span class="pre">CCCN.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CW"><code class="docutils literal notranslate"><span class="pre">CW</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CW.__init__"><code class="docutils literal notranslate"><span class="pre">CW.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.CW.forward"><code class="docutils literal notranslate"><span class="pre">CW.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EDGNN"><code class="docutils literal notranslate"><span class="pre">EDGNN</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EDGNN.__init__"><code class="docutils literal notranslate"><span class="pre">EDGNN.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EDGNN.forward"><code class="docutils literal notranslate"><span class="pre">EDGNN.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EDGNN.reset_parameters"><code class="docutils literal notranslate"><span class="pre">EDGNN.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EquivSetConv"><code class="docutils literal notranslate"><span class="pre">EquivSetConv</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EquivSetConv.__init__"><code class="docutils literal notranslate"><span class="pre">EquivSetConv.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EquivSetConv.forward"><code class="docutils literal notranslate"><span class="pre">EquivSetConv.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.EquivSetConv.reset_parameters"><code class="docutils literal notranslate"><span class="pre">EquivSetConv.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GPSEncoder"><code class="docutils literal notranslate"><span class="pre">GPSEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GPSEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">GPSEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GPSEncoder.forward"><code class="docutils literal notranslate"><span class="pre">GPSEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GraphMLP"><code class="docutils literal notranslate"><span class="pre">GraphMLP</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GraphMLP.__init__"><code class="docutils literal notranslate"><span class="pre">GraphMLP.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.GraphMLP.forward"><code class="docutils literal notranslate"><span class="pre">GraphMLP.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSE"><code class="docutils literal notranslate"><span class="pre">HOPSE</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSE.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSE.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSE.forward"><code class="docutils literal notranslate"><span class="pre">HOPSE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSELayer"><code class="docutils literal notranslate"><span class="pre">HOPSELayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSELayer.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSELayer.forward"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.HOPSELayer.update"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGAT"><code class="docutils literal notranslate"><span class="pre">IdentityGAT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGAT.__init__"><code class="docutils literal notranslate"><span class="pre">IdentityGAT.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGAT.forward"><code class="docutils literal notranslate"><span class="pre">IdentityGAT.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGCN"><code class="docutils literal notranslate"><span class="pre">IdentityGCN</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGCN.__init__"><code class="docutils literal notranslate"><span class="pre">IdentityGCN.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGCN.forward"><code class="docutils literal notranslate"><span class="pre">IdentityGCN.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGIN"><code class="docutils literal notranslate"><span class="pre">IdentityGIN</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGIN.__init__"><code class="docutils literal notranslate"><span class="pre">IdentityGIN.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentityGIN.forward"><code class="docutils literal notranslate"><span class="pre">IdentityGIN.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentitySAGE"><code class="docutils literal notranslate"><span class="pre">IdentitySAGE</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentitySAGE.__init__"><code class="docutils literal notranslate"><span class="pre">IdentitySAGE.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.IdentitySAGE.forward"><code class="docutils literal notranslate"><span class="pre">IdentitySAGE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.JumpLinkConv"><code class="docutils literal notranslate"><span class="pre">JumpLinkConv</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.JumpLinkConv.__init__"><code class="docutils literal notranslate"><span class="pre">JumpLinkConv.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.JumpLinkConv.forward"><code class="docutils literal notranslate"><span class="pre">JumpLinkConv.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.JumpLinkConv.reset_parameters"><code class="docutils literal notranslate"><span class="pre">JumpLinkConv.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MLP.__init__"><code class="docutils literal notranslate"><span class="pre">MLP.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MLP.build_mlp_layers"><code class="docutils literal notranslate"><span class="pre">MLP.build_mlp_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MLP.build_norm_layers"><code class="docutils literal notranslate"><span class="pre">MLP.build_norm_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MLP.forward"><code class="docutils literal notranslate"><span class="pre">MLP.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MeanDegConv"><code class="docutils literal notranslate"><span class="pre">MeanDegConv</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MeanDegConv.__init__"><code class="docutils literal notranslate"><span class="pre">MeanDegConv.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MeanDegConv.forward"><code class="docutils literal notranslate"><span class="pre">MeanDegConv.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.MeanDegConv.reset_parameters"><code class="docutils literal notranslate"><span class="pre">MeanDegConv.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.Mlp"><code class="docutils literal notranslate"><span class="pre">Mlp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.Mlp.__init__"><code class="docutils literal notranslate"><span class="pre">Mlp.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.Mlp.forward"><code class="docutils literal notranslate"><span class="pre">Mlp.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.NSDEncoder"><code class="docutils literal notranslate"><span class="pre">NSDEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.NSDEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">NSDEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.NSDEncoder.forward"><code class="docutils literal notranslate"><span class="pre">NSDEncoder.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.NSDEncoder.get_sheaf_model"><code class="docutils literal notranslate"><span class="pre">NSDEncoder.get_sheaf_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.PlainMLP"><code class="docutils literal notranslate"><span class="pre">PlainMLP</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.PlainMLP.__init__"><code class="docutils literal notranslate"><span class="pre">PlainMLP.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.PlainMLP.forward"><code class="docutils literal notranslate"><span class="pre">PlainMLP.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.PlainMLP.reset_parameters"><code class="docutils literal notranslate"><span class="pre">PlainMLP.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.RedrawProjection"><code class="docutils literal notranslate"><span class="pre">RedrawProjection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.RedrawProjection.__init__"><code class="docutils literal notranslate"><span class="pre">RedrawProjection.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.RedrawProjection.redraw_projections"><code class="docutils literal notranslate"><span class="pre">RedrawProjection.redraw_projections()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNCustom"><code class="docutils literal notranslate"><span class="pre">SCCNNCustom</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNCustom.__init__"><code class="docutils literal notranslate"><span class="pre">SCCNNCustom.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNCustom.forward"><code class="docutils literal notranslate"><span class="pre">SCCNNCustom.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.__init__"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.aggr_norm_func"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.aggr_norm_func()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.chebyshev_conv"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.chebyshev_conv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.forward"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.reset_parameters"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.reset_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.SCCNNLayer.update"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune"><code class="docutils literal notranslate"><span class="pre">TopoTune</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune.generate_membership_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.get_nbhd_cache"><code class="docutils literal notranslate"><span class="pre">TopoTune.get_nbhd_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.interrank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.interrank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_gnn_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.intrarank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune.intrarank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_gnn_forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.all_nbhds_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.all_nbhds_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_gnn_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.TopoTune_OneHasse.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.generate_membership_vectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.customMLP"><code class="docutils literal notranslate"><span class="pre">customMLP</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.customMLP.__init__"><code class="docutils literal notranslate"><span class="pre">customMLP.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.customMLP.flops"><code class="docutils literal notranslate"><span class="pre">customMLP.flops()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.customMLP.forward"><code class="docutils literal notranslate"><span class="pre">customMLP.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.html#topobench.nn.backbones.customMLP.reset_parameters"><code class="docutils literal notranslate"><span class="pre">customMLP.reset_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.cell.html">topobench.nn.backbones.cell package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.cell.html#topobench.nn.backbones.cell.CCCN"><code class="docutils literal notranslate"><span class="pre">CCCN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.cell.html#topobench.nn.backbones.cell.CW"><code class="docutils literal notranslate"><span class="pre">CW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.cell.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html">topobench.nn.backbones.combinatorial package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html#topobench.nn.backbones.combinatorial.HOPSE"><code class="docutils literal notranslate"><span class="pre">HOPSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html#topobench.nn.backbones.combinatorial.HOPSELayer"><code class="docutils literal notranslate"><span class="pre">HOPSELayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html#topobench.nn.backbones.combinatorial.TopoTune"><code class="docutils literal notranslate"><span class="pre">TopoTune</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html#topobench.nn.backbones.combinatorial.TopoTune_OneHasse"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.combinatorial.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.graph.html">topobench.nn.backbones.graph package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.GPSEncoder"><code class="docutils literal notranslate"><span class="pre">GPSEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.GraphMLP"><code class="docutils literal notranslate"><span class="pre">GraphMLP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.IdentityGAT"><code class="docutils literal notranslate"><span class="pre">IdentityGAT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.IdentityGCN"><code class="docutils literal notranslate"><span class="pre">IdentityGCN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.IdentityGIN"><code class="docutils literal notranslate"><span class="pre">IdentityGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.IdentitySAGE"><code class="docutils literal notranslate"><span class="pre">IdentitySAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.Mlp"><code class="docutils literal notranslate"><span class="pre">Mlp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.NSDEncoder"><code class="docutils literal notranslate"><span class="pre">NSDEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#topobench.nn.backbones.graph.RedrawProjection"><code class="docutils literal notranslate"><span class="pre">RedrawProjection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.graph.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html">topobench.nn.backbones.hypergraph package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.EDGNN"><code class="docutils literal notranslate"><span class="pre">EDGNN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.EquivSetConv"><code class="docutils literal notranslate"><span class="pre">EquivSetConv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.JumpLinkConv"><code class="docutils literal notranslate"><span class="pre">JumpLinkConv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.MeanDegConv"><code class="docutils literal notranslate"><span class="pre">MeanDegConv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.PlainMLP"><code class="docutils literal notranslate"><span class="pre">PlainMLP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#topobench.nn.backbones.hypergraph.customMLP"><code class="docutils literal notranslate"><span class="pre">customMLP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.hypergraph.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.non_relational.html">topobench.nn.backbones.non_relational package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.non_relational.html#topobench.nn.backbones.non_relational.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.non_relational.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.simplicial.html">topobench.nn.backbones.simplicial package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.simplicial.html#topobench.nn.backbones.simplicial.SCCNNCustom"><code class="docutils literal notranslate"><span class="pre">SCCNNCustom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.simplicial.html#topobench.nn.backbones.simplicial.SCCNNLayer"><code class="docutils literal notranslate"><span class="pre">SCCNNLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.backbones.simplicial.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.encoders.html">topobench.nn.encoders package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.AllCellFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AllCellFeatureEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.AllCellFeatureEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">AllCellFeatureEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.AllCellFeatureEncoder.forward"><code class="docutils literal notranslate"><span class="pre">AllCellFeatureEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.DGMStructureFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">DGMStructureFeatureEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.DGMStructureFeatureEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">DGMStructureFeatureEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.DGMStructureFeatureEncoder.forward"><code class="docutils literal notranslate"><span class="pre">DGMStructureFeatureEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.FlatEncoder"><code class="docutils literal notranslate"><span class="pre">FlatEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.FlatEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">FlatEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.FlatEncoder.forward"><code class="docutils literal notranslate"><span class="pre">FlatEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.HOPSEFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">HOPSEFeatureEncoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.HOPSEFeatureEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSEFeatureEncoder.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.html#topobench.nn.encoders.HOPSEFeatureEncoder.forward"><code class="docutils literal notranslate"><span class="pre">HOPSEFeatureEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.encoders.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.all_cell_encoder.html">topobench.nn.encoders.all_cell_encoder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.all_cell_encoder.html#topobench.nn.encoders.all_cell_encoder.AbstractFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AbstractFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.all_cell_encoder.html#topobench.nn.encoders.all_cell_encoder.AllCellFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AllCellFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.all_cell_encoder.html#topobench.nn.encoders.all_cell_encoder.BaseEncoder"><code class="docutils literal notranslate"><span class="pre">BaseEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.all_cell_encoder.html#topobench.nn.encoders.all_cell_encoder.GraphNorm"><code class="docutils literal notranslate"><span class="pre">GraphNorm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.base.html">topobench.nn.encoders.base module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.base.html#topobench.nn.encoders.base.AbstractFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AbstractFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.base.html#topobench.nn.encoders.base.abstractmethod"><code class="docutils literal notranslate"><span class="pre">abstractmethod()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.dgm_encoder.html">topobench.nn.encoders.dgm_encoder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.dgm_encoder.html#topobench.nn.encoders.dgm_encoder.AbstractFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AbstractFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.dgm_encoder.html#topobench.nn.encoders.dgm_encoder.BaseEncoder"><code class="docutils literal notranslate"><span class="pre">BaseEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.dgm_encoder.html#topobench.nn.encoders.dgm_encoder.DGMStructureFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">DGMStructureFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.dgm_encoder.html#topobench.nn.encoders.dgm_encoder.DGM_d"><code class="docutils literal notranslate"><span class="pre">DGM_d</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.flat_encoder.html">topobench.nn.encoders.flat_encoder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.flat_encoder.html#topobench.nn.encoders.flat_encoder.AbstractFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AbstractFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.flat_encoder.html#topobench.nn.encoders.flat_encoder.FlatEncoder"><code class="docutils literal notranslate"><span class="pre">FlatEncoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html">topobench.nn.encoders.hopse_encoder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.AbstractFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">AbstractFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.AtomEncoder"><code class="docutils literal notranslate"><span class="pre">AtomEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.BondEncoder"><code class="docutils literal notranslate"><span class="pre">BondEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.HOPSEFeatureEncoder"><code class="docutils literal notranslate"><span class="pre">HOPSEFeatureEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.SimpleAtomEncoder"><code class="docutils literal notranslate"><span class="pre">SimpleAtomEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.hopse_encoder.html#topobench.nn.encoders.hopse_encoder.SimpleBondEncoder"><code class="docutils literal notranslate"><span class="pre">SimpleBondEncoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.encoders.kdgm.html">topobench.nn.encoders.kdgm module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.kdgm.html#topobench.nn.encoders.kdgm.DGM_d"><code class="docutils literal notranslate"><span class="pre">DGM_d</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.kdgm.html#topobench.nn.encoders.kdgm.pairwise_euclidean_distances"><code class="docutils literal notranslate"><span class="pre">pairwise_euclidean_distances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.encoders.kdgm.html#topobench.nn.encoders.kdgm.pairwise_poincare_distances"><code class="docutils literal notranslate"><span class="pre">pairwise_poincare_distances()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.readouts.html">topobench.nn.readouts package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.AbstractZeroCellReadOut"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.AbstractZeroCellReadOut.__init__"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.AbstractZeroCellReadOut.compute_logits"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut.compute_logits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.AbstractZeroCellReadOut.forward"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.HOPSEReadout"><code class="docutils literal notranslate"><span class="pre">HOPSEReadout</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.HOPSEReadout.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSEReadout.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.HOPSEReadout.compute_logits"><code class="docutils literal notranslate"><span class="pre">HOPSEReadout.compute_logits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.HOPSEReadout.forward"><code class="docutils literal notranslate"><span class="pre">HOPSEReadout.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.MLPReadout"><code class="docutils literal notranslate"><span class="pre">MLPReadout</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.MLPReadout.__init__"><code class="docutils literal notranslate"><span class="pre">MLPReadout.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.MLPReadout.forward"><code class="docutils literal notranslate"><span class="pre">MLPReadout.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.NoReadOut"><code class="docutils literal notranslate"><span class="pre">NoReadOut</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.NoReadOut.__init__"><code class="docutils literal notranslate"><span class="pre">NoReadOut.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.NoReadOut.forward"><code class="docutils literal notranslate"><span class="pre">NoReadOut.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.PropagateSignalDown"><code class="docutils literal notranslate"><span class="pre">PropagateSignalDown</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.PropagateSignalDown.__init__"><code class="docutils literal notranslate"><span class="pre">PropagateSignalDown.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.html#topobench.nn.readouts.PropagateSignalDown.forward"><code class="docutils literal notranslate"><span class="pre">PropagateSignalDown.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.readouts.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.base.html">topobench.nn.readouts.base module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.base.html#topobench.nn.readouts.base.AbstractZeroCellReadOut"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.base.html#topobench.nn.readouts.base.abstractmethod"><code class="docutils literal notranslate"><span class="pre">abstractmethod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.base.html#topobench.nn.readouts.base.scatter"><code class="docutils literal notranslate"><span class="pre">scatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.hopse.html">topobench.nn.readouts.hopse module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.hopse.html#topobench.nn.readouts.hopse.AbstractZeroCellReadOut"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.hopse.html#topobench.nn.readouts.hopse.HOPSEReadout"><code class="docutils literal notranslate"><span class="pre">HOPSEReadout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.hopse.html#topobench.nn.readouts.hopse.scatter"><code class="docutils literal notranslate"><span class="pre">scatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.identical.html">topobench.nn.readouts.identical module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.identical.html#topobench.nn.readouts.identical.AbstractZeroCellReadOut"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.identical.html#topobench.nn.readouts.identical.NoReadOut"><code class="docutils literal notranslate"><span class="pre">NoReadOut</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.mlp_readout.html">topobench.nn.readouts.mlp_readout module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.mlp_readout.html#topobench.nn.readouts.mlp_readout.MLPBackbone"><code class="docutils literal notranslate"><span class="pre">MLPBackbone</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.mlp_readout.html#topobench.nn.readouts.mlp_readout.MLPReadout"><code class="docutils literal notranslate"><span class="pre">MLPReadout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.mlp_readout.html#topobench.nn.readouts.mlp_readout.scatter"><code class="docutils literal notranslate"><span class="pre">scatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.readouts.propagate_signal_down.html">topobench.nn.readouts.propagate_signal_down module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.propagate_signal_down.html#topobench.nn.readouts.propagate_signal_down.AbstractZeroCellReadOut"><code class="docutils literal notranslate"><span class="pre">AbstractZeroCellReadOut</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.readouts.propagate_signal_down.html#topobench.nn.readouts.propagate_signal_down.PropagateSignalDown"><code class="docutils literal notranslate"><span class="pre">PropagateSignalDown</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.wrappers.html">topobench.nn.wrappers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.AbstractWrapper"><code class="docutils literal notranslate"><span class="pre">AbstractWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.AbstractWrapper.__init__"><code class="docutils literal notranslate"><span class="pre">AbstractWrapper.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.AbstractWrapper.forward"><code class="docutils literal notranslate"><span class="pre">AbstractWrapper.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.AbstractWrapper.residual_connection"><code class="docutils literal notranslate"><span class="pre">AbstractWrapper.residual_connection()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CANWrapper"><code class="docutils literal notranslate"><span class="pre">CANWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CANWrapper.forward"><code class="docutils literal notranslate"><span class="pre">CANWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CCCNWrapper"><code class="docutils literal notranslate"><span class="pre">CCCNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CCCNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">CCCNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CCXNWrapper"><code class="docutils literal notranslate"><span class="pre">CCXNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CCXNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">CCXNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CWNWrapper"><code class="docutils literal notranslate"><span class="pre">CWNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.CWNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">CWNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.GNNWrapper"><code class="docutils literal notranslate"><span class="pre">GNNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.GNNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">GNNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.GraphMLPWrapper"><code class="docutils literal notranslate"><span class="pre">GraphMLPWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.GraphMLPWrapper.forward"><code class="docutils literal notranslate"><span class="pre">GraphMLPWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.HOPSEWrapper"><code class="docutils literal notranslate"><span class="pre">HOPSEWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.HOPSEWrapper.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSEWrapper.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.HOPSEWrapper.forward"><code class="docutils literal notranslate"><span class="pre">HOPSEWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.HypergraphWrapper"><code class="docutils literal notranslate"><span class="pre">HypergraphWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.HypergraphWrapper.forward"><code class="docutils literal notranslate"><span class="pre">HypergraphWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.PointcloudWrapper"><code class="docutils literal notranslate"><span class="pre">PointcloudWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.PointcloudWrapper.forward"><code class="docutils literal notranslate"><span class="pre">PointcloudWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SANWrapper"><code class="docutils literal notranslate"><span class="pre">SANWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SANWrapper.forward"><code class="docutils literal notranslate"><span class="pre">SANWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCCNNWrapper"><code class="docutils literal notranslate"><span class="pre">SCCNNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCCNNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">SCCNNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCCNWrapper"><code class="docutils literal notranslate"><span class="pre">SCCNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCCNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">SCCNWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCNWrapper"><code class="docutils literal notranslate"><span class="pre">SCNWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCNWrapper.forward"><code class="docutils literal notranslate"><span class="pre">SCNWrapper.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.SCNWrapper.normalize_matrix"><code class="docutils literal notranslate"><span class="pre">SCNWrapper.normalize_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.TuneWrapper"><code class="docutils literal notranslate"><span class="pre">TuneWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.html#topobench.nn.wrappers.TuneWrapper.forward"><code class="docutils literal notranslate"><span class="pre">TuneWrapper.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.cell.html">topobench.nn.wrappers.cell package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.cell.html#topobench.nn.wrappers.cell.CANWrapper"><code class="docutils literal notranslate"><span class="pre">CANWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.cell.html#topobench.nn.wrappers.cell.CCCNWrapper"><code class="docutils literal notranslate"><span class="pre">CCCNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.cell.html#topobench.nn.wrappers.cell.CCXNWrapper"><code class="docutils literal notranslate"><span class="pre">CCXNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.cell.html#topobench.nn.wrappers.cell.CWNWrapper"><code class="docutils literal notranslate"><span class="pre">CWNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.cell.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.combinatorial.html">topobench.nn.wrappers.combinatorial package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.combinatorial.html#topobench.nn.wrappers.combinatorial.HOPSEWrapper"><code class="docutils literal notranslate"><span class="pre">HOPSEWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.combinatorial.html#topobench.nn.wrappers.combinatorial.TuneWrapper"><code class="docutils literal notranslate"><span class="pre">TuneWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.combinatorial.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.graph.html">topobench.nn.wrappers.graph package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.graph.html#topobench.nn.wrappers.graph.GNNWrapper"><code class="docutils literal notranslate"><span class="pre">GNNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.graph.html#topobench.nn.wrappers.graph.GraphMLPWrapper"><code class="docutils literal notranslate"><span class="pre">GraphMLPWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.graph.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.hypergraph.html">topobench.nn.wrappers.hypergraph package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.hypergraph.html#topobench.nn.wrappers.hypergraph.HypergraphWrapper"><code class="docutils literal notranslate"><span class="pre">HypergraphWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.hypergraph.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.pointcloud.html">topobench.nn.wrappers.pointcloud package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.pointcloud.html#topobench.nn.wrappers.pointcloud.PointcloudWrapper"><code class="docutils literal notranslate"><span class="pre">PointcloudWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.pointcloud.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html">topobench.nn.wrappers.simplicial package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html#topobench.nn.wrappers.simplicial.SANWrapper"><code class="docutils literal notranslate"><span class="pre">SANWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html#topobench.nn.wrappers.simplicial.SCCNNWrapper"><code class="docutils literal notranslate"><span class="pre">SCCNNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html#topobench.nn.wrappers.simplicial.SCCNWrapper"><code class="docutils literal notranslate"><span class="pre">SCCNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html#topobench.nn.wrappers.simplicial.SCNWrapper"><code class="docutils literal notranslate"><span class="pre">SCNWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.simplicial.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.wrappers.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.wrappers.base.html">topobench.nn.wrappers.base module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.base.html#topobench.nn.wrappers.base.ABC"><code class="docutils literal notranslate"><span class="pre">ABC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.base.html#topobench.nn.wrappers.base.AbstractWrapper"><code class="docutils literal notranslate"><span class="pre">AbstractWrapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.nn.wrappers.base.html#topobench.nn.wrappers.base.abstractmethod"><code class="docutils literal notranslate"><span class="pre">abstractmethod()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.model.model.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.model.model module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.nn.backbones.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.nn.backbones package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

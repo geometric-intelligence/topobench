@@ -1,0 +1,16 @@
+topobench.transforms.liftings.graph2combinatorial package
+=========================================================
+
+.. automodule:: topobench.transforms.liftings.graph2combinatorial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.graph2combinatorial.base
+   topobench.transforms.liftings.graph2combinatorial.graph_induced_cc

@@ -1,0 +1,24 @@
+topobench.transforms.liftings.graph2simplicial package
+======================================================
+
+.. automodule:: topobench.transforms.liftings.graph2simplicial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.graph2simplicial.base
+   topobench.transforms.liftings.graph2simplicial.clique_lifting
+   topobench.transforms.liftings.graph2simplicial.dnd_lifting
+   topobench.transforms.liftings.graph2simplicial.eccentricity_lifting
+   topobench.transforms.liftings.graph2simplicial.graph_induced_lifting
+   topobench.transforms.liftings.graph2simplicial.khop_lifting
+   topobench.transforms.liftings.graph2simplicial.latentclique_lifting
+   topobench.transforms.liftings.graph2simplicial.line_lifting
+   topobench.transforms.liftings.graph2simplicial.neighborhood_complex_lifting
+   topobench.transforms.liftings.graph2simplicial.vietoris_rips_lifting

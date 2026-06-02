@@ -1,0 +1,7 @@
+topobench.nn.backbones.non\_relational.mlp module
+=================================================
+
+.. automodule:: topobench.nn.backbones.non_relational.mlp
+   :members:
+   :show-inheritance:
+   :undoc-members:

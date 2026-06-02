@@ -1,0 +1,7 @@
+topobench.nn.wrappers.cell.can\_wrapper module
+==============================================
+
+.. automodule:: topobench.nn.wrappers.cell.can_wrapper
+   :members:
+   :show-inheritance:
+   :undoc-members:

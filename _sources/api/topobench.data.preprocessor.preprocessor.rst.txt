@@ -1,0 +1,7 @@
+topobench.data.preprocessor.preprocessor module
+===============================================
+
+.. automodule:: topobench.data.preprocessor.preprocessor
+   :members:
+   :show-inheritance:
+   :undoc-members:

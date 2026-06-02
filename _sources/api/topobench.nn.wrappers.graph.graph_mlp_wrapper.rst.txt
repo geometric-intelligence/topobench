@@ -1,0 +1,7 @@
+topobench.nn.wrappers.graph.graph\_mlp\_wrapper module
+======================================================
+
+.. automodule:: topobench.nn.wrappers.graph.graph_mlp_wrapper
+   :members:
+   :show-inheritance:
+   :undoc-members:

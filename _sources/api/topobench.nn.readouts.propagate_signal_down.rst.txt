@@ -1,0 +1,7 @@
+topobench.nn.readouts.propagate\_signal\_down module
+====================================================
+
+.. automodule:: topobench.nn.readouts.propagate_signal_down
+   :members:
+   :show-inheritance:
+   :undoc-members:

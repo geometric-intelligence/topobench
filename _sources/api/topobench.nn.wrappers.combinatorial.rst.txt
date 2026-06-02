@@ -1,0 +1,16 @@
+topobench.nn.wrappers.combinatorial package
+===========================================
+
+.. automodule:: topobench.nn.wrappers.combinatorial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.nn.wrappers.combinatorial.hopse_wrapper
+   topobench.nn.wrappers.combinatorial.tune_wrapper

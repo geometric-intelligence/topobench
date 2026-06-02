@@ -1,0 +1,7 @@
+topobench.utils.pylogger module
+===============================
+
+.. automodule:: topobench.utils.pylogger
+   :members:
+   :show-inheritance:
+   :undoc-members:

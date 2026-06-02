@@ -1,0 +1,15 @@
+topobench.nn.backbones.simplicial package
+=========================================
+
+.. automodule:: topobench.nn.backbones.simplicial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.nn.backbones.simplicial.sccnn

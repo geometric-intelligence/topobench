@@ -1,0 +1,7 @@
+topobench.data.datasets.mantra\_dataset module
+==============================================
+
+.. automodule:: topobench.data.datasets.mantra_dataset
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+topobench.data.utils.split\_utils module
+========================================
+
+.. automodule:: topobench.data.utils.split_utils
+   :members:
+   :show-inheritance:
+   :undoc-members:

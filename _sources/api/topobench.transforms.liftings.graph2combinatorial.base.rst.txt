@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2combinatorial.base module
+=============================================================
+
+.. automodule:: topobench.transforms.liftings.graph2combinatorial.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

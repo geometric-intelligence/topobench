@@ -1,0 +1,17 @@
+topobench.transforms.liftings.graph2cell package
+================================================
+
+.. automodule:: topobench.transforms.liftings.graph2cell
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.graph2cell.base
+   topobench.transforms.liftings.graph2cell.cycle_lifting
+   topobench.transforms.liftings.graph2cell.discrete_configuration_complex_lifting

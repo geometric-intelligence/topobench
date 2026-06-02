@@ -1,0 +1,7 @@
+topobench.nn.wrappers.pointcloud.pointcloud\_wrapper module
+===========================================================
+
+.. automodule:: topobench.nn.wrappers.pointcloud.pointcloud_wrapper
+   :members:
+   :show-inheritance:
+   :undoc-members:

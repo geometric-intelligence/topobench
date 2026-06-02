@@ -1,0 +1,17 @@
+topobench.dataloader package
+============================
+
+.. automodule:: topobench.dataloader
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.dataloader.dataload_dataset
+   topobench.dataloader.dataloader
+   topobench.dataloader.utils

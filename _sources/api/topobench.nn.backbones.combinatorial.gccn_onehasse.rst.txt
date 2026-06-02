@@ -1,0 +1,7 @@
+topobench.nn.backbones.combinatorial.gccn\_onehasse module
+==========================================================
+
+.. automodule:: topobench.nn.backbones.combinatorial.gccn_onehasse
+   :members:
+   :show-inheritance:
+   :undoc-members:

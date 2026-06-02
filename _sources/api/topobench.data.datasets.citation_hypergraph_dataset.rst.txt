@@ -1,0 +1,7 @@
+topobench.data.datasets.citation\_hypergraph\_dataset module
+============================================================
+
+.. automodule:: topobench.data.datasets.citation_hypergraph_dataset
+   :members:
+   :show-inheritance:
+   :undoc-members:

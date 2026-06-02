@@ -1,0 +1,7 @@
+topobench.utils.config\_resolvers module
+========================================
+
+.. automodule:: topobench.utils.config_resolvers
+   :members:
+   :show-inheritance:
+   :undoc-members:

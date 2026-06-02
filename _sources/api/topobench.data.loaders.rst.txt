@@ -1,0 +1,26 @@
+topobench.data.loaders package
+==============================
+
+.. automodule:: topobench.data.loaders
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.data.loaders.graph
+   topobench.data.loaders.hypergraph
+   topobench.data.loaders.pointcloud
+   topobench.data.loaders.simplicial
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.data.loaders.base

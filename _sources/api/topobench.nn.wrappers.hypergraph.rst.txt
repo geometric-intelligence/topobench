@@ -1,0 +1,15 @@
+topobench.nn.wrappers.hypergraph package
+========================================
+
+.. automodule:: topobench.nn.wrappers.hypergraph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.nn.wrappers.hypergraph.hypergraph_wrapper

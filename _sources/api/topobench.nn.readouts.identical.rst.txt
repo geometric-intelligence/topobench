@@ -1,0 +1,7 @@
+topobench.nn.readouts.identical module
+======================================
+
+.. automodule:: topobench.nn.readouts.identical
+   :members:
+   :show-inheritance:
+   :undoc-members:

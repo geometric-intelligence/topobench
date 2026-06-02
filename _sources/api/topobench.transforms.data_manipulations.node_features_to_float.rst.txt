@@ -1,0 +1,7 @@
+topobench.transforms.data\_manipulations.node\_features\_to\_float module
+=========================================================================
+
+.. automodule:: topobench.transforms.data_manipulations.node_features_to_float
+   :members:
+   :show-inheritance:
+   :undoc-members:

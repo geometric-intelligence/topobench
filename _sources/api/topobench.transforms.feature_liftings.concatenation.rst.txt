@@ -1,0 +1,7 @@
+topobench.transforms.feature\_liftings.concatenation module
+===========================================================
+
+.. automodule:: topobench.transforms.feature_liftings.concatenation
+   :members:
+   :show-inheritance:
+   :undoc-members:

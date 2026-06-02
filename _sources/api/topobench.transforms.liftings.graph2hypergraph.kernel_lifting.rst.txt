@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2hypergraph.kernel\_lifting module
+=====================================================================
+
+.. automodule:: topobench.transforms.liftings.graph2hypergraph.kernel_lifting
+   :members:
+   :show-inheritance:
+   :undoc-members:

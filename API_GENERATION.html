@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Documentation Generation Guide &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'API_GENERATION';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/API_GENERATION.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Documentation Generation Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="documentation-generation-guide">
+<h1>Documentation Generation Guide<a class="headerlink" href="#documentation-generation-guide" title="Link to this heading">#</a></h1>
+<p>This guide explains how to automatically generate API documentation for TopoBench.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The API documentation is automatically generated from the Python source code using Sphinx’s <code class="docutils literal notranslate"><span class="pre">sphinx-apidoc</span></code> tool. This ensures that the documentation stays in sync with the codebase.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<section id="generate-and-build-documentation-locally">
+<h3>Generate and Build Documentation Locally<a class="headerlink" href="#generate-and-build-documentation-locally" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Navigate to the docs directory</span>
+<span class="nb">cd</span><span class="w"> </span>docs
+
+<span class="c1"># Generate API docs and build HTML</span>
+make<span class="w"> </span>html
+
+<span class="c1"># Or just generate API docs without building</span>
+make<span class="w"> </span>apidocs
+
+<span class="c1"># View the documentation</span>
+open<span class="w"> </span>_build/html/index.html<span class="w">  </span><span class="c1"># macOS</span>
+xdg-open<span class="w"> </span>_build/html/index.html<span class="w">  </span><span class="c1"># Linux</span>
+</pre></div>
+</div>
+</section>
+<section id="clean-and-regenerate">
+<h3>Clean and Regenerate<a class="headerlink" href="#clean-and-regenerate" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clean everything</span>
+make<span class="w"> </span>clean
+
+<span class="c1"># Clean only API documentation</span>
+make<span class="w"> </span>clean-api
+
+<span class="c1"># Regenerate everything</span>
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</section>
+</section>
+<section id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
+<section id="automatic-api-generation-script-generate-api-docs-sh">
+<h3>1. Automatic API Generation Script (<code class="docutils literal notranslate"><span class="pre">generate_api_docs.sh</span></code>)<a class="headerlink" href="#automatic-api-generation-script-generate-api-docs-sh" title="Link to this heading">#</a></h3>
+<p>This bash script:</p>
+<ul class="simple">
+<li><p>Removes old API documentation files</p></li>
+<li><p>Runs <code class="docutils literal notranslate"><span class="pre">sphinx-apidoc</span></code> to scan the <code class="docutils literal notranslate"><span class="pre">topobench/</span></code> package</p></li>
+<li><p>Generates <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files for each module</p></li>
+<li><p>Creates an index file linking all modules</p></li>
+</ul>
+<p><strong>Usage:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docs
+./generate_api_docs.sh
+</pre></div>
+</div>
+</section>
+<section id="api-index-generator-generate-api-index-py">
+<h3>2. API Index Generator (<code class="docutils literal notranslate"><span class="pre">generate_api_index.py</span></code>)<a class="headerlink" href="#api-index-generator-generate-api-index-py" title="Link to this heading">#</a></h3>
+<p>This Python script:</p>
+<ul class="simple">
+<li><p>Scans the <code class="docutils literal notranslate"><span class="pre">api/</span></code> directory for generated <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files</p></li>
+<li><p>Creates an <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> file with a table of contents</p></li>
+<li><p>Organizes modules alphabetically</p></li>
+</ul>
+</section>
+<section id="makefile-integration">
+<h3>3. Makefile Integration<a class="headerlink" href="#makefile-integration" title="Link to this heading">#</a></h3>
+<p>The Makefile has been updated with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">apidocs</span></code>: Generate API documentation only</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean-api</span></code>: Remove API documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>: Automatically runs <code class="docutils literal notranslate"><span class="pre">apidocs</span></code> before building</p></li>
+</ul>
+</section>
+<section id="github-actions-automation">
+<h3>4. GitHub Actions Automation<a class="headerlink" href="#github-actions-automation" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code> workflow:</p>
+<ul class="simple">
+<li><p>Automatically generates API docs on every push to main</p></li>
+<li><p>Builds and deploys documentation to GitHub Pages</p></li>
+<li><p>Ensures documentation is always up-to-date</p></li>
+</ul>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+<section id="sphinx-configuration-conf-py">
+<h3>Sphinx Configuration (<code class="docutils literal notranslate"><span class="pre">conf.py</span></code>)<a class="headerlink" href="#sphinx-configuration-conf-py" title="Link to this heading">#</a></h3>
+<p>Key settings for API documentation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;sphinx.ext.autodoc&quot;</span><span class="p">,</span>      <span class="c1"># Core autodoc functionality</span>
+    <span class="s2">&quot;sphinx.ext.autosummary&quot;</span><span class="p">,</span>  <span class="c1"># Generate summary tables</span>
+    <span class="s2">&quot;sphinx.ext.napoleon&quot;</span><span class="p">,</span>     <span class="c1"># Support for NumPy/Google docstrings</span>
+    <span class="s2">&quot;numpydoc&quot;</span><span class="p">,</span>               <span class="c1"># NumPy documentation style</span>
+<span class="p">]</span>
+
+<span class="c1"># Mock imports for dependencies not available during doc build</span>
+<span class="n">autodoc_mock_imports</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="s2">&quot;torchvision&quot;</span><span class="p">,</span> <span class="s2">&quot;torchaudio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch_geometric&quot;</span><span class="p">,</span> <span class="s2">&quot;pyg_lib&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;torch_sparse&quot;</span><span class="p">,</span> <span class="s2">&quot;torch_scatter&quot;</span><span class="p">,</span> <span class="s2">&quot;torch_cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;torch_spline_conv&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="sphinx-apidoc-options">
+<h3>sphinx-apidoc Options<a class="headerlink" href="#sphinx-apidoc-options" title="Link to this heading">#</a></h3>
+<p>The script uses these options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>: Overwrite existing files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--separate</span></code>: Create separate pages for each module</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--module-first</span></code>: Put module documentation before submodule docs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-toc</span></code>: Don’t create a table of contents file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--maxdepth</span> <span class="pre">4</span></code>: Maximum depth of submodules to show</p></li>
+</ul>
+</section>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">#</a></h2>
+<section id="excluding-modules">
+<h3>Excluding Modules<a class="headerlink" href="#excluding-modules" title="Link to this heading">#</a></h3>
+<p>To exclude specific modules from documentation, edit <code class="docutils literal notranslate"><span class="pre">generate_api_docs.sh</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-apidoc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--force<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--separate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$PROJECT_DIR</span><span class="s2">/topobench&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$PROJECT_DIR</span><span class="s2">/topobench/__pycache__&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$PROJECT_DIR</span><span class="s2">/topobench/excluded_module&quot;</span><span class="w">  </span><span class="c1"># Add exclusions here</span>
+</pre></div>
+</div>
+</section>
+<section id="changing-documentation-structure">
+<h3>Changing Documentation Structure<a class="headerlink" href="#changing-documentation-structure" title="Link to this heading">#</a></h3>
+<p>Modify <code class="docutils literal notranslate"><span class="pre">generate_api_index.py</span></code> to customize how the API index is organized:</p>
+<ul class="simple">
+<li><p>Group modules by functionality</p></li>
+<li><p>Add descriptions</p></li>
+<li><p>Create separate sections</p></li>
+</ul>
+</section>
+<section id="adding-custom-api-pages">
+<h3>Adding Custom API Pages<a class="headerlink" href="#adding-custom-api-pages" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files in the <code class="docutils literal notranslate"><span class="pre">api/</span></code> directory</p></li>
+<li><p>They will be automatically included in the index</p></li>
+<li><p>Or manually edit <code class="docutils literal notranslate"><span class="pre">api/index.rst</span></code> for custom organization</p></li>
+</ol>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<section id="missing-modules">
+<h3>Missing Modules<a class="headerlink" href="#missing-modules" title="Link to this heading">#</a></h3>
+<p>If modules are missing from the documentation:</p>
+<ol class="arabic simple">
+<li><p>Check that the module has a proper <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p></li>
+<li><p>Ensure the module is not excluded in <code class="docutils literal notranslate"><span class="pre">generate_api_docs.sh</span></code></p></li>
+<li><p>Verify the module imports don’t fail</p></li>
+</ol>
+</section>
+<section id="import-errors-during-build">
+<h3>Import Errors During Build<a class="headerlink" href="#import-errors-during-build" title="Link to this heading">#</a></h3>
+<p>Add problematic packages to <code class="docutils literal notranslate"><span class="pre">autodoc_mock_imports</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">autodoc_mock_imports</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;torch&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;your_problematic_package&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="regeneration-issues">
+<h3>Regeneration Issues<a class="headerlink" href="#regeneration-issues" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Complete clean and rebuild</span>
+<span class="nb">cd</span><span class="w"> </span>docs
+make<span class="w"> </span>clean
+make<span class="w"> </span>clean-api
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Write Good Docstrings</strong>: Follow NumPy documentation style</p></li>
+<li><p><strong>Run Locally Before Pushing</strong>: Test documentation builds before committing</p></li>
+<li><p><strong>Review Generated Files</strong>: Check that API docs look correct</p></li>
+<li><p><strong>Keep Conf.py Updated</strong>: Add new dependencies to <code class="docutils literal notranslate"><span class="pre">autodoc_mock_imports</span></code></p></li>
+</ol>
+</section>
+<section id="ci-cd-integration">
+<h2>CI/CD Integration<a class="headerlink" href="#ci-cd-integration" title="Link to this heading">#</a></h2>
+<p>The documentation is automatically:</p>
+<ul class="simple">
+<li><p><strong>Generated</strong>: On every commit</p></li>
+<li><p><strong>Built</strong>: Using Sphinx</p></li>
+<li><p><strong>Deployed</strong>: To GitHub Pages (on main branch)</p></li>
+</ul>
+<p>No manual intervention required! 🎉</p>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/">Sphinx Documentation</a></p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html">sphinx-apidoc Documentation</a></p></li>
+<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/">NumPy Documentation Guide</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-and-build-documentation-locally">Generate and Build Documentation Locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-and-regenerate">Clean and Regenerate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How It Works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-api-generation-script-generate-api-docs-sh">1. Automatic API Generation Script (<code class="docutils literal notranslate"><span class="pre">generate_api_docs.sh</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-index-generator-generate-api-index-py">2. API Index Generator (<code class="docutils literal notranslate"><span class="pre">generate_api_index.py</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#makefile-integration">3. Makefile Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#github-actions-automation">4. GitHub Actions Automation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx-configuration-conf-py">Sphinx Configuration (<code class="docutils literal notranslate"><span class="pre">conf.py</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphinx-apidoc-options">sphinx-apidoc Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization">Customization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#excluding-modules">Excluding Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-documentation-structure">Changing Documentation Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-custom-api-pages">Adding Custom API Pages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-modules">Missing Modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-errors-during-build">Import Errors During Build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regeneration-issues">Regeneration Issues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-integration">CI/CD Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

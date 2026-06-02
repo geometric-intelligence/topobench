@@ -1,0 +1,7 @@
+topobench.nn.backbones.graph.gps module
+=======================================
+
+.. automodule:: topobench.nn.backbones.graph.gps
+   :members:
+   :show-inheritance:
+   :undoc-members:

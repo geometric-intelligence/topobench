@@ -1,0 +1,15 @@
+topobench.data.preprocessor package
+===================================
+
+.. automodule:: topobench.data.preprocessor
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.data.preprocessor.preprocessor

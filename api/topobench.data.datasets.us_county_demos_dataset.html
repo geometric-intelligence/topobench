@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.data.datasets.us_county_demos_dataset module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.data.datasets.us_county_demos_dataset';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.data.datasets.us_county_demos_dataset.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.data.loaders package" href="topobench.data.loaders.html" />
+    <link rel="prev" title="topobench.data.datasets.mantra_dataset module" href="topobench.data.datasets.mantra_dataset.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.html" class="nav-link">topobench.data package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.datasets.html" class="nav-link">topobench.data.datasets package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.data.datasets.us_county_demos_dataset module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.data.datasets.us_county_demos_dataset">
+<span id="topobench-data-datasets-us-county-demos-dataset-module"></span><h1>topobench.data.datasets.us_county_demos_dataset module<a class="headerlink" href="#module-topobench.data.datasets.us_county_demos_dataset" title="Link to this heading">#</a></h1>
+<p>Dataset class for US County Demographics dataset.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseData</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureStore</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GraphStore</span></code></p>
+<p>A data object describing a homogeneous graph.
+The data object can hold node-level, link-level and graph-level attributes.
+In general, <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> tries to mimic the
+behavior of a regular <a href="#id1"><span class="problematic" id="id2">:python:`Python`</span></a> dictionary.
+In addition, it provides useful functionality for analyzing graph
+structures, and provides basic PyTorch tensor functionalities.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html#data-handling-of-graphs">here</a> for the accompanying
+tutorial.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">edge_index</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Add additional arguments to `data`:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">train_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">test_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+<span class="c1"># Analyzing the graph structure:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">23</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">False</span>
+
+<span class="c1"># PyTorch tensor functionality:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_node_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_index</strong> (<em>LongTensor</em><em>, </em><em>optional</em>) – Graph connectivity in COO format
+with shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">num_edges]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_attr</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Edge feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges,</span> <span class="pre">num_edge_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Graph-level or node-level ground-truth
+labels with arbitrary shape. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pos</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node position matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_dimensions]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>time</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – The timestamps for each event with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges]</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – Additional attributes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.from_dict">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.from_dict" title="Link to this definition">#</a></dt>
+<dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object from a
+dictionary.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.connected_components">
+<span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.connected_components" title="Link to this definition">#</a></dt>
+<dd><p>Extracts connected components of the graph using a union-find
+algorithm. The components are returned as a list of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> objects, where each object
+represents a connected component of the graph.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.1</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span>
+<span class="p">)</span>
+
+<span class="n">components</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">connected_components</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of disconnected components.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[<a class="reference internal" href="#topobench.data.datasets.us_county_demos_dataset.Data" title="topobench.data.datasets.us_county_demos_dataset.Data"><em>Data</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.debug" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.edge_subgraph">
+<span class="sig-name descname"><span class="pre">edge_subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the edge indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.
+Will currently preserve all the nodes in the graph, even if they are
+isolated after subgraph computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The edges to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.get_all_edge_attrs">
+<span class="sig-name descname"><span class="pre">get_all_edge_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.get_all_edge_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Returns all registered edge attributes.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.get_all_tensor_attrs">
+<span class="sig-name descname"><span class="pre">get_all_tensor_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.get_all_tensor_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Obtains all feature attributes stored in <cite>Data</cite>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.is_edge_attr">
+<span class="sig-name descname"><span class="pre">is_edge_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.is_edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes an
+edge-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.is_node_attr">
+<span class="sig-name descname"><span class="pre">is_node_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.is_node_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes a
+node-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.stores_as">
+<span class="sig-name descname"><span class="pre">stores_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.stores_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.subgraph">
+<span class="sig-name descname"><span class="pre">subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the node indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The nodes to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_dict" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.to_heterogeneous">
+<span class="sig-name descname"><span class="pre">to_heterogeneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_heterogeneous" title="Link to this definition">#</a></dt>
+<dd><p>Converts a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object to a
+heterogeneous <code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object.
+For this, node and edge attributes are splitted according to the
+node-level and edge-level vectors <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code> and
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type</span></code>, respectively.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type_names</span></code> can be used to give
+meaningful node and edge type names, respectively.
+That is, the node_type <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> is given by <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names[0]</span></code>.
+If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object was constructed via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">to_homogeneous()</span></code>, the object can
+be reconstructed without any need to pass in additional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – A node-level vector denoting
+the type of each node. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – An edge-level vector denoting
+the type of each edge. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>node_type_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – The names of node types.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type_names</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The names
+of edge types. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.to_namedtuple">
+<span class="sig-name descname"><span class="pre">to_namedtuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_namedtuple" title="Link to this definition">#</a></dt>
+<dd><p>Returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedTuple</span></code> of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the data object with the elements from another data object.
+Added elements will override existing ones (in case of duplicates).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.validate" title="Link to this definition">#</a></dt>
+<dd><p>Validates the correctness of the data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.batch">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.batch" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.edge_attr">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_attr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.edge_index">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_index" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.edge_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">EdgeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.edge_weight">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_weight" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.face">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.face" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.node_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">NodeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.node_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_edge_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_edge_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per edge in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_edge_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_edge_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of edge types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_faces">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_faces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_faces" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of faces in the mesh.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.
+Alias for <a class="reference internal" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_node_features" title="topobench.data.datasets.us_county_demos_dataset.Data.num_node_features"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_node_features</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_node_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_node_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_node_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_node_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of node types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.num_nodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_nodes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of nodes in the graph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of nodes in the data object is automatically inferred
+in case node-level attributes are present, <em>e.g.</em>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.x</span></code>.
+In some cases, however, a graph may only be given without any
+node-level attributes.
+<a href="#id3"><span class="problematic" id="id4">:pyg:`PyG`</span></a> then <em>guesses</em> the number of nodes according to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_index.max().item()</span> <span class="pre">+</span> <span class="pre">1</span></code>.
+However, in case there exists isolated nodes, this number does not
+have to be correct which can result in unexpected behavior.
+Thus, we recommend to set the number of nodes in your data object
+explicitly via <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.num_nodes</span> <span class="pre">=</span> <span class="pre">...</span></code>.
+You will be given a warning that requests you to do so.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.pos">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.pos" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.time">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.time" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.x">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.x" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.Data.y">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.Data.y" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_optional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseContainer</span></code>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.MutableMapping" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutableMapping</span></code></a>[<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_optional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.copy" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.get" title="Link to this definition">#</a></dt>
+<dd><p>Return the value for <cite>key</cite> if <cite>key</cite> is in the dictionary, else
+<cite>default_value</cite> (defaulting to <cite>None</cite>).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">items</span></span></span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.items" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.items_ex">
+<span class="sig-name descname"><span class="pre">items_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.items_ex" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">keys</span></span></span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.keys" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.pop" title="Link to this definition">#</a></dt>
+<dd><p>If key is not found, d is returned if given, otherwise KeyError is raised.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.DictConfig.setdefault">
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D.get(k,d),</span> <span class="pre">also</span> <span class="pre">set</span> <span class="pre">D[k]=d</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">D</span></span></span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.setdefault" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InMemoryDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.pointcloud.geometric_shapes.html#topobench.data.loaders.pointcloud.geometric_shapes.Dataset" title="torch_geometric.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></p>
+<p>Dataset base class for creating graph datasets which easily fit
+into CPU memory.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/tutorial/create_dataset.html#creating-in-memory-datasets">here</a> for the accompanying
+tutorial.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Root directory where the dataset should be saved.
+(optional: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function/transform that takes in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+transformed version.
+The data object will be transformed before every access.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pre_transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function/transform that takes in
+a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+transformed version.
+The data object will be transformed before being saved to disk.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pre_filter</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function that takes in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+boolean value, indicating whether the data object should be
+included in the final dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to print any console output while
+downloading and processing the dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p></li>
+<li><p><strong>force_reload</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to re-process the dataset.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.save">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.save" title="Link to this definition">#</a></dt>
+<dd><p>Saves a list of data objects to the file path <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.collate">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.collate" title="Link to this definition">#</a></dt>
+<dd><p>Collates a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects to the internal
+storage format of <code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.copy" title="Link to this definition">#</a></dt>
+<dd><p>Performs a deep-copy of the dataset. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code> is not given,
+will clone the full dataset. Otherwise, will only clone a subset of the
+dataset from indices <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code>.
+Indices can be slices, lists, tuples, and a <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code> of type long or bool.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cpu">
+<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cpu" title="Link to this definition">#</a></dt>
+<dd><p>Moves the dataset to CPU memory.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cuda">
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cuda" title="Link to this definition">#</a></dt>
+<dd><p>Moves the dataset toto CUDA memory.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.get" title="Link to this definition">#</a></dt>
+<dd><p>Gets the data object at index <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.len">
+<span class="sig-name descname"><span class="pre">len</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.len" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of data objects stored in the dataset.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_cls=&lt;class</span> <span class="pre">'torch_geometric.data.data.Data'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.load" title="Link to this definition">#</a></dt>
+<dd><p>Loads the dataset from the file path <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to" title="Link to this definition">#</a></dt>
+<dd><p>Performs device conversion of the whole dataset.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to_on_disk_dataset">
+<span class="sig-name descname"><span class="pre">to_on_disk_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqlite'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to_on_disk_dataset" title="Link to this definition">#</a></dt>
+<dd><p>Converts the <a class="reference internal" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset" title="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a> to a <code class="xref py py-class docutils literal notranslate"><span class="pre">OnDiskDataset</span></code>
+variant. Useful for distributed training and hardware instances with
+limited amount of shared memory.</p>
+<dl class="simple">
+<dt>root (str, optional): Root directory where the dataset should be saved.</dt><dd><p>If set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, will save the dataset in
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">root/on_disk</span></code>.
+Note that it is important to specify <code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code> to account for
+different dataset splits. (optional: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p>
+</dd>
+<dt>backend (str): The <code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code> backend to use.</dt><dd><p>(default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;sqlite&quot;</span></code>)</p>
+</dd>
+<dt>log (bool, optional): Whether to print any console output while</dt><dd><p>processing the dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.data">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><span class="pre">Any</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.data" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.num_classes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.num_classes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of classes in the dataset.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.processed_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.processed_file_names" title="Link to this definition">#</a></dt>
+<dd><p>The name of the files in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.processed_dir</span></code> folder that
+must be present in order to skip processing.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.raw_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.raw_file_names" title="Link to this definition">#</a></dt>
+<dd><p>The name of the files in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.raw_dir</span></code> folder that must
+be present in order to skip downloading.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">USCountyDemosDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.graph.adme_datasets.html#topobench.data.loaders.graph.adme_datasets.InMemoryDataset" title="torch_geometric.data.in_memory_dataset.InMemoryDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a></p>
+<p>Dataset class for US County Demographics dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>root</strong><span class="classifier">str</span></dt><dd><p>Root directory where the dataset will be saved.</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>Name of the dataset.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters for the dataset.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>URLS (dict): Dictionary containing the URLs for downloading the dataset.</strong></dt><dd></dd>
+<dt><strong>FILE_FORMAT (dict): Dictionary containing the file formats for the dataset.</strong></dt><dd></dd>
+<dt><strong>RAW_FILE_NAMES (dict): Dictionary containing the raw file names for the dataset.</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.download" title="Link to this definition">#</a></dt>
+<dd><p>Download the dataset from a URL and saves it to the raw directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><strong>FileNotFoundError</strong></a> – If the dataset URL is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.process" title="Link to this definition">#</a></dt>
+<dd><p>Handle the data for the dataset.</p>
+<p>This method loads the US county demographics data, applies any pre-
+processing transformations if specified, and saves the processed data
+to the appropriate location.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.FILE_FORMAT">
+<span class="sig-name descname"><span class="pre">FILE_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'US-county-demos':</span> <span class="pre">'zip'}</span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.FILE_FORMAT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.RAW_FILE_NAMES">
+<span class="sig-name descname"><span class="pre">RAW_FILE_NAMES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.RAW_FILE_NAMES" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.URLS">
+<span class="sig-name descname"><span class="pre">URLS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'US-county-demos':</span> <span class="pre">'https://drive.google.com/file/d/1FNF_LbByhYNICPNdT6tMaJI9FxuSvvLK/view?usp=sharing'}</span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.URLS" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_dir">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_dir" title="Link to this definition">#</a></dt>
+<dd><p>Return the path to the processed directory of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Path to the processed directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_file_names" title="Link to this definition">#</a></dt>
+<dd><p>Return the processed file name for the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Processed file name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_dir">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_dir" title="Link to this definition">#</a></dt>
+<dd><p>Return the path to the raw directory of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Path to the raw directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_file_names" title="Link to this definition">#</a></dt>
+<dd><p>Return the raw file names for the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>list[str]</dt><dd><p>List of raw file names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.download_file_from_drive">
+<span class="sig-name descname"><span class="pre">download_file_from_drive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_link</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_save</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tar.gz'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.download_file_from_drive" title="Link to this definition">#</a></dt>
+<dd><p>Download a file from a Google Drive link and saves it to the specified path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>file_link</strong><span class="classifier">str</span></dt><dd><p>The Google Drive link of the file to download.</p>
+</dd>
+<dt><strong>path_to_save</strong><span class="classifier">str</span></dt><dd><p>The path where the downloaded file will be saved.</p>
+</dd>
+<dt><strong>dataset_name</strong><span class="classifier">str</span></dt><dd><p>The name of the dataset.</p>
+</dd>
+<dt><strong>file_format</strong><span class="classifier">str, optional</span></dt><dd><p>The format of the downloaded file. Defaults to “tar.gz”.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.extract_zip">
+<span class="sig-name descname"><span class="pre">extract_zip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.extract_zip" title="Link to this definition">#</a></dt>
+<dd><p>Extracts a zip archive to a specific folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The path to the tar archive.</p></li>
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The folder.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, will not print anything to the
+console. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.us_county_demos_dataset.read_us_county_demos">
+<span class="sig-name descname"><span class="pre">read_us_county_demos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2012</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Election'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.us_county_demos_dataset.read_us_county_demos" title="Link to this definition">#</a></dt>
+<dd><p>Load US County Demos dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>Path to the dataset.</p>
+</dd>
+<dt><strong>year</strong><span class="classifier">int, optional</span></dt><dd><p>Year to load the features (default: 2012).</p>
+</dd>
+<dt><strong>y_col</strong><span class="classifier">str, optional</span></dt><dd><p>Column to use as label. Can be one of [‘Election’, ‘MedianIncome’,
+‘MigraRate’, ‘BirthRate’, ‘DeathRate’, ‘BachelorRate’, ‘UnemploymentRate’] (default: “Election”).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>Data object of the graph for the US County Demos dataset.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.data.datasets.mantra_dataset.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.data.datasets.mantra_dataset module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.data.loaders.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.data.loaders package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig"><code class="docutils literal notranslate"><span class="pre">DictConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.__init__"><code class="docutils literal notranslate"><span class="pre">DictConfig.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.copy"><code class="docutils literal notranslate"><span class="pre">DictConfig.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.get"><code class="docutils literal notranslate"><span class="pre">DictConfig.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.items"><code class="docutils literal notranslate"><span class="pre">DictConfig.items()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.items_ex"><code class="docutils literal notranslate"><span class="pre">DictConfig.items_ex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.keys"><code class="docutils literal notranslate"><span class="pre">DictConfig.keys()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.pop"><code class="docutils literal notranslate"><span class="pre">DictConfig.pop()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.DictConfig.setdefault"><code class="docutils literal notranslate"><span class="pre">DictConfig.setdefault()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.save"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.save()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.collate"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.collate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.__init__"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.copy"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cpu"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.cpu()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.cuda"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.cuda()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.get"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.len"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.len()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.load"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.to_on_disk_dataset"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.to_on_disk_dataset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.data"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.num_classes"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.num_classes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.processed_file_names"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.processed_file_names</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.InMemoryDataset.raw_file_names"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.raw_file_names</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.__init__"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.download"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.download()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.process"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.process()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.FILE_FORMAT"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.FILE_FORMAT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.RAW_FILE_NAMES"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.RAW_FILE_NAMES</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.URLS"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.URLS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_dir"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.processed_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.processed_file_names"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.processed_file_names</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_dir"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.raw_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.USCountyDemosDataset.raw_file_names"><code class="docutils literal notranslate"><span class="pre">USCountyDemosDataset.raw_file_names</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.download_file_from_drive"><code class="docutils literal notranslate"><span class="pre">download_file_from_drive()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.extract_zip"><code class="docutils literal notranslate"><span class="pre">extract_zip()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.us_county_demos_dataset.read_us_county_demos"><code class="docutils literal notranslate"><span class="pre">read_us_county_demos()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

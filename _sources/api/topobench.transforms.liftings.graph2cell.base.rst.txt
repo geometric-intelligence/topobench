@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2cell.base module
+====================================================
+
+.. automodule:: topobench.transforms.liftings.graph2cell.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,1026 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.data.utils.split_utils module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.data.utils.split_utils';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.data.utils.split_utils.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.data.utils.utils module" href="topobench.data.utils.utils.html" />
+    <link rel="prev" title="topobench.data.utils.io_utils module" href="topobench.data.utils.io_utils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.html" class="nav-link">topobench.data package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.utils.html" class="nav-link">topobench.data.utils package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.data.utils.split_utils module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.data.utils.split_utils">
+<span id="topobench-data-utils-split-utils-module"></span><h1>topobench.data.utils.split_utils module<a class="headerlink" href="#module-topobench.data.utils.split_utils" title="Link to this heading">#</a></h1>
+<p>Split utilities.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.DataloadDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataloadDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.DataloadDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.pointcloud.geometric_shapes.html#topobench.data.loaders.pointcloud.geometric_shapes.Dataset" title="torch_geometric.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></p>
+<p>Custom dataset to return all the values added to the dataset object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_lst</strong><span class="classifier">list[torch_geometric.data.Data]</span></dt><dd><p>List of torch_geometric.data.Data objects.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.DataloadDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.DataloadDataset.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.DataloadDataset.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.DataloadDataset.get" title="Link to this definition">#</a></dt>
+<dd><p>Get data object from data list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>idx</strong><span class="classifier">int</span></dt><dd><p>Index of the data object to get.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>Tuple containing a list of all the values for the data and the corresponding keys.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.DataloadDataset.len">
+<span class="sig-name descname"><span class="pre">len</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.DataloadDataset.len" title="Link to this definition">#</a></dt>
+<dd><p>Return the length of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>int</dt><dd><p>Length of the dataset.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.StratifiedKFold">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StratifiedKFold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.StratifiedKFold" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseKFold</span></code></p>
+<p>Class-wise stratified K-Fold cross-validator.</p>
+<p>Provides train/test indices to split data in train/test sets.</p>
+<p>This cross-validation object is a variation of KFold that returns
+stratified folds. The folds are made by preserving the percentage of
+samples for each class in <cite>y</cite> in a binary or multiclass classification
+setting.</p>
+<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<p>For visualisation of cross-validation behaviour and
+comparison between common scikit-learn split methods
+refer to <span class="xref std std-ref">sphx_glr_auto_examples_model_selection_plot_cv_indices.py</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stratification on the class label solves an engineering problem rather
+than a statistical one. See <span class="xref std std-ref">stratification</span> for more details.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_splits</strong><span class="classifier">int, default=5</span></dt><dd><p>Number of folds. Must be at least 2.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.22: </span><code class="docutils literal notranslate"><span class="pre">n_splits</span></code> default value changed from 3 to 5.</p>
+</div>
+</dd>
+<dt><strong>shuffle</strong><span class="classifier">bool, default=False</span></dt><dd><p>Whether to shuffle each class’s samples before splitting into batches.
+Note that the samples within each split will not be shuffled.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance or None, default=None</span></dt><dd><p>When <cite>shuffle</cite> is True, <cite>random_state</cite> affects the ordering of the
+indices, which controls the randomness of each fold for each class.
+Otherwise, leave <cite>random_state</cite> as <cite>None</cite>.
+Pass an int for reproducible output across multiple function calls.
+See <span class="xref std std-term">Glossary</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></dt><dd><p>Repeats Stratified K-Fold n times.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The implementation is designed to:</p>
+<ul class="simple">
+<li><p>Generate test sets such that all contain the same distribution of
+classes, or as close as possible.</p></li>
+<li><p>Be invariant to class label: relabelling <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">[&quot;Happy&quot;,</span> <span class="pre">&quot;Sad&quot;]</span></code> to
+<code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">0]</span></code> should not change the indices generated.</p></li>
+<li><p>Preserve order dependencies in the dataset ordering, when
+<code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code>: all samples from class k in some test set were
+contiguous in y, or separated in y by samples from classes other than k.</p></li>
+<li><p>Generate test sets where the smallest and largest differ by at most one
+sample.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.22: </span>The previous implementation did not follow the last constraint.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">skf</span><span class="o">.</span><span class="n">get_n_splits</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">skf</span><span class="p">)</span>
+<span class="go">StratifiedKFold(n_splits=2, random_state=None, shuffle=False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fold </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Train: index=</span><span class="si">{</span><span class="n">train_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Test:  index=</span><span class="si">{</span><span class="n">test_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Fold 0:</span>
+<span class="go">  Train: index=[1 3]</span>
+<span class="go">  Test:  index=[0 2]</span>
+<span class="go">Fold 1:</span>
+<span class="go">  Train: index=[0 2]</span>
+<span class="go">  Test:  index=[1 3]</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.StratifiedKFold.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.StratifiedKFold.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.StratifiedKFold.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.StratifiedKFold.split" title="Link to this definition">#</a></dt>
+<dd><p>Generate indices to split data into training and test set.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Training data, where <cite>n_samples</cite> is the number of samples
+and <cite>n_features</cite> is the number of features.</p>
+<p>Note that providing <code class="docutils literal notranslate"><span class="pre">y</span></code> is sufficient to generate the splits and
+hence <code class="docutils literal notranslate"><span class="pre">np.zeros(n_samples)</span></code> may be used as a placeholder for
+<code class="docutils literal notranslate"><span class="pre">X</span></code> instead of actual training data.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,)</span></dt><dd><p>The target variable for supervised learning problems.
+Stratification is done based on the y labels.</p>
+</dd>
+<dt><strong>groups</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Always ignored, exists for API compatibility.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>train</strong><span class="classifier">ndarray</span></dt><dd><p>The training set indices for that split.</p>
+</dd>
+<dt><strong>test</strong><span class="classifier">ndarray</span></dt><dd><p>The testing set indices for that split.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Randomized CV splitters may return different results for each call of
+split. You can make the results identical by setting <cite>random_state</cite>
+to an integer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.assign_train_val_test_mask_to_graphs">
+<span class="sig-name descname"><span class="pre">assign_train_val_test_mask_to_graphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.assign_train_val_test_mask_to_graphs" title="Link to this definition">#</a></dt>
+<dd><p>Split the graph dataset into train, validation, and test datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset</strong><span class="classifier">torch_geometric.data.Dataset</span></dt><dd><p>Considered dataset.</p>
+</dd>
+<dt><strong>split_idx</strong><span class="classifier">dict</span></dt><dd><p>Dictionary containing the train, validation, and test indices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple:</dt><dd><p>Tuple containing the train, validation, and test datasets.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.k_fold_split">
+<span class="sig-name descname"><span class="pre">k_fold_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.k_fold_split" title="Link to this definition">#</a></dt>
+<dd><p>Return train and valid indices as in K-Fold Cross-Validation.</p>
+<p>If the split already exists it loads it automatically, otherwise it creates the
+split file for the subsequent runs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Label tensor.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters.</p>
+</dd>
+<dt><strong>root</strong><span class="classifier">str, optional</span></dt><dd><p>Root directory for data splits. Overwrite the default directory.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>Dictionary containing the train, validation and test indices, with keys “train”, “valid”, and “test”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.k_fold_split_fixed">
+<span class="sig-name descname"><span class="pre">k_fold_split_fixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_idx_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.k_fold_split_fixed" title="Link to this definition">#</a></dt>
+<dd><p>Return train and valid indices as in K-Fold Cross-Validation.</p>
+<p>If the split already exists it loads it automatically, otherwise it creates the
+split file for the subsequent runs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Label tensor.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters.</p>
+</dd>
+<dt><strong>split_idx_list</strong><span class="classifier">dict</span></dt><dd><p>Pre-computed split indices keyed by “train”, “valid”, and “test”,
+each containing one entry per fold.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>Dictionary containing the train, validation and test indices, with keys “train”, “valid”, and “test”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.load_coauthorship_hypergraph_splits">
+<span class="sig-name descname"><span class="pre">load_coauthorship_hypergraph_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_prop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.load_coauthorship_hypergraph_splits" title="Link to this definition">#</a></dt>
+<dd><p>Load the split generated by rand_train_test_idx function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>Graph dataset.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters.</p>
+</dd>
+<dt><strong>train_prop</strong><span class="classifier">float</span></dt><dd><p>Proportion of training data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data:</dt><dd><p>Graph dataset with the specified split.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.load_inductive_splits">
+<span class="sig-name descname"><span class="pre">load_inductive_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.load_inductive_splits" title="Link to this definition">#</a></dt>
+<dd><p>Load multiple-graph datasets with the specified split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset</strong><span class="classifier">torch_geometric.data.Dataset</span></dt><dd><p>Graph dataset.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list:</dt><dd><p>List containing the train, validation, and test splits.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.load_transductive_splits">
+<span class="sig-name descname"><span class="pre">load_transductive_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.load_transductive_splits" title="Link to this definition">#</a></dt>
+<dd><p>Load the graph dataset with the specified split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset</strong><span class="classifier">torch_geometric.data.Dataset</span></dt><dd><p>Graph dataset.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list:</dt><dd><p>List containing the train, validation, and test splits.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.random_splitting">
+<span class="sig-name descname"><span class="pre">random_splitting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_data_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.random_splitting" title="Link to this definition">#</a></dt>
+<dd><p>Randomly splits label into train/valid/test splits.</p>
+<p>Adapted from <a class="github reference external" href="https://github.com/CUAI/Non-Homophily-Benchmarks">CUAI/Non-Homophily-Benchmarks</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Label tensor.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameter.</p>
+</dd>
+<dt><strong>root</strong><span class="classifier">str, optional</span></dt><dd><p>Root directory for data splits. Overwrite the default directory.</p>
+</dd>
+<dt><strong>global_data_seed</strong><span class="classifier">int</span></dt><dd><p>Seed for the random number generator.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict:</dt><dd><p>Dictionary containing the train, validation and test indices with keys “train”, “valid”, and “test”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.stratified_splitting">
+<span class="sig-name descname"><span class="pre">stratified_splitting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_data_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.stratified_splitting" title="Link to this definition">#</a></dt>
+<dd><p>Stratified splits label into train/valid/test splits.</p>
+<p>Adapted from <a class="github reference external" href="https://github.com/CUAI/Non-Homophily-Benchmarks">CUAI/Non-Homophily-Benchmarks</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Label tensor.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameter.</p>
+</dd>
+<dt><strong>global_data_seed</strong><span class="classifier">int</span></dt><dd><p>Seed for the random number generator.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict:</dt><dd><p>Dictionary containing the train, validation and test indices with keys “train”, “valid”, and “test”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.utils.split_utils.train_test_split">
+<span class="sig-name descname"><span class="pre">train_test_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.utils.split_utils.train_test_split" title="Link to this definition">#</a></dt>
+<dd><p>Split arrays or matrices into random train and test subsets.</p>
+<p>Quick utility that wraps input validation,
+<code class="docutils literal notranslate"><span class="pre">next(ShuffleSplit().split(X,</span> <span class="pre">y))</span></code>, and application to input data
+into a single call for splitting (and optionally subsampling) data into a
+one-liner.</p>
+<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>*arrays</strong><span class="classifier">sequence of indexables with same length / shape[0]</span></dt><dd><p>Allowed inputs are lists, numpy arrays, scipy-sparse
+matrices or pandas dataframes.</p>
+</dd>
+<dt><strong>test_size</strong><span class="classifier">float or int, default=None</span></dt><dd><p>If float, should be between 0.0 and 1.0 and represent the proportion
+of the dataset to include in the test split. If int, represents the
+absolute number of test samples. If None, the value is set to the
+complement of the train size. If <code class="docutils literal notranslate"><span class="pre">train_size</span></code> is also None, it will
+be set to 0.25.</p>
+</dd>
+<dt><strong>train_size</strong><span class="classifier">float or int, default=None</span></dt><dd><p>If float, should be between 0.0 and 1.0 and represent the
+proportion of the dataset to include in the train split. If
+int, represents the absolute number of train samples. If None,
+the value is automatically set to the complement of the test size.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance or None, default=None</span></dt><dd><p>Controls the shuffling applied to the data before applying the split.
+Pass an int for reproducible output across multiple function calls.
+See <span class="xref std std-term">Glossary</span>.</p>
+</dd>
+<dt><strong>shuffle</strong><span class="classifier">bool, default=True</span></dt><dd><p>Whether or not to shuffle the data before splitting. If shuffle=False
+then stratify must be None.</p>
+</dd>
+<dt><strong>stratify</strong><span class="classifier">array-like, default=None</span></dt><dd><p>If not None, data is split in a stratified fashion, using this as
+the class labels.
+Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>splitting</strong><span class="classifier">list, length=2 * len(arrays)</span></dt><dd><p>List containing train-test split of inputs.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.16: </span>If the input is sparse, the output will be a
+<code class="docutils literal notranslate"><span class="pre">scipy.sparse.csr_matrix</span></code>. Else, output type is the same as the
+input type.</p>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [4, 5],</span>
+<span class="go">       [6, 7],</span>
+<span class="go">       [8, 9]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span>
+<span class="go">array([[4, 5],</span>
+<span class="go">       [0, 1],</span>
+<span class="go">       [6, 7]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
+<span class="go">[2, 0, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span>
+<span class="go">array([[2, 3],</span>
+<span class="go">       [8, 9]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span>
+<span class="go">[1, 4]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_test_split</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[0, 1, 2], [3, 4]]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)</span>
+<span class="go">0                5.1               3.5                1.4               0.2</span>
+<span class="go">1                4.9               3.0                1.4               0.2</span>
+<span class="go">2                4.7               3.2                1.3               0.2</span>
+<span class="go">3                4.6               3.1                1.5               0.2</span>
+<span class="go">4                5.0               3.6                1.4               0.2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">0    0</span>
+<span class="go">1    0</span>
+<span class="go">2    0</span>
+<span class="go">3    0</span>
+<span class="go">4    0</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)</span>
+<span class="go">96                 5.7               2.9                4.2               1.3</span>
+<span class="go">105                7.6               3.0                6.6               2.1</span>
+<span class="go">66                 5.6               3.0                4.5               1.5</span>
+<span class="go">0                  5.1               3.5                1.4               0.2</span>
+<span class="go">122                7.7               2.8                6.7               2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">96     1</span>
+<span class="go">105    2</span>
+<span class="go">66     1</span>
+<span class="go">0      0</span>
+<span class="go">122    2</span>
+<span class="go">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)</span>
+<span class="go">73                 6.1               2.8                4.7               1.2</span>
+<span class="go">18                 5.7               3.8                1.7               0.3</span>
+<span class="go">118                7.7               2.6                6.9               2.3</span>
+<span class="go">78                 6.0               2.9                4.5               1.5</span>
+<span class="go">76                 6.8               2.8                4.8               1.4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="go">73     1</span>
+<span class="go">18     0</span>
+<span class="go">118    2</span>
+<span class="go">78     1</span>
+<span class="go">76     1</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.data.utils.io_utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.data.utils.io_utils module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.data.utils.utils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.data.utils.utils module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.DataloadDataset"><code class="docutils literal notranslate"><span class="pre">DataloadDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.DataloadDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.DataloadDataset.get"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.DataloadDataset.len"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.len()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.StratifiedKFold"><code class="docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.StratifiedKFold.__init__"><code class="docutils literal notranslate"><span class="pre">StratifiedKFold.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.StratifiedKFold.split"><code class="docutils literal notranslate"><span class="pre">StratifiedKFold.split()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.assign_train_val_test_mask_to_graphs"><code class="docutils literal notranslate"><span class="pre">assign_train_val_test_mask_to_graphs()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.k_fold_split"><code class="docutils literal notranslate"><span class="pre">k_fold_split()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.k_fold_split_fixed"><code class="docutils literal notranslate"><span class="pre">k_fold_split_fixed()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.load_coauthorship_hypergraph_splits"><code class="docutils literal notranslate"><span class="pre">load_coauthorship_hypergraph_splits()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.load_inductive_splits"><code class="docutils literal notranslate"><span class="pre">load_inductive_splits()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.load_transductive_splits"><code class="docutils literal notranslate"><span class="pre">load_transductive_splits()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.random_splitting"><code class="docutils literal notranslate"><span class="pre">random_splitting()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.stratified_splitting"><code class="docutils literal notranslate"><span class="pre">stratified_splitting()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.utils.split_utils.train_test_split"><code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

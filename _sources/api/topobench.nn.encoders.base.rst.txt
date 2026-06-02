@@ -1,0 +1,7 @@
+topobench.nn.encoders.base module
+=================================
+
+.. automodule:: topobench.nn.encoders.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

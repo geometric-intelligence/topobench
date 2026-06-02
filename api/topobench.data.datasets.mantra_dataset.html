@@ -1,0 +1,1875 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.data.datasets.mantra_dataset module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.data.datasets.mantra_dataset';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.data.datasets.mantra_dataset.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.data.datasets.us_county_demos_dataset module" href="topobench.data.datasets.us_county_demos_dataset.html" />
+    <link rel="prev" title="topobench.data.datasets.hypergraph_datasets module" href="topobench.data.datasets.hypergraph_datasets.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.html" class="nav-link">topobench.data package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.data.datasets.html" class="nav-link">topobench.data.datasets package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.data.datasets.mantra_dataset module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.data.datasets.mantra_dataset">
+<span id="topobench-data-datasets-mantra-dataset-module"></span><h1>topobench.data.datasets.mantra_dataset module<a class="headerlink" href="#module-topobench.data.datasets.mantra_dataset" title="Link to this heading">#</a></h1>
+<p>Dataset class MANTRA dataset.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseData</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureStore</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GraphStore</span></code></p>
+<p>A data object describing a homogeneous graph.
+The data object can hold node-level, link-level and graph-level attributes.
+In general, <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> tries to mimic the
+behavior of a regular <a href="#id1"><span class="problematic" id="id2">:python:`Python`</span></a> dictionary.
+In addition, it provides useful functionality for analyzing graph
+structures, and provides basic PyTorch tensor functionalities.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html#data-handling-of-graphs">here</a> for the accompanying
+tutorial.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">edge_index</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Add additional arguments to `data`:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">train_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">test_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+<span class="c1"># Analyzing the graph structure:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">23</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">False</span>
+
+<span class="c1"># PyTorch tensor functionality:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_node_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_index</strong> (<em>LongTensor</em><em>, </em><em>optional</em>) – Graph connectivity in COO format
+with shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">num_edges]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_attr</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Edge feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges,</span> <span class="pre">num_edge_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Graph-level or node-level ground-truth
+labels with arbitrary shape. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pos</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node position matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_dimensions]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>time</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – The timestamps for each event with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges]</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – Additional attributes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.from_dict">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.from_dict" title="Link to this definition">#</a></dt>
+<dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object from a
+dictionary.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.connected_components">
+<span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.connected_components" title="Link to this definition">#</a></dt>
+<dd><p>Extracts connected components of the graph using a union-find
+algorithm. The components are returned as a list of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> objects, where each object
+represents a connected component of the graph.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.1</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span>
+<span class="p">)</span>
+
+<span class="n">components</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">connected_components</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of disconnected components.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[<a class="reference internal" href="#topobench.data.datasets.mantra_dataset.Data" title="topobench.data.datasets.mantra_dataset.Data"><em>Data</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.debug" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.edge_subgraph">
+<span class="sig-name descname"><span class="pre">edge_subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.edge_subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the edge indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.
+Will currently preserve all the nodes in the graph, even if they are
+isolated after subgraph computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The edges to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.get_all_edge_attrs">
+<span class="sig-name descname"><span class="pre">get_all_edge_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.get_all_edge_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Returns all registered edge attributes.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.get_all_tensor_attrs">
+<span class="sig-name descname"><span class="pre">get_all_tensor_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.get_all_tensor_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Obtains all feature attributes stored in <cite>Data</cite>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.is_edge_attr">
+<span class="sig-name descname"><span class="pre">is_edge_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.is_edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes an
+edge-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.is_node_attr">
+<span class="sig-name descname"><span class="pre">is_node_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.is_node_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes a
+node-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.stores_as">
+<span class="sig-name descname"><span class="pre">stores_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.stores_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.subgraph">
+<span class="sig-name descname"><span class="pre">subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the node indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The nodes to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.to_dict" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.to_heterogeneous">
+<span class="sig-name descname"><span class="pre">to_heterogeneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.to_heterogeneous" title="Link to this definition">#</a></dt>
+<dd><p>Converts a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object to a
+heterogeneous <code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object.
+For this, node and edge attributes are splitted according to the
+node-level and edge-level vectors <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code> and
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type</span></code>, respectively.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type_names</span></code> can be used to give
+meaningful node and edge type names, respectively.
+That is, the node_type <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> is given by <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names[0]</span></code>.
+If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object was constructed via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">to_homogeneous()</span></code>, the object can
+be reconstructed without any need to pass in additional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – A node-level vector denoting
+the type of each node. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – An edge-level vector denoting
+the type of each edge. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>node_type_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – The names of node types.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type_names</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The names
+of edge types. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.to_namedtuple">
+<span class="sig-name descname"><span class="pre">to_namedtuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.to_namedtuple" title="Link to this definition">#</a></dt>
+<dd><p>Returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedTuple</span></code> of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the data object with the elements from another data object.
+Added elements will override existing ones (in case of duplicates).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.validate" title="Link to this definition">#</a></dt>
+<dd><p>Validates the correctness of the data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.batch">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.batch" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.edge_attr">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_attr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.edge_index">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.edge_index" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.edge_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">EdgeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.edge_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.edge_weight">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.edge_weight" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.face">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.face" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.node_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">NodeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.node_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_edge_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_edge_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per edge in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_edge_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_edge_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of edge types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_faces">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_faces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_faces" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of faces in the mesh.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.
+Alias for <a class="reference internal" href="#topobench.data.datasets.mantra_dataset.Data.num_node_features" title="topobench.data.datasets.mantra_dataset.Data.num_node_features"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_node_features</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_node_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_node_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_node_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_node_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of node types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.num_nodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.num_nodes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of nodes in the graph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of nodes in the data object is automatically inferred
+in case node-level attributes are present, <em>e.g.</em>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.x</span></code>.
+In some cases, however, a graph may only be given without any
+node-level attributes.
+<a href="#id3"><span class="problematic" id="id4">:pyg:`PyG`</span></a> then <em>guesses</em> the number of nodes according to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_index.max().item()</span> <span class="pre">+</span> <span class="pre">1</span></code>.
+However, in case there exists isolated nodes, this number does not
+have to be correct which can result in unexpected behavior.
+Thus, we recommend to set the number of nodes in your data object
+explicitly via <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.num_nodes</span> <span class="pre">=</span> <span class="pre">...</span></code>.
+You will be given a warning that requests you to do so.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.pos">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.pos" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.time">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.time" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.x">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.x" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.Data.y">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.Data.y" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DictConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_optional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseContainer</span></code>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.MutableMapping" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutableMapping</span></code></a>[<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code></a>, <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_optional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.copy" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.get" title="Link to this definition">#</a></dt>
+<dd><p>Return the value for <cite>key</cite> if <cite>key</cite> is in the dictionary, else
+<cite>default_value</cite> (defaulting to <cite>None</cite>).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">items</span></span></span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.items" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.items_ex">
+<span class="sig-name descname"><span class="pre">items_ex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.items_ex" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">keys</span></span></span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.keys" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.pop" title="Link to this definition">#</a></dt>
+<dd><p>If key is not found, d is returned if given, otherwise KeyError is raised.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.DictConfig.setdefault">
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">D.get(k,d),</span> <span class="pre">also</span> <span class="pre">set</span> <span class="pre">D[k]=d</span> <span class="pre">if</span> <span class="pre">k</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">D</span></span></span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.DictConfig.setdefault" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InMemoryDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.pointcloud.geometric_shapes.html#topobench.data.loaders.pointcloud.geometric_shapes.Dataset" title="torch_geometric.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></p>
+<p>Dataset base class for creating graph datasets which easily fit
+into CPU memory.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/tutorial/create_dataset.html#creating-in-memory-datasets">here</a> for the accompanying
+tutorial.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Root directory where the dataset should be saved.
+(optional: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function/transform that takes in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+transformed version.
+The data object will be transformed before every access.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pre_transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function/transform that takes in
+a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+transformed version.
+The data object will be transformed before being saved to disk.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pre_filter</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function that takes in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object and returns a
+boolean value, indicating whether the data object should be
+included in the final dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to print any console output while
+downloading and processing the dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p></li>
+<li><p><strong>force_reload</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to re-process the dataset.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.save">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.save" title="Link to this definition">#</a></dt>
+<dd><p>Saves a list of data objects to the file path <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.collate">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">collate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.collate" title="Link to this definition">#</a></dt>
+<dd><p>Collates a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects to the internal
+storage format of <code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.copy" title="Link to this definition">#</a></dt>
+<dd><p>Performs a deep-copy of the dataset. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code> is not given,
+will clone the full dataset. Otherwise, will only clone a subset of the
+dataset from indices <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code>.
+Indices can be slices, lists, tuples, and a <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.Tensor</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code> of type long or bool.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.cpu">
+<span class="sig-name descname"><span class="pre">cpu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.cpu" title="Link to this definition">#</a></dt>
+<dd><p>Moves the dataset to CPU memory.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.cuda">
+<span class="sig-name descname"><span class="pre">cuda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.cuda" title="Link to this definition">#</a></dt>
+<dd><p>Moves the dataset toto CUDA memory.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.get" title="Link to this definition">#</a></dt>
+<dd><p>Gets the data object at index <code class="xref py py-obj docutils literal notranslate"><span class="pre">idx</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.len">
+<span class="sig-name descname"><span class="pre">len</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.len" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of data objects stored in the dataset.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_cls=&lt;class</span> <span class="pre">'torch_geometric.data.data.Data'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.load" title="Link to this definition">#</a></dt>
+<dd><p>Loads the dataset from the file path <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.to" title="Link to this definition">#</a></dt>
+<dd><p>Performs device conversion of the whole dataset.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.to_on_disk_dataset">
+<span class="sig-name descname"><span class="pre">to_on_disk_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqlite'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.to_on_disk_dataset" title="Link to this definition">#</a></dt>
+<dd><p>Converts the <a class="reference internal" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset" title="topobench.data.datasets.mantra_dataset.InMemoryDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a> to a <code class="xref py py-class docutils literal notranslate"><span class="pre">OnDiskDataset</span></code>
+variant. Useful for distributed training and hardware instances with
+limited amount of shared memory.</p>
+<dl class="simple">
+<dt>root (str, optional): Root directory where the dataset should be saved.</dt><dd><p>If set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, will save the dataset in
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">root/on_disk</span></code>.
+Note that it is important to specify <code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code> to account for
+different dataset splits. (optional: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p>
+</dd>
+<dt>backend (str): The <code class="xref py py-class docutils literal notranslate"><span class="pre">Database</span></code> backend to use.</dt><dd><p>(default: <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;sqlite&quot;</span></code>)</p>
+</dd>
+<dt>log (bool, optional): Whether to print any console output while</dt><dd><p>processing the dataset. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.data">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><span class="pre">Any</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.data" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.num_classes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.num_classes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of classes in the dataset.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.processed_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.processed_file_names" title="Link to this definition">#</a></dt>
+<dd><p>The name of the files in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.processed_dir</span></code> folder that
+must be present in order to skip processing.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.InMemoryDataset.raw_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.raw_file_names" title="Link to this definition">#</a></dt>
+<dd><p>The name of the files in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.raw_dir</span></code> folder that must
+be present in order to skip downloading.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MantraDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.graph.adme_datasets.html#topobench.data.loaders.graph.adme_datasets.InMemoryDataset" title="torch_geometric.data.in_memory_dataset.InMemoryDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a></p>
+<p>Dataset class for MANTRA manifold dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>root</strong><span class="classifier">str</span></dt><dd><p>Root directory where the dataset will be saved.</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>Name of the dataset.</p>
+</dd>
+<dt><strong>parameters</strong><span class="classifier">DictConfig</span></dt><dd><p>Configuration parameters for the dataset.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>URLS (dict): Dictionary containing the URLs for downloading the dataset.</strong></dt><dd></dd>
+<dt><strong>FILE_FORMAT (dict): Dictionary containing the file formats for the dataset.</strong></dt><dd></dd>
+<dt><strong>RAW_FILE_NAMES (dict): Dictionary containing the raw file names for the dataset.</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.download" title="Link to this definition">#</a></dt>
+<dd><p>Download the dataset from a URL and saves it to the raw directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><strong>FileNotFoundError</strong></a> – If the dataset URL is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.process" title="Link to this definition">#</a></dt>
+<dd><p>Handle the data for the dataset.</p>
+<p>This method loads the JSON file for MANTRA for the specified manifold
+dimension, applies the respective preprocessing if specified and saves
+the preprocessed data to the appropriate location.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.FILE_FORMAT">
+<span class="sig-name descname"><span class="pre">FILE_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'2_manifolds':</span> <span class="pre">'json.gz',</span> <span class="pre">'3_manifolds':</span> <span class="pre">'json.gz'}</span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.FILE_FORMAT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.RAW_FILE_NAMES">
+<span class="sig-name descname"><span class="pre">RAW_FILE_NAMES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.RAW_FILE_NAMES" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.URLS">
+<span class="sig-name descname"><span class="pre">URLS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'2_manifolds':</span> <span class="pre">'https://github.com/aidos-lab/mantra/releases/download/{version}/2_manifolds.json.gz',</span> <span class="pre">'3_manifolds':</span> <span class="pre">'https://github.com/aidos-lab/mantra/releases/download/{version}/3_manifolds.json.gz'}</span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.URLS" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.processed_dir">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.processed_dir" title="Link to this definition">#</a></dt>
+<dd><p>Return the path to the processed directory of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Path to the processed directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.processed_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processed_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.processed_file_names" title="Link to this definition">#</a></dt>
+<dd><p>Return the processed file name for the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Processed file name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.raw_dir">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.raw_dir" title="Link to this definition">#</a></dt>
+<dd><p>Return the path to the raw directory of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>Path to the raw directory.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.MantraDataset.raw_file_names">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_file_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.MantraDataset.raw_file_names" title="Link to this definition">#</a></dt>
+<dd><p>Return the raw file names for the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>list[str]</dt><dd><p>List of raw file names.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OmegaConf</span></span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>OmegaConf primary class</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolver">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolver" title="Link to this definition">#</a></dt>
+<dd><p>Clear(remove) any resolver only if it exists.</p>
+<p>Returns a bool: True if resolver is removed and False if not removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the resolver.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A bool (<code class="docutils literal notranslate"><span class="pre">True</span></code> if resolver is removed, <code class="docutils literal notranslate"><span class="pre">False</span></code> if not found before removing).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.has_resolver">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.has_resolver" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.clear_cache">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_cache" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolvers">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_resolvers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolvers" title="Link to this definition">#</a></dt>
+<dd><p>Clear(remove) all OmegaConf resolvers, then re-register OmegaConf’s default resolvers.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.copy_cache">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">copy_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.copy_cache" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.create">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">_DEFAULT_MARKER_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.create" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.from_cli">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_cli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.from_cli" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.from_dotlist">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dotlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotlist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.from_dotlist" title="Link to this definition">#</a></dt>
+<dd><p>Creates config from the content sys.argv or from the specified args list of not None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dotlist</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – A list of dotlist-style strings, e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;foo.bar=1&quot;,</span> <span class="pre">&quot;baz=qux&quot;]</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">DictConfig</span></code> object created from the dotlist.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.get_cache">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.get_cache" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.get_type">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.get_type" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_config">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_config" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_dict">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_dict" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_interpolation">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_interpolation" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_list">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_list" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_missing">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_missing" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_readonly">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_readonly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_readonly" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.is_struct">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_struct" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.legacy_register_resolver">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">legacy_register_resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.legacy_register_resolver" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.load">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.load" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.masked_copy">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">masked_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.masked_copy" title="Link to this definition">#</a></dt>
+<dd><p>Create a masked copy of of this config that contains a subset of the keys</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conf</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a>) – DictConfig object</p></li>
+<li><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – keys to preserve in the copy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The masked <code class="docutils literal notranslate"><span class="pre">DictConfig</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.merge">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.merge" title="Link to this definition">#</a></dt>
+<dd><p>Merge a list of previously created configs into a single one</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>configs</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a><em> | </em><em>ListConfig</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><em>Enum</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>, </em><em>...</em><em>] </em><em>| </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Input configs</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the merged config object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>ListConfig</em> | <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.missing_keys">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">missing_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.missing_keys" title="Link to this definition">#</a></dt>
+<dd><p>Returns a set of missing keys in a dotlist style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cfg</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – An <code class="docutils literal notranslate"><span class="pre">OmegaConf.Container</span></code>,
+or a convertible object via <code class="docutils literal notranslate"><span class="pre">OmegaConf.create</span></code> (dict, list, …).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>set of strings of the missing keys.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – On input not representing a config.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.14)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.register_new_resolver">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_new_resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolver</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.register_new_resolver" title="Link to this definition">#</a></dt>
+<dd><p>Register a resolver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the resolver.</p></li>
+<li><p><strong>resolver</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>]</em>) – Callable whose arguments are provided in the interpolation,
+e.g., with ${foo:x,0,${y.z}} these arguments are respectively “x” (str),
+0 (int) and the value of <code class="docutils literal notranslate"><span class="pre">y.z</span></code>.</p></li>
+<li><p><strong>replace</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If set to <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), then a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is raised if
+an existing resolver has already been registered with the same name.
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the new resolver replaces the previous one.
+NOTE: The cache on existing config objects is not affected, use
+<code class="docutils literal notranslate"><span class="pre">OmegaConf.clear_cache(cfg)</span></code> to clear it.</p></li>
+<li><p><strong>use_cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the resolver’s outputs should be cached. The cache is
+based only on the string literals representing the resolver arguments, e.g.,
+${foo:${bar}} will always return the same value regardless of the value of
+<code class="docutils literal notranslate"><span class="pre">bar</span></code> if the cache is enabled for <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.register_resolver">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_resolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.register_resolver" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.resolve">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.resolve" title="Link to this definition">#</a></dt>
+<dd><p>Resolves all interpolations in the given config object in-place.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cfg</strong> (<em>Container</em>) – An OmegaConf container (DictConfig, ListConfig)
+Raises a ValueError if the input object is not an OmegaConf container.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.save">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.save" title="Link to this definition">#</a></dt>
+<dd><p>Save as configuration object to a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – omegaconf.Config object (DictConfig or ListConfig).</p></li>
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference internal" href="topobench.utils.rich_utils.html#topobench.utils.rich_utils.Path" title="pathlib.Path"><em>Path</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.14)"><em>IO</em></a><em>[</em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>]</em>) – filename or file object</p></li>
+<li><p><strong>resolve</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True to save a resolved config (defaults to False)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.select">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">_DEFAULT_MARKER_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_resolution_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.select" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> (<em>Container</em>) – Config node to select from</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Key to select</p></li>
+<li><p><strong>default</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Default value to return if key is not found</p></li>
+<li><p><strong>throw_on_resolution_failure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Raise an exception if an interpolation
+resolution error occurs, otherwise return None</p></li>
+<li><p><strong>throw_on_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Raise an exception if an attempt to select a missing key (with the value ‘???’)
+is made, otherwise return None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>selected value or None if not found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.set_cache">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_cache" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.set_readonly">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_readonly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_readonly" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.set_struct">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_struct" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.structured">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">structured</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.structured" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.to_container">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_on_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_to_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structured_config_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SCMode.DICT</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_container" title="Link to this definition">#</a></dt>
+<dd><p>Resursively converts an OmegaConf config to a primitive container (dict or list).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – the config to convert</p></li>
+<li><p><strong>resolve</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True to resolve all values</p></li>
+<li><p><strong>throw_on_missing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – When True, raise MissingMandatoryValue if any missing values are present.
+When False (the default), replace missing values with the string “???” in the output container.</p></li>
+<li><p><strong>enum_to_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True to convert Enum keys and values to strings</p></li>
+<li><p><strong>structured_config_mode</strong> (<em>SCMode</em>) – <dl class="simple">
+<dt>Specify how Structured Configs (DictConfigs backed by a dataclass) are handled.</dt><dd><ul>
+<li><p>By default (<code class="docutils literal notranslate"><span class="pre">structured_config_mode=SCMode.DICT</span></code>) structured configs are converted to plain dicts.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">structured_config_mode=SCMode.DICT_CONFIG</span></code>, structured config nodes will remain as DictConfig.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">structured_config_mode=SCMode.INSTANTIATE</span></code>, this function will instantiate structured configs
+(DictConfigs backed by a dataclass), by creating an instance of the underlying dataclass.</p></li>
+</ul>
+</dd>
+</dl>
+<p>See also OmegaConf.to_object.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict or a list representing this config as a primitive container.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a> | <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><em>Enum</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>, <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>] | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>] | <em>None</em> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a> | <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.to_object">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_object" title="Link to this definition">#</a></dt>
+<dd><p>Resursively converts an OmegaConf config to a primitive container (dict or list).
+Any DictConfig objects backed by dataclasses or attrs classes are instantiated
+as instances of those backing classes.</p>
+<dl class="simple">
+<dt>This is an alias for OmegaConf.to_container(…, resolve=True, throw_on_missing=True,</dt><dd><p>structured_config_mode=SCMode.INSTANTIATE)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cfg</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – the config to convert</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict or a list or dataclass representing this config.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a> | <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><em>Enum</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>, <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>] | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>] | <em>None</em> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a> | <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.to_yaml">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_yaml" title="Link to this definition">#</a></dt>
+<dd><p>returns a yaml dump of this config object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Config object, Structured Config type or instance</p></li>
+<li><p><strong>resolve</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if True, will return a string with the interpolations resolved, otherwise
+interpolations are preserved</p></li>
+<li><p><strong>sort_keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, will print dict keys in sorted order. default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A string containing the yaml representation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.unsafe_merge">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsafe_merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">configs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.unsafe_merge" title="Link to this definition">#</a></dt>
+<dd><p>Merge a list of previously created configs into a single one
+This is much faster than OmegaConf.merge() as the input configs are not copied.
+However, the input configs must not be used after this operation as will become inconsistent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>configs</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a><em> | </em><em>ListConfig</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><em>Enum</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a><em>, </em><em>...</em><em>] </em><em>| </em><a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – Input configs</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the merged config object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>ListConfig</em> | <a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.DictConfig" title="omegaconf.dictconfig.DictConfig"><em>DictConfig</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.update">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates a dot separated key sequence to a value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> (<em>Container</em>) – input config to update</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – key to update (can be a dot separated path)</p></li>
+<li><p><strong>value</strong> (<a class="reference internal" href="topobench.utils.utils.html#topobench.utils.utils.Any" title="typing.Any"><em>Any</em></a>) – value to set, if value if a list or a dict it will be merged or set
+depending on merge_config_values</p></li>
+<li><p><strong>merge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If value is a dict or a list, True (default) to merge
+into the destination, False to replace the destination.</p></li>
+<li><p><strong>force_add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – insert the entire path regardless of Struct flag or Structured Config nodes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.OmegaConf.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.OmegaConf.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.download_file_from_link">
+<span class="sig-name descname"><span class="pre">download_file_from_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_link</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_save</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tar.gz'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.download_file_from_link" title="Link to this definition">#</a></dt>
+<dd><p>Download a file from a link and saves it to the specified path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>file_link</strong><span class="classifier">str</span></dt><dd><p>The link of the file to download.</p>
+</dd>
+<dt><strong>path_to_save</strong><span class="classifier">str</span></dt><dd><p>The path where the downloaded file will be saved.</p>
+</dd>
+<dt><strong>dataset_name</strong><span class="classifier">str</span></dt><dd><p>The name of the dataset.</p>
+</dd>
+<dt><strong>file_format</strong><span class="classifier">str, optional</span></dt><dd><p>The format of the downloaded file. Defaults to “tar.gz”.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.extract_gz">
+<span class="sig-name descname"><span class="pre">extract_gz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.extract_gz" title="Link to this definition">#</a></dt>
+<dd><p>Extracts a gz archive to a specific folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The path to the tar archive.</p></li>
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The folder.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, will not print anything to the
+console. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.data.datasets.mantra_dataset.read_ndim_manifolds">
+<span class="sig-name descname"><span class="pre">read_ndim_manifolds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'betti_numbers'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhoods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.data.datasets.mantra_dataset.read_ndim_manifolds" title="Link to this definition">#</a></dt>
+<dd><p>Load MANTRA dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>Path to the dataset.</p>
+</dd>
+<dt><strong>dim</strong><span class="classifier">int</span></dt><dd><p>Dimension of the manifolds to load, required to make sanity checks.</p>
+</dd>
+<dt><strong>y_val</strong><span class="classifier">str, optional</span></dt><dd><p>The triangulation information to use as label. Can be one of [‘betti_numbers’, ‘torsion_coefficients’,
+‘name’, ‘genus’, ‘orientable’] (default: “orientable”).</p>
+</dd>
+<dt><strong>neighborhoods</strong><span class="classifier">list of str, optional</span></dt><dd><p>The connectivity to consider when building the simplicial complex (default: None, which means all).</p>
+</dd>
+<dt><strong>signed</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to consider signed incidence matrices (default: True).</p>
+</dd>
+<dt><strong>slice</strong><span class="classifier">int, optional</span></dt><dd><p>Slice of the dataset to load. If None, load the entire dataset (default: None). Used for testing.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>Data object of the manifold for the MANTRA dataset.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.data.datasets.hypergraph_datasets.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.data.datasets.hypergraph_datasets module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.data.datasets.us_county_demos_dataset.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.data.datasets.us_county_demos_dataset module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig"><code class="docutils literal notranslate"><span class="pre">DictConfig</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.__init__"><code class="docutils literal notranslate"><span class="pre">DictConfig.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.copy"><code class="docutils literal notranslate"><span class="pre">DictConfig.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.get"><code class="docutils literal notranslate"><span class="pre">DictConfig.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.items"><code class="docutils literal notranslate"><span class="pre">DictConfig.items()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.items_ex"><code class="docutils literal notranslate"><span class="pre">DictConfig.items_ex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.keys"><code class="docutils literal notranslate"><span class="pre">DictConfig.keys()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.pop"><code class="docutils literal notranslate"><span class="pre">DictConfig.pop()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.DictConfig.setdefault"><code class="docutils literal notranslate"><span class="pre">DictConfig.setdefault()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.save"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.save()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.collate"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.collate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.__init__"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.copy"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.cpu"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.cpu()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.cuda"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.cuda()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.get"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.len"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.len()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.load"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.to"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.to()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.to_on_disk_dataset"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.to_on_disk_dataset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.data"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.num_classes"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.num_classes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.processed_file_names"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.processed_file_names</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.InMemoryDataset.raw_file_names"><code class="docutils literal notranslate"><span class="pre">InMemoryDataset.raw_file_names</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset"><code class="docutils literal notranslate"><span class="pre">MantraDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.__init__"><code class="docutils literal notranslate"><span class="pre">MantraDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.download"><code class="docutils literal notranslate"><span class="pre">MantraDataset.download()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.process"><code class="docutils literal notranslate"><span class="pre">MantraDataset.process()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.FILE_FORMAT"><code class="docutils literal notranslate"><span class="pre">MantraDataset.FILE_FORMAT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.RAW_FILE_NAMES"><code class="docutils literal notranslate"><span class="pre">MantraDataset.RAW_FILE_NAMES</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.URLS"><code class="docutils literal notranslate"><span class="pre">MantraDataset.URLS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.processed_dir"><code class="docutils literal notranslate"><span class="pre">MantraDataset.processed_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.processed_file_names"><code class="docutils literal notranslate"><span class="pre">MantraDataset.processed_file_names</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.raw_dir"><code class="docutils literal notranslate"><span class="pre">MantraDataset.raw_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.MantraDataset.raw_file_names"><code class="docutils literal notranslate"><span class="pre">MantraDataset.raw_file_names</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf"><code class="docutils literal notranslate"><span class="pre">OmegaConf</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolver"><code class="docutils literal notranslate"><span class="pre">OmegaConf.clear_resolver()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.has_resolver"><code class="docutils literal notranslate"><span class="pre">OmegaConf.has_resolver()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_cache"><code class="docutils literal notranslate"><span class="pre">OmegaConf.clear_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.clear_resolvers"><code class="docutils literal notranslate"><span class="pre">OmegaConf.clear_resolvers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.copy_cache"><code class="docutils literal notranslate"><span class="pre">OmegaConf.copy_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.create"><code class="docutils literal notranslate"><span class="pre">OmegaConf.create()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.from_cli"><code class="docutils literal notranslate"><span class="pre">OmegaConf.from_cli()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.from_dotlist"><code class="docutils literal notranslate"><span class="pre">OmegaConf.from_dotlist()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.get_cache"><code class="docutils literal notranslate"><span class="pre">OmegaConf.get_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.get_type"><code class="docutils literal notranslate"><span class="pre">OmegaConf.get_type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_config"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_dict"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_interpolation"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_interpolation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_list"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_list()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_missing"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_missing()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_readonly"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_readonly()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.is_struct"><code class="docutils literal notranslate"><span class="pre">OmegaConf.is_struct()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.legacy_register_resolver"><code class="docutils literal notranslate"><span class="pre">OmegaConf.legacy_register_resolver()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.load"><code class="docutils literal notranslate"><span class="pre">OmegaConf.load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.masked_copy"><code class="docutils literal notranslate"><span class="pre">OmegaConf.masked_copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.merge"><code class="docutils literal notranslate"><span class="pre">OmegaConf.merge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.missing_keys"><code class="docutils literal notranslate"><span class="pre">OmegaConf.missing_keys()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.register_new_resolver"><code class="docutils literal notranslate"><span class="pre">OmegaConf.register_new_resolver()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.register_resolver"><code class="docutils literal notranslate"><span class="pre">OmegaConf.register_resolver()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.resolve"><code class="docutils literal notranslate"><span class="pre">OmegaConf.resolve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.save"><code class="docutils literal notranslate"><span class="pre">OmegaConf.save()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.select"><code class="docutils literal notranslate"><span class="pre">OmegaConf.select()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_cache"><code class="docutils literal notranslate"><span class="pre">OmegaConf.set_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_readonly"><code class="docutils literal notranslate"><span class="pre">OmegaConf.set_readonly()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.set_struct"><code class="docutils literal notranslate"><span class="pre">OmegaConf.set_struct()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.structured"><code class="docutils literal notranslate"><span class="pre">OmegaConf.structured()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_container"><code class="docutils literal notranslate"><span class="pre">OmegaConf.to_container()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_object"><code class="docutils literal notranslate"><span class="pre">OmegaConf.to_object()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.to_yaml"><code class="docutils literal notranslate"><span class="pre">OmegaConf.to_yaml()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.unsafe_merge"><code class="docutils literal notranslate"><span class="pre">OmegaConf.unsafe_merge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.update"><code class="docutils literal notranslate"><span class="pre">OmegaConf.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.OmegaConf.__init__"><code class="docutils literal notranslate"><span class="pre">OmegaConf.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.download_file_from_link"><code class="docutils literal notranslate"><span class="pre">download_file_from_link()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.extract_gz"><code class="docutils literal notranslate"><span class="pre">extract_gz()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.data.datasets.mantra_dataset.read_ndim_manifolds"><code class="docutils literal notranslate"><span class="pre">read_ndim_manifolds()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

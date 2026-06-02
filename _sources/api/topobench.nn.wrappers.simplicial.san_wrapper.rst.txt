@@ -1,0 +1,7 @@
+topobench.nn.wrappers.simplicial.san\_wrapper module
+====================================================
+
+.. automodule:: topobench.nn.wrappers.simplicial.san_wrapper
+   :members:
+   :show-inheritance:
+   :undoc-members:

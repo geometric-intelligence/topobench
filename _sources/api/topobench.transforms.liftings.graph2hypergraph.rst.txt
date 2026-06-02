@@ -1,0 +1,22 @@
+topobench.transforms.liftings.graph2hypergraph package
+======================================================
+
+.. automodule:: topobench.transforms.liftings.graph2hypergraph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.graph2hypergraph.base
+   topobench.transforms.liftings.graph2hypergraph.expander_graph_lifting
+   topobench.transforms.liftings.graph2hypergraph.forman_ricci_curvature_lifting
+   topobench.transforms.liftings.graph2hypergraph.kernel_lifting
+   topobench.transforms.liftings.graph2hypergraph.khop_lifting
+   topobench.transforms.liftings.graph2hypergraph.knn_lifting
+   topobench.transforms.liftings.graph2hypergraph.mapper_lifting
+   topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting

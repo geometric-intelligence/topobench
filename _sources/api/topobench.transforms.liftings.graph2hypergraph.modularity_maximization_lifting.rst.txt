@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2hypergraph.modularity\_maximization\_lifting module
+=======================================================================================
+
+.. automodule:: topobench.transforms.liftings.graph2hypergraph.modularity_maximization_lifting
+   :members:
+   :show-inheritance:
+   :undoc-members:

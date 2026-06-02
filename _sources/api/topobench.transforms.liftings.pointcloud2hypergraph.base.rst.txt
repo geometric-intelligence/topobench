@@ -1,0 +1,7 @@
+topobench.transforms.liftings.pointcloud2hypergraph.base module
+===============================================================
+
+.. automodule:: topobench.transforms.liftings.pointcloud2hypergraph.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

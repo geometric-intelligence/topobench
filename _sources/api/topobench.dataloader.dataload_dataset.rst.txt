@@ -1,0 +1,7 @@
+topobench.dataloader.dataload\_dataset module
+=============================================
+
+.. automodule:: topobench.dataloader.dataload_dataset
+   :members:
+   :show-inheritance:
+   :undoc-members:

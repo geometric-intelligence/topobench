@@ -1,0 +1,7 @@
+topobench.run module
+====================
+
+.. automodule:: topobench.run
+   :members:
+   :show-inheritance:
+   :undoc-members:

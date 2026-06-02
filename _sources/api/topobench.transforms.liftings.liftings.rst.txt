@@ -1,0 +1,7 @@
+topobench.transforms.liftings.liftings module
+=============================================
+
+.. automodule:: topobench.transforms.liftings.liftings
+   :members:
+   :show-inheritance:
+   :undoc-members:

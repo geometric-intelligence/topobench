@@ -1,0 +1,7 @@
+topobench.dataloader.dataloader module
+======================================
+
+.. automodule:: topobench.dataloader.dataloader
+   :members:
+   :show-inheritance:
+   :undoc-members:

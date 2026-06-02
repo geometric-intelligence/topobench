@@ -1,0 +1,7 @@
+topobench.nn.encoders.kdgm module
+=================================
+
+.. automodule:: topobench.nn.encoders.kdgm
+   :members:
+   :show-inheritance:
+   :undoc-members:

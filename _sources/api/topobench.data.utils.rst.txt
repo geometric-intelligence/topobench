@@ -1,0 +1,17 @@
+topobench.data.utils package
+============================
+
+.. automodule:: topobench.data.utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.data.utils.io_utils
+   topobench.data.utils.split_utils
+   topobench.data.utils.utils

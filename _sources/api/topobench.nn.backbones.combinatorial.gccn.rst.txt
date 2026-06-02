@@ -1,0 +1,7 @@
+topobench.nn.backbones.combinatorial.gccn module
+================================================
+
+.. automodule:: topobench.nn.backbones.combinatorial.gccn
+   :members:
+   :show-inheritance:
+   :undoc-members:

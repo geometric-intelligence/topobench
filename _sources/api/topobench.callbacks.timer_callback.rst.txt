@@ -1,0 +1,7 @@
+topobench.callbacks.timer\_callback module
+==========================================
+
+.. automodule:: topobench.callbacks.timer_callback
+   :members:
+   :show-inheritance:
+   :undoc-members:

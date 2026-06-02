@@ -1,0 +1,7 @@
+topobench.transforms.liftings.graph2simplicial.latentclique\_lifting module
+===========================================================================
+
+.. automodule:: topobench.transforms.liftings.graph2simplicial.latentclique_lifting
+   :members:
+   :show-inheritance:
+   :undoc-members:

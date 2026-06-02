@@ -1,0 +1,7 @@
+topobench.data.loaders.base module
+==================================
+
+.. automodule:: topobench.data.loaders.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

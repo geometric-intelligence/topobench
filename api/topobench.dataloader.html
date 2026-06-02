@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.dataloader package &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.dataloader';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.dataloader.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.dataloader.dataload_dataset module" href="topobench.dataloader.dataload_dataset.html" />
+    <link rel="prev" title="topobench.data.utils.utils module" href="topobench.data.utils.utils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.dataloader package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.dataloader">
+<span id="topobench-dataloader-package"></span><h1>topobench.dataloader package<a class="headerlink" href="#module-topobench.dataloader" title="Link to this heading">#</a></h1>
+<p>This module implements the dataloader for the topobench package.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.DataloadDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataloadDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.DataloadDataset" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.data.loaders.pointcloud.geometric_shapes.html#topobench.data.loaders.pointcloud.geometric_shapes.Dataset" title="torch_geometric.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></p>
+<p>Custom dataset to return all the values added to the dataset object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_lst</strong><span class="classifier">list[torch_geometric.data.Data]</span></dt><dd><p>List of torch_geometric.data.Data objects.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.DataloadDataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.DataloadDataset.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.DataloadDataset.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.DataloadDataset.get" title="Link to this definition">#</a></dt>
+<dd><p>Get data object from data list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>idx</strong><span class="classifier">int</span></dt><dd><p>Index of the data object to get.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>Tuple containing a list of all the values for the data and the corresponding keys.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.DataloadDataset.len">
+<span class="sig-name descname"><span class="pre">len</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.DataloadDataset.len" title="Link to this definition">#</a></dt>
+<dd><p>Return the length of the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>int</dt><dd><p>Length of the dataset.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TBDataloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule" title="lightning.pytorch.core.datamodule.LightningDataModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningDataModule</span></code></a></p>
+<p>This class takes care of returning the dataloaders for the training, validation, and test datasets.</p>
+<p>It also handles the collate function. The class is designed to work with the <cite>torch</cite> dataloaders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset_train</strong><span class="classifier">DataloadDataset</span></dt><dd><p>The training dataset.</p>
+</dd>
+<dt><strong>dataset_val</strong><span class="classifier">DataloadDataset, optional</span></dt><dd><p>The validation dataset (default: None).</p>
+</dd>
+<dt><strong>dataset_test</strong><span class="classifier">DataloadDataset, optional</span></dt><dd><p>The test dataset (default: None).</p>
+</dd>
+<dt><strong>batch_size</strong><span class="classifier">int, optional</span></dt><dd><p>The batch size for the dataloader (default: 1).</p>
+</dd>
+<dt><strong>num_workers</strong><span class="classifier">int, optional</span></dt><dd><p>The number of worker processes to use for data loading (default: 0).</p>
+</dd>
+<dt><strong>pin_memory</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, the data loader will copy tensors into pinned memory before returning them (default: False).</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>Read the docs:</dt><dd><p><a class="reference external" href="https://lightning.ai/docs/pytorch/latest/data/datamodule.html">https://lightning.ai/docs/pytorch/latest/data/datamodule.html</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.prepare_data_per_node">
+<span class="sig-name descname"><span class="pre">prepare_data_per_node</span></span><a class="headerlink" href="#topobench.dataloader.TBDataloader.prepare_data_per_node" title="Link to this definition">#</a></dt>
+<dd><p>If True, each LOCAL_RANK=0 will call prepare data.
+Otherwise only NODE_RANK=0, LOCAL_RANK=0 will prepare data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.allow_zero_length_dataloader_with_multiple_devices">
+<span class="sig-name descname"><span class="pre">allow_zero_length_dataloader_with_multiple_devices</span></span><a class="headerlink" href="#topobench.dataloader.TBDataloader.allow_zero_length_dataloader_with_multiple_devices" title="Link to this definition">#</a></dt>
+<dd><p>If True, dataloader with zero length within local rank is allowed.
+Default value is False.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.state_dict">
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.state_dict" title="Link to this definition">#</a></dt>
+<dd><p>Called when saving a checkpoint. Implement to generate and save the datamodule state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>dict</dt><dd><p>A dictionary containing the datamodule state that you want to save.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.teardown">
+<span class="sig-name descname"><span class="pre">teardown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.teardown" title="Link to this definition">#</a></dt>
+<dd><p>Lightning hook for cleaning up after <cite>trainer.fit()</cite>, <cite>trainer.validate()</cite>, <cite>trainer.test()</cite>, and <cite>trainer.predict()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>stage</strong><span class="classifier">str, optional</span></dt><dd><p>The stage being torn down. Either <cite>“fit”</cite>, <cite>“validate”</cite>, <cite>“test”</cite>, or <cite>“predict”</cite> (default: None).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.test_dataloader">
+<span class="sig-name descname"><span class="pre">test_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.test_dataloader" title="Link to this definition">#</a></dt>
+<dd><p>Create and return the test dataloader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>torch.utils.data.DataLoader</dt><dd><p>The test dataloader.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.train_dataloader">
+<span class="sig-name descname"><span class="pre">train_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.train_dataloader" title="Link to this definition">#</a></dt>
+<dd><p>Create and return the train dataloader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>torch.utils.data.DataLoader</dt><dd><p>The train dataloader.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.dataloader.TBDataloader.val_dataloader">
+<span class="sig-name descname"><span class="pre">val_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.dataloader.TBDataloader.val_dataloader" title="Link to this definition">#</a></dt>
+<dd><p>Create and return the validation dataloader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>torch.utils.data.DataLoader</dt><dd><p>The validation dataloader.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topobench.dataloader.dataload_dataset.html">topobench.dataloader.dataload_dataset module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataload_dataset.html#topobench.dataloader.dataload_dataset.DataloadDataset"><code class="docutils literal notranslate"><span class="pre">DataloadDataset</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataload_dataset.html#topobench.dataloader.dataload_dataset.DataloadDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataload_dataset.html#topobench.dataloader.dataload_dataset.DataloadDataset.get"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataload_dataset.html#topobench.dataloader.dataload_dataset.DataloadDataset.len"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.len()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.dataloader.dataloader.html">topobench.dataloader.dataloader module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.Any"><code class="docutils literal notranslate"><span class="pre">Any</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.__init__"><code class="docutils literal notranslate"><span class="pre">DataLoader.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.check_worker_number_rationality"><code class="docutils literal notranslate"><span class="pre">DataLoader.check_worker_number_rationality()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.batch_size"><code class="docutils literal notranslate"><span class="pre">DataLoader.batch_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.dataset"><code class="docutils literal notranslate"><span class="pre">DataLoader.dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.drop_last"><code class="docutils literal notranslate"><span class="pre">DataLoader.drop_last</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.multiprocessing_context"><code class="docutils literal notranslate"><span class="pre">DataLoader.multiprocessing_context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.num_workers"><code class="docutils literal notranslate"><span class="pre">DataLoader.num_workers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.pin_memory"><code class="docutils literal notranslate"><span class="pre">DataLoader.pin_memory</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.pin_memory_device"><code class="docutils literal notranslate"><span class="pre">DataLoader.pin_memory_device</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.prefetch_factor"><code class="docutils literal notranslate"><span class="pre">DataLoader.prefetch_factor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.sampler"><code class="docutils literal notranslate"><span class="pre">DataLoader.sampler</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataLoader.timeout"><code class="docutils literal notranslate"><span class="pre">DataLoader.timeout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataloadDataset"><code class="docutils literal notranslate"><span class="pre">DataloadDataset</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataloadDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataloadDataset.get"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.DataloadDataset.len"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.len()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule"><code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.from_datasets"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.from_datasets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.__init__"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.__init__()</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.prepare_data_per_node"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.prepare_data_per_node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.allow_zero_length_dataloader_with_multiple_devices"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.allow_zero_length_dataloader_with_multiple_devices</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.load_from_checkpoint"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.load_from_checkpoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.load_state_dict"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.load_state_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.on_exception"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.on_exception()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.state_dict"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.state_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.CHECKPOINT_HYPER_PARAMS_KEY"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.CHECKPOINT_HYPER_PARAMS_KEY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.CHECKPOINT_HYPER_PARAMS_NAME"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.CHECKPOINT_HYPER_PARAMS_NAME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.CHECKPOINT_HYPER_PARAMS_TYPE"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.CHECKPOINT_HYPER_PARAMS_TYPE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.LightningDataModule.name"><code class="docutils literal notranslate"><span class="pre">LightningDataModule.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.__init__"><code class="docutils literal notranslate"><span class="pre">TBDataloader.__init__()</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.prepare_data_per_node"><code class="docutils literal notranslate"><span class="pre">TBDataloader.prepare_data_per_node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.allow_zero_length_dataloader_with_multiple_devices"><code class="docutils literal notranslate"><span class="pre">TBDataloader.allow_zero_length_dataloader_with_multiple_devices</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.state_dict"><code class="docutils literal notranslate"><span class="pre">TBDataloader.state_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.teardown"><code class="docutils literal notranslate"><span class="pre">TBDataloader.teardown()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.test_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.test_dataloader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.train_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.train_dataloader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.TBDataloader.val_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.val_dataloader()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.dataloader.html#topobench.dataloader.dataloader.collate_fn"><code class="docutils literal notranslate"><span class="pre">collate_fn()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.dataloader.utils.html">topobench.dataloader.utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.Any"><code class="docutils literal notranslate"><span class="pre">Any</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.DomainData"><code class="docutils literal notranslate"><span class="pre">DomainData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.DomainData.is_valid"><code class="docutils literal notranslate"><span class="pre">DomainData.is_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.eye"><code class="docutils literal notranslate"><span class="pre">SparseTensor.eye()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_dense"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_dense()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_edge_index"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_edge_index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_storage"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_storage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_torch_sparse_coo_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_torch_sparse_coo_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_torch_sparse_csr_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_torch_sparse_csr_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.__init__"><code class="docutils literal notranslate"><span class="pre">SparseTensor.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.add"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.add_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.add_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_nnz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.add_nnz_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.add_nnz_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.avg_bandwidth"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_bandwidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.avg_col_length"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_col_length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.avg_row_length"><code class="docutils literal notranslate"><span class="pre">SparseTensor.avg_row_length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.bandwidth"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bandwidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.bandwidth_proportion"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bandwidth_proportion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.bfloat16"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bfloat16()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.bool"><code class="docutils literal notranslate"><span class="pre">SparseTensor.bool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.byte"><code class="docutils literal notranslate"><span class="pre">SparseTensor.byte()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.char"><code class="docutils literal notranslate"><span class="pre">SparseTensor.char()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.clear_cache_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.clear_cache_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.clone"><code class="docutils literal notranslate"><span class="pre">SparseTensor.clone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.coalesce"><code class="docutils literal notranslate"><span class="pre">SparseTensor.coalesce()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.coo"><code class="docutils literal notranslate"><span class="pre">SparseTensor.coo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.copy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.cpu"><code class="docutils literal notranslate"><span class="pre">SparseTensor.cpu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.csc"><code class="docutils literal notranslate"><span class="pre">SparseTensor.csc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.csr"><code class="docutils literal notranslate"><span class="pre">SparseTensor.csr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.cuda"><code class="docutils literal notranslate"><span class="pre">SparseTensor.cuda()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.density"><code class="docutils literal notranslate"><span class="pre">SparseTensor.density()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.detach"><code class="docutils literal notranslate"><span class="pre">SparseTensor.detach()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.detach_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.detach_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.device"><code class="docutils literal notranslate"><span class="pre">SparseTensor.device()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.device_as"><code class="docutils literal notranslate"><span class="pre">SparseTensor.device_as()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.dim"><code class="docutils literal notranslate"><span class="pre">SparseTensor.dim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.double"><code class="docutils literal notranslate"><span class="pre">SparseTensor.double()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.dtype"><code class="docutils literal notranslate"><span class="pre">SparseTensor.dtype()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.fill_cache_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_cache_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.fill_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_diag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.fill_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.fill_value_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.fill_value_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.float"><code class="docutils literal notranslate"><span class="pre">SparseTensor.float()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.from_scipy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.from_scipy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.get_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.get_diag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.half"><code class="docutils literal notranslate"><span class="pre">SparseTensor.half()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.has_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.has_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.index_select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.index_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.index_select_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.index_select_nnz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.int"><code class="docutils literal notranslate"><span class="pre">SparseTensor.int()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_coalesced"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_coalesced()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_cuda"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_cuda()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_floating_point"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_floating_point()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_pinned"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_pinned()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_quadratic"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_quadratic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_shared"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_shared()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.is_symmetric"><code class="docutils literal notranslate"><span class="pre">SparseTensor.is_symmetric()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.long"><code class="docutils literal notranslate"><span class="pre">SparseTensor.long()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.masked_select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.masked_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.masked_select_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.masked_select_nnz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.matmul"><code class="docutils literal notranslate"><span class="pre">SparseTensor.matmul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.max"><code class="docutils literal notranslate"><span class="pre">SparseTensor.max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.mean"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.min"><code class="docutils literal notranslate"><span class="pre">SparseTensor.min()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.mul"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.mul_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.mul_nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_nnz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.mul_nnz_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.mul_nnz_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.narrow"><code class="docutils literal notranslate"><span class="pre">SparseTensor.narrow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.nnz"><code class="docutils literal notranslate"><span class="pre">SparseTensor.nnz()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.numel"><code class="docutils literal notranslate"><span class="pre">SparseTensor.numel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.partition"><code class="docutils literal notranslate"><span class="pre">SparseTensor.partition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.permute"><code class="docutils literal notranslate"><span class="pre">SparseTensor.permute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.pin_memory"><code class="docutils literal notranslate"><span class="pre">SparseTensor.pin_memory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.random_walk"><code class="docutils literal notranslate"><span class="pre">SparseTensor.random_walk()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.remove_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.remove_diag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.requires_grad"><code class="docutils literal notranslate"><span class="pre">SparseTensor.requires_grad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.requires_grad_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.requires_grad_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.reverse_cuthill_mckee"><code class="docutils literal notranslate"><span class="pre">SparseTensor.reverse_cuthill_mckee()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.saint_subgraph"><code class="docutils literal notranslate"><span class="pre">SparseTensor.saint_subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sample"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sample_adj"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sample_adj()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.select"><code class="docutils literal notranslate"><span class="pre">SparseTensor.select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.set_diag"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_diag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.set_value"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.set_value_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.set_value_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.share_memory_"><code class="docutils literal notranslate"><span class="pre">SparseTensor.share_memory_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.short"><code class="docutils literal notranslate"><span class="pre">SparseTensor.short()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.size"><code class="docutils literal notranslate"><span class="pre">SparseTensor.size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sizes"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sizes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sparse_reshape"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_reshape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sparse_resize"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_resize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sparse_size"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sparse_sizes"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparse_sizes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sparsity"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sparsity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.spmm"><code class="docutils literal notranslate"><span class="pre">SparseTensor.spmm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.spspmm"><code class="docutils literal notranslate"><span class="pre">SparseTensor.spspmm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.sum"><code class="docutils literal notranslate"><span class="pre">SparseTensor.sum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.t"><code class="docutils literal notranslate"><span class="pre">SparseTensor.t()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_dense"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_dense()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_device"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_device()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_scipy"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_scipy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_symmetric"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_symmetric()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_torch_sparse_coo_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_coo_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csc_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_csc_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.to_torch_sparse_csr_tensor"><code class="docutils literal notranslate"><span class="pre">SparseTensor.to_torch_sparse_csr_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.type"><code class="docutils literal notranslate"><span class="pre">SparseTensor.type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.type_as"><code class="docutils literal notranslate"><span class="pre">SparseTensor.type_as()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.SparseTensor.storage"><code class="docutils literal notranslate"><span class="pre">SparseTensor.storage</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.defaultdict"><code class="docutils literal notranslate"><span class="pre">defaultdict</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.defaultdict.__init__"><code class="docutils literal notranslate"><span class="pre">defaultdict.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.defaultdict.copy"><code class="docutils literal notranslate"><span class="pre">defaultdict.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.defaultdict.default_factory"><code class="docutils literal notranslate"><span class="pre">defaultdict.default_factory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.collate_fn"><code class="docutils literal notranslate"><span class="pre">collate_fn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.dataloader.utils.html#topobench.dataloader.utils.to_data_list"><code class="docutils literal notranslate"><span class="pre">to_data_list()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.data.utils.utils.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.data.utils.utils module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.dataloader.dataload_dataset.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.dataloader.dataload_dataset module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.DataloadDataset"><code class="docutils literal notranslate"><span class="pre">DataloadDataset</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.DataloadDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.DataloadDataset.get"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.DataloadDataset.len"><code class="docutils literal notranslate"><span class="pre">DataloadDataset.len()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.__init__"><code class="docutils literal notranslate"><span class="pre">TBDataloader.__init__()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.prepare_data_per_node"><code class="docutils literal notranslate"><span class="pre">TBDataloader.prepare_data_per_node</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.allow_zero_length_dataloader_with_multiple_devices"><code class="docutils literal notranslate"><span class="pre">TBDataloader.allow_zero_length_dataloader_with_multiple_devices</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.state_dict"><code class="docutils literal notranslate"><span class="pre">TBDataloader.state_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.teardown"><code class="docutils literal notranslate"><span class="pre">TBDataloader.teardown()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.test_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.test_dataloader()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.train_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.train_dataloader()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.dataloader.TBDataloader.val_dataloader"><code class="docutils literal notranslate"><span class="pre">TBDataloader.val_dataloader()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

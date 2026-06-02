@@ -1,0 +1,31 @@
+topobench.transforms.liftings package
+=====================================
+
+.. automodule:: topobench.transforms.liftings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.graph2cell
+   topobench.transforms.liftings.graph2combinatorial
+   topobench.transforms.liftings.graph2hypergraph
+   topobench.transforms.liftings.graph2simplicial
+   topobench.transforms.liftings.hypergraph2combinatorial
+   topobench.transforms.liftings.pointcloud2hypergraph
+   topobench.transforms.liftings.pointcloud2simplicial
+   topobench.transforms.liftings.simplicial2combinatorial
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.transforms.liftings.base
+   topobench.transforms.liftings.liftings

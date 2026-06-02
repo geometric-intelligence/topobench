@@ -1,0 +1,7 @@
+topobench.evaluator.metrics.example module
+==========================================
+
+.. automodule:: topobench.evaluator.metrics.example
+   :members:
+   :show-inheritance:
+   :undoc-members:

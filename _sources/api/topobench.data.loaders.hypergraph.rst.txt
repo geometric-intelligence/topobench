@@ -1,0 +1,16 @@
+topobench.data.loaders.hypergraph package
+=========================================
+
+.. automodule:: topobench.data.loaders.hypergraph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.data.loaders.hypergraph.citation_hypergraph_dataset_loader
+   topobench.data.loaders.hypergraph.hypergraph_dataset_loader

@@ -1,0 +1,1102 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.transforms.liftings.pointcloud2hypergraph.pointnet_lifting module" href="topobench.transforms.liftings.pointcloud2hypergraph.pointnet_lifting.html" />
+    <link rel="prev" title="topobench.transforms.liftings.pointcloud2hypergraph.base module" href="topobench.transforms.liftings.pointcloud2hypergraph.base.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.html" class="nav-link">topobench.transforms package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.liftings.html" class="nav-link">topobench.transforms.liftings package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.liftings.pointcloud2hypergraph.html" class="nav-link">topobench.transforms.liftings.pointcloud2hypergraph package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting">
+<span id="topobench-transforms-liftings-pointcloud2hypergraph-mogmst-lifting-module"></span><h1>topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting module<a class="headerlink" href="#module-topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting" title="Link to this heading">#</a></h1>
+<p>Mixture of Gaussians and Minimum Spanning Tree (MoGMST) Lifting.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GaussianMixture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'full'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_covar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kmeans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">means_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precisions_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMixture</span></code></p>
+<p>Gaussian Mixture.</p>
+<p>Representation of a Gaussian mixture model probability distribution.
+This class allows to estimate the parameters of a Gaussian mixture
+distribution.</p>
+<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.18.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_components</strong><span class="classifier">int, default=1</span></dt><dd><p>The number of mixture components.</p>
+</dd>
+<dt><strong>covariance_type</strong><span class="classifier">{‘full’, ‘tied’, ‘diag’, ‘spherical’}, default=’full’</span></dt><dd><p>String describing the type of covariance parameters to use.
+Must be one of:</p>
+<ul class="simple">
+<li><p>‘full’: each component has its own general covariance matrix.</p></li>
+<li><p>‘tied’: all components share the same general covariance matrix.</p></li>
+<li><p>‘diag’: each component has its own diagonal covariance matrix.</p></li>
+<li><p>‘spherical’: each component has its own single variance.</p></li>
+</ul>
+<p>For an example of using <cite>covariance_type</cite>, refer to
+<span class="xref std std-ref">sphx_glr_auto_examples_mixture_plot_gmm_selection.py</span>.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>The convergence threshold. EM iterations will stop when the
+lower bound average gain is below this threshold.</p>
+</dd>
+<dt><strong>reg_covar</strong><span class="classifier">float, default=1e-6</span></dt><dd><p>Non-negative regularization added to the diagonal of covariance.
+Allows to assure that the covariance matrices are all positive.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=100</span></dt><dd><p>The number of EM iterations to perform.</p>
+</dd>
+<dt><strong>n_init</strong><span class="classifier">int, default=1</span></dt><dd><p>The number of initializations to perform. The best results are kept.</p>
+</dd>
+<dt><strong>init_params</strong><span class="classifier">{‘kmeans’, ‘k-means++’, ‘random’, ‘random_from_data’},     default=’kmeans’</span></dt><dd><p>The method used to initialize the weights, the means and the
+precisions.
+String must be one of:</p>
+<ul class="simple">
+<li><p>‘kmeans’ : responsibilities are initialized using kmeans.</p></li>
+<li><p>‘k-means++’ : use the k-means++ method to initialize.</p></li>
+<li><p>‘random’ : responsibilities are initialized randomly.</p></li>
+<li><p>‘random_from_data’ : initial means are randomly selected data points.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version v1.1: </span><cite>init_params</cite> now accepts ‘random_from_data’ and ‘k-means++’ as
+initialization methods.</p>
+</div>
+</dd>
+<dt><strong>weights_init</strong><span class="classifier">array-like of shape (n_components, ), default=None</span></dt><dd><p>The user-provided initial weights.
+If it is None, weights are initialized using the <cite>init_params</cite> method.</p>
+</dd>
+<dt><strong>means_init</strong><span class="classifier">array-like of shape (n_components, n_features), default=None</span></dt><dd><p>The user-provided initial means,
+If it is None, means are initialized using the <cite>init_params</cite> method.</p>
+</dd>
+<dt><strong>precisions_init</strong><span class="classifier">array-like, default=None</span></dt><dd><p>The user-provided initial precisions (inverse of the covariance
+matrices).
+If it is None, precisions are initialized using the ‘init_params’
+method.
+The shape depends on ‘covariance_type’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance or None, default=None</span></dt><dd><p>Controls the random seed given to the method chosen to initialize the
+parameters (see <cite>init_params</cite>).
+In addition, it controls the generation of random samples from the
+fitted distribution (see the method <cite>sample</cite>).
+Pass an int for reproducible output across multiple function calls.
+See <span class="xref std std-term">Glossary</span>.</p>
+</dd>
+<dt><strong>warm_start</strong><span class="classifier">bool, default=False</span></dt><dd><p>If ‘warm_start’ is True, the solution of the last fitting is used as
+initialization for the next call of fit(). This can speed up
+convergence when fit is called several times on similar problems.
+In that case, ‘n_init’ is ignored and only a single initialization
+occurs upon the first call.
+See <span class="xref std std-term">the Glossary</span>.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Enable verbose output. If 1 then it prints the current
+initialization and each iteration step. If greater than 1 then
+it prints also the log probability and the time needed
+for each step.</p>
+</dd>
+<dt><strong>verbose_interval</strong><span class="classifier">int, default=10</span></dt><dd><p>Number of iteration done before the next print.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>weights_</strong><span class="classifier">array-like of shape (n_components,)</span></dt><dd><p>The weights of each mixture components.</p>
+</dd>
+<dt><strong>means_</strong><span class="classifier">array-like of shape (n_components, n_features)</span></dt><dd><p>The mean of each mixture component.</p>
+</dd>
+<dt><strong>covariances_</strong><span class="classifier">array-like</span></dt><dd><p>The covariance of each mixture component.
+The shape depends on <cite>covariance_type</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+<p>For an example of using covariances, refer to
+<span class="xref std std-ref">sphx_glr_auto_examples_mixture_plot_gmm_covariances.py</span>.</p>
+</dd>
+<dt><strong>precisions_</strong><span class="classifier">array-like</span></dt><dd><p>The precision matrices for each component in the mixture. A precision
+matrix is the inverse of a covariance matrix. A covariance matrix is
+symmetric positive definite so the mixture of Gaussian can be
+equivalently parameterized by the precision matrices. Storing the
+precision matrices instead of the covariance matrices makes it more
+efficient to compute the log-likelihood of new samples at test time.
+The shape depends on <cite>covariance_type</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>precisions_cholesky_</strong><span class="classifier">array-like</span></dt><dd><p>The Cholesky decomposition of the precision matrices of each mixture
+component. A precision matrix is the inverse of a covariance matrix.
+A covariance matrix is symmetric positive definite so the mixture of
+Gaussian can be equivalently parameterized by the precision matrices.
+Storing the precision matrices instead of the covariance matrices makes
+it more efficient to compute the log-likelihood of new samples at test
+time. The shape depends on <cite>covariance_type</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>converged_</strong><span class="classifier">bool</span></dt><dd><p>True when convergence of the best fit of EM was reached, False otherwise.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Number of step used by the best fit of EM to reach the convergence.</p>
+</dd>
+<dt><strong>lower_bound_</strong><span class="classifier">float</span></dt><dd><p>Lower bound value on the log-likelihood (of the training data with
+respect to the model) of the best fit of EM.</p>
+</dd>
+<dt><strong>lower_bounds_</strong><span class="classifier">array-like of shape (<cite>n_iter_</cite>,)</span></dt><dd><p>The list of lower bound values on the log-likelihood from each
+iteration of the best fit of EM.</p>
+</dd>
+<dt><strong>n_features_in_</strong><span class="classifier">int</span></dt><dd><p>Number of features seen during <span class="xref std std-term">fit</span>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.24.</span></p>
+</div>
+</dd>
+<dt><strong>feature_names_in_</strong><span class="classifier">ndarray of shape (<cite>n_features_in_</cite>,)</span></dt><dd><p>Names of features seen during <span class="xref std std-term">fit</span>. Defined only when <cite>X</cite>
+has feature names that are all strings.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></dt><dd><p>Gaussian mixture model fit with a variational inference.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.mixture</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span><span class="o">.</span><span class="n">means_</span>
+<span class="go">array([[10.,  2.],</span>
+<span class="go">       [ 1.,  2.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="go">array([1, 0])</span>
+</pre></div>
+</div>
+<p>For a comparison of Gaussian Mixture with other clustering algorithms, see
+<span class="xref std std-ref">sphx_glr_auto_examples_cluster_plot_cluster_comparison.py</span>.</p>
+<p>For an illustration of the negative log-likelihood surface of a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code> Model,
+see <span class="xref std std-ref">sphx_glr_auto_examples_mixture_plot_gmm_pdf.py</span>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'full'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_covar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kmeans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">means_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precisions_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.aic">
+<span class="sig-name descname"><span class="pre">aic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.aic" title="Link to this definition">#</a></dt>
+<dd><p>Akaike information criterion for the current model on the input X.</p>
+<p>You can refer to this <span class="xref std std-ref">mathematical section</span> for more
+details regarding the formulation of the AIC used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array of shape (n_samples, n_dimensions)</span></dt><dd><p>The input samples.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>aic</strong><span class="classifier">float</span></dt><dd><p>The lower the better.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.bic">
+<span class="sig-name descname"><span class="pre">bic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.bic" title="Link to this definition">#</a></dt>
+<dd><p>Bayesian information criterion for the current model on the input X.</p>
+<p>You can refer to this <span class="xref std std-ref">mathematical section</span> for more
+details regarding the formulation of the BIC used.</p>
+<p>For an example of GMM selection using <cite>bic</cite> information criterion,
+refer to <span class="xref std std-ref">sphx_glr_auto_examples_mixture_plot_gmm_selection.py</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array of shape (n_samples, n_dimensions)</span></dt><dd><p>The input samples.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>bic</strong><span class="classifier">float</span></dt><dd><p>The lower the better.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MoGMSTLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.pointcloud2hypergraph.base.html#topobench.transforms.liftings.pointcloud2hypergraph.base.PointCloud2HypergraphLifting" title="topobench.transforms.liftings.pointcloud2hypergraph.base.PointCloud2HypergraphLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCloud2HypergraphLifting</span></code></a></p>
+<p>Lift a point cloud to a hypergraph.</p>
+<p>We find a Mixture of Gaussians and then create a Minimum Spanning Tree (MST) between the means of the Gaussians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>min_components</strong><span class="classifier">int or None, optional</span></dt><dd><p>The minimum number of components for the Mixture of Gaussians model.
+It needs to be at least 1 (default: None).</p>
+</dd>
+<dt><strong>max_components</strong><span class="classifier">int or None, optional</span></dt><dd><p>The maximum number of components for the Mixture of Gaussians model.
+It needs to be greater or equal than min_components (default: None).</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, optional</span></dt><dd><p>The random state for the Mixture of Gaussians model (default: None).</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.find_mog">
+<span class="sig-name descname"><span class="pre">find_mog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.find_mog" title="Link to this definition">#</a></dt>
+<dd><p>Find the best number of components for a Mixture of Gaussians model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">np.ndarray</span></dt><dd><p>The input data to be fitted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[np.ndarray, int, np.ndarray]</dt><dd><p>The labels of the data, the number of components and the means of the components.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.lift_topology">
+<span class="sig-name descname"><span class="pre">lift_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.lift_topology" title="Link to this definition">#</a></dt>
+<dd><p>Lift the topology of a graph to a hypergraph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The input data to be lifted.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The lifted topology.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointCloud2HypergraphLifting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.liftings.liftings.html#topobench.transforms.liftings.liftings.PointCloudLifting" title="topobench.transforms.liftings.liftings.PointCloudLifting"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointCloudLifting</span></code></a></p>
+<p>Abstract class for lifting pointclouds to hypergraphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional arguments for the class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.from_numpy_array">
+<span class="sig-name descname"><span class="pre">from_numpy_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel_edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.from_numpy_array" title="Link to this definition">#</a></dt>
+<dd><p>Returns a graph from a 2D NumPy array.</p>
+<p>The 2D NumPy array is interpreted as an adjacency matrix for the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">a 2D numpy.ndarray</span></dt><dd><p>An adjacency matrix representation of a graph</p>
+</dd>
+<dt><strong>parallel_edges</strong><span class="classifier">Boolean</span></dt><dd><p>If this is True, <cite>create_using</cite> is a multigraph, and <cite>A</cite> is an
+integer array, then entry <em>(i, j)</em> in the array is interpreted as the
+number of parallel edges joining vertices <em>i</em> and <em>j</em> in the graph.
+If it is False, then the entries in the array are interpreted as
+the weight of a single edge joining the vertices.</p>
+</dd>
+<dt><strong>create_using</strong><span class="classifier">NetworkX graph constructor, optional (default=nx.Graph)</span></dt><dd><p>Graph type to create. If graph instance, then cleared before populated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_numpy_array</span></code></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>For directed graphs, explicitly mention create_using=nx.DiGraph,
+and entry i,j of A corresponds to an edge from i to j.</p>
+<p>If <cite>create_using</cite> is <a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multigraph.html#networkx.MultiGraph" title="(in NetworkX v3.6.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.MultiGraph</span></code></a> or
+<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v3.6.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.MultiDiGraph</span></code></a>, <cite>parallel_edges</cite> is True, and the
+entries of <cite>A</cite> are of type <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, then this function returns a
+multigraph (of the same type as <cite>create_using</cite>) with parallel edges.</p>
+<p>If <cite>create_using</cite> indicates an undirected multigraph, then only the edges
+indicated by the upper triangle of the array <cite>A</cite> will be added to the
+graph.</p>
+<p>If the NumPy array has a single data type for each array entry it
+will be converted to an appropriate Python data type.</p>
+<p>If the NumPy array has a user-specified compound data type the names
+of the data fields will be used as attribute keys in the resulting
+NetworkX graph.</p>
+<p class="rubric">Examples</p>
+<p>Simple integer weights on edges:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">EdgeDataView([(0, 0, {&#39;weight&#39;: 1}), (0, 1, {&#39;weight&#39;: 2}), (1, 1, {&#39;weight&#39;: 1})])</span>
+</pre></div>
+</div>
+<p>If <cite>create_using</cite> indicates a multigraph and the array has only integer
+entries and <cite>parallel_edges</cite> is False, then the entries will be treated
+as weights for edges joining the nodes (without creating parallel edges):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">AtlasView({0: {&#39;weight&#39;: 2}})</span>
+</pre></div>
+</div>
+<p>If <cite>create_using</cite> indicates a multigraph and the array has only integer
+entries and <cite>parallel_edges</cite> is True, then the entries will be treated
+as the number of parallel edges joining those two vertices:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temp</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">parallel_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">temp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">AtlasView({0: {&#39;weight&#39;: 1}, 1: {&#39;weight&#39;: 1}})</span>
+</pre></div>
+</div>
+<p>User defined compound data type on edges:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;cost&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span>
+<span class="go">EdgeView([(0, 0)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;cost&quot;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.minimum_spanning_tree">
+<span class="sig-name descname"><span class="pre">minimum_spanning_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'weight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kruskal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.minimum_spanning_tree" title="Link to this definition">#</a></dt>
+<dd><p>Returns a minimum spanning tree or forest on an undirected graph <cite>G</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">undirected graph</span></dt><dd><p>An undirected graph. If <cite>G</cite> is connected, then the algorithm finds a
+spanning tree. Otherwise, a spanning forest is found.</p>
+</dd>
+<dt><strong>weight</strong><span class="classifier">str</span></dt><dd><p>Data key to use for edge weights.</p>
+</dd>
+<dt><strong>algorithm</strong><span class="classifier">string</span></dt><dd><p>The algorithm to use when finding a minimum spanning tree. Valid
+choices are ‘kruskal’, ‘prim’, or ‘boruvka’. The default is
+‘kruskal’.</p>
+</dd>
+<dt><strong>ignore_nan</strong><span class="classifier">bool (default: False)</span></dt><dd><p>If a NaN is found as an edge weight normally an exception is raised.
+If <cite>ignore_nan is True</cite> then that edge is ignored instead.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">NetworkX Graph</span></dt><dd><p>A minimum spanning tree or forest.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For Borůvka’s algorithm, each edge must have a weight attribute, and
+each edge weight must be distinct.</p>
+<p>For the other algorithms, if the graph edges do not have a weight
+attribute a default weight of 1 will be used.</p>
+<p>There may be more than one tree with the same minimum or maximum weight.
+See <code class="xref py py-mod docutils literal notranslate"><span class="pre">networkx.tree.recognition</span></code> for more detailed definitions.</p>
+<p>Isolated nodes with self-loops are in the tree as edgeless isolated nodes.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">minimum_spanning_tree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[(0, 1, {}), (1, 2, {}), (2, 3, {})]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.pairwise_distances">
+<span class="sig-name descname"><span class="pre">pairwise_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_all_finite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.pairwise_distances" title="Link to this definition">#</a></dt>
+<dd><p>Compute the distance matrix from a feature array X and optional Y.</p>
+<p>This function takes one or two feature arrays or a distance matrix, and returns
+a distance matrix.</p>
+<ul class="simple">
+<li><p>If <cite>X</cite> is a feature array, of shape (n_samples_X, n_features), and:</p>
+<ul>
+<li><p><cite>Y</cite> is <cite>None</cite> and <cite>metric</cite> is not ‘precomputed’, the pairwise distances
+between <cite>X</cite> and itself are returned.</p></li>
+<li><p><cite>Y</cite> is a feature array of shape (n_samples_Y, n_features), the pairwise
+distances between <cite>X</cite> and <cite>Y</cite> is returned.</p></li>
+</ul>
+</li>
+<li><p>If <cite>X</cite> is a distance matrix, of shape (n_samples_X, n_samples_X), <cite>metric</cite>
+should be ‘precomputed’. <cite>Y</cite> is thus ignored and <cite>X</cite> is returned as is.</p></li>
+</ul>
+<p>If the input is a collection of non-numeric data (e.g. a list of strings or a
+boolean array), a custom metric must be passed.</p>
+<p>This method provides a safe way to take a distance matrix as input, while
+preserving compatibility with many other algorithms that take a vector
+array.</p>
+<p>Valid values for metric are:</p>
+<ul class="simple">
+<li><p>From scikit-learn: [‘cityblock’, ‘cosine’, ‘euclidean’, ‘l1’, ‘l2’,
+‘manhattan’, ‘nan_euclidean’]. All metrics support sparse matrix
+inputs except ‘nan_euclidean’.</p></li>
+<li><p>From <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/spatial.distance.html#module-scipy.spatial.distance" title="(in SciPy v1.17.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.spatial.distance</span></code></a>: [‘braycurtis’, ‘canberra’, ‘chebyshev’,
+‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’,
+‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’,
+‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’].
+These metrics do not support sparse matrix inputs.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>‘kulsinski’</cite> is deprecated from SciPy 1.9 and will be removed in SciPy 1.11.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>‘matching’</cite> has been removed in SciPy 1.9 (use <cite>‘hamming’</cite> instead).</p>
+</div>
+<p>Note that in the case of ‘cityblock’, ‘cosine’ and ‘euclidean’ (which are
+valid <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/spatial.distance.html#module-scipy.spatial.distance" title="(in SciPy v1.17.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.spatial.distance</span></code></a> metrics), the scikit-learn implementation
+will be used, which is faster and has support for sparse matrices (except
+for ‘cityblock’). For a verbose description of the metrics from
+scikit-learn, see <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise.distance_metrics()</span></code>
+function.</p>
+<p>Read more in the <span class="xref std std-ref">User Guide</span>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape (n_samples_X, n_samples_X) or             (n_samples_X, n_features)</span></dt><dd><p>Array of pairwise distances between samples, or a feature array.
+The shape of the array should be (n_samples_X, n_samples_X) if
+metric == “precomputed” and (n_samples_X, n_features) otherwise.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">{array-like, sparse matrix} of shape (n_samples_Y, n_features), default=None</span></dt><dd><p>An optional second feature array. Only allowed if
+metric != “precomputed”.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">str or callable, default=’euclidean’</span></dt><dd><p>The metric to use when calculating distance between instances in a
+feature array. If metric is a string, it must be one of the options
+allowed by <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.pdist.html#scipy.spatial.distance.pdist" title="(in SciPy v1.17.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.spatial.distance.pdist()</span></code></a> for its metric parameter, or
+a metric listed in <code class="docutils literal notranslate"><span class="pre">pairwise.PAIRWISE_DISTANCE_FUNCTIONS</span></code>.
+If metric is “precomputed”, X is assumed to be a distance matrix.
+Alternatively, if metric is a callable function, it is called on each
+pair of instances (rows) and the resulting value recorded. The callable
+should take two arrays from X as input and return a value indicating
+the distance between them.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>The number of jobs to use for the computation. This works by breaking
+down the pairwise matrix into n_jobs even slices and computing them
+using multithreading.</p>
+<p><code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors. See <span class="xref std std-term">Glossary</span>
+for more details.</p>
+<p>The “euclidean” and “cosine” metrics rely heavily on BLAS which is already
+multithreaded. So, increasing <cite>n_jobs</cite> would likely cause oversubscription
+and quickly degrade performance.</p>
+</dd>
+<dt><strong>ensure_all_finite</strong><span class="classifier">bool or ‘allow-nan’, default=True</span></dt><dd><p>Whether to raise an error on np.inf, np.nan, pd.NA in array. Ignored
+for a metric listed in <code class="docutils literal notranslate"><span class="pre">pairwise.PAIRWISE_DISTANCE_FUNCTIONS</span></code>. The
+possibilities are:</p>
+<ul class="simple">
+<li><p>True: Force all values of array to be finite.</p></li>
+<li><p>False: accepts np.inf, np.nan, pd.NA in array.</p></li>
+<li><p>‘allow-nan’: accepts only np.nan and pd.NA values in array. Values
+cannot be infinite.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.6: </span><cite>force_all_finite</cite> was renamed to <cite>ensure_all_finite</cite>.</p>
+</div>
+</dd>
+<dt><strong>**kwds</strong><span class="classifier">optional keyword parameters</span></dt><dd><p>Any further parameters are passed directly to the distance function.
+If using a scipy.spatial.distance metric, the parameters are still
+metric dependent. See the scipy docs for usage examples.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>D</strong><span class="classifier">ndarray of shape (n_samples_X, n_samples_X) or             (n_samples_X, n_samples_Y)</span></dt><dd><p>A distance matrix D such that D_{i, j} is the distance between the
+ith and jth vectors of the given matrix X, if Y is None.
+If Y is not None, then D_{i, j} is the distance between the ith array
+from X and the jth array from Y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pairwise_distances_chunked</span></code></dt><dd><p>Performs the same calculation as this function, but returns a generator of chunks of the distance matrix, in order to limit memory usage.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise.paired_distances</span></code></dt><dd><p>Computes the distances between corresponding elements of two arrays.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>If metric is a callable, no restrictions are placed on <cite>X</cite> and <cite>Y</cite> dimensions.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;sqeuclidean&#39;</span><span class="p">)</span>
+<span class="go">array([[1., 2.],</span>
+<span class="go">       [2., 1.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.transforms.liftings.pointcloud2hypergraph.base.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.transforms.liftings.pointcloud2hypergraph.base module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.transforms.liftings.pointcloud2hypergraph.pointnet_lifting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.transforms.liftings.pointcloud2hypergraph.pointnet_lifting module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture"><code class="docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.__init__"><code class="docutils literal notranslate"><span class="pre">GaussianMixture.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.aic"><code class="docutils literal notranslate"><span class="pre">GaussianMixture.aic()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.GaussianMixture.bic"><code class="docutils literal notranslate"><span class="pre">GaussianMixture.bic()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting"><code class="docutils literal notranslate"><span class="pre">MoGMSTLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.__init__"><code class="docutils literal notranslate"><span class="pre">MoGMSTLifting.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.find_mog"><code class="docutils literal notranslate"><span class="pre">MoGMSTLifting.find_mog()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.MoGMSTLifting.lift_topology"><code class="docutils literal notranslate"><span class="pre">MoGMSTLifting.lift_topology()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting"><code class="docutils literal notranslate"><span class="pre">PointCloud2HypergraphLifting</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.PointCloud2HypergraphLifting.__init__"><code class="docutils literal notranslate"><span class="pre">PointCloud2HypergraphLifting.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.from_numpy_array"><code class="docutils literal notranslate"><span class="pre">from_numpy_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.minimum_spanning_tree"><code class="docutils literal notranslate"><span class="pre">minimum_spanning_tree()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.liftings.pointcloud2hypergraph.mogmst_lifting.pairwise_distances"><code class="docutils literal notranslate"><span class="pre">pairwise_distances()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

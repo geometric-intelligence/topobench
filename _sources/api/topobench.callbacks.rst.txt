@@ -1,0 +1,16 @@
+topobench.callbacks package
+===========================
+
+.. automodule:: topobench.callbacks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.callbacks.best_epoch_metrics
+   topobench.callbacks.timer_callback

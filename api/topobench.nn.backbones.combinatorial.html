@@ -1,0 +1,1146 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.nn.backbones.combinatorial package &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.nn.backbones.combinatorial';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.nn.backbones.combinatorial.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.nn.backbones.combinatorial.gccn module" href="topobench.nn.backbones.combinatorial.gccn.html" />
+    <link rel="prev" title="topobench.nn.backbones.cell.cccn module" href="topobench.nn.backbones.cell.cccn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.html" class="nav-link">topobench.nn package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.backbones.html" class="nav-link">topobench.nn.backbones package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.nn.backbones.combinatorial package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.nn.backbones.combinatorial">
+<span id="topobench-nn-backbones-combinatorial-package"></span><h1>topobench.nn.backbones.combinatorial package<a class="headerlink" href="#module-topobench.nn.backbones.combinatorial" title="Link to this heading">#</a></h1>
+<p>Combinatorial backbones with automated exports.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSE">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HOPSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSE" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>HOPSE model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>in_channels</strong><span class="classifier">tuple of int or int</span></dt><dd><p>Dimension of the hidden layers.</p>
+</dd>
+<dt><strong>hidden_channels</strong><span class="classifier">int</span></dt><dd><p>Dimension of the output layer.</p>
+</dd>
+<dt><strong>update_func</strong><span class="classifier">str</span></dt><dd><p>Update function.</p>
+</dd>
+<dt><strong>complex_dim</strong><span class="classifier">int</span></dt><dd><p>Dimension of the complex.</p>
+</dd>
+<dt><strong>max_hop</strong><span class="classifier">int</span></dt><dd><p>Number of hops.</p>
+</dd>
+<dt><strong>n_layers</strong><span class="classifier">int</span></dt><dd><p>Number of layers.</p>
+</dd>
+<dt><strong>layer_norm</strong><span class="classifier">bool, optional</span></dt><dd><p>Wether to perform layer normalization.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSE.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complex_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSE.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSE.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSE.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">tuple(tuple(torch.Tensor))</span></dt><dd><p>Tuple of tuple containing the input tensors for each simplex.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple(tuple(torch.Tensor))</dt><dd><p>Tuple of tuples of final hidden state tensors.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSELayer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HOPSELayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggr_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xavier_uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSELayer" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>One layer in the HOPSE model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>in_channels</strong><span class="classifier">int</span></dt><dd><p>Number of input channels.</p>
+</dd>
+<dt><strong>out_channels</strong><span class="classifier">int</span></dt><dd><p>Number of output channels.</p>
+</dd>
+<dt><strong>max_hop</strong><span class="classifier">int</span></dt><dd><p>Number of hop representations to consider.</p>
+</dd>
+<dt><strong>aggr_norm</strong><span class="classifier">bool</span></dt><dd><p>Whether to perform aggregation normalization.</p>
+</dd>
+<dt><strong>update_func</strong><span class="classifier">str</span></dt><dd><p>Update function.</p>
+</dd>
+<dt><strong>initialization</strong><span class="classifier">str</span></dt><dd><p>Initialization method.</p>
+</dd>
+<dt><strong>layer_norm</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to apply layer normalization (default: True).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>Output</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSELayer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggr_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xavier_uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSELayer.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSELayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_all</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSELayer.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x_all</strong><span class="classifier">Dict[Int, torch.Tensor]</span></dt><dd><p>Dictionary of tensors where each simplex dimension (node, edge, face) represents a key, 0-indexed.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>Output tensors for each 0-cell.</p>
+</dd>
+<dt>torch.Tensor</dt><dd><p>Output tensors for each 1-cell.</p>
+</dd>
+<dt>torch.Tensor</dt><dd><p>Output tensors for each 2-cell.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.HOPSELayer.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.HOPSELayer.update" title="Link to this definition">#</a></dt>
+<dd><p>Update embeddings on each cell (step 4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Input tensor.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>Updated tensor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TopoTune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GNN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhoods</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_edge_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Tunes a GNN model using higher-order relations.</p>
+<p>This class takes a GNN and its kwargs as inputs, and tunes it with specified additional relations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>GNN</strong><span class="classifier">torch.nn.Module, a class not an object</span></dt><dd><p>The GNN class to use. ex: GAT, GCN.</p>
+</dd>
+<dt><strong>neighborhoods</strong><span class="classifier">list of lists</span></dt><dd><p>The neighborhoods of interest.</p>
+</dd>
+<dt><strong>layers</strong><span class="classifier">int</span></dt><dd><p>The number of layers to use. Each layer contains one GNN.</p>
+</dd>
+<dt><strong>use_edge_attr</strong><span class="classifier">bool</span></dt><dd><p>Whether to use edge attributes.</p>
+</dd>
+<dt><strong>activation</strong><span class="classifier">str</span></dt><dd><p>The activation function to use. ex: ‘relu’, ‘tanh’, ‘sigmoid’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GNN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhoods</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_edge_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.aggregate_inter_nbhd">
+<span class="sig-name descname"><span class="pre">aggregate_inter_nbhd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_out_per_route</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.aggregate_inter_nbhd" title="Link to this definition">#</a></dt>
+<dd><p>Aggregate the outputs of the GNN for each rank.</p>
+<p>While the GNN takes care of intra-nbhd aggregation,
+this will take care of inter-nbhd aggregation.
+Default: sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x_out_per_route</strong><span class="classifier">dict</span></dt><dd><p>The outputs of the GNN for each route.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The aggregated outputs of the GNN for each rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">Complex or ComplexBatch(Complex)</span></dt><dd><p>The input data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The output hidden states of the model per rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.generate_membership_vectors">
+<span class="sig-name descname"><span class="pre">generate_membership_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.generate_membership_vectors" title="Link to this definition">#</a></dt>
+<dd><p>Generate membership vectors based on batch.cell_statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>Batch object containing the batched domain data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The batch membership of the graphs per rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.get_nbhd_cache">
+<span class="sig-name descname"><span class="pre">get_nbhd_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.get_nbhd_cache" title="Link to this definition">#</a></dt>
+<dd><p>Cache the nbhd information into a dict for the complex at hand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>The parameters of the batch, containing the complex.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The neighborhood cache.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.interrank_expand">
+<span class="sig-name descname"><span class="pre">interrank_expand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbhd_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">membership</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.interrank_expand" title="Link to this definition">#</a></dt>
+<dd><p>Expand the complex into an interrank Hasse graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>The parameters of the batch, containing the complex.</p>
+</dd>
+<dt><strong>src_rank</strong><span class="classifier">int</span></dt><dd><p>The source rank.</p>
+</dd>
+<dt><strong>dst_rank</strong><span class="classifier">int</span></dt><dd><p>The destination rank.</p>
+</dd>
+<dt><strong>nbhd_cache</strong><span class="classifier">dict</span></dt><dd><p>The neighborhood cache containing the expanded boundary index and edge attributes.</p>
+</dd>
+<dt><strong>membership</strong><span class="classifier">dict</span></dt><dd><p>The batch membership of the graphs per rank.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>The expanded batch of interrank Hasse graphs for this route.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.interrank_gnn_forward">
+<span class="sig-name descname"><span class="pre">interrank_gnn_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_route</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">route_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_dst_cells</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.interrank_gnn_forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the GNN (one layer) for an interrank Hasse graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch_route</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The batch of interrank Hasse graphs for this route.</p>
+</dd>
+<dt><strong>layer_idx</strong><span class="classifier">int</span></dt><dd><p>The index of the layer.</p>
+</dd>
+<dt><strong>route_index</strong><span class="classifier">int</span></dt><dd><p>The index of the route.</p>
+</dd>
+<dt><strong>n_dst_cells</strong><span class="classifier">int</span></dt><dd><p>The number of destination cells in the whole batch.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.tensor</dt><dd><p>The output of the GNN (updated features).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.intrarank_expand">
+<span class="sig-name descname"><span class="pre">intrarank_expand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbhd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.intrarank_expand" title="Link to this definition">#</a></dt>
+<dd><p>Expand the complex into an intrarank Hasse graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>The parameters of the batch, containing the complex.</p>
+</dd>
+<dt><strong>src_rank</strong><span class="classifier">int</span></dt><dd><p>The source rank.</p>
+</dd>
+<dt><strong>nbhd</strong><span class="classifier">str</span></dt><dd><p>The neighborhood to use.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>The expanded batch of intrarank Hasse graphs for this route.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune.intrarank_gnn_forward">
+<span class="sig-name descname"><span class="pre">intrarank_gnn_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_route</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">route_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune.intrarank_gnn_forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the GNN (one layer) for an intrarank Hasse graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch_route</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The batch of intrarank Hasse graphs for this route.</p>
+</dd>
+<dt><strong>layer_idx</strong><span class="classifier">int</span></dt><dd><p>The index of the TopoTune layer.</p>
+</dd>
+<dt><strong>route_index</strong><span class="classifier">int</span></dt><dd><p>The index of the route.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.tensor</dt><dd><p>The output of the GNN (updated features).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TopoTune_OneHasse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GNN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhoods</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_edge_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Tunes a GNN model using higher-order relations.</p>
+<p>This class takes a GNN and its kwargs as inputs, and tunes it with specified additional relations.
+Unlike the case of TopoTune, this class expects a single Hasse graph as input, where all
+higher-order neighborhoods are represented as a single adjacency matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>GNN</strong><span class="classifier">torch.nn.Module, a class not an object</span></dt><dd><p>The GNN class to use. ex: GAT, GCN.</p>
+</dd>
+<dt><strong>neighborhoods</strong><span class="classifier">list of lists</span></dt><dd><p>The neighborhoods of interest.</p>
+</dd>
+<dt><strong>layers</strong><span class="classifier">int</span></dt><dd><p>The number of layers to use. Each layer contains one GNN.</p>
+</dd>
+<dt><strong>use_edge_attr</strong><span class="classifier">bool</span></dt><dd><p>Whether to use edge attributes.</p>
+</dd>
+<dt><strong>activation</strong><span class="classifier">str</span></dt><dd><p>The activation function to use. ex: ‘relu’, ‘tanh’, ‘sigmoid’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GNN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighborhoods</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_edge_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.aggregate_inter_nbhd">
+<span class="sig-name descname"><span class="pre">aggregate_inter_nbhd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.aggregate_inter_nbhd" title="Link to this definition">#</a></dt>
+<dd><p>Aggregate the outputs of the GNN for each rank.</p>
+<p>While the GNN takes care of intra-nbhd aggregation,
+this will take care of inter-nbhd aggregation.
+Default: sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x_out</strong><span class="classifier">torch.tensor</span></dt><dd><p>The output of the GNN, concatenated features of each rank.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The aggregated outputs of the GNN for each rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_expand">
+<span class="sig-name descname"><span class="pre">all_nbhds_expand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">membership</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_expand" title="Link to this definition">#</a></dt>
+<dd><p>Expand the complex into a single Hasse graph which contains all ranks and all nbhd.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>The parameters of the batch, containing the complex.</p>
+</dd>
+<dt><strong>membership</strong><span class="classifier">dict</span></dt><dd><p>The batch membership of the graphs per rank.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>The expanded Hasse graph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_gnn_forward">
+<span class="sig-name descname"><span class="pre">all_nbhds_gnn_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_route</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_gnn_forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the GNN (one layer) for an intrarank Hasse graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch_route</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>The batch of intrarank Hasse graphs for this route.</p>
+</dd>
+<dt><strong>layer_idx</strong><span class="classifier">int</span></dt><dd><p>The index of the TopoTune layer.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.tensor</dt><dd><p>The output of the GNN (updated features).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.forward" title="Link to this definition">#</a></dt>
+<dd><p>Forward pass of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">Complex or ComplexBatch(Complex)</span></dt><dd><p>The input data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The output hidden states of the model per rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.combinatorial.TopoTune_OneHasse.generate_membership_vectors">
+<span class="sig-name descname"><span class="pre">generate_membership_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.generate_membership_vectors" title="Link to this definition">#</a></dt>
+<dd><p>Generate membership vectors based on batch.cell_statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>Batch object containing the batched domain data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>dict</dt><dd><p>The batch membership of the graphs per rank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html">topobench.nn.backbones.combinatorial.gccn module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune"><code class="docutils literal notranslate"><span class="pre">TopoTune</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune.generate_membership_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.get_nbhd_cache"><code class="docutils literal notranslate"><span class="pre">TopoTune.get_nbhd_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.interrank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.interrank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_gnn_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.intrarank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.TopoTune.intrarank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_gnn_forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.get_activation"><code class="docutils literal notranslate"><span class="pre">get_activation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.get_routes_from_neighborhoods"><code class="docutils literal notranslate"><span class="pre">get_routes_from_neighborhoods()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn.html#topobench.nn.backbones.combinatorial.gccn.interrank_boundary_index"><code class="docutils literal notranslate"><span class="pre">interrank_boundary_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html">topobench.nn.backbones.combinatorial.gccn_onehasse module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.all_nbhds_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_expand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.all_nbhds_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_gnn_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.TopoTune_OneHasse.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.generate_membership_vectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.get_activation"><code class="docutils literal notranslate"><span class="pre">get_activation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.gccn_onehasse.html#topobench.nn.backbones.combinatorial.gccn_onehasse.get_routes_from_neighborhoods"><code class="docutils literal notranslate"><span class="pre">get_routes_from_neighborhoods()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html">topobench.nn.backbones.combinatorial.hopse module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSE"><code class="docutils literal notranslate"><span class="pre">HOPSE</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSE.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSE.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSE.forward"><code class="docutils literal notranslate"><span class="pre">HOPSE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSELayer"><code class="docutils literal notranslate"><span class="pre">HOPSELayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSELayer.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSELayer.forward"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="topobench.nn.backbones.combinatorial.hopse.html#topobench.nn.backbones.combinatorial.hopse.HOPSELayer.update"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.nn.backbones.cell.cccn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.nn.backbones.cell.cccn module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.nn.backbones.combinatorial.gccn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.nn.backbones.combinatorial.gccn module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSE"><code class="docutils literal notranslate"><span class="pre">HOPSE</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSE.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSE.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSE.forward"><code class="docutils literal notranslate"><span class="pre">HOPSE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSELayer"><code class="docutils literal notranslate"><span class="pre">HOPSELayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSELayer.__init__"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSELayer.forward"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.HOPSELayer.update"><code class="docutils literal notranslate"><span class="pre">HOPSELayer.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune"><code class="docutils literal notranslate"><span class="pre">TopoTune</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune.generate_membership_vectors()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.get_nbhd_cache"><code class="docutils literal notranslate"><span class="pre">TopoTune.get_nbhd_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.interrank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_expand()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.interrank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.interrank_gnn_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.intrarank_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_expand()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune.intrarank_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune.intrarank_gnn_forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.__init__"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.aggregate_inter_nbhd"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.aggregate_inter_nbhd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_expand"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_expand()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.all_nbhds_gnn_forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.all_nbhds_gnn_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.forward"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.combinatorial.TopoTune_OneHasse.generate_membership_vectors"><code class="docutils literal notranslate"><span class="pre">TopoTune_OneHasse.generate_membership_vectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

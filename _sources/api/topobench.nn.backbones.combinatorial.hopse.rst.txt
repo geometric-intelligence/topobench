@@ -1,0 +1,7 @@
+topobench.nn.backbones.combinatorial.hopse module
+=================================================
+
+.. automodule:: topobench.nn.backbones.combinatorial.hopse
+   :members:
+   :show-inheritance:
+   :undoc-members:

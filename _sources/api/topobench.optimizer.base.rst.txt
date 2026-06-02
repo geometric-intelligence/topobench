@@ -1,0 +1,7 @@
+topobench.optimizer.base module
+===============================
+
+.. automodule:: topobench.optimizer.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

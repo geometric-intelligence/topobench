@@ -1,0 +1,7 @@
+topobench.nn.readouts.base module
+=================================
+
+.. automodule:: topobench.nn.readouts.base
+   :members:
+   :show-inheritance:
+   :undoc-members:

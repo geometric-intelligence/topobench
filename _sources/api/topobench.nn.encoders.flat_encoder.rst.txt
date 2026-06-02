@@ -1,0 +1,7 @@
+topobench.nn.encoders.flat\_encoder module
+==========================================
+
+.. automodule:: topobench.nn.encoders.flat_encoder
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,25 @@
+topobench.loss package
+======================
+
+.. automodule:: topobench.loss
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.loss.dataset
+   topobench.loss.model
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.loss.base
+   topobench.loss.loss

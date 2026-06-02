@@ -1,0 +1,7 @@
+topobench.loss.dataset.DatasetLoss module
+=========================================
+
+.. automodule:: topobench.loss.dataset.DatasetLoss
+   :members:
+   :show-inheritance:
+   :undoc-members:

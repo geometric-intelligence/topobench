@@ -1,0 +1,1324 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.transforms.data_manipulations.laplacian_encodings module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.transforms.data_manipulations.laplacian_encodings';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.transforms.data_manipulations.laplacian_encodings.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.transforms.data_manipulations.mp_homophily module" href="topobench.transforms.data_manipulations.mp_homophily.html" />
+    <link rel="prev" title="topobench.transforms.data_manipulations.khop_feature_encodings module" href="topobench.transforms.data_manipulations.khop_feature_encodings.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.html" class="nav-link">topobench.transforms package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.transforms.data_manipulations.html" class="nav-link">topobench.transforms.data_manipulations package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.transforms.data_manipulations.laplacian_encodings module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.transforms.data_manipulations.laplacian_encodings">
+<span id="topobench-transforms-data-manipulations-laplacian-encodings-module"></span><h1>topobench.transforms.data_manipulations.laplacian_encodings module<a class="headerlink" href="#module-topobench.transforms.data_manipulations.laplacian_encodings" title="Link to this heading">#</a></h1>
+<p>Laplacian Positional Encoding (LapPE) Transform.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseTransform</span></span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.optimizer.base.html#topobench.optimizer.base.ABC" title="abc.ABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>An abstract base class for writing transforms.</p>
+<p>Transforms are a general way to modify and customize
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects, either by implicitly
+passing them as an argument to a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>, or
+by applying them explicitly to individual
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch_geometric.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">T</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">TUDataset</span>
+
+<span class="n">transform</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">T</span><span class="o">.</span><span class="n">ToUndirected</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">AddSelfLoops</span><span class="p">()])</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MUTAG&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Implicitly transform data on every access.</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MUTAG&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Explicitly transform data.</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform.forward">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform.forward" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseData</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureStore</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GraphStore</span></code></p>
+<p>A data object describing a homogeneous graph.
+The data object can hold node-level, link-level and graph-level attributes.
+In general, <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> tries to mimic the
+behavior of a regular <a href="#id1"><span class="problematic" id="id2">:python:`Python`</span></a> dictionary.
+In addition, it provides useful functionality for analyzing graph
+structures, and provides basic PyTorch tensor functionalities.
+See <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/get_started/introduction.html#data-handling-of-graphs">here</a> for the accompanying
+tutorial.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">edge_index</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Add additional arguments to `data`:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">train_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">test_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+<span class="c1"># Analyzing the graph structure:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">23</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kc">False</span>
+
+<span class="c1"># PyTorch tensor functionality:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_node_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_index</strong> (<em>LongTensor</em><em>, </em><em>optional</em>) – Graph connectivity in COO format
+with shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">num_edges]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_attr</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Edge feature matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges,</span> <span class="pre">num_edge_features]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>y</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Graph-level or node-level ground-truth
+labels with arbitrary shape. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>pos</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – Node position matrix with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_dimensions]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>time</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – The timestamps for each event with shape
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_edges]</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">[num_nodes]</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>optional</em>) – Additional attributes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.from_dict">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.from_dict" title="Link to this definition">#</a></dt>
+<dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object from a
+dictionary.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.connected_components">
+<span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.connected_components" title="Link to this definition">#</a></dt>
+<dd><p>Extracts connected components of the graph using a union-find
+algorithm. The components are returned as a list of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> objects, where each object
+represents a connected component of the graph.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.1</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span>
+<span class="p">)</span>
+
+<span class="n">components</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">connected_components</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of disconnected components.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>List</em>[<a class="reference internal" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data" title="topobench.transforms.data_manipulations.laplacian_encodings.Data"><em>Data</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.debug" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_subgraph">
+<span class="sig-name descname"><span class="pre">edge_subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the edge indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.
+Will currently preserve all the nodes in the graph, even if they are
+isolated after subgraph computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The edges to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_edge_attrs">
+<span class="sig-name descname"><span class="pre">get_all_edge_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_edge_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Returns all registered edge attributes.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_tensor_attrs">
+<span class="sig-name descname"><span class="pre">get_all_tensor_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_tensor_attrs" title="Link to this definition">#</a></dt>
+<dd><p>Obtains all feature attributes stored in <cite>Data</cite>.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.is_edge_attr">
+<span class="sig-name descname"><span class="pre">is_edge_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.is_edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes an
+edge-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.is_node_attr">
+<span class="sig-name descname"><span class="pre">is_node_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.is_node_attr" title="Link to this definition">#</a></dt>
+<dd><p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the object at key <code class="xref py py-obj docutils literal notranslate"><span class="pre">key</span></code> denotes a
+node-level tensor attribute.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.stores_as">
+<span class="sig-name descname"><span class="pre">stores_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.stores_as" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.subgraph">
+<span class="sig-name descname"><span class="pre">subgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.subgraph" title="Link to this definition">#</a></dt>
+<dd><p>Returns the induced subgraph given by the node indices
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subset</strong> (<em>LongTensor</em><em> or </em><em>BoolTensor</em>) – The nodes to keep.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_dict" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.to_heterogeneous">
+<span class="sig-name descname"><span class="pre">to_heterogeneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_type_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_heterogeneous" title="Link to this definition">#</a></dt>
+<dd><p>Converts a <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object to a
+heterogeneous <code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroData</span></code> object.
+For this, node and edge attributes are splitted according to the
+node-level and edge-level vectors <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code> and
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type</span></code>, respectively.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_type_names</span></code> can be used to give
+meaningful node and edge type names, respectively.
+That is, the node_type <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> is given by <code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type_names[0]</span></code>.
+If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Data</span></code> object was constructed via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">to_homogeneous()</span></code>, the object can
+be reconstructed without any need to pass in additional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – A node-level vector denoting
+the type of each node. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type</strong> (<em>torch.Tensor</em><em>, </em><em>optional</em>) – An edge-level vector denoting
+the type of each edge. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>node_type_names</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – The names of node types.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>edge_type_names</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The names
+of edge types. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.to_namedtuple">
+<span class="sig-name descname"><span class="pre">to_namedtuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_namedtuple" title="Link to this definition">#</a></dt>
+<dd><p>Returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedTuple</span></code> of stored key/value pairs.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the data object with the elements from another data object.
+Added elements will override existing ones (in case of duplicates).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.validate" title="Link to this definition">#</a></dt>
+<dd><p>Validates the correctness of the data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.batch">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.batch" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_attr">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_attr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_attr" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_index">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_index" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">EdgeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_weight">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_weight" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.face">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.face" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.node_stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">node_stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">NodeStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.node_stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per edge in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edge_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of edge types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_faces">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_faces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_faces" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of faces in the mesh.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.
+Alias for <a class="reference internal" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_features" title="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_features"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_node_features</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_features">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_features" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of features per node in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_types">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_node_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_types" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of node types in the graph.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.num_nodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_nodes" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of nodes in the graph.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of nodes in the data object is automatically inferred
+in case node-level attributes are present, <em>e.g.</em>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.x</span></code>.
+In some cases, however, a graph may only be given without any
+node-level attributes.
+<a href="#id3"><span class="problematic" id="id4">:pyg:`PyG`</span></a> then <em>guesses</em> the number of nodes according to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_index.max().item()</span> <span class="pre">+</span> <span class="pre">1</span></code>.
+However, in case there exists isolated nodes, this number does not
+have to be correct which can result in unexpected behavior.
+Thus, we recommend to set the number of nodes in your data object
+explicitly via <code class="xref py py-obj docutils literal notranslate"><span class="pre">data.num_nodes</span> <span class="pre">=</span> <span class="pre">...</span></code>.
+You will be given a warning that requests you to do so.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.pos">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.pos" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.stores">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseStorage</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.stores" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.time">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.time" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.x">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.x" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.Data.y">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.y" title="Link to this definition">#</a></dt>
+<dd><p>!! processed by numpydoc !!</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.LapPE">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LapPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_pe_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_eigenvalues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_to_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.transforms.data_manipulations.sheaf_connlap_encodings.html#topobench.transforms.data_manipulations.sheaf_connlap_encodings.BaseTransform" title="torch_geometric.transforms.base_transform.BaseTransform"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTransform</span></code></a></p>
+<p>Laplacian Positional Encoding (LapPE) transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>max_pe_dim</strong><span class="classifier">int</span></dt><dd><p>Maximum number of eigenvectors to use (dimensionality of the encoding).</p>
+</dd>
+<dt><strong>include_eigenvalues</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, concatenates eigenvalues alongside eigenvectors.
+Default is False.</p>
+</dd>
+<dt><strong>include_first</strong><span class="classifier">bool, optional</span></dt><dd><p>If False, removes eigenvectors corresponding to (near-)zero eigenvalues.
+Default is False.</p>
+</dd>
+<dt><strong>concat_to_x</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, concatenates the encodings with existing node features.
+Default is True.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, optional</span></dt><dd><p>Small value to avoid division by zero.
+Default is 1e-6.</p>
+</dd>
+<dt><strong>tolerance</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for the eigenvalue solver.
+Default is 0.001.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, optional</span></dt><dd><p>Computation method: “exact” (SciPy CPU) or “gpu” (PyTorch GPU).
+Default is “gpu”.</p>
+</dd>
+<dt><strong>debug</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, runs both methods and prints error/timing metrics.
+Default is False.</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional arguments (not used).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.LapPE.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_pe_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_eigenvalues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concat_to_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE.__init__" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.LapPE.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE.forward" title="Link to this definition">#</a></dt>
+<dd><p>Compute the Laplacian positional encodings for the input graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">torch_geometric.data.Data</span></dt><dd><p>Input graph data object.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch_geometric.data.Data</dt><dd><p>Graph data object with Laplacian positional encodings added.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.degree" title="Link to this definition">#</a></dt>
+<dd><p>Computes the (unweighted) degree of a given one-dimensional index
+tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>LongTensor</em>) – Index tensor.</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max_val</span> <span class="pre">+</span> <span class="pre">1</span></code> of <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>dtype</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.dtype</span></code>, optional) – The desired data type of the
+returned tensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">row</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">degree</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="go">tensor([3, 1, 1])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.eigsh">
+<span class="sig-name descname"><span class="pre">eigsh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LM'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_eigenvectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Minv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OPinv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.eigsh" title="Link to this definition">#</a></dt>
+<dd><p>Find k eigenvalues and eigenvectors of the real symmetric square matrix
+or complex Hermitian matrix A.</p>
+<p>Solves <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">x[i]</span> <span class="pre">=</span> <span class="pre">w[i]</span> <span class="pre">*</span> <span class="pre">x[i]</span></code>, the standard eigenvalue problem for
+w[i] eigenvalues with corresponding eigenvectors x[i].</p>
+<p>If M is specified, solves <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">x[i]</span> <span class="pre">=</span> <span class="pre">w[i]</span> <span class="pre">*</span> <span class="pre">M</span> <span class="pre">&#64;</span> <span class="pre">x[i]</span></code>, the
+generalized eigenvalue problem for w[i] eigenvalues
+with corresponding eigenvectors x[i].</p>
+<p>Note that there is no specialized routine for the case when A is a complex
+Hermitian matrix. In this case, <code class="docutils literal notranslate"><span class="pre">eigsh()</span></code> will call <code class="docutils literal notranslate"><span class="pre">eigs()</span></code> and return
+the real parts of the eigenvalues thus obtained.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">ndarray, sparse matrix or LinearOperator</span></dt><dd><p>A square operator representing the operation <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>, where <code class="docutils literal notranslate"><span class="pre">A</span></code> is
+real symmetric or complex Hermitian. For buckling mode (see below)
+<code class="docutils literal notranslate"><span class="pre">A</span></code> must additionally be positive-definite.</p>
+</dd>
+<dt><strong>k</strong><span class="classifier">int, optional</span></dt><dd><p>The number of eigenvalues and eigenvectors desired.
+<cite>k</cite> must be smaller than N. It is not possible to compute all
+eigenvectors of a matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>w</strong><span class="classifier">array</span></dt><dd><p>Array of k eigenvalues.</p>
+</dd>
+<dt><strong>v</strong><span class="classifier">array</span></dt><dd><p>An array representing the <cite>k</cite> eigenvectors.  The column <code class="docutils literal notranslate"><span class="pre">v[:,</span> <span class="pre">i]</span></code> is
+the eigenvector corresponding to the eigenvalue <code class="docutils literal notranslate"><span class="pre">w[i]</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Other Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>M</strong><span class="classifier">An N x N matrix, array, sparse matrix, or linear operator representing</span></dt><dd><p>the operation <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">&#64;</span> <span class="pre">x</span></code> for the generalized eigenvalue problem</p>
+<blockquote>
+<div><p>A &#64; x = w * M &#64; x.</p>
+</div></blockquote>
+<p>M must represent a real symmetric matrix if A is real, and must
+represent a complex Hermitian matrix if A is complex. For best
+results, the data type of M should be the same as that of A.
+Additionally:</p>
+<blockquote>
+<div><p>If sigma is None, M is symmetric positive definite.</p>
+<p>If sigma is specified, M is symmetric positive semi-definite.</p>
+<p>In buckling mode, M is symmetric indefinite.</p>
+</div></blockquote>
+<p>If sigma is None, eigsh requires an operator to compute the solution
+of the linear equation <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">&#64;</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">b</span></code>. This is done internally via a
+(sparse) LU decomposition for an explicit matrix M, or via an
+iterative solver for a general linear operator.  Alternatively,
+the user can supply the matrix or operator Minv, which gives
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">Minv</span> <span class="pre">&#64;</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">M^-1</span> <span class="pre">&#64;</span> <span class="pre">b</span></code>.</p>
+</dd>
+<dt><strong>sigma</strong><span class="classifier">real</span></dt><dd><p>Find eigenvalues near sigma using shift-invert mode.  This requires
+an operator to compute the solution of the linear system
+<code class="docutils literal notranslate"><span class="pre">[A</span> <span class="pre">-</span> <span class="pre">sigma</span> <span class="pre">*</span> <span class="pre">M]</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">b</span></code>, where M is the identity matrix if
+unspecified.  This is computed internally via a (sparse) LU
+decomposition for explicit matrices A &amp; M, or via an iterative
+solver if either A or M is a general linear operator.
+Alternatively, the user can supply the matrix or operator <cite>OPinv</cite>,
+which gives <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">OPinv</span> <span class="pre">&#64;</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">[A</span> <span class="pre">-</span> <span class="pre">sigma</span> <span class="pre">*</span> <span class="pre">M]^-1</span> <span class="pre">&#64;</span> <span class="pre">b</span></code>.
+Regardless of the selected mode (normal, cayley, or buckling),
+<cite>OPinv</cite> should always be supplied as <code class="docutils literal notranslate"><span class="pre">OPinv</span> <span class="pre">=</span> <span class="pre">[A</span> <span class="pre">-</span> <span class="pre">sigma</span> <span class="pre">*</span> <span class="pre">M]^-1</span></code>.</p>
+<p>Note that when sigma is specified, the keyword ‘which’ refers to
+the shifted eigenvalues <code class="docutils literal notranslate"><span class="pre">w'[i]</span></code> where:</p>
+<blockquote>
+<div><p>if <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">==</span> <span class="pre">'normal'</span></code>: <code class="docutils literal notranslate"><span class="pre">w'[i]</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">(w[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span></code>.</p>
+<p>if <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">==</span> <span class="pre">'cayley'</span></code>:  <code class="docutils literal notranslate"><span class="pre">w'[i]</span> <span class="pre">=</span> <span class="pre">(w[i]</span> <span class="pre">+</span> <span class="pre">sigma)</span> <span class="pre">/</span> <span class="pre">(w[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span></code>.</p>
+<p>if <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">==</span> <span class="pre">'buckling'</span></code>: <code class="docutils literal notranslate"><span class="pre">w'[i]</span> <span class="pre">=</span> <span class="pre">w[i]</span> <span class="pre">/</span> <span class="pre">(w[i]</span> <span class="pre">-</span> <span class="pre">sigma)</span></code>.</p>
+</div></blockquote>
+<p>(see further discussion in ‘mode’ below)</p>
+</dd>
+<dt><strong>v0</strong><span class="classifier">ndarray, optional</span></dt><dd><p>Starting vector for iteration.
+Default: random</p>
+</dd>
+<dt><strong>ncv</strong><span class="classifier">int, optional</span></dt><dd><p>The number of Lanczos vectors generated ncv must be greater than k and
+smaller than n; it is recommended that <code class="docutils literal notranslate"><span class="pre">ncv</span> <span class="pre">&gt;</span> <span class="pre">2*k</span></code>.
+Default: <code class="docutils literal notranslate"><span class="pre">min(n,</span> <span class="pre">max(2*k</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">20))</span></code></p>
+</dd>
+<dt><strong>which</strong><span class="classifier">str [‘LM’ | ‘SM’ | ‘LA’ | ‘SA’ | ‘BE’]</span></dt><dd><p>If A is a complex Hermitian matrix, ‘BE’ is invalid.
+Which <cite>k</cite> eigenvectors and eigenvalues to find:</p>
+<blockquote>
+<div><p>‘LM’ : Largest (in magnitude) eigenvalues.</p>
+<p>‘SM’ : Smallest (in magnitude) eigenvalues.</p>
+<p>‘LA’ : Largest (algebraic) eigenvalues.</p>
+<p>‘SA’ : Smallest (algebraic) eigenvalues.</p>
+<p>‘BE’ : Half (k/2) from each end of the spectrum.</p>
+</div></blockquote>
+<p>When k is odd, return one more (k/2+1) from the high end.
+When sigma != None, ‘which’ refers to the shifted eigenvalues <code class="docutils literal notranslate"><span class="pre">w'[i]</span></code>
+(see discussion in ‘sigma’, above).  ARPACK is generally better
+at finding large values than small values.  If small eigenvalues are
+desired, consider using shift-invert mode for better performance.</p>
+</dd>
+<dt><strong>maxiter</strong><span class="classifier">int, optional</span></dt><dd><p>Maximum number of Arnoldi update iterations allowed.
+Default: <code class="docutils literal notranslate"><span class="pre">n*10</span></code></p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Relative accuracy for eigenvalues (stopping criterion).
+The default value of 0 implies machine precision.</p>
+</dd>
+<dt><strong>Minv</strong><span class="classifier">N x N matrix, array, sparse matrix, or LinearOperator</span></dt><dd><p>See notes in M, above.</p>
+</dd>
+<dt><strong>OPinv</strong><span class="classifier">N x N matrix, array, sparse matrix, or LinearOperator</span></dt><dd><p>See notes in sigma, above.</p>
+</dd>
+<dt><strong>return_eigenvectors</strong><span class="classifier">bool</span></dt><dd><p>Return eigenvectors (True) in addition to eigenvalues.
+This value determines the order in which eigenvalues are sorted.
+The sort order is also dependent on the <cite>which</cite> variable.</p>
+<blockquote>
+<div><dl>
+<dt>For which = ‘LM’ or ‘SA’:</dt><dd><p>If <cite>return_eigenvectors</cite> is True, eigenvalues are sorted by
+algebraic value.</p>
+<p>If <cite>return_eigenvectors</cite> is False, eigenvalues are sorted by
+absolute value.</p>
+</dd>
+<dt>For which = ‘BE’ or ‘LA’:</dt><dd><p>eigenvalues are always sorted by algebraic value.</p>
+</dd>
+<dt>For which = ‘SM’:</dt><dd><p>If <cite>return_eigenvectors</cite> is True, eigenvalues are sorted by
+algebraic value.</p>
+<p>If <cite>return_eigenvectors</cite> is False, eigenvalues are sorted by
+decreasing absolute value.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt><strong>mode</strong><span class="classifier">string [‘normal’ | ‘buckling’ | ‘cayley’]</span></dt><dd><p>Specify strategy to use for shift-invert mode.  This argument applies
+only for real-valued A and sigma != None.  For shift-invert mode,
+ARPACK internally solves the eigenvalue problem
+<code class="docutils literal notranslate"><span class="pre">OP</span> <span class="pre">&#64;</span> <span class="pre">x'[i]</span> <span class="pre">=</span> <span class="pre">w'[i]</span> <span class="pre">*</span> <span class="pre">B</span> <span class="pre">&#64;</span> <span class="pre">x'[i]</span></code>
+and transforms the resulting Ritz vectors x’[i] and Ritz values w’[i]
+into the desired eigenvectors and eigenvalues of the problem
+<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">x[i]</span> <span class="pre">=</span> <span class="pre">w[i]</span> <span class="pre">*</span> <span class="pre">M</span> <span class="pre">&#64;</span> <span class="pre">x[i]</span></code>.
+The modes are as follows:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>‘normal’ :</dt><dd><p>OP = [A - sigma * M]^-1 &#64; M,
+B = M,
+w’[i] = 1 / (w[i] - sigma)</p>
+</dd>
+<dt>‘buckling’ :</dt><dd><p>OP = [A - sigma * M]^-1 &#64; A,
+B = A,
+w’[i] = w[i] / (w[i] - sigma)</p>
+</dd>
+<dt>‘cayley’ :</dt><dd><p>OP = [A - sigma * M]^-1 &#64; [A + sigma * M],
+B = M,
+w’[i] = (w[i] + sigma) / (w[i] - sigma)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>The choice of mode will affect which eigenvalues are selected by
+the keyword ‘which’, and can also impact the stability of
+convergence (see [2] for a discussion).</p>
+</dd>
+<dt><strong>rng</strong><span class="classifier"><cite>numpy.random.Generator</cite>, optional</span></dt><dd><p>Pseudorandom number generator state. When <cite>rng</cite> is None, a new
+<cite>numpy.random.Generator</cite> is created using entropy from the
+operating system. Types other than <cite>numpy.random.Generator</cite> are
+passed to <cite>numpy.random.default_rng</cite> to instantiate a <code class="docutils literal notranslate"><span class="pre">Generator</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt>ArpackNoConvergence</dt><dd><p>When the requested convergence is not obtained.</p>
+<p>The currently converged eigenvalues and eigenvectors can be found
+as <code class="docutils literal notranslate"><span class="pre">eigenvalues</span></code> and <code class="docutils literal notranslate"><span class="pre">eigenvectors</span></code> attributes of the exception
+object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigs</span></code></dt><dd><p>eigenvalues and eigenvectors for a general (nonsymmetric) matrix A</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">svds</span></code></dt><dd><p>singular value decomposition for a matrix A</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This function is a wrapper to the ARPACK <a class="reference internal" href="#ra994ef4fe57c-1" id="id5">[1]</a> SSEUPD and DSEUPD
+functions which use the Implicitly Restarted Lanczos Method to
+find the eigenvalues and eigenvectors <a class="reference internal" href="#ra994ef4fe57c-2" id="id6">[2]</a>.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="ra994ef4fe57c-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">1</a><span class="fn-bracket">]</span></span>
+<p>ARPACK Software, <a class="github reference external" href="https://github.com/opencollab/arpack-ng">opencollab/arpack-ng</a></p>
+</div>
+<div class="citation" id="ra994ef4fe57c-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2</a><span class="fn-bracket">]</span></span>
+<p>R. B. Lehoucq, D. C. Sorensen, and C. Yang,  ARPACK USERS GUIDE:
+Solution of Large Scale Eigenvalue Problems by Implicitly Restarted
+Arnoldi Methods. SIAM, Philadelphia, PA, 1998.</p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigsh</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">eigsh</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span>
+<span class="go">array([1., 1., 1., 1., 1., 1.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvectors</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(13, 6)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.get_laplacian">
+<span class="sig-name descname"><span class="pre">get_laplacian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.get_laplacian" title="Link to this definition">#</a></dt>
+<dd><p>Computes the graph Laplacian of the graph given by <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_index</span></code>
+and optional <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_weight</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_index</strong> (<em>LongTensor</em>) – The edge indices.</p></li>
+<li><p><strong>edge_weight</strong> (<em>Tensor</em><em>, </em><em>optional</em>) – One-dimensional edge weights.
+(default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>normalization</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The normalization scheme for the graph
+Laplacian (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>):</p>
+<p>1. <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>: No normalization
+<span class="math notranslate nohighlight">\(\mathbf{L} = \mathbf{D} - \mathbf{A}\)</span></p>
+<p>2. <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;sym&quot;</span></code>: Symmetric normalization
+<span class="math notranslate nohighlight">\(\mathbf{L} = \mathbf{I} - \mathbf{D}^{-1/2} \mathbf{A}
+\mathbf{D}^{-1/2}\)</span></p>
+<p>3. <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;rw&quot;</span></code>: Random-walk normalization
+<span class="math notranslate nohighlight">\(\mathbf{L} = \mathbf{I} - \mathbf{D}^{-1} \mathbf{A}\)</span></p>
+</p></li>
+<li><p><strong>dtype</strong> (<em>torch.dtype</em><em>, </em><em>optional</em>) – The desired data type of returned tensor
+in case <code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_weight=None</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max_val</span> <span class="pre">+</span> <span class="pre">1</span></code> of <code class="xref py py-attr docutils literal notranslate"><span class="pre">edge_index</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edge_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No normalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap</span> <span class="o">=</span> <span class="n">get_laplacian</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_weight</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Symmetric normalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap_sym</span> <span class="o">=</span> <span class="n">get_laplacian</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_weight</span><span class="p">,</span>
+<span class="go">                            normalization=&#39;sym&#39;)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Random-walk normalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lap_rw</span> <span class="o">=</span> <span class="n">get_laplacian</span><span class="p">(</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_weight</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s1">&#39;rw&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.transforms.data_manipulations.laplacian_encodings.to_scipy_sparse_matrix">
+<span class="sig-name descname"><span class="pre">to_scipy_sparse_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_attr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.transforms.data_manipulations.laplacian_encodings.to_scipy_sparse_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Converts a graph given by edge indices and edge attributes to a scipy
+sparse matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_index</strong> (<em>LongTensor</em>) – The edge indices.</p></li>
+<li><p><strong>edge_attr</strong> (<em>Tensor</em><em>, </em><em>optional</em>) – Edge weights or multi-dimensional
+edge features. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max_val</span> <span class="pre">+</span> <span class="pre">1</span></code> of <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_scipy_sparse_matrix</span><span class="p">(</span><span class="n">edge_index</span><span class="p">)</span>
+<span class="go">&lt;4x4 sparse matrix of type &#39;&lt;class &#39;numpy.float32&#39;&gt;&#39;</span>
+<span class="go">    with 6 stored elements in COOrdinate format&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.transforms.data_manipulations.khop_feature_encodings.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.transforms.data_manipulations.khop_feature_encodings module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.transforms.data_manipulations.mp_homophily.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.transforms.data_manipulations.mp_homophily module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform"><code class="docutils literal notranslate"><span class="pre">BaseTransform</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.BaseTransform.forward"><code class="docutils literal notranslate"><span class="pre">BaseTransform.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data"><code class="docutils literal notranslate"><span class="pre">Data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.from_dict"><code class="docutils literal notranslate"><span class="pre">Data.from_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.__init__"><code class="docutils literal notranslate"><span class="pre">Data.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.connected_components"><code class="docutils literal notranslate"><span class="pre">Data.connected_components()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.debug"><code class="docutils literal notranslate"><span class="pre">Data.debug()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_subgraph"><code class="docutils literal notranslate"><span class="pre">Data.edge_subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_edge_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.get_all_tensor_attrs"><code class="docutils literal notranslate"><span class="pre">Data.get_all_tensor_attrs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.is_edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_edge_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.is_node_attr"><code class="docutils literal notranslate"><span class="pre">Data.is_node_attr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.stores_as"><code class="docutils literal notranslate"><span class="pre">Data.stores_as()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.subgraph"><code class="docutils literal notranslate"><span class="pre">Data.subgraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_dict"><code class="docutils literal notranslate"><span class="pre">Data.to_dict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_heterogeneous"><code class="docutils literal notranslate"><span class="pre">Data.to_heterogeneous()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.to_namedtuple"><code class="docutils literal notranslate"><span class="pre">Data.to_namedtuple()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.update"><code class="docutils literal notranslate"><span class="pre">Data.update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.validate"><code class="docutils literal notranslate"><span class="pre">Data.validate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.batch"><code class="docutils literal notranslate"><span class="pre">Data.batch</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_attr"><code class="docutils literal notranslate"><span class="pre">Data.edge_attr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_index"><code class="docutils literal notranslate"><span class="pre">Data.edge_index</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_stores"><code class="docutils literal notranslate"><span class="pre">Data.edge_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.edge_weight"><code class="docutils literal notranslate"><span class="pre">Data.edge_weight</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.face"><code class="docutils literal notranslate"><span class="pre">Data.face</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.node_stores"><code class="docutils literal notranslate"><span class="pre">Data.node_stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_features"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_edge_types"><code class="docutils literal notranslate"><span class="pre">Data.num_edge_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_faces"><code class="docutils literal notranslate"><span class="pre">Data.num_faces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_features"><code class="docutils literal notranslate"><span class="pre">Data.num_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_features"><code class="docutils literal notranslate"><span class="pre">Data.num_node_features</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_node_types"><code class="docutils literal notranslate"><span class="pre">Data.num_node_types</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.num_nodes"><code class="docutils literal notranslate"><span class="pre">Data.num_nodes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.pos"><code class="docutils literal notranslate"><span class="pre">Data.pos</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.stores"><code class="docutils literal notranslate"><span class="pre">Data.stores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.time"><code class="docutils literal notranslate"><span class="pre">Data.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.x"><code class="docutils literal notranslate"><span class="pre">Data.x</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.Data.y"><code class="docutils literal notranslate"><span class="pre">Data.y</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE"><code class="docutils literal notranslate"><span class="pre">LapPE</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE.__init__"><code class="docutils literal notranslate"><span class="pre">LapPE.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.LapPE.forward"><code class="docutils literal notranslate"><span class="pre">LapPE.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.degree"><code class="docutils literal notranslate"><span class="pre">degree()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.eigsh"><code class="docutils literal notranslate"><span class="pre">eigsh()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.get_laplacian"><code class="docutils literal notranslate"><span class="pre">get_laplacian()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.transforms.data_manipulations.laplacian_encodings.to_scipy_sparse_matrix"><code class="docutils literal notranslate"><span class="pre">to_scipy_sparse_matrix()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

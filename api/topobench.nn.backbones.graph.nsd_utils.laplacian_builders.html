@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>topobench.nn.backbones.graph.nsd_utils.laplacian_builders module &#8212; TopoBench latest documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=46d7c157" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=c6e86fd7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/topobench.nn.backbones.graph.nsd_utils.laplacian_builders';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://geometric-intelligence.github.io/topobench/api/topobench.nn.backbones.graph.nsd_utils.laplacian_builders.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="topobench.nn.backbones.graph.nsd_utils.orthogonal module" href="topobench.nn.backbones.graph.nsd_utils.orthogonal.html" />
+    <link rel="prev" title="topobench.nn.backbones.graph.nsd_utils.laplace module" href="topobench.nn.backbones.graph.nsd_utils.laplace.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="latest" />
+    <meta name="docbuild:last-update" content="Jun 2, 2026, 10:24:44 PM"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TopoBench latest documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2026/index.html">
+    TDL Challenge 2026
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../leaderboard/index.html">
+    2026 Challenge Leaderboard
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tdl-challenge-2025/index.html">
+    TDL Challenge 2025
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing/index.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.html" class="nav-link">topobench package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.html" class="nav-link">topobench.nn package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.backbones.html" class="nav-link">topobench.nn.backbones package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.backbones.graph.html" class="nav-link">topobench.nn.backbones.graph package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="topobench.nn.backbones.graph.nsd_utils.html" class="nav-link">topobench.nn.backbones.graph.nsd_utils package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">topobench.nn.backbones.graph.nsd_utils.laplacian_builders module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-topobench.nn.backbones.graph.nsd_utils.laplacian_builders">
+<span id="topobench-nn-backbones-graph-nsd-utils-laplacian-builders-module"></span><h1>topobench.nn.backbones.graph.nsd_utils.laplacian_builders module<a class="headerlink" href="#module-topobench.nn.backbones.graph.nsd_utils.laplacian_builders" title="Link to this heading">#</a></h1>
+<p>Laplacian builders for Neural Sheaf Diffusion.</p>
+<p>This module provides builders for constructing different types of sheaf Laplacians:
+diagonal, bundle (with orthogonal maps), and general (full matrices).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DiagLaplacianBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder" title="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">LaplacianBuilder</span></code></a></p>
+<p>Builder for sheaf Laplacian with diagonal restriction maps.</p>
+<p>This builder constructs a sheaf Laplacian where the restriction maps
+are diagonal matrices, parameterized by d values per edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges].</p>
+</dd>
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the diagonal stalk space.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.forward" title="Link to this definition">#</a></dt>
+<dd><p>Build the sheaf Laplacian from diagonal restriction maps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Diagonal restriction map parameters of shape [num_edges, d].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>L</strong><span class="classifier">tuple of torch.Tensor</span></dt><dd><p>Sparse Laplacian representation as (indices, values).</p>
+</dd>
+<dt><strong>saved_tril_maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Saved lower triangular restriction maps for analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneralLaplacianBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augmented</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder" title="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">LaplacianBuilder</span></code></a></p>
+<p>Builder for general sheaf Laplacian with full matrix restriction maps.</p>
+<p>This builder constructs a sheaf Laplacian where the restriction maps
+are arbitrary d x d matrices learned from data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges].</p>
+</dd>
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the stalk space.</p>
+</dd>
+<dt><strong>augmented</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to use augmented representation (not currently used). Default is True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augmented</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.forward" title="Link to this definition">#</a></dt>
+<dd><p>Build the sheaf Laplacian from general restriction maps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>General restriction map matrices of shape [num_edges, d, d].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>L</strong><span class="classifier">tuple of torch.Tensor</span></dt><dd><p>Sparse Laplacian representation as (indices, values).</p>
+</dd>
+<dt><strong>saved_tril_maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Saved lower triangular transport maps for analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LaplacianBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalised</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg_normalised</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Base class for building sheaf Laplacians.</p>
+<p>This class provides common functionality for all Laplacian builders,
+including preprocessing edge indices and computing normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges].</p>
+</dd>
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the stalk space.</p>
+</dd>
+<dt><strong>normalised</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to use normalized Laplacian. Default is False.</p>
+</dd>
+<dt><strong>deg_normalised</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to use degree normalization (not used). Default is False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalised</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg_normalised</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.scalar_normalise">
+<span class="sig-name descname"><span class="pre">scalar_normalise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tril</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.scalar_normalise" title="Link to this definition">#</a></dt>
+<dd><p>Apply scalar normalization to Laplacian entries.</p>
+<p>Normalizes diagonal and off-diagonal entries by node degrees,
+similar to symmetric normalization in standard graph Laplacians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>diag</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Diagonal block values.</p>
+</dd>
+<dt><strong>tril</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Lower triangular block values.</p>
+</dd>
+<dt><strong>row</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Row indices of edges.</p>
+</dd>
+<dt><strong>col</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Column indices of edges.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>diag_maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Normalized diagonal block values.</p>
+</dd>
+<dt><strong>non_diag_maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Normalized off-diagonal block values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NormConnectionLaplacianBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orth_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder" title="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">LaplacianBuilder</span></code></a></p>
+<p>Builder for normalized bundle sheaf Laplacian with orthogonal restriction maps.</p>
+<p>This builder constructs a normalized sheaf Laplacian where the restriction maps
+are orthogonal matrices parameterized via Cayley transform or matrix exponential.
+Used for bundle sheaf models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges].</p>
+</dd>
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the stalk space.</p>
+</dd>
+<dt><strong>orth_map</strong><span class="classifier">str or None, optional</span></dt><dd><p>Method for orthogonalization (‘cayley’ or ‘matrix_exp’). Default is None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orth_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.forward" title="Link to this definition">#</a></dt>
+<dd><p>Build the normalized sheaf Laplacian from orthogonal restriction maps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>map_params</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Orthogonal map parameters of shape [num_edges, d*(d+1)/2].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>L</strong><span class="classifier">tuple of torch.Tensor</span></dt><dd><p>Sparse normalized Laplacian representation as (indices, values).</p>
+</dd>
+<dt><strong>saved_tril_maps</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Saved lower triangular transport maps for analysis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Orthogonal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orthogonal_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="topobench.nn.backbones.graph.nsd.html#topobench.nn.backbones.graph.nsd.Module" title="torch.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Orthogonal transformation module for sheaf restriction maps.</p>
+<p>Converts lower-triangular parameters into orthogonal matrices using either
+the matrix exponential or Cayley transform. Based on PyTorch’s parametrization
+utilities.</p>
+<p>Reference: <a class="reference external" href="https://pytorch.org/docs/stable/_modules/torch/nn/utils/parametrizations.html#orthogonal">https://pytorch.org/docs/stable/_modules/torch/nn/utils/parametrizations.html#orthogonal</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the square orthogonal matrices to generate.</p>
+</dd>
+<dt><strong>orthogonal_map</strong><span class="classifier">str</span></dt><dd><p>Method for generating orthogonal matrices. Options are ‘matrix_exp’ or ‘cayley’.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>AssertionError</dt><dd><p>If orthogonal_map is not ‘matrix_exp’ or ‘cayley’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orthogonal_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.forward" title="Link to this definition">#</a></dt>
+<dd><p>Convert parameters to orthogonal matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Lower-triangular parameters of shape [batch_size, d*(d+1)/2].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>torch.Tensor</dt><dd><p>Orthogonal matrices of shape [batch_size, d, d].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If an unsupported orthogonal_map method is specified.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_diag_laplacian_indices">
+<span class="sig-name descname"><span class="pre">compute_learnable_diag_laplacian_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learned_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_diag_laplacian_indices" title="Link to this definition">#</a></dt>
+<dd><p>Compute sparse indices for a learnable Laplacian with diagonal matrices.</p>
+<p>Generates indices for both diagonal and non-diagonal blocks of a block-structured
+Laplacian matrix where each block is diagonal (learned_d x learned_d).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges] where edge_index[0] &lt; edge_index[1].</p>
+</dd>
+<dt><strong>learned_d</strong><span class="classifier">int</span></dt><dd><p>Dimension of each learned diagonal block.</p>
+</dd>
+<dt><strong>total_d</strong><span class="classifier">int</span></dt><dd><p>Total dimension per node (typically equal to learned_d).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>diag_indices</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Sparse indices for diagonal blocks, shape [2, size * learned_d].</p>
+</dd>
+<dt><strong>non_diag_indices</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Sparse indices for non-diagonal blocks, shape [2, num_edges * learned_d].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_laplacian_indices">
+<span class="sig-name descname"><span class="pre">compute_learnable_laplacian_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learned_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_laplacian_indices" title="Link to this definition">#</a></dt>
+<dd><p>Compute sparse indices for a learnable Laplacian with full matrices.</p>
+<p>Generates indices for both diagonal and non-diagonal blocks of a block-structured
+Laplacian matrix where each block is learned_d x learned_d.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of nodes in the graph.</p>
+</dd>
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges] where edge_index[0] &lt; edge_index[1].</p>
+</dd>
+<dt><strong>learned_d</strong><span class="classifier">int</span></dt><dd><p>Dimension of each learned block matrix.</p>
+</dd>
+<dt><strong>total_d</strong><span class="classifier">int</span></dt><dd><p>Total dimension per node (typically equal to learned_d).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>diag_indices</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Sparse indices for diagonal blocks, shape [2, size * learned_d * learned_d].</p>
+</dd>
+<dt><strong>non_diag_indices</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Sparse indices for non-diagonal blocks, shape [2, num_edges * learned_d * learned_d].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_left_right_map_index">
+<span class="sig-name descname"><span class="pre">compute_left_right_map_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_left_right_map_index" title="Link to this definition">#</a></dt>
+<dd><p>Compute indices for mapping edges to their reverse edges.</p>
+<p>For each edge in the lower triangular part (source &lt; target) or all edges,
+find the index of its corresponding reverse edge in the original edge list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of shape [2, num_edges] representing directed edges.</p>
+</dd>
+<dt><strong>full_matrix</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use all edges. If False, only use edges where source &lt; target.
+Default is False.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>left_right_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Indices of shape [2, num_selected_edges] where first row contains indices
+of selected edges and second row contains indices of their reverse edges.</p>
+</dd>
+<dt><strong>new_edge_index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Edge indices of selected edges, shape [2, num_selected_edges].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.degree" title="Link to this definition">#</a></dt>
+<dd><p>Computes the (unweighted) degree of a given one-dimensional index
+tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>LongTensor</em>) – Index tensor.</p></li>
+<li><p><strong>num_nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of nodes, <em>i.e.</em>
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max_val</span> <span class="pre">+</span> <span class="pre">1</span></code> of <code class="xref py py-attr docutils literal notranslate"><span class="pre">index</span></code>. (default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>)</p></li>
+<li><p><strong>dtype</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.dtype</span></code>, optional) – The desired data type of the
+returned tensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">row</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">degree</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="go">tensor([3, 1, 1])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.mergesp">
+<span class="sig-name descname"><span class="pre">mergesp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.mergesp" title="Link to this definition">#</a></dt>
+<dd><p>Merge two sparse matrices with disjoint indices into one.</p>
+<p>Concatenates two sets of sparse matrix indices and values, assuming
+the indices are disjoint (no overlapping entries).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>index1</strong><span class="classifier">torch.Tensor</span></dt><dd><p>First set of sparse indices, shape [2, num_entries1].</p>
+</dd>
+<dt><strong>value1</strong><span class="classifier">torch.Tensor</span></dt><dd><p>First set of values, shape [num_entries1].</p>
+</dd>
+<dt><strong>index2</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Second set of sparse indices, shape [2, num_entries2].</p>
+</dd>
+<dt><strong>value2</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Second set of values, shape [num_entries2].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>index</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Merged sparse indices, shape [2, num_entries1 + num_entries2].</p>
+</dd>
+<dt><strong>val</strong><span class="classifier">torch.Tensor</span></dt><dd><p>Merged values, shape [num_entries1 + num_entries2].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="topobench.nn.backbones.graph.nsd_utils.laplacian_builders.scatter_add">
+<span class="sig-name descname"><span class="pre">scatter_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.scatter_add" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topobench.nn.backbones.graph.nsd_utils.laplace.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">topobench.nn.backbones.graph.nsd_utils.laplace module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="topobench.nn.backbones.graph.nsd_utils.orthogonal.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">topobench.nn.backbones.graph.nsd_utils.orthogonal module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder"><code class="docutils literal notranslate"><span class="pre">DiagLaplacianBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">DiagLaplacianBuilder.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.DiagLaplacianBuilder.forward"><code class="docutils literal notranslate"><span class="pre">DiagLaplacianBuilder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder"><code class="docutils literal notranslate"><span class="pre">GeneralLaplacianBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">GeneralLaplacianBuilder.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.GeneralLaplacianBuilder.forward"><code class="docutils literal notranslate"><span class="pre">GeneralLaplacianBuilder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder"><code class="docutils literal notranslate"><span class="pre">LaplacianBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">LaplacianBuilder.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.LaplacianBuilder.scalar_normalise"><code class="docutils literal notranslate"><span class="pre">LaplacianBuilder.scalar_normalise()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder"><code class="docutils literal notranslate"><span class="pre">NormConnectionLaplacianBuilder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">NormConnectionLaplacianBuilder.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.NormConnectionLaplacianBuilder.forward"><code class="docutils literal notranslate"><span class="pre">NormConnectionLaplacianBuilder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal"><code class="docutils literal notranslate"><span class="pre">Orthogonal</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.__init__"><code class="docutils literal notranslate"><span class="pre">Orthogonal.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.Orthogonal.forward"><code class="docutils literal notranslate"><span class="pre">Orthogonal.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_diag_laplacian_indices"><code class="docutils literal notranslate"><span class="pre">compute_learnable_diag_laplacian_indices()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_learnable_laplacian_indices"><code class="docutils literal notranslate"><span class="pre">compute_learnable_laplacian_indices()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.compute_left_right_map_index"><code class="docutils literal notranslate"><span class="pre">compute_left_right_map_index()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.degree"><code class="docutils literal notranslate"><span class="pre">degree()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.mergesp"><code class="docutils literal notranslate"><span class="pre">mergesp()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topobench.nn.backbones.graph.nsd_utils.laplacian_builders.scatter_add"><code class="docutils literal notranslate"><span class="pre">scatter_add()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Topological-Intelligence Team, Inc..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

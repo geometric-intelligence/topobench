@@ -1,0 +1,7 @@
+topobench.loss.model.GraphMLPLoss module
+========================================
+
+.. automodule:: topobench.loss.model.GraphMLPLoss
+   :members:
+   :show-inheritance:
+   :undoc-members:

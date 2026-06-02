@@ -1,0 +1,7 @@
+topobench.model.model module
+============================
+
+.. automodule:: topobench.model.model
+   :members:
+   :show-inheritance:
+   :undoc-members:
