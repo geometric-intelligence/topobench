@@ -18,6 +18,97 @@ from torch_sparse import coalesce
 from topobench.data.utils import get_complex_connectivity
 
 
+def parse_cornell_hypergraph_files(data_dir, data_name):
+    """Parse Cornell format hypergraph dataset files.
+
+    This is a shared utility for loading Cornell labeled-node hypergraph datasets.
+    Handles the common parsing logic with automatic 0-indexing and node deduplication.
+
+    Expected files in data_dir:
+    - node-labels-{data_name}.txt: One label per line (line i = label for node i)
+    - hyperedges-{data_name}.txt: Comma-separated node indices per line
+
+    Parameters
+    ----------
+    data_dir : str
+        Directory containing the dataset files.
+    data_name : str
+        Name of the dataset (used to construct filenames).
+
+    Returns
+    -------
+    dict
+        Dictionary with keys:
+        - 'labels': torch.LongTensor of node labels (0-indexed)
+        - 'edge_index': torch.LongTensor [2, E] with (node_id, hyperedge_id) pairs
+        - 'num_nodes': int, number of nodes
+        - 'num_hyperedges': int, number of hyperedges
+        - 'num_classes': int, number of unique classes
+
+    Notes
+    -----
+    - Automatically shifts 1-indexed labels and node IDs to 0-indexed
+    - Deduplicates nodes within each hyperedge to ensure binary incidence matrix
+    - Node IDs within hyperedges are sorted for deterministic ordering
+    """
+    # Load node labels
+    labels_path = osp.join(data_dir, f"node-labels-{data_name}.txt")
+    labels = np.loadtxt(labels_path, dtype=np.int32)
+
+    # Shift to 0-indexed if labels start from 1
+    if labels.min() == 1:
+        labels = labels - 1
+
+    num_nodes = len(labels)
+
+    # Load and parse hyperedges
+    hyperedges_path = osp.join(data_dir, f"hyperedges-{data_name}.txt")
+
+    hyperedges = []
+    with open(hyperedges_path) as f:
+        for line in f:
+            nodes = [int(x) for x in line.strip().split(",")]
+            # Deduplicate and sort nodes within this hyperedge
+            nodes = sorted(set(nodes))
+            hyperedges.append(nodes)
+
+    num_hyperedges = len(hyperedges)
+
+    # Check if node IDs are 1-indexed and shift to 0-indexed
+    all_nodes = [node for he in hyperedges for node in he]
+    min_node_id = min(all_nodes) if all_nodes else 0
+
+    if min_node_id == 1:
+        # Shift all node IDs down by 1 to make them 0-indexed
+        hyperedges = [[node - 1 for node in he] for he in hyperedges]
+
+    # Build edge_index (COO format: [node_id, hyperedge_id])
+    node_list = []
+    edge_list = []
+
+    for he_id, nodes in enumerate(hyperedges):
+        for node_id in nodes:
+            node_list.append(node_id)
+            edge_list.append(he_id)
+
+    # Create edge_index tensor
+    edge_index = torch.tensor([node_list, edge_list], dtype=torch.long)
+
+    # Convert labels to tensor
+    labels = torch.tensor(labels, dtype=torch.long)
+
+    # Get number of classes
+    num_classes = int(labels.max().item() + 1)
+
+    return {
+        "labels": labels,
+        "edge_index": edge_index,
+        "num_nodes": num_nodes,
+        "num_hyperedges": num_hyperedges,
+        "num_classes": num_classes,
+    }
+
+
 def get_file_id_from_url(url):
     """Extract the file ID from a Google Drive file URL.
 
@@ -470,6 +561,73 @@ def load_hypergraph_pickle_dataset(data_dir, data_name):
     print("Final num_hyperedges", data.num_hyperedges)
     print("Final num_nodes", data.num_nodes)
     print("Final num_class", data.num_class)
+
+    return data, data_dir
+
+
+def load_hypergraph_text_dataset(data_dir, data_name):
+    """Load hypergraph datasets from text files (Cornell format).
+
+    This loader handles hypergraph datasets in the Cornell format with:
+    - node-labels-{name}.txt: One label per line (line i = label for node i)
+    - label-names-{name}.txt: Label names (line i = name for label i)
+    - hyperedges-{name}.txt: Comma-separated node indices per line
+
+    Uses the shared parsing utility to ensure consistency with other loaders.
+
+    Parameters
+    ----------
+    data_dir : str
+        Path to data directory.
+    data_name : str
+        Name of the dataset.
+
+    Returns
+    -------
+    torch_geometric.data.Data
+        Hypergraph dataset.
+    str
+        Data directory path.
+    """
+    # Use shared parsing utility
+    parsed = parse_cornell_hypergraph_files(data_dir, data_name)
+
+    # Extract parsed data
+    labels = parsed["labels"]
+    edge_index = parsed["edge_index"]
+    num_nodes = parsed["num_nodes"]
+    num_hyperedges = parsed["num_hyperedges"]
+    num_classes = parsed["num_classes"]
+
+    # Create simple node features (ones)
+    features = torch.ones(num_nodes, 1, dtype=torch.float)
+
+    # Create incidence matrix
+    incidence_hyperedges = torch.sparse_coo_tensor(
+        edge_index,
+        values=torch.ones(edge_index.shape[1]),
+        size=(num_nodes, num_hyperedges),
+    )
+
+    data = Data(
+        x=features,
+        x_0=features,
+        edge_index=edge_index,
+        incidence_hyperedges=incidence_hyperedges,
+        y=labels,
+    )
+
+    # Add metadata (legacy attribute names for compatibility)
+    data.n_x = num_nodes
+    data.num_hyperedges = num_hyperedges
+    data.num_class = num_classes
+    data.num_nodes = num_nodes
+
+    print(f"Loaded {data_name}:")
+    print(f"  Nodes: {num_nodes}")
+    print(f"  Hyperedges: {num_hyperedges}")
+    print(f"  Classes: {num_classes}")
+    print(f"  Edge index shape: {edge_index.shape}")
 
     return data, data_dir
 
