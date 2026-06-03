@@ -51,6 +51,7 @@ dependencies=[
     "ipykernel",
     "notebook",
     "jupyterlab",
+    "h5py",
     "rich",
     "ogb",
     "rootutils",

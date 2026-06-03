@@ -1,0 +1,1 @@
+h5py>=3.0.0  # Required for ATLAS Top Tagging dataset

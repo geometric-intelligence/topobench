@@ -1,0 +1,37 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.pointcloud.atlas_top_tagging_loader.ATLASTopTaggingDatasetLoader
+  parameters: 
+    data_domain: pointcloud
+    data_name: atlas_top_tagging
+    split: train  # Options: 'train' or 'test'
+    subset: 0.01  # Fraction of dataset to use (0.01 = 1% due to large size)
+    max_constituents: 80  # Maximum number of constituents per jet
+    use_high_level: true  # Include high-level features
+    verbose: false  # Print detailed processing information
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_name}
+
+# Dataset parameters
+parameters:
+  num_features: 4  # Constituent features: pt, eta, phi, energy
+  num_classes: 2  # Binary classification: signal (1) vs background (0)
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+
+# Splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random  # Options: 'k-fold' or 'random'
+  k: 10  # For "k-fold" Cross-Validation
+  train_prop: 0.5  # For "random" strategy splitting
+  standardize: false  # Whether to standardize features
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 64  # Batch size (can be adjusted based on memory)
+  num_workers: 3  # Number of workers for data loading
+  pin_memory: false  # Pin memory for faster GPU transfer
