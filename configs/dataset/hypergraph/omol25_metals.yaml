@@ -1,0 +1,34 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.OMol25MetalsDatasetLoader
+  parameters:
+    data_domain: hypergraph
+    data_type: omol25_metals
+    data_name: omol25_metals
+    # Point this to the directory that contains subset/processed/data.pt
+    # Example if you follow your current layout:
+    #   ${paths.data_dir}/omol25_metals
+    data_dir: ${paths.data_dir}/omol25_metals
+
+# Dataset parameters 
+parameters:
+  num_features: 6      # number of input node features 
+  num_classes: 1       # regression on a single scalar (e.g. total energy)
+  task: regression
+  loss_type: mse
+  monitor_metric: mae  # or rmse, depending on what the baseline configs use
+  task_level: graph
+
+# splits
+split_params:
+  learning_setting: inductive
+  split_type: random_in_train
+  data_seed: 0
+  train_prop: 0.8
+  val_prop: 0.1
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 32
+  num_workers: 0
+  pin_memory: False
