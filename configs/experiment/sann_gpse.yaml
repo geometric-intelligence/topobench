@@ -1,0 +1,21 @@
+# @package _global_
+defaults:
+  - override /dataset: graph/PROTEINS
+  - override /model: simplicial/sann
+  - override /transforms/data_manipulations@transforms.hopse_encoding: add_gpse_information
+
+tags: ["simplicial", "PROTEINS"]
+
+
+optimizer:
+  parameters:
+    weight_decay: 0.0001
+    lr: 0.001
+model:
+  backbone:
+    n_layers: 4
+dataset:
+  dataloader_params:
+    batch_size: 64
+  split_params:
+    split_type: k-fold

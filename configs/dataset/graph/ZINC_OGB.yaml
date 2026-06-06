@@ -1,0 +1,38 @@
+# USE python train.py dataset.transforms.one_hot_node_degree_features.degrees_fields=x to run this dataset
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.MoleculeDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: ZINC
+    data_name: ZINC
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 21 # torch_geometric ZINC dataset has 21 atom types
+  max_node_degree: 20 # Use it to one_hot encode node degrees. Additional parameter to run dataset.transforms.one_hot_node_degree_features.degrees_fields=x
+  num_classes: 1
+  task: regression
+  loss_type: mae
+  monitor_metric: mae
+  task_level: graph
+  degrees_fields: "x" # Additional parameter to run dataset.transforms.one_hot_node_degree_features.degrees_fields=x
+  # Lifting parameters
+  max_dim_if_lifted: 3 # This is the maximum dimension of the simplicial complex in the dataset
+  preserve_edge_attr_if_lifted: ${set_preserve_edge_attr:${model.model_name},True}  # Second argument is the default value
+                                                                                          # (in case the model is compatibl
+
+#splits
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0 # Varying this parameter will not matter as ZINC dataset has predefined splits.
+  split_type: 'fixed' # ZINC accept only <fixed> split
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 128
+  num_workers: 0
+  pin_memory: False

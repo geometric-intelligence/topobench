@@ -4,7 +4,7 @@
 
 loader:
   _target_: topobench.data.loaders.GraphUniverseDatasetLoader
-  parameters: 
+  parameters:
     data_domain: graph
     data_type: GraphUniverse
     data_name: GraphUniverse
@@ -27,7 +27,7 @@ loader:
         degree_separation_range: [0.5, 1.0]
         power_law_exponent_range: [1.5, 2.5]
         seed: ${dataset.loader.parameters.generation_parameters.universe_parameters.seed}
-    
+
 
 parameters:
   num_features: ${dataset.loader.parameters.generation_parameters.universe_parameters.feature_dim}
@@ -46,6 +46,6 @@ split_params:
   train_prop: 0.7
 
 dataloader_params:
-  batch_size: 16 
+  batch_size: 16
   num_workers: 0
   pin_memory: False

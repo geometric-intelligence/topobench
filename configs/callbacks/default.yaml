@@ -11,9 +11,11 @@ model_checkpoint:
   filename: "epoch_{epoch:03d}"
   monitor: ${get_monitor_metric:${dataset.parameters.task},${dataset.parameters.monitor_metric}}
   mode: "${get_monitor_mode:${dataset.parameters.task}}"
-  save_last: False
   auto_insert_metric_name: False
   save_weights_only: False
+  save_top_k: 1
+  save_last: False
+  #filename: 'epoch{epoch:02d}-val_loss{val/loss:.2f}'
 
 early_stopping:
   monitor: ${get_monitor_metric:${dataset.parameters.task},${dataset.parameters.monitor_metric}}

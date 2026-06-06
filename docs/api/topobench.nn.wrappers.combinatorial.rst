@@ -12,4 +12,5 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   topobench.nn.wrappers.combinatorial.hopse_wrapper
    topobench.nn.wrappers.combinatorial.tune_wrapper

@@ -1,0 +1,5 @@
+transform_name: "HKdiagSE"
+transform_type: "data manipulation"
+kernel_param_HKdiagSE: [1, 21]
+space_dim: 0
+concat_to_x: true

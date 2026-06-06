@@ -1,0 +1,5 @@
+transform_name: "KHopFE"
+transform_type: "data manipulation"
+max_hop: 3
+concat_to_x: true
+aggregation: "mean"

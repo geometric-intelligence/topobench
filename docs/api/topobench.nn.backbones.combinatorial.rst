@@ -14,3 +14,4 @@ Submodules
 
    topobench.nn.backbones.combinatorial.gccn
    topobench.nn.backbones.combinatorial.gccn_onehasse
+   topobench.nn.backbones.combinatorial.hopse

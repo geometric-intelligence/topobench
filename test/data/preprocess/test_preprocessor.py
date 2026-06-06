@@ -672,4 +672,4 @@ class TestPreProcessorEdgeCases:
                 preprocessor.root = tmpdir
                 preprocessor.transforms_applied = True
 
-                assert preprocessor.processed_dir == tmpdir + "/processed"
+                assert preprocessor.processed_dir == tmpdir

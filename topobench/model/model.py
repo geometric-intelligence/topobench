@@ -242,7 +242,7 @@ class TBModel(LightningModule):
                 mask = batch.test_mask
             else:
                 raise ValueError("Invalid state_str")
-            
+
             # Keep only train data points
             for key, val in model_out.items():
                 if key in ["logits", "labels"]:

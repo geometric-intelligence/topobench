@@ -23,3 +23,22 @@ jobs:
           version-file: "pyproject.toml"
           # Optional: fails the build if the code changes (e.g. formatting)
           changed-files: "true"
+
+      - name: Run Ruff (format check)
+        uses: astral-sh/ruff-action@v3
+        with:
+          src: "./topobench"
+          version-file: "pyproject.toml"
+          args: "format --check"
+
+  pre-commit:
+    # Runs the full pre-commit hook stack (numpydoc-validation, end-of-file,
+    # trailing-whitespace, etc.) so the bar enforced locally is also enforced
+    # in CI.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: pre-commit/action@v3.0.1

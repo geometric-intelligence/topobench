@@ -4,9 +4,90 @@ import os
 
 import numpy as np
 import torch
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold, train_test_split
 
 from topobench.dataloader import DataloadDataset
+
+
+def k_fold_split_fixed(labels, parameters, split_idx_list):
+    """Return train and valid indices as in K-Fold Cross-Validation.
+
+    If the split already exists it loads it automatically, otherwise it creates the
+    split file for the subsequent runs.
+
+    Parameters
+    ----------
+    labels : torch.Tensor
+        Label tensor.
+    parameters : DictConfig
+        Configuration parameters.
+    split_idx_list : dict
+        Pre-computed split indices keyed by "train", "valid", and "test",
+        each containing one entry per fold.
+
+    Returns
+    -------
+    dict
+        Dictionary containing the train, validation and test indices, with keys "train", "valid", and "test".
+    """
+
+    data_dir = parameters.data_split_dir
+    k = parameters.k
+    fold = parameters.data_seed
+    assert fold < k, "data_seed needs to be less than k"
+
+    torch.manual_seed(0)
+    np.random.seed(0)
+
+    split_dir = os.path.join(data_dir, f"{k}-fold")
+
+    if not os.path.isdir(split_dir):
+        os.makedirs(split_dir)
+
+    split_path = os.path.join(split_dir, f"{fold}.npz")
+    if not os.path.isfile(split_path):
+        n = labels.shape[0]
+        x_idx = np.arange(n)
+        x_idx = np.random.permutation(x_idx)
+        labels = labels[x_idx]
+
+        for fold_n in range(len(split_idx_list["train"])):
+            split_idx = {
+                "train": split_idx_list["train"][fold_n],
+                "valid": split_idx_list["valid"][fold_n],
+                "test": split_idx_list["test"][fold_n],
+            }
+
+            # Check that all nodes/graph have been assigned to some split
+            # assert np.all(
+            #     np.sort(
+            #         np.array(
+            #             split_idx["train"]
+            #             + split_idx["valid"]
+            #         )
+            #     )
+            #     == np.sort(np.arange(len(labels)))
+            # ), "Not every sample has been loaded."
+            split_path = os.path.join(split_dir, f"{fold_n}.npz")
+
+            np.savez(split_path, **split_idx)
+
+    split_path = os.path.join(split_dir, f"{fold}.npz")
+    split_idx = np.load(split_path)
+
+    # Check that all nodes/graph have been assigned to some split
+    # assert (
+    #     np.unique(
+    #         np.array(
+    #             split_idx["train"].tolist()
+    #             + split_idx["valid"].tolist()
+    #             + split_idx["test"].tolist()
+    #         )
+    #     ).shape[0]
+    #     == labels.shape[0]
+    # ), "Not all nodes within splits"
+
+    return split_idx
 
 
 # Generate splits in different fasions
@@ -180,6 +261,100 @@ def random_splitting(labels, parameters, root=None, global_data_seed=42):
     return split_idx
 
 
+def stratified_splitting(labels, parameters, global_data_seed=42):
+    r"""Stratified splits label into train/valid/test splits.
+
+    Adapted from https://github.com/CUAI/Non-Homophily-Benchmarks.
+
+    Parameters
+    ----------
+    labels : torch.Tensor
+        Label tensor.
+    parameters : DictConfig
+        Configuration parameter.
+    global_data_seed : int
+        Seed for the random number generator.
+
+    Returns
+    -------
+    dict:
+        Dictionary containing the train, validation and test indices with keys "train", "valid", and "test".
+    """
+    fold = parameters["data_seed"]
+    data_dir = parameters["data_split_dir"]
+    train_prop = parameters["train_prop"]
+    valid_prop = (1 - train_prop) / 2
+    test_prop = valid_prop
+
+    # Create split directory if it does not exist
+    split_dir = os.path.join(
+        data_dir,
+        f"train_prop={train_prop}_global_seed={global_data_seed}_stratified",
+    )
+    generate_splits = False
+    if not os.path.isdir(split_dir):
+        os.makedirs(split_dir)
+        generate_splits = True
+
+    # Generate splits if they do not exist
+    if generate_splits:
+        # Set initial seed
+        torch.manual_seed(global_data_seed)
+        np.random.seed(global_data_seed)
+
+        # Generate a split
+        n = labels.shape[0]
+
+        indices = np.arange(n)
+        # Generate 10 splits
+        for fold_n in range(10):
+            train_val_indices, test_indices = train_test_split(
+                indices,
+                test_size=test_prop,
+                shuffle=True,
+                stratify=labels,
+                random_state=fold_n,
+            )
+
+            adjusted_valid_prop = valid_prop / (1 - test_prop)
+
+            train_indices, val_indices = train_test_split(
+                train_val_indices,
+                test_size=adjusted_valid_prop,
+                shuffle=True,
+                stratify=labels[train_val_indices],
+                random_state=fold_n,
+            )
+
+            split_idx = {
+                "train": train_indices,
+                "valid": val_indices,
+                "test": test_indices,
+            }
+
+            # Save generated split
+            split_path = os.path.join(split_dir, f"{fold_n}.npz")
+            np.savez(split_path, **split_idx)
+
+    # Load the split
+    split_path = os.path.join(split_dir, f"{fold}.npz")
+    split_idx = np.load(split_path)
+
+    # Check that all nodes/graph have been assigned to some split
+    assert (
+        np.unique(
+            np.array(
+                split_idx["train"].tolist()
+                + split_idx["valid"].tolist()
+                + split_idx["test"].tolist()
+            )
+        ).shape[0]
+        == labels.shape[0]
+    ), "Not all nodes within splits"
+
+    return split_idx
+
+
 def assign_train_val_test_mask_to_graphs(dataset, split_idx):
     """Split the graph dataset into train, validation, and test datasets.
 
@@ -262,6 +437,9 @@ def load_transductive_splits(dataset, parameters):
     if parameters.split_type == "random":
         splits = random_splitting(labels, parameters, root=root)
 
+    elif parameters.split_type == "stratified":
+        splits = stratified_splitting(labels, parameters)
+
     elif parameters.split_type == "k-fold":
         splits = k_fold_split(labels, parameters, root=root)
 
@@ -274,6 +452,10 @@ def load_transductive_splits(dataset, parameters):
     data.train_mask = torch.from_numpy(splits["train"])
     data.val_mask = torch.from_numpy(splits["valid"])
     data.test_mask = torch.from_numpy(splits["test"])
+
+    assert data.x.shape[0] > 0
+    assert data.x[data.train_mask].shape[0] > 0
+    assert data.y.shape[0] > 0
 
     if parameters.get("standardize", False):
         # Standardize the node features respecting train mask
@@ -325,6 +507,9 @@ def load_inductive_splits(dataset, parameters):
     if parameters.split_type == "random":
         split_idx = random_splitting(labels, parameters, root=root)
 
+    elif parameters.split_type == "stratified":
+        split_idx = stratified_splitting(labels, parameters)
+
     elif parameters.split_type == "k-fold":
         assert type(labels) is not object, (
             "K-Fold splitting not supported for ragged labels."
@@ -333,6 +518,11 @@ def load_inductive_splits(dataset, parameters):
 
     elif parameters.split_type == "fixed" and hasattr(dataset, "split_idx"):
         split_idx = dataset.split_idx
+
+    elif parameters.split_type == "k-fold-fixed":
+        split_idx = k_fold_split_fixed(
+            labels, parameters, dataset.split_idx_list
+        )
 
     else:
         raise NotImplementedError(

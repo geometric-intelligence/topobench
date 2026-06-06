@@ -1,0 +1,7 @@
+topobench.transforms.data\_manipulations.hk\_feature\_encodings module
+======================================================================
+
+.. automodule:: topobench.transforms.data_manipulations.hk_feature_encodings
+   :members:
+   :undoc-members:
+   :show-inheritance:

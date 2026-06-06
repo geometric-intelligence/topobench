@@ -1,0 +1,17 @@
+defaults:
+  - /dataset: graph/ZINC
+  - /model: simplicial/sann
+
+tags: ["simplicial", "ZINC"]
+
+
+optimizer:
+  parameters:
+    weight_decay: 0.0001
+    lr: 0.001
+model:
+  backbone:
+    n_layers: 4
+dataset:
+  dataloader_params:
+    batch_size: 64

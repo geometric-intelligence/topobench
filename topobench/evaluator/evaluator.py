@@ -11,7 +11,8 @@ class TBEvaluator(AbstractEvaluator):
     Parameters
     ----------
     task : str
-        The task type. It can be either "classification" or "regression".
+        The task type. It can be "classification", "regression", "multilabel classification",
+        or "multioutput classification".
     **kwargs : dict
         Additional arguments for the class. The arguments depend on the task.
         In "classification" scenario, the following arguments are expected:
@@ -19,6 +20,9 @@ class TBEvaluator(AbstractEvaluator):
         - metrics (list[str]): A list of classification metrics to be computed.
         In "regression" scenario, the following arguments are expected:
         - metrics (list[str]): A list of regression metrics to be computed.
+        In "multi_output_classification" scenario (e.g., Betti numbers), the following are expected:
+        - num_output_dimbers (list[int]): List of number of classes for each output.
+        - metrics (list[str]): A list of metrics with suffixes (e.g., "accuracy_0", "f1_1").
     """
 
     def __init__(self, task, **kwargs):
@@ -26,19 +30,34 @@ class TBEvaluator(AbstractEvaluator):
         self.task = task
 
         # Define the metrics depending on the task
-        if kwargs["num_classes"] > 1 and self.task == "classification":
-            # Note that even for binary classification, we use multiclass metrics
-            # According to the torchmetrics documentation (https://lightning.ai/docs/torchmetrics/stable/classification/accuracy.html#torchmetrics.classification.MulticlassAccuracy)
-            # This setup should work correctly
-            parameters = {"num_classes": kwargs["num_classes"]}
+        if self.task == "classification":
+            num_classes = kwargs.get("num_classes", 1)
+            parameters = {"num_classes": num_classes}
             parameters["task"] = "multiclass"
             metric_names = kwargs["metrics"]
 
         elif self.task == "multilabel classification":
-            parameters = {"num_classes": kwargs["num_classes"]}
+            num_classes = kwargs.get("num_classes", 1)
+            parameters = {"num_classes": num_classes}
             parameters["task"] = "multilabel"
-            parameters["num_labels"] = kwargs["num_classes"]
+            parameters["num_labels"] = num_classes
             metric_names = kwargs["metrics"]
+
+        elif self.task == "multioutput classification":
+            # Handle multi-output classification (e.g., Betti numbers)
+            # Each output is treated as a separate classification task
+            self.multioutput_classes = kwargs["multioutput_classes"]
+            metric_names = kwargs["metrics"]
+
+            # Build parameters for each output
+            parameters_multioutput = {}
+            for output_dim, output_classes in enumerate(
+                self.multioutput_classes
+            ):
+                out_dict = {}
+                out_dict["task"] = "multiclass"
+                out_dict["num_classes"] = output_classes
+                parameters_multioutput[output_dim] = out_dict
 
         elif self.task == "regression":
             parameters = {}
@@ -49,17 +68,27 @@ class TBEvaluator(AbstractEvaluator):
 
         metrics = {}
         for name in metric_names:
-            if name in ["recall", "precision", "auroc", "f1", "f1_macro"]:
-                metrics[name] = METRICS[name](average="macro", **parameters)
-            elif name == "f1_weighted":
-                metrics[name] = METRICS[name](average="weighted", **parameters)
-            elif name == "confusion_matrix":
-                metrics[name] = METRICS[name](**parameters)
-            elif name == "rmse":
+            metric_id = name.split("-")[0]
+            parameters = (
+                parameters
+                if self.task != "multioutput classification"
+                else parameters_multioutput[int(name.split("-")[1])]
+            )
+            if metric_id in ["recall", "precision", "auroc", "f1", "f1_macro"]:
+                metrics[name] = METRICS[metric_id](
+                    average="macro", **parameters
+                )
+            elif metric_id == "f1_weighted":
+                metrics[name] = METRICS[metric_id](
+                    average="weighted", **parameters
+                )
+            elif metric_id == "confusion_matrix":
+                metrics[name] = METRICS[metric_id](**parameters)
+            elif metric_id == "rmse":
                 # RMSE is MSE with squared=False
-                metrics[name] = METRICS[name](squared=False, **parameters)
+                metrics[name] = METRICS[metric_id](squared=False, **parameters)
             else:
-                metrics[name] = METRICS[name](**parameters)
+                metrics[name] = METRICS[metric_id](**parameters)
         self.metrics = MetricCollection(metrics)
 
         self.best_metric = {}
@@ -95,14 +124,30 @@ class TBEvaluator(AbstractEvaluator):
         elif self.task == "classification":
             self.metrics.update(preds, target)
 
+        elif self.task == "multioutput classification":
+            # Handle multi-output classification (e.g., Betti numbers)
+            # Round predictions to nearest integer and clamp to valid range
+            preds = preds.detach().clone().round().long()
+
+            for metric_name in self.metrics:
+                _, dim = metric_name.split("-")
+                dim_idx = int(dim)
+
+                # Clamp predictions to valid range for this output
+                current_preds = preds[:, dim_idx].clamp(
+                    min=0, max=self.multioutput_classes[dim_idx] - 1
+                )
+
+                self.metrics[metric_name].update(
+                    current_preds, target[:, dim_idx]
+                )
+
         elif self.task == "multilabel classification":
+            self.metrics.update(preds, target)
             # Raise not supported error
             raise NotImplementedError(
-                "Multilabel classification is not supported yet"
+                "Multilabel classification evaluator is not supported yet"
             )
-
-        else:
-            raise ValueError(f"Invalid task {self.task}")
 
     def compute(self):
         r"""Compute the metrics.

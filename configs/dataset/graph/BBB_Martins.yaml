@@ -1,0 +1,36 @@
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.ADMEDatasetLoader
+  parameters:
+    data_domain: graph
+    data_type: ADME
+    data_name: BBB_Martins
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features:
+    - 9  # OGB atom features
+    - 3  # OGB edge features
+  num_classes: 2
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: graph
+  max_dim_if_lifted: 3
+  preserve_edge_attr_if_lifted: ${set_preserve_edge_attr:${model.model_name},True}
+
+# Splits - using fixed scaffold split from TDC
+split_params:
+  learning_setting: inductive
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: fixed  # TDC provides predefined scaffold splits
+  k: 10
+  train_prop: 0.5
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 64
+  num_workers: 0
+  pin_memory: False

@@ -1,0 +1,11 @@
+defaults:
+  - combined_feature_encodings
+  - combined_positional_and_structural_encodings
+  - _self_
+
+transform_name: "CombinedEncodings"
+transform_type: "data manipulation"
+encodings: ["HKFE", "KHopFE", "SheafConnLapPE", "LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE"]
+# parameters are inherited and merged from:
+# - combined_feature_encodings (HKFE, KHopFE, SheafConnLapPE)
+# - combined_positional_and_structural_encodings (LapPE, RWSE, ElectrostaticPE, HKdiagSE)

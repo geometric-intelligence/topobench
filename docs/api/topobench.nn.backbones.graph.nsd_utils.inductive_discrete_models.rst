@@ -1,0 +1,7 @@
+topobench.nn.backbones.graph.nsd\_utils.inductive\_discrete\_models module
+==========================================================================
+
+.. automodule:: topobench.nn.backbones.graph.nsd_utils.inductive_discrete_models
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -12,4 +12,5 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   topobench.callbacks.best_epoch_metrics
    topobench.callbacks.timer_callback

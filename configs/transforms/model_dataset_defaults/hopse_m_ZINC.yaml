@@ -1,0 +1,8 @@
+defaults:
+  - data_manipulations@one_hot_node_degree_features: one_hot_node_degree_features # Here we use the one_hot_node_degree_features to one-hot atoms types.
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+  - data_manipulations@hopse_encoding: hopse_ps_information
+
+one_hot_node_degree_features:
+  degrees_field: x
+  features_field: x

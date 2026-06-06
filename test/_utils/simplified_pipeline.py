@@ -1,6 +1,5 @@
 """Test pipeline for a particular dataset and model."""
 
-from omegaconf import OmegaConf
 import hydra
 from lightning import Callback, Trainer
 from lightning.pytorch.loggers import Logger
@@ -9,44 +8,9 @@ from omegaconf import DictConfig, OmegaConf
 from topobench.data.preprocessor import PreProcessor
 from topobench.dataloader import TBDataloader
 from topobench.utils import instantiate_callbacks
-from topobench.utils.config_resolvers import (
-    get_default_metrics,
-    get_default_trainer,
-    get_default_transform,
-    get_monitor_metric,
-    get_monitor_mode,
-    get_required_lifting,
-    infer_in_channels,
-    infer_num_cell_dimensions,
-)
+from topobench.utils.config_resolvers import register_all_resolvers
 
-OmegaConf.register_new_resolver(
-    "get_default_metrics", get_default_metrics, replace=True
-)
-OmegaConf.register_new_resolver(
-    "get_default_trainer", get_default_trainer, replace=True
-)
-OmegaConf.register_new_resolver(
-    "get_default_transform", get_default_transform, replace=True
-)
-OmegaConf.register_new_resolver(
-    "get_required_lifting", get_required_lifting, replace=True
-)
-OmegaConf.register_new_resolver(
-    "get_monitor_metric", get_monitor_metric, replace=True
-)
-OmegaConf.register_new_resolver(
-    "get_monitor_mode", get_monitor_mode, replace=True
-)
-OmegaConf.register_new_resolver(
-    "infer_in_channels", infer_in_channels, replace=True
-)
-OmegaConf.register_new_resolver(
-    "infer_num_cell_dimensions", infer_num_cell_dimensions, replace=True
-)
-OmegaConf.register_new_resolver(
-    "parameter_multiplication", lambda x, y: int(int(x) * int(y)), replace=True
-)
+register_all_resolvers()
 
 def run(cfg: DictConfig) -> DictConfig:
     """Run pipeline with given configuration.

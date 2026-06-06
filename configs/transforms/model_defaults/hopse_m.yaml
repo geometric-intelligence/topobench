@@ -1,0 +1,3 @@
+defaults:
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+  - data_manipulations@hopse_encoding: hopse_ps_information

@@ -1,0 +1,3 @@
+transform_name: "KeepSelectedTargetIndices"
+transform_type: "data manipulation"
+target_indices: [0]

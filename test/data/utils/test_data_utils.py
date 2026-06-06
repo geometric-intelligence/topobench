@@ -72,3 +72,55 @@ class TestDataUtils:
         objects = ['test', 1, 1.0, [1, 2, 3], {'a': 1, 'b': 2}, set([1, 2, 3]), omegaconf.dictconfig.DictConfig({'a': 1, 'b': 2}), torch_geometric.data.Data()]
         for obj in objects:
             out = ensure_serializable(obj)
+
+    def test_data2simplicial(self):
+        """Test data2simplicial, find_triangles, and find_tetrahedrons."""
+        # Create a simple tetrahedron: nodes 0,1,2,3
+        # Edges: (0,1), (0,2), (0,3), (1,2), (1,3), (2,3) -> 6 edges
+        # Triangles: (0,1,2), (0,1,3), (0,2,3), (1,2,3) -> 4 triangles
+        # Tetrahedron: (0,1,2,3) -> 1 tetrahedron
+
+        # Incidence 1: Nodes x Edges (4x6)
+        inc1 = torch.tensor([
+            [1, 1, 1, 0, 0, 0], # node 0
+            [1, 0, 0, 1, 1, 0], # node 1
+            [0, 1, 0, 1, 0, 1], # node 2
+            [0, 0, 1, 0, 1, 1]  # node 3
+        ]).float().to_sparse()
+
+        # Incidence 2: Edges x Triangles (6x4)
+        # Tri 0 (0,1,2): edges (0,1), (0,2), (1,2) -> indices 0, 1, 3
+        # Tri 1 (0,1,3): edges (0,1), (0,3), (1,3) -> indices 0, 2, 4
+        # Tri 2 (0,2,3): edges (0,2), (0,3), (2,3) -> indices 1, 2, 5
+        # Tri 3 (1,2,3): edges (1,2), (1,3), (2,3) -> indices 3, 4, 5
+        inc2 = torch.zeros((6, 4))
+        inc2[[0, 1, 3], 0] = 1
+        inc2[[0, 2, 4], 1] = 1
+        inc2[[1, 2, 5], 2] = 1
+        inc2[[3, 4, 5], 3] = 1
+        inc2 = inc2.to_sparse()
+
+        # Incidence 3: Triangles x Tetrahedrons (4x1)
+        inc3 = torch.ones((4, 1)).to_sparse()
+
+        # Adjacency 0: Node x Node
+        adj0 = torch.zeros((4, 4))
+        adj0[0, [1, 2, 3]] = 1
+        adj0[1, [0, 2, 3]] = 1
+        adj0[2, [0, 1, 3]] = 1
+        adj0[3, [0, 1, 2]] = 1
+        adj0 = adj0.to_sparse()
+
+        data = {
+            "incidence_0": torch.zeros((1, 4)).to_sparse(),
+            "adjacency_0": adj0,
+            "incidence_1": inc1,
+            "incidence_2": inc2,
+            "incidence_3": inc3
+        }
+
+        sc = data2simplicial(data)
+        assert len(sc.skeleton(0)) == 4 # nodes
+        assert len(sc.skeleton(1)) == 6 # edges
+        assert len(sc.skeleton(2)) == 4 # triangles
+        assert len(sc.skeleton(3)) == 1 # tetrahedrons

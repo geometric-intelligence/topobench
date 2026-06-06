@@ -34,3 +34,4 @@ repos:
     rev: v1.8.0
     hooks:
       - id: numpydoc-validation
+        exclude: ^(test/|tutorials/|notebooks/|scripts/|docs/|2026_tdl_challenge/)

@@ -24,8 +24,9 @@ class TestFeatureTransforms:
         self.node_feature_float = NodeFeaturesToFloat()
         self.one_hot_degree_features = OneHotDegreeFeatures(
             max_degree=3,
-            degrees_fields="node_degrees",
-            features_fields="one_hot_degree"
+            degrees_field="node_degrees",
+            features_field="one_hot_degree",
+            keep_degree_field=False,
         )
 
     def test_node_degrees(self):

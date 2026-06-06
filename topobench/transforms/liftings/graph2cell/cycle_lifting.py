@@ -51,6 +51,7 @@ class CellCycleLifting(Graph2CellLifting):
             cycles = [
                 cycle for cycle in cycles if len(cycle) <= self.max_cell_length
             ]
+        cycles = sorted(cycles, key=lambda c: (len(c), tuple(sorted(c))))
         if len(cycles) != 0:
             cell_complex.add_cells_from(cycles, rank=self.complex_dim)
         return self._get_lifted_topology(cell_complex, G)

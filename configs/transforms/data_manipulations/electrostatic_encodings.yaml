@@ -1,0 +1,4 @@
+transform_name: "ElectrostaticPE"
+transform_type: "data manipulation"
+eps: 1e-6
+concat_to_x: true

@@ -1,0 +1,89 @@
+---
+out_dir: results
+metric_agg: argmax
+metric_best: r2
+dim_in: 20  # must match randenc_NormalSE.dim_pe (or whatever random input used)
+wandb:
+  use: false
+  project: GPSE-pretrain
+dataset:
+  format: OGB
+  name: ogbg-molpcba
+  task: graph
+  task_type: regression
+  transductive: false
+  unique_mol_graphs: true
+  umg_train_ratio: 0.9
+  umg_val_ratio: 0.05
+  umg_test_ratio: 0.05
+  input_node_encoders: NormalSE
+  output_node_encoders: ElstaticPE+LapPE+RWSE+HKdiagSE
+  output_graph_encoders: EigVals+CycleGE
+graph_norm:
+  enable: true
+  name: GraphNorm
+  eps: 0.00001
+virtual_node: true
+posenc_ElstaticPE:
+  enable: true
+posenc_LapPE:
+  enable: true
+  eigen:
+    laplacian_norm: sym
+    eigvec_norm: L2
+    max_freqs: 4
+    skip_zero_freq: true
+    eigvec_abs: true
+posenc_RWSE:
+  enable: true
+  kernel:
+    times_func: range(2,22)  # if no self-loop, then RWSE1 will be all zeros
+posenc_HKdiagSE:
+  enable: true
+  kernel:
+    times_func: range(1,21)
+randenc_NormalSE:
+  enable: true
+  dim_pe: 20
+graphenc_CycleGE:
+  enable: true
+  kernel:
+    times_func: range(2,9)
+train:
+  mode: custom
+  batch_size: 1024
+  eval_period: 1
+  enable_ckpt: true
+  ckpt_best: true
+  ckpt_clean: true
+  ckpt_period: 100
+  record_individual_scores: true
+model:
+  type: gnn
+  loss_fun: mae_cosim_col_sep
+  edge_decoding: dot
+gnn:
+  head: inductive_hybrid_multi
+  att_heads: 1
+  att_dropout: 0.0
+  att_concat_proj: false
+  layers_pre_mp: 1
+  layers_mp: 20
+  layers_post_mp: 2
+  dim_inner: 512
+  multi_head_dim_inner: 32  # use dim_inner if None
+  layer_type: resgatedgcnconv
+  stage_type: skipsum
+  batchnorm: true
+  act: relu
+  dropout: 0.2
+  agg: mean
+  normalize_adj: false
+optim:
+  optimizer: adamW
+  clip_grad_norm: true
+  weight_decay: 1e-4
+  base_lr: 0.005
+  max_epoch: 120
+  scheduler: cosine_with_warmup
+  num_warmup_epochs: 5

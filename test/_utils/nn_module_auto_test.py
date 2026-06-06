@@ -97,7 +97,7 @@ class NNModuleAutoTest:
         elif type(args) == dict:
             return func(**args)
         else:
-            raise TypeError(f"{type(args)} is not correct type for funcntion arguments.")
+            raise TypeError(f"{type(args)} is not correct type for function arguments.")
 
     def clone_input(self, args):
         """Clone input arguments.
@@ -163,6 +163,12 @@ class NNModuleAutoTest:
             r2 = result_2[i]
             if isinstance(r1, torch.Tensor):
                 assert torch.equal(r1, r2)
+            elif isinstance(r1, tuple) and isinstance(r2, tuple):
+                for r1_, r2_ in zip(r1, r2):
+                    if isinstance(r1_, torch.Tensor) and isinstance(r2_, torch.Tensor):
+                        assert torch.equal(r1_, r2_)
+                    else:
+                        assert  r1_ == r2_
             else:
                 assert r1 == r2
 

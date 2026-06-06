@@ -12,8 +12,11 @@ from omegaconf import DictConfig
 from topobench.data.utils.split_utils import (
     k_fold_split,
     random_splitting,
+    stratified_splitting,
+    k_fold_split_fixed,
     load_inductive_splits,
     load_transductive_splits,
+    load_coauthorship_hypergraph_splits,
     assign_train_val_test_mask_to_graphs,
 )
 
@@ -24,7 +27,7 @@ class TestLoadInductiveSplits:
     def setup_method(self):
         """Setup method for each test."""
         # Create temporary directory for test splits
-        self.test_dir = tempfile.mkdtemp()
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
 
     def teardown_method(self):
         """Cleanup after each test."""
@@ -118,6 +121,26 @@ class TestLoadInductiveSplits:
         # Note: test_ds and val_ds are the same in k-fold (test=valid)
         assert len(train_ds) + len(val_ds) == n_graphs
 
+    def test_stratified_split(self):
+        """Test with stratified split."""
+        n_graphs = 30
+        label_shapes = [()] * n_graphs
+        mock_dataset = self.create_mock_dataset(n_graphs, label_shapes)
+
+        parameters = DictConfig({
+            "split_type": "stratified",
+            "data_seed": 0,
+            "train_prop": 0.6,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        train_ds, val_ds, test_ds = load_inductive_splits(mock_dataset, parameters)
+
+        assert len(train_ds) > 0
+        assert len(val_ds) > 0
+        assert len(test_ds) > 0
+        assert len(train_ds) + len(val_ds) + len(test_ds) == n_graphs
+
     def test_ragged_label_shapes_random_split(self):
         """Test with ragged label shapes (different sizes) using random split."""
         # Create dataset with varying label shapes
@@ -181,6 +204,33 @@ class TestLoadInductiveSplits:
         assert len(train_ds) == 12
         assert len(val_ds) == 4
         assert len(test_ds) == 4
+
+    def test_kfold_fixed_split_type(self):
+        """Test with k-fold-fixed split type."""
+        n_graphs = 10
+        label_shapes = [()] * n_graphs
+        mock_dataset = self.create_mock_dataset(n_graphs, label_shapes)
+
+        # Add split_idx_list attribute
+        split_idx_list = {
+            "train": [np.arange(6)],
+            "valid": [np.arange(6, 8)],
+            "test": [np.arange(8, 10)]
+        }
+        mock_dataset.split_idx_list = split_idx_list
+
+        parameters = DictConfig({
+            "split_type": "k-fold-fixed",
+            "data_seed": 0,
+            "k": 1,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        train_ds, val_ds, test_ds = load_inductive_splits(mock_dataset, parameters)
+
+        assert len(train_ds) == 6
+        assert len(val_ds) == 2
+        assert len(test_ds) == 2
 
     def test_fixed_split_type_without_split_idx_raises_error(self):
         """Test that fixed split without split_idx raises error."""
@@ -341,7 +391,7 @@ class TestKFoldSplit:
 
     def setup_method(self):
         """Setup method for each test."""
-        self.test_dir = tempfile.mkdtemp()
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
 
     def teardown_method(self):
         """Cleanup after each test."""
@@ -389,7 +439,7 @@ class TestRandomSplitting:
 
     def setup_method(self):
         """Setup method for each test."""
-        self.test_dir = tempfile.mkdtemp()
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
 
     def teardown_method(self):
         """Cleanup after each test."""
@@ -444,6 +494,240 @@ class TestRandomSplitting:
         # Verify split directory reflects custom seed
         split_dir = os.path.join(self.test_dir, "data_splits", "train_prop=0.6_global_seed=999")
         assert os.path.exists(split_dir)
+
+
+class TestStratifiedSplitting:
+    """Test stratified_splitting function."""
+
+    def setup_method(self):
+        """Setup method for each test."""
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
+
+    def teardown_method(self):
+        """Cleanup after each test."""
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+
+    def test_basic_stratified_split(self):
+        """Test basic stratified splitting."""
+        labels = torch.tensor([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2])
+        parameters = DictConfig({
+            "data_seed": 0,
+            "train_prop": 0.6,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        split_idx = stratified_splitting(labels, parameters)
+
+        assert "train" in split_idx
+        assert "valid" in split_idx
+        assert "test" in split_idx
+
+        total = len(split_idx["train"]) + len(split_idx["valid"]) + len(split_idx["test"])
+        assert total == len(labels)
+
+
+class TestKFoldSplitFixed:
+    """Test k_fold_split_fixed function."""
+
+    def setup_method(self):
+        """Setup method for each test."""
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
+
+    def teardown_method(self):
+        """Cleanup after each test."""
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+
+    def test_basic_kfold_fixed(self):
+        """Test basic k-fold fixed splitting."""
+        labels = torch.tensor([0, 1, 0, 1, 0, 1])
+        k = 3
+        split_idx_list = {
+            "train": [np.array([0, 1, 2, 3]), np.array([2, 3, 4, 5]), np.array([0, 1, 4, 5])],
+            "valid": [np.array([4]), np.array([0]), np.array([2])],
+            "test": [np.array([5]), np.array([1]), np.array([3])]
+        }
+        parameters = DictConfig({
+            "k": k,
+            "data_seed": 0,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        # Test creating the split
+        split_idx = k_fold_split_fixed(labels, parameters, split_idx_list)
+
+        assert np.array_equal(split_idx["train"], split_idx_list["train"][0])
+        assert np.array_equal(split_idx["valid"], split_idx_list["valid"][0])
+        assert np.array_equal(split_idx["test"], split_idx_list["test"][0])
+
+        # Test loading the split
+        split_idx_loaded = k_fold_split_fixed(labels, parameters, split_idx_list)
+        assert np.array_equal(split_idx_loaded["train"], split_idx["train"])
+
+
+class TestLoadTransductiveSplits:
+    """Test load_transductive_splits function."""
+
+    def setup_method(self):
+        """Setup method for each test."""
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
+
+    def teardown_method(self):
+        """Cleanup after each test."""
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+
+    def test_transductive_random_split(self):
+        """Test transductive random split."""
+        mock_dataset = MagicMock()
+        mock_dataset.__len__ = MagicMock(return_value=1)
+        mock_dataset.dataset.get_data_dir.return_value = self.test_dir
+
+        mock_data = MagicMock()
+        mock_data.y = torch.tensor([0, 1, 0, 1, 0, 1], dtype=torch.float)
+        mock_data.x = torch.randn(6, 10)
+        mock_data.train_mask = None
+        mock_dataset.data_list = [mock_data]
+
+        parameters = DictConfig({
+            "split_type": "random",
+            "data_seed": 0,
+            "train_prop": 0.5,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        dataset, _, _ = load_transductive_splits(mock_dataset, parameters)
+
+        assert len(dataset) == 1
+        data = dataset.data_lst[0]
+        assert hasattr(data, "train_mask")
+        assert data.train_mask.sum() > 0
+
+    def test_transductive_stratified_split(self):
+        """Test transductive stratified split."""
+        mock_dataset = MagicMock()
+        mock_dataset.__len__ = MagicMock(return_value=1)
+        mock_dataset.dataset.get_data_dir.return_value = self.test_dir
+
+        mock_data = MagicMock()
+        mock_data.y = torch.tensor([0, 0, 0, 1, 1, 1], dtype=torch.float)
+        mock_data.x = torch.randn(6, 10)
+        mock_dataset.data_list = [mock_data]
+
+        parameters = DictConfig({
+            "split_type": "stratified",
+            "data_seed": 0,
+            "train_prop": 0.5,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        dataset, _, _ = load_transductive_splits(mock_dataset, parameters)
+        assert len(dataset) == 1
+
+    def test_transductive_kfold_split(self):
+        """Test transductive k-fold split."""
+        mock_dataset = MagicMock()
+        mock_dataset.__len__ = MagicMock(return_value=1)
+        mock_dataset.dataset.get_data_dir.return_value = self.test_dir
+
+        mock_data = MagicMock()
+        mock_data.y = torch.tensor([0, 0, 0, 1, 1, 1], dtype=torch.float)
+        mock_data.x = torch.randn(6, 10)
+        mock_dataset.data_list = [mock_data]
+
+        parameters = DictConfig({
+            "split_type": "k-fold",
+            "k": 3,
+            "data_seed": 0,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        dataset, _, _ = load_transductive_splits(mock_dataset, parameters)
+        assert len(dataset) == 1
+
+    def test_transductive_standardize(self):
+        """Test transductive split with standardization."""
+        mock_dataset = MagicMock()
+        mock_dataset.__len__ = MagicMock(return_value=1)
+        mock_dataset.dataset.get_data_dir.return_value = self.test_dir
+
+        mock_data = MagicMock()
+        # Use float labels for standardization test
+        mock_data.y = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], dtype=torch.float)
+        mock_data.x = torch.randn(6, 10)
+        mock_dataset.data_list = [mock_data]
+
+        parameters = DictConfig({
+            "split_type": "random",
+            "data_seed": 0,
+            "train_prop": 0.5,
+            "standardize": True,
+            "data_split_dir": os.path.join(self.test_dir, "data_splits")
+        })
+
+        dataset, _, _ = load_transductive_splits(mock_dataset, parameters)
+        assert len(dataset) == 1
+        data = dataset.data_lst[0]
+        # Features and labels should be modified
+        assert hasattr(data, "x")
+        assert hasattr(data, "y")
+
+    def test_invalid_split_type_raises_error(self):
+        """Test that invalid split type raises error."""
+        mock_dataset = MagicMock()
+        mock_dataset.__len__ = MagicMock(return_value=1)
+        mock_data = MagicMock()
+        mock_data.y = torch.tensor([0, 1], dtype=torch.float)
+        mock_dataset.data_list = [mock_data]
+
+        parameters = DictConfig({
+            "split_type": "invalid",
+        })
+
+        with pytest.raises(NotImplementedError):
+            load_transductive_splits(mock_dataset, parameters)
+
+
+class TestLoadCoauthorshipHypergraphSplits:
+    """Test load_coauthorship_hypergraph_splits function."""
+
+    def setup_method(self):
+        """Setup method for each test."""
+        self.test_dir = tempfile.mkdtemp(prefix=".topobench_test_tmp_")
+
+    def teardown_method(self):
+        """Cleanup after each test."""
+        if os.path.exists(self.test_dir):
+            shutil.rmtree(self.test_dir)
+
+    def test_load_coauthorship_splits(self):
+        """Test loading coauthorship hypergraph splits."""
+        data = MagicMock()
+        data.num_nodes = 10
+
+        train_prop = 0.5
+        parameters = DictConfig({
+            "data_seed": 0,
+            "data_split_dir": self.test_dir
+        })
+
+        # Create the expected directory and file
+        split_dir = os.path.join(self.test_dir, f"train_prop={train_prop}")
+        os.makedirs(split_dir, exist_ok=True)
+
+        split_path = os.path.join(split_dir, "split_0.npz")
+        split_idx = {
+            "train": np.array([0, 1, 2, 3, 4]),
+            "valid": np.array([5, 6, 7]),
+            "test": np.array([8, 9])
+        }
+        np.savez(split_path, **split_idx)
+
+        dataset, _, _ = load_coauthorship_hypergraph_splits(data, parameters, train_prop=train_prop)
+
+        assert len(dataset) == 1
+        assert torch.equal(data.train_mask, torch.from_numpy(split_idx["train"]))
 
 
 class TestAssignMasks:

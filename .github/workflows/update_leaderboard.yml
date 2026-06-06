@@ -22,7 +22,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    if: github.repository == 'geometric-intelligence/TopoBench'
+    if: github.repository == 'geometric-intelligence/topobench'
     steps:
       - uses: actions/checkout@v4
 
@@ -56,7 +56,7 @@ jobs:
           branch: bot/refresh-tdl-challenge-2026-leaderboard
           base: main
           add-paths: docs/_static/leaderboard/data/leaderboard.json
-          commit-message: "docs(leaderboard): refresh TDL Challenge 2026 results [skip ci]"
+          commit-message: "docs(leaderboard): refresh TDL Challenge 2026 results"
           title: "docs(leaderboard): refresh TDL Challenge 2026 results"
           body: |
             Automated refresh of the TDL Challenge 2026 leaderboard.

@@ -1,0 +1,60 @@
+_target_: topobench.model.TBModel
+
+model_name: sann
+model_domain: cell
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: SANNOnlineFeatureEncoder
+  dataset_in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  in_channels: ${infer_in_hasse_graph_agg_dim:${.neighborhoods}, ${.max_rank},${oc.select:dataset.parameters.num_features},${.dim_target_graph}, ${.dim_target_node}, ${.copy_initial}, ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted}}  #[[7,62],[7,124],[7,62]] #[[1433,62],[1433,124],[1433,62]]
+  max_hop: ${get_hop_num_gpse:${.copy_initial}}
+  out_channels: 64
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+  feature_lifting: Duplicate
+  all_ones: true
+  # GPSE parameters
+  copy_initial: True
+  neighborhoods: ["up_adjacency-0", "up_adjacency-1", "down_adjacency-1", "down_adjacency-2"]
+  dim_out: 11
+  max_rank: 2
+  dim_target_node: 51
+  dim_target_graph: 11
+  pretrain_model: "ZINC"
+  device: ${trainer.accelerator}
+  cuda: ${trainer.devices}
+
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.HOPSE
+  in_channels: ${model.backbone.hidden_channels}
+  n_layers: 2
+  max_hop: 2 # ${transforms.sann_encoding.max_hop}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  update_func: "leaky_relu"
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HOPSEWrapper
+  _partial_: true
+  wrapper_name: HOPSEWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  complex_dim: 2 # ${transforms.sann_encoding.max_rank}
+  max_hop: 2 # ${transforms.sann_encoding.max_hop}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: HOPSEReadout  #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  max_hop: 2 #${transforms.sann_encoding.max_hop}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${dataset.parameters.task_level}
+  pooling_type: sum
+  complex_dim: 2 #${transforms.sann_encoding.max_rank}
+
+# compile model for faster training with pytorch 2.0
+compile: false

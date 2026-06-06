@@ -3,39 +3,44 @@ loader:
   parameters:
     data_domain: simplicial
     data_type: topological
-    data_name: MANTRA
+    data_name: MANTRA_${dataset.loader.parameters.task_variable}
     data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
-    manifold_dim: 3
+    manifold_dim: 2
     version: "v0.0.5"
     load_as_graph: False
-    task_variable: "betti_numbers" # Options: ['name', 'genus', 'orientable'] To use 'torsion_coefficients', 'betti_numbers' fix multilabel multiclass issue
+    task_variable: betti_numbers # Options: ['name', 'genus', 'orientable'] To use 'torsion_coefficients', 'betti_numbers' fix multilabel multiclass issue
     model_domain: ${model.model_domain}
+    neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}
+    signed: True
+    slice: False
 
 # Data definition
 parameters:
   # In the case of higher-order datasets we have multiple feature dimensions
   num_features: [1,1,1]
-  #num_classes: 2 # Num classes depends on the task_variable
+  num_classes: 3 # In the case of 'betti_numbers', we have 3 types of betti numbers: [0, 1, 2], for  manifold_dim = 2
+  multioutput_classes: [2,7,2] # Number of betti numbers to predict, this is important for the regression task
 
   # Dataset parameters
-  # task: classification     # TODO: adapt pipeline to support multilabel classification
-  # loss_type: cross_entropy # TODO: adapt pipeline to support multilabel classification
-  # monitor_metric: accuracy # TODO: adapt pipeline to support multilabel classification
+  task: multioutput classification
+  loss_type: mse
+  monitor_metric: loss
   task_level: graph
   data_seed: 0
+  preserve_edge_attr_if_lifted: False
+  # metrics: [accuracy_0, precision_0, recall_0, f1_0, accuracy_1, precision_1, recall_1, f1_1, accuracy_2, precision_2, recall_2, f1_2] # specific metrics
 
 #splits
 split_params:
   learning_setting: inductive
-  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_split_dir: ${dataset.loader.parameters.data_dir}/${dataset.loader.parameters.data_name}_${dataset.loader.parameters.version}_manifold_dim_${dataset.loader.parameters.manifold_dim}/data_splits
   data_seed: 0
-  split_type: random #'k-fold' # either "k-fold" or "random" strategies
+  split_type: stratified #'k-fold' # either "k-fold" or "random" strategies
   k: 10 # for "k-fold" Cross-Validation
   train_prop: 0.5 # for "random" strategy splitting
 
 # Dataloader parameters
 dataloader_params:
-  batch_size: 5
+  batch_size: 256
   num_workers: 0
   pin_memory: False
-  persistent_workers: False

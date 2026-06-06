@@ -308,3 +308,17 @@ class TestRWSE:
         assert transformed.RWSE.shape == (3, max_pe_dim)
         assert torch.all(transformed.RWSE >= 0.0)
         assert torch.all(transformed.RWSE <= 1.0)
+
+    def test_debug_mode(self, capsys):
+        """Test RWSE with debug=True."""
+        transform = RWSE(max_pe_dim=4, debug=True)
+        edge_index = torch.tensor([[0, 1, 2], [1, 2, 0]])
+        data = Data(edge_index=edge_index, num_nodes=3)
+
+        # This should run without error and print debug info
+        transformed = transform(data)
+
+        captured = capsys.readouterr()
+        # Verify that some debug information was printed
+        assert "RWSE Debug Report" in captured.out or "method" in captured.out.lower()
+        assert transformed.x.shape == (3, 4)

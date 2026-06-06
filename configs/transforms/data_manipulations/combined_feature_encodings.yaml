@@ -1,0 +1,22 @@
+transform_name: "CombinedFEs"
+transform_type: "data manipulation"
+encodings: ["KHopFE","HKFE", "SheafConnLapPE", "PPRFE"]
+parameters:
+  HKFE:
+    kernel_param_HKFE: [1, 21]
+    concat_to_x: true
+    aggregation: "mean"
+  KHopFE:
+    max_hop: 3
+    concat_to_x: true
+    aggregation: "mean"
+  SheafConnLapPE:
+    max_pe_dim: 9
+    stalk_dim: 3
+    include_first: false
+    concat_to_x: true
+  PPRFE:
+    alpha_param_PPRFE: [0.1, 10]
+    concat_to_x: true
+    aggregation: "mean"
+    self_loop: true

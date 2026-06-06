@@ -1,4 +1,4 @@
-"""Utility functions for the TopoBenchMarkX library."""
+"""Utility functions for the TopoBenchMark library."""
 
 import warnings
 from collections.abc import Callable

@@ -32,11 +32,17 @@ def get_routes_from_neighborhoods(neighborhoods):
         split = neighborhood.split("-")
         src_rank = int(split[-1])
         r = int(split[0]) if len(split) == 3 else 1
-        route = (
-            [src_rank, src_rank - r]
-            if "down" in neighborhood
-            else [src_rank, src_rank + r]
-        )
+
+        # Adjacency neighborhoods are always intrarank (same src and dst rank)
+        # since adjacency defines connections within the same rank
+        if "adjacency" in neighborhood:
+            route = [src_rank, src_rank]
+        else:
+            route = (
+                [src_rank, src_rank - r]
+                if "down" in neighborhood
+                else [src_rank, src_rank + r]
+            )
         routes.append(route)
     return routes
 
@@ -262,6 +268,7 @@ def select_neighborhoods_of_interest(connectivity, neighborhoods):
                     useful_connectivity[neighborhood] = connectivity[
                         f"{neighborhood_type}_{src_rank}"
                     ]
+
                 elif "incidence" in neighborhood_type:
                     useful_connectivity[neighborhood] = (
                         connectivity[f"incidence_{src_rank + 1}"].T
@@ -362,6 +369,11 @@ def select_neighborhoods_of_interest(connectivity, neighborhoods):
                                 matrix.size(),
                             )
                         )
+                    elif direction == "virtualnode":
+                        useful_connectivity[neighborhood] = connectivity[
+                            f"incidence_{src_rank}"
+                        ]
+
             else:
                 useful_connectivity[neighborhood] = connectivity[neighborhood]
         except:  # noqa: E722
@@ -550,16 +562,14 @@ def ensure_serializable(obj):
         for key, value in obj.items():
             obj[key] = ensure_serializable(value)
         return obj
-    elif isinstance(obj, list | tuple):
+    elif isinstance(obj, list | tuple | omegaconf.listconfig.ListConfig):
         return [ensure_serializable(item) for item in obj]
     elif isinstance(obj, set):
         return {ensure_serializable(item) for item in obj}
     elif isinstance(obj, str | int | float | bool | type(None)):
         return obj
     elif isinstance(obj, omegaconf.dictconfig.DictConfig):
-        from omegaconf import OmegaConf
-
-        obj = OmegaConf.to_container(obj, resolve=False)
+        obj = omegaconf.OmegaConf.to_container(obj, resolve=False)
         return obj
     else:
         return None

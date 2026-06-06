@@ -26,8 +26,8 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
     def __init__(self, parameters: DictConfig, **kwargs) -> None:
         super().__init__(parameters, **kwargs)
 
-    def load_dataset(self, **kwargs) -> MantraDataset:
-        """Load the Citation Hypergraph dataset.
+    def load(self, **kwargs) -> tuple[MantraDataset, str]:
+        """Load the Mantra dataset.
 
         Parameters
         ----------
@@ -36,21 +36,20 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
 
         Returns
         -------
-        CitationHypergraphDataset
-            The loaded Citation Hypergraph dataset with the appropriate `data_dir`.
+        MantraDataset
+            The loaded Mantra dataset with the appropriate `data_dir`.
 
         Raises
         ------
         RuntimeError
             If dataset loading fails.
         """
+        dataset = self.load_dataset(**kwargs)
+        data_dir = dataset.processed_root
+        return dataset, data_dir
 
-        dataset = self._initialize_dataset(**kwargs)
-        self.data_dir = self.get_data_dir()
-        return dataset
-
-    def _initialize_dataset(self, **kwargs) -> MantraDataset:
-        """Initialize the Citation Hypergraph dataset.
+    def load_dataset(self, **kwargs) -> MantraDataset:
+        """Initialize the Mantra dataset.
 
         Parameters
         ----------
@@ -59,12 +58,16 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
 
         Returns
         -------
-        CitationHypergraphDataset
+        MantraDataset
             The initialized dataset instance.
         """
+        slice_val = kwargs.pop("slice", None)
+        if slice_val is None:
+            slice_val = self.parameters.get("slice", False)
         return MantraDataset(
             root=str(self.root_data_dir),
             name=self.parameters.data_name,
             parameters=self.parameters,
+            slice=slice_val,
             **kwargs,
         )

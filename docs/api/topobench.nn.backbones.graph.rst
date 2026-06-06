@@ -6,6 +6,14 @@ topobench.nn.backbones.graph package
    :undoc-members:
    :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   topobench.nn.backbones.graph.nsd_utils
+
 Submodules
 ----------
 
@@ -15,3 +23,4 @@ Submodules
    topobench.nn.backbones.graph.gps
    topobench.nn.backbones.graph.graph_mlp
    topobench.nn.backbones.graph.identity_gnn
+   topobench.nn.backbones.graph.nsd

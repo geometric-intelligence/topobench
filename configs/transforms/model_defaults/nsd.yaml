@@ -1,2 +1,2 @@
 defaults:
-  - data_manipulations@CombinedPSEs: combined_encodings
+  - data_manipulations@CombinedPSEs: combined_positional_and_structural_encodings

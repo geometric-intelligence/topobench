@@ -1,0 +1,21 @@
+_target_: topobenchmark.transforms.data_transform.DataTransform
+transform_name: "DifferentZeroFeaturesSANN"
+transform_type: "data manipulation"
+
+mean: 0
+std: 0.1
+num_features: ${dataset.parameters.num_features}
+max_hop: 3
+dimensions: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
+#in_channels: ${infer_in_khop_feature_dim:${model.feature_encoder.dataset_in_channels},${.max_hop}}
+
+in_channels:
+- - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}
+- - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}
+- - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}
+  - ${dataset.parameters.num_features}

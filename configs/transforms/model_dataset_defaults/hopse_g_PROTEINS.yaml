@@ -1,0 +1,4 @@
+defaults:
+  - data_manipulations: identity # PROTEINS dataset needs identity transform to avoid adding random float feature to feature matrix
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+  - data_manipulations@hopse_encoding: add_gpse_information

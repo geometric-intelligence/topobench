@@ -1,18 +1,13 @@
 """Test the Dataloader class."""
 
 import hydra
-import rootutils
 import torch
+
+import test._utils.simplified_pipeline  # noqa: F401 — register OmegaConf resolvers
 
 from topobench.data.preprocessor import PreProcessor
 from topobench.dataloader import TBDataloader
 from topobench.dataloader.utils import to_data_list
-
-from omegaconf import OmegaConf
-import os
-from topobench.run import initialize_hydra
-
-# rootutils.setup_root("./", indicator=".project-root", pythonpath=True)
 
 
 class TestCollateFunction:
@@ -20,29 +15,46 @@ class TestCollateFunction:
 
     def setup_method(self):
         """Setup the test."""
-
-        hydra.initialize(
-        version_base="1.3", config_path="../../../configs", job_name="run"
+        hydra.core.global_hydra.GlobalHydra.instance().clear()
+        self._hydra_ctx = hydra.initialize(
+            version_base="1.3", config_path="../../../configs", job_name="run"
         )
-        cfg = hydra.compose(config_name="run.yaml", overrides=["dataset=graph/NCI1"])
+        self._hydra_ctx.__enter__()
+        try:
+            cfg = hydra.compose(
+                config_name="run.yaml", overrides=["dataset=graph/NCI1"]
+            )
 
-        graph_loader = hydra.utils.instantiate(cfg.dataset.loader, _recursive_=False)
+            graph_loader = hydra.utils.instantiate(
+                cfg.dataset.loader, _recursive_=False
+            )
 
-        datasets, dataset_dir = graph_loader.load()
-        preprocessor = PreProcessor(datasets, dataset_dir, None)
-        dataset_train, dataset_val, dataset_test = (
-            preprocessor.load_dataset_splits(cfg.dataset.split_params)
-        )
+            datasets, dataset_dir = graph_loader.load()
+            preprocessor = PreProcessor(datasets, dataset_dir, None)
+            dataset_train, dataset_val, dataset_test = (
+                preprocessor.load_dataset_splits(cfg.dataset.split_params)
+            )
 
-        self.batch_size = 2
-        datamodule = TBDataloader(
-            dataset_train=dataset_train,
-            dataset_val=dataset_val,
-            dataset_test=dataset_test,
-            batch_size=self.batch_size,
-        )
-        self.val_dataloader = datamodule.val_dataloader()
-        self.val_dataset = dataset_val
+            self.batch_size = 2
+            datamodule = TBDataloader(
+                dataset_train=dataset_train,
+                dataset_val=dataset_val,
+                dataset_test=dataset_test,
+                batch_size=self.batch_size,
+            )
+            self.val_dataloader = datamodule.val_dataloader()
+            self.val_dataset = dataset_val
+        except BaseException:
+            self._hydra_ctx.__exit__(None, None, None)
+            hydra.core.global_hydra.GlobalHydra.instance().clear()
+            raise
+
+    def teardown_method(self):
+        """Tear down Hydra after each test."""
+        if hasattr(self, "_hydra_ctx"):
+            self._hydra_ctx.__exit__(None, None, None)
+            del self._hydra_ctx
+        hydra.core.global_hydra.GlobalHydra.instance().clear()
 
     def test_lift_features(self):
         """Test the collate function.

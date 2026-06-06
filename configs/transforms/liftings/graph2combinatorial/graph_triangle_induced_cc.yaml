@@ -4,4 +4,4 @@ transform_name: "GraphTriangleInducedCC"
 complex_dim: 3
 preserve_edge_attr: False
 feature_lifting: ProjectionSum
-neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

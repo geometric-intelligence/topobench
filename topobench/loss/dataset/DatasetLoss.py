@@ -30,8 +30,16 @@ class DatasetLoss(AbstractLoss):
                 "Invalid loss type for classification task,TB supports only BCE for multilabel classification task"
             )
             self.criterion = torch.nn.BCEWithLogitsLoss(reduction="none")
-        elif self.task == "regression" and self.loss_type == "mse":
+        elif (
+            self.task == "regression"
+            and self.loss_type == "mse"
+            or (
+                self.task == "multioutput classification"
+                and self.loss_type == "mse"
+            )
+        ):
             self.criterion = torch.nn.MSELoss()
+
         elif self.task == "regression" and self.loss_type == "mae":
             self.criterion = torch.nn.L1Loss()
         else:
@@ -79,6 +87,9 @@ class DatasetLoss(AbstractLoss):
             target = target.unsqueeze(1)
             dataset_loss = self.criterion(logits, target)
 
+        elif self.task == "multioutput classification":
+            dataset_loss = self.criterion(logits, target.float())
+
         elif self.task == "classification":
             dataset_loss = self.criterion(logits, target)
 
@@ -86,7 +97,7 @@ class DatasetLoss(AbstractLoss):
             mask = ~torch.isnan(target)
             # Avoid NaN values in the target
             target = torch.where(mask, target, torch.zeros_like(target))
-            loss = self.criterion(logits, target)
+            loss = self.criterion(logits, target.float())
             # Mask out the loss for NaN values
             loss = loss * mask
             # Take out average

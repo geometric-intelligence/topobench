@@ -91,7 +91,6 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
         A tuple with metrics and dict with all instantiated objects.
     """
     # Set seed for random number generators in pytorch, numpy and python.random
-    # if cfg.get("seed"):
     L.seed_everything(cfg.seed, workers=True)
     # Seed for torch
     torch.manual_seed(cfg.seed)
@@ -115,7 +114,11 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     dataset, dataset_dir = dataset_loader.load()
     # Preprocess dataset and load the splits
     log.info("Instantiating preprocessor...")
-    transform_config = cfg.get("transforms", None)
+    transform_config = (
+        hydra.utils.instantiate(cfg.transforms)
+        if cfg.get("transforms", None) is not None
+        else None
+    )
     preprocessor = PreProcessor(dataset, dataset_dir, transform_config)
     dataset_train, dataset_val, dataset_test = (
         preprocessor.load_dataset_splits(cfg.dataset.split_params)
@@ -147,12 +150,23 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     log.info("Instantiating loggers...")
     logger: list[Logger] = instantiate_loggers(cfg.get("logger"))
 
+    # Log to wandb preprocessor time
+    if logger:
+        for log_temp in logger:
+            if isinstance(log_temp, L.pytorch.loggers.wandb.WandbLogger):
+                log_temp.log_metrics(
+                    {
+                        "preprocessor_time": preprocessor.preprocessing_time,
+                    }
+                )
+
     log.info(f"Instantiating trainer <{cfg.trainer._target_}>")
     trainer: Trainer = hydra.utils.instantiate(
         cfg.trainer,
         callbacks=callbacks,
         logger=logger,
         num_sanity_val_steps=0,
+        log_every_n_steps=1,  # Log metrics every step (Lightning requires >=1)
     )
 
     object_dict = {
@@ -175,7 +189,6 @@ def run(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
         )
 
     train_metrics = trainer.callback_metrics
-
     if cfg.get("test"):
         log.info("Starting testing!")
 
@@ -278,6 +291,19 @@ def rerun_best_model_checkpoint(
         for lgr in logger:
             if isinstance(lgr, WandbLogger):
                 lgr.log_metrics(logged)
+
+    if (
+        cfg.get("delete_checkpoint_after_test", False)
+        and model_path
+        and model_path.exists()
+    ):
+        log.info(f"Cleaning up: Deleting checkpoint at {model_path}")
+        try:
+            model_path.unlink()
+        except Exception as e:
+            log.warning(
+                f"Failed to delete checkpoint at {model_path}. Error: {e}"
+            )
 
 
 def count_number_of_parameters(

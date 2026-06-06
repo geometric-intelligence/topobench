@@ -11,4 +11,4 @@ chunk_size: 1024
 threshold: 1
 # Required for all liftings to make the pipeline executable
 preserve_edge_attr: False
-neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

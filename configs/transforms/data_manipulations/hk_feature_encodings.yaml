@@ -1,0 +1,5 @@
+transform_name: "HKFE"
+transform_type: "data manipulation"
+kernel_param_HKdiagSE: [1, 21]
+concat_to_x: true
+aggregation: "mean"

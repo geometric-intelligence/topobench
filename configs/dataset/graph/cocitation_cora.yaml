@@ -28,6 +28,6 @@ split_params:
 
 # Dataloader parameters
 dataloader_params:
-  batch_size: 1 # Fixed
-  num_workers: 1
+  batch_size: 1
+  num_workers: 0
   pin_memory: False

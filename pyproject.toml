@@ -43,6 +43,7 @@ dependencies=[
     "hydra-core==1.3.2",
     "hydra-colorlog==1.2.0",
     "hydra-optuna-sweeper==1.2.0",
+    "yacs==0.1.8",
     "wandb",
     "tensorboard",
     "einops==0.7.0",
@@ -60,6 +61,10 @@ dependencies=[
     "torch-scatter",
     "torch-sparse",
     "torch-cluster",
+    "rdkit",
+    "PyTDC==1.1.15",
+    # PyTDC imports pkg_resources; setuptools>=82 dropped it.
+    "setuptools>=69,<82",
 ]
 
 [project.optional-dependencies]
@@ -141,7 +146,7 @@ wrap-descriptions = 79
 
 [tool.ruff]
 target-version = "py311"
-extend-exclude = ["test", "tutorials", "notebooks"]
+extend-exclude = ["test", "tutorials", "notebooks", "scripts", "docs", "2026_tdl_challenge"]
 line-length = 79
 
 [tool.ruff.format]
@@ -163,7 +168,10 @@ convention = "numpy"
 version = {attr = "topobench.__version__"}
 
 [tool.setuptools.packages.find]
-include = ["topobench", "topobench.*"]
+include = ["topobench", "topobench.*", "configs"]
+
+[tool.setuptools.package-data]
+configs = ["**/*.yaml"]
 
 [tool.mypy]
 warn_redundant_casts = true

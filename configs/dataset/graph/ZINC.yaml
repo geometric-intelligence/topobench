@@ -24,7 +24,7 @@ parameters:
 split_params:
   learning_setting: inductive
   data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
-  data_seed: 0
+  data_seed: 0 # Varying this parameter will not matter as ZINC dataset has predefined splits.
   split_type: 'fixed' # ZINC accept only <fixed> split
 
 # Dataloader parameters
@@ -32,4 +32,3 @@ dataloader_params:
   batch_size: 128
   num_workers: 0
   pin_memory: False
-  persistent_workers: False

@@ -1,0 +1,54 @@
+transform_name: "HOPSE_PE_Information"
+transform_type: "data manipulation"
+max_rank: 2
+copy_initial: ${model.preprocessing_params.copy_initial}
+neighborhoods: ${model.preprocessing_params.neighborhoods}
+
+
+dim_target_node: 20 #${.target_pe_dim} #51
+dim_all_encodings: ${get_all_encoding_dimensions:${.encodings}, ${.parameters}}
+dim_target_graph: 0
+max_hop: ${get_hop_num_pses:${.encodings}, ${.copy_initial}}
+in_channels: ${infer_in_hasse_graph_agg_dim:${.neighborhoods}, ${.dim_all_encodings}, ${.max_rank}, ${.max_hop}, ${oc.select:dataset.parameters.num_features}, ${.dim_target_graph}, ${.dim_target_node}, ${.copy_initial}, ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted}}
+device: ${trainer.accelerator}
+cuda: ${trainer.devices}
+
+# Other configs
+is_undirected: True
+
+encodings: ${model.preprocessing_params.encodings}
+parameters:
+  # Feature Encodings (FEs) - use data.x as input
+  KHopFE:
+    max_hop: 3
+    concat_to_x: false
+  HKFE:
+    kernel_param_HKFE: [1, 21]
+    concat_to_x: false
+  SheafConnLapPE:
+    max_pe_dim: 9
+    stalk_dim: 3
+    include_first: false
+    concat_to_x: false
+  PPRFE:
+    alpha_param_PPRFE: [0.1, 10]  # [start_alpha, num_alpha_values]
+    concat_to_x: false
+    aggregation: "mean"
+    self_loop: true
+
+  # Positional/Structural Encodings (PSEs) - use graph structure only
+  LapPE:
+    max_pe_dim: 10
+    include_eigenvalues: false
+    include_first: false
+    concat_to_x: false
+    device: 'cpu' # Force CPU for eigen computations
+  RWSE:
+    max_pe_dim: 10
+    concat_to_x: false
+  ElectrostaticPE:
+    concat_to_x: false
+  HKdiagSE:
+    kernel_param_HKdiagSE: [1, 21]
+    space_dim: 0
+    concat_to_x: false

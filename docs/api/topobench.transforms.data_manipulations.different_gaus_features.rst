@@ -1,0 +1,7 @@
+topobench.transforms.data\_manipulations.different\_gaus\_features module
+=========================================================================
+
+.. automodule:: topobench.transforms.data_manipulations.different_gaus_features
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -12,16 +12,16 @@ import os
 import random
 import sys
 import warnings
+from collections import defaultdict
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-from datetime import datetime, timezone
-from collections import defaultdict
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 import hydra
 import lightning as pl
-from omegaconf import OmegaConf, open_dict
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -32,12 +32,12 @@ from matplotlib import patheffects as mpe
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
+from omegaconf import OmegaConf, open_dict
 
 from topobench.data.preprocessor import PreProcessor
 from topobench.dataloader import TBDataloader
 from topobench.run import run
 from topobench.utils.config_resolvers import register_all_resolvers
-
 
 # =============================================================================
 # CONFIGURATION
@@ -90,8 +90,18 @@ DEFAULT_WANDB_PROJECT_CD = "challenge_community_detection"
 DEFAULT_WANDB_PROJECT_TRI = "challenge_triangle_counting"
 
 DEFAULT_EXPERIMENT_MODES: list[tuple[str, str, str, list[str]]] = [
-    ("community_detection", DEFAULT_WANDB_PROJECT_CD, "dataset=graph/graphuniverse_inductive", []),
-    ("triangle_counting", DEFAULT_WANDB_PROJECT_TRI, "dataset=graph/graphuniverse_inductive_triangle", []),
+    (
+        "community_detection",
+        DEFAULT_WANDB_PROJECT_CD,
+        "dataset=graph/graphuniverse_inductive",
+        [],
+    ),
+    (
+        "triangle_counting",
+        DEFAULT_WANDB_PROJECT_TRI,
+        "dataset=graph/graphuniverse_inductive_triangle",
+        [],
+    ),
 ]
 
 MAX_EPOCHS = 500
@@ -110,6 +120,7 @@ CHALLENGE_FEATURE_ENCODER_OUT_CHANNELS = 64
 # =============================================================================
 # GRID SETTINGS
 # =============================================================================
+
 
 @dataclass(frozen=True)
 class GraphUniverseChallengeSetting:
@@ -139,7 +150,9 @@ def build_generation_parameters(
         "family_parameters": {
             "homophily_range": HOMOPHILY_LEVELS[homophily_key],
             "avg_degree_range": AVG_DEGREE_LEVELS[avg_degree_key],
-            "power_law_exponent_range": POWER_LAW_EXPONENT_LEVELS[power_law_key],
+            "power_law_exponent_range": POWER_LAW_EXPONENT_LEVELS[
+                power_law_key
+            ],
         },
     }
     return _deep_merge(STANDARD_GENERATION_PARAMETERS, patch)
@@ -159,6 +172,7 @@ def iter_challenge_settings() -> Iterator[GraphUniverseChallengeSetting]:
 # HYDRA UTILITIES
 # =============================================================================
 
+
 def generation_parameters_to_hydra_overrides(
     generation_parameters: dict[str, Any],
     *,
@@ -168,7 +182,13 @@ def generation_parameters_to_hydra_overrides(
 
     def _fmt(val: Any) -> str:
         if isinstance(val, list):
-            return "[" + ",".join(_fmt(x) if isinstance(x, list) else str(x) for x in val) + "]"
+            return (
+                "["
+                + ",".join(
+                    _fmt(x) if isinstance(x, list) else str(x) for x in val
+                )
+                + "]"
+            )
         if isinstance(val, bool):
             return str(val).lower()
         return str(val)
@@ -183,7 +203,9 @@ def generation_parameters_to_hydra_overrides(
 def challenge_setting_to_hydra_overrides(
     setting: GraphUniverseChallengeSetting,
 ) -> list[str]:
-    return generation_parameters_to_hydra_overrides(setting.generation_parameters)
+    return generation_parameters_to_hydra_overrides(
+        setting.generation_parameters
+    )
 
 
 def apply_challenge_feature_encoder_out_channels(cfg: Any) -> None:
@@ -224,22 +246,25 @@ def ensure_repo_on_path(project_root: Path) -> None:
 # DATAMODULE CONSTRUCTION
 # =============================================================================
 
-def build_datamodule_for_setting(cfg: Any, setting: GraphUniverseChallengeSetting) -> Any:
+
+def build_datamodule_for_setting(
+    cfg: Any, setting: GraphUniverseChallengeSetting
+) -> Any:
     cfg_eval = OmegaConf.create(OmegaConf.to_container(cfg, resolve=True))
     gp = setting.generation_parameters
     with open_dict(cfg_eval.dataset.loader.parameters.generation_parameters):
-        cfg_eval.dataset.loader.parameters.generation_parameters.universe_parameters = (
-            OmegaConf.create(copy.deepcopy(gp["universe_parameters"]))
+        cfg_eval.dataset.loader.parameters.generation_parameters.universe_parameters = OmegaConf.create(
+            copy.deepcopy(gp["universe_parameters"])
         )
-        cfg_eval.dataset.loader.parameters.generation_parameters.family_parameters = (
-            OmegaConf.create(copy.deepcopy(gp["family_parameters"]))
+        cfg_eval.dataset.loader.parameters.generation_parameters.family_parameters = OmegaConf.create(
+            copy.deepcopy(gp["family_parameters"])
         )
     dataset_loader = hydra.utils.instantiate(cfg_eval.dataset.loader)
     dataset, dataset_dir = dataset_loader.load()
     transform_config = cfg_eval.get("transforms", None)
     preprocessor = PreProcessor(dataset, dataset_dir, transform_config)
-    dataset_train, dataset_val, dataset_test = preprocessor.load_dataset_splits(
-        cfg_eval.dataset.split_params
+    dataset_train, dataset_val, dataset_test = (
+        preprocessor.load_dataset_splits(cfg_eval.dataset.split_params)
     )
     if cfg_eval.dataset.parameters.task_level not in ("node", "graph"):
         raise ValueError("Invalid task_level")
@@ -254,6 +279,7 @@ def build_datamodule_for_setting(cfg: Any, setting: GraphUniverseChallengeSettin
 # =============================================================================
 # TRIANGLE COUNTING METRICS
 # =============================================================================
+
 
 def triangle_count_from_edge_index(data: Any) -> int:
     import networkx as nx
@@ -285,7 +311,9 @@ def total_test_triangles_structural(datamodule: Any) -> int:
     return sum(triangle_count_from_edge_index(d) for d in ds.data_lst)
 
 
-def compute_triangle_metrics(datamodule: Any, test_mse: float) -> tuple[int, float | None]:
+def compute_triangle_metrics(
+    datamodule: Any, test_mse: float
+) -> tuple[int, float | None]:
     total = total_test_triangles_structural(datamodule)
     mse_by_total: float | None = None
     if total > 0 and math.isfinite(test_mse):
@@ -296,6 +324,7 @@ def compute_triangle_metrics(datamodule: Any, test_mse: float) -> tuple[int, flo
 # =============================================================================
 # OOD EVALUATION
 # =============================================================================
+
 
 def _collect_ood_test_metrics(
     model: Any,
@@ -340,6 +369,7 @@ def _collect_ood_test_metrics(
 # TRAINING PIPELINE
 # =============================================================================
 
+
 @contextmanager
 def _challenge_quiet(quiet: bool) -> Iterator[None]:
     if not quiet:
@@ -352,7 +382,15 @@ def _challenge_quiet(quiet: bool) -> Iterator[None]:
     os.environ["WANDB_SILENT"] = "true"
 
     loggers: list[tuple[logging.Logger, int]] = []
-    for name in ("", "lightning", "lightning.pytorch", "pytorch_lightning", "topobench", "wandb", "urllib3"):
+    for name in (
+        "",
+        "lightning",
+        "lightning.pytorch",
+        "pytorch_lightning",
+        "topobench",
+        "wandb",
+        "urllib3",
+    ):
         lg = logging.getLogger(name)
         loggers.append((lg, lg.level))
         lg.setLevel(logging.ERROR)
@@ -372,9 +410,18 @@ def _challenge_quiet(quiet: bool) -> Iterator[None]:
                 if exc is not None:
                     o, e = buf_out.getvalue(), buf_err.getvalue()
                     if o.strip():
-                        print("\n--- captured stdout (tail) ---\n", o[-14_000:], flush=True)
+                        print(
+                            "\n--- captured stdout (tail) ---\n",
+                            o[-14_000:],
+                            flush=True,
+                        )
                     if e.strip():
-                        print("\n--- captured stderr (tail) ---\n", e[-140_000:], file=sys.stderr, flush=True)
+                        print(
+                            "\n--- captured stderr (tail) ---\n",
+                            e[-140_000:],
+                            file=sys.stderr,
+                            flush=True,
+                        )
     finally:
         for lg, lvl in loggers:
             lg.setLevel(lvl)
@@ -406,15 +453,25 @@ def run_challenge_grid(
         register_all_resolvers()
 
     modes = experiment_modes or [
-        ("community_detection", wandb_project_cd, "dataset=graph/graphuniverse_inductive", []),
-        ("triangle_counting", wandb_project_tri, "dataset=graph/graphuniverse_inductive_triangle", []),
+        (
+            "community_detection",
+            wandb_project_cd,
+            "dataset=graph/graphuniverse_inductive",
+            [],
+        ),
+        (
+            "triangle_counting",
+            wandb_project_tri,
+            "dataset=graph/graphuniverse_inductive_triangle",
+            [],
+        ),
     ]
     extra = list(CHALLENGE_GRID_HYDRA_OVERRIDES) + list(extra_overrides or [])
     _work = (work_dir or Path.cwd()).resolve()
     sid = study_id or datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     results: list[dict[str, Any]] = []
     all_settings = list(iter_challenge_settings())
-    
+
     n_settings = sum(1 for _ in iter_challenge_settings())
     if limit_runs is not None:
         n_settings = min(n_settings, limit_runs)
@@ -429,11 +486,16 @@ def run_challenge_grid(
             run_slug = setting.run_slug
             for train_seed in train_seeds:
                 run_dir = (
-                    root / "logs" / "train" / "runs" /
-                    f"notebook_gu_grid_{sid}__{mode_name}__{idx:02d}__{run_slug}__s{train_seed}"
+                    root
+                    / "logs"
+                    / "train"
+                    / "runs"
+                    / f"notebook_gu_grid_{sid}__{mode_name}__{idx:02d}__{run_slug}__s{train_seed}"
                 )
                 run_dir.mkdir(parents=True, exist_ok=True)
-                wandb_name = pretty_wandb_run_name(setting, model_config, train_seed)
+                wandb_name = pretty_wandb_run_name(
+                    setting, model_config, train_seed
+                )
 
                 overrides: list[str] = [
                     dataset_group,
@@ -451,7 +513,9 @@ def run_challenge_grid(
                 overrides.extend(extra)
 
                 GlobalHydra.instance().clear()
-                with initialize_config_dir(version_base="1.3", config_dir=str(root / "configs")):
+                with initialize_config_dir(
+                    version_base="1.3", config_dir=str(root / "configs")
+                ):
                     cfg = compose(config_name="run.yaml", overrides=overrides)
 
                 apply_challenge_feature_encoder_out_channels(cfg)
@@ -467,7 +531,10 @@ def run_challenge_grid(
 
                 run_ix += 1
                 if quiet:
-                    print(f"[{run_ix}/{total_runs}] {mode_name} | {wandb_name}", flush=True)
+                    print(
+                        f"[{run_ix}/{total_runs}] {mode_name} | {wandb_name}",
+                        flush=True,
+                    )
                 else:
                     print(
                         f"\n=== [{mode_name}] [{idx + 1}] {wandb_name} ({run_slug}) seed={train_seed} | {run_dir} ===",
@@ -490,10 +557,14 @@ def run_challenge_grid(
                     )
                     test_out = test_trainer.test(model, datamodule)
                     test_metrics = test_out[0] if test_out else {}
-                    test_mse = float(test_metrics.get("test/mse", float("nan")))
+                    test_mse = float(
+                        test_metrics.get("test/mse", float("nan"))
+                    )
 
                     if mode_name == "triangle_counting":
-                        tri_total, mse_by_tri = compute_triangle_metrics(datamodule, test_mse)
+                        tri_total, mse_by_tri = compute_triangle_metrics(
+                            datamodule, test_mse
+                        )
                         if not quiet:
                             print(
                                 f"  [triangle_counting] structural test triangles={tri_total}; "
@@ -502,13 +573,18 @@ def run_challenge_grid(
                             )
 
                     ood_test = _collect_ood_test_metrics(
-                        model, cfg, setting, test_trainer,
+                        model,
+                        cfg,
+                        setting,
+                        test_trainer,
                         all_settings=all_settings,
                         mode_name=mode_name,
                         quiet=quiet,
                     )
 
-                wandb_cfg_metrics = _read_wandb_run_metrics_from_config_yaml(run_dir)
+                wandb_cfg_metrics = _read_wandb_run_metrics_from_config_yaml(
+                    run_dir
+                )
                 row: dict[str, Any] = {
                     "experiment": mode_name,
                     "wandb_project": wandb_project,
@@ -518,11 +594,19 @@ def run_challenge_grid(
                     "avg_degree": setting.avg_degree_key,
                     "power_law": setting.power_law_key,
                     "run_slug": run_slug,
-                    "test_loss": float(test_metrics.get("test/loss", float("nan"))),
-                    "test_best_rerun_accuracy": float(test_metrics.get("test/accuracy", float("nan"))),
+                    "test_loss": float(
+                        test_metrics.get("test/loss", float("nan"))
+                    ),
+                    "test_best_rerun_accuracy": float(
+                        test_metrics.get("test/accuracy", float("nan"))
+                    ),
                     "test_best_rerun_mse": test_mse,
-                    "test_triangles_total_structural": float(tri_total) if tri_total is not None else float("nan"),
-                    "test_mse_by_total_triangles": float(mse_by_tri) if mse_by_tri is not None else float("nan"),
+                    "test_triangles_total_structural": float(tri_total)
+                    if tri_total is not None
+                    else float("nan"),
+                    "test_mse_by_total_triangles": float(mse_by_tri)
+                    if mse_by_tri is not None
+                    else float("nan"),
                     "ood_test": ood_test,
                     "output_dir": str(run_dir),
                 }
@@ -549,7 +633,11 @@ def check_challenge_grid(
 
     modes = [
         ("community_detection", "dataset=graph/graphuniverse_inductive", []),
-        ("triangle_counting", "dataset=graph/graphuniverse_inductive_triangle", []),
+        (
+            "triangle_counting",
+            "dataset=graph/graphuniverse_inductive_triangle",
+            [],
+        ),
     ]
 
     all_settings = list(iter_challenge_settings())
@@ -584,7 +672,9 @@ def check_challenge_grid(
                 overrides.extend(extra_overrides)
 
             GlobalHydra.instance().clear()
-            with initialize_config_dir(version_base="1.3", config_dir=str(root / "configs")):
+            with initialize_config_dir(
+                version_base="1.3", config_dir=str(root / "configs")
+            ):
                 cfg = compose(config_name="run.yaml", overrides=overrides)
 
             apply_challenge_feature_encoder_out_channels(cfg)
@@ -596,7 +686,11 @@ def check_challenge_grid(
             pl.seed_everything(cfg.seed, workers=True)
 
             if not quiet:
-                print(f"[{check_ix}/{total_checks}] Checking {mode_name} | {run_slug} ...", end=" ", flush=True)
+                print(
+                    f"[{check_ix}/{total_checks}] Checking {mode_name} | {run_slug} ...",
+                    end=" ",
+                    flush=True,
+                )
 
             with _challenge_quiet(True):
                 try:
@@ -611,12 +705,15 @@ def check_challenge_grid(
                     raise e
 
     if not quiet:
-        print(f"\n✅ All {total_checks} configurations passed the sanity check.")
+        print(
+            f"\n✅ All {total_checks} configurations passed the sanity check."
+        )
 
 
 # =============================================================================
 # VISUALIZATION HELPERS
 # =============================================================================
+
 
 def _format_range_pair(rng: list[float]) -> str:
     a, b = float(rng[0]), float(rng[1])
@@ -651,29 +748,32 @@ def pretty_wandb_run_name(
 
 
 def apply_publication_matplotlib_style() -> None:
-    plt.rcParams.update({
-        "figure.dpi": 120,
-        "savefig.dpi": 300,
-        "font.size": 13,
-        "axes.titlesize": 14,
-        "axes.labelsize": 13,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
-        "legend.fontsize": 11,
-        "figure.titlesize": 16,
-        "font.family": "sans-serif",
-        "axes.linewidth": 1.0,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "axes.grid": False,
-        "pdf.fonttype": 42,
-        "ps.fonttype": 42,
-    })
+    plt.rcParams.update(
+        {
+            "figure.dpi": 120,
+            "savefig.dpi": 300,
+            "font.size": 13,
+            "axes.titlesize": 14,
+            "axes.labelsize": 13,
+            "xtick.labelsize": 12,
+            "ytick.labelsize": 12,
+            "legend.fontsize": 11,
+            "figure.titlesize": 16,
+            "font.family": "sans-serif",
+            "axes.linewidth": 1.0,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "axes.grid": False,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+        }
+    )
 
 
 # =============================================================================
 # HEATMAP GENERATION
 # =============================================================================
+
 
 def _mean_std_matrix_for_power_law_panel(
     results: list[dict[str, Any]],
@@ -686,7 +786,10 @@ def _mean_std_matrix_for_power_law_panel(
     col_i = {k: i for i, k in enumerate(HOMOPHILY_AXIS_ORDER)}
     buckets: dict[tuple[str, str], list[float]] = defaultdict(list)
     for r in results:
-        if r.get("experiment") != experiment or r.get("power_law") != power_law_key:
+        if (
+            r.get("experiment") != experiment
+            or r.get("power_law") != power_law_key
+        ):
             continue
         v = r.get(value_key)
         if not isinstance(v, (int, float)) or not math.isfinite(float(v)):
@@ -695,7 +798,11 @@ def _mean_std_matrix_for_power_law_panel(
             buckets[(r["avg_degree"], r["homophily"])].append(float(v))
         except (KeyError, TypeError):
             continue
-    mean_m = np.full((len(AVG_DEGREE_AXIS_ORDER), len(HOMOPHILY_AXIS_ORDER)), np.nan, dtype=float)
+    mean_m = np.full(
+        (len(AVG_DEGREE_AXIS_ORDER), len(HOMOPHILY_AXIS_ORDER)),
+        np.nan,
+        dtype=float,
+    )
     std_m = np.full_like(mean_m, np.nan)
     for (ad, hk), vals in buckets.items():
         ii, jj = row_i[ad], col_i[hk]
@@ -712,6 +819,7 @@ def _resolve_colormap(cmap: str | mcolors.Colormap) -> mcolors.Colormap:
 def _relative_luminance_srgb(rgb: tuple[float, float, float]) -> float:
     def _lin(c: float) -> float:
         return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
     r, g, b = rgb
     return 0.2126 * _lin(r) + 0.7152 * _lin(g) + 0.0722 * _lin(b)
 
@@ -733,15 +841,22 @@ def _annotate_heatmap_cell_mean_std(
     txt_color = "#f8f8f8" if lum < 0.5 else "#101010"
     halo = "#101010" if lum < 0.5 else "#f5f5f5"
     std_disp = std if math.isfinite(std) else float("nan")
-    line2 = f"±{std_disp:.{decimals_std}f}" if math.isfinite(std_disp) else "±nan"
+    line2 = (
+        f"±{std_disp:.{decimals_std}f}" if math.isfinite(std_disp) else "±nan"
+    )
     txt = f"{mean:.{decimals_mean}f}\n{line2}"
     ax.text(
-        j, i, txt,
-        ha="center", va="center",
+        j,
+        i,
+        txt,
+        ha="center",
+        va="center",
         color=txt_color,
         fontsize=10,
         fontweight="600",
-        path_effects=[mpe.withStroke(linewidth=2.0, foreground=halo, alpha=0.85)],
+        path_effects=[
+            mpe.withStroke(linewidth=2.0, foreground=halo, alpha=0.85)
+        ],
     )
 
 
@@ -762,7 +877,10 @@ def plot_challenge_heatmap_figure(
     mats_std: list[np.ndarray] = []
     for pk in POWER_LAW_AXIS_ORDER:
         mu, sig = _mean_std_matrix_for_power_law_panel(
-            results, experiment=experiment, value_key=value_key, power_law_key=pk
+            results,
+            experiment=experiment,
+            value_key=value_key,
+            power_law_key=pk,
         )
         mats_mean.append(mu)
         mats_std.append(sig)
@@ -775,37 +893,66 @@ def plot_challenge_heatmap_figure(
     else:
         vmin, vmax = 0.0, 1.0
 
-    fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(12.0, 7.2), constrained_layout=False)
-    fig.subplots_adjust(left=0.10, right=0.908, top=0.86, bottom=0.08, hspace=0.42)
+    fig, axes = plt.subplots(
+        nrows=2, ncols=1, figsize=(12.0, 7.2), constrained_layout=False
+    )
+    fig.subplots_adjust(
+        left=0.10, right=0.908, top=0.86, bottom=0.08, hspace=0.42
+    )
     fig.suptitle(suptitle, fontsize=16, fontweight="600", y=0.993)
 
     norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
     dec_std = max(2, annotate_decimals - 1)
 
-    for ax, pl_key, mat, std_mat in zip(axes, POWER_LAW_AXIS_ORDER, mats_mean, mats_std, strict=True):
+    for ax, pl_key, mat, std_mat in zip(
+        axes, POWER_LAW_AXIS_ORDER, mats_mean, mats_std, strict=True
+    ):
         masked = np.ma.masked_where(~np.isfinite(mat), mat)
-        ax.imshow(masked, cmap=cmap_resolved, norm=norm, aspect="equal", interpolation="nearest")
+        ax.imshow(
+            masked,
+            cmap=cmap_resolved,
+            norm=norm,
+            aspect="equal",
+            interpolation="nearest",
+        )
         ax.set_xticks(np.arange(len(HOMOPHILY_AXIS_ORDER)))
         ax.set_yticks(np.arange(len(AVG_DEGREE_AXIS_ORDER)))
         ax.set_xticklabels(
-            [f"Homophily\n{_short_axis_label(HOMOPHILY_LEVELS, k)}" for k in HOMOPHILY_AXIS_ORDER],
+            [
+                f"Homophily\n{_short_axis_label(HOMOPHILY_LEVELS, k)}"
+                for k in HOMOPHILY_AXIS_ORDER
+            ],
             fontsize=11,
         )
         ax.set_yticklabels(
-            [f"Avg degree\n{_short_axis_label(AVG_DEGREE_LEVELS, k)}" for k in AVG_DEGREE_AXIS_ORDER],
+            [
+                f"Avg degree\n{_short_axis_label(AVG_DEGREE_LEVELS, k)}"
+                for k in AVG_DEGREE_AXIS_ORDER
+            ],
             fontsize=11,
         )
         pl_human = _short_axis_label(POWER_LAW_EXPONENT_LEVELS, pl_key)
-        ax.set_title(rf"Power-law exponent $\gamma$: {pl_human}", fontsize=13, pad=10)
+        ax.set_title(
+            rf"Power-law exponent $\gamma$: {pl_human}", fontsize=13, pad=10
+        )
 
         for i in range(mat.shape[0]):
             for j in range(mat.shape[1]):
                 val = mat[i, j]
                 if np.isfinite(val):
-                    sd = float(std_mat[i, j]) if np.isfinite(std_mat[i, j]) else float("nan")
+                    sd = (
+                        float(std_mat[i, j])
+                        if np.isfinite(std_mat[i, j])
+                        else float("nan")
+                    )
                     _annotate_heatmap_cell_mean_std(
-                        ax, i, j, float(val), sd,
-                        cmap=cmap_resolved, norm=norm,
+                        ax,
+                        i,
+                        j,
+                        float(val),
+                        sd,
+                        cmap=cmap_resolved,
+                        norm=norm,
                         decimals_mean=annotate_decimals,
                         decimals_std=dec_std,
                     )
@@ -862,10 +1009,14 @@ def _ood_mean_std_ood_minus_in_matrix(
 ) -> tuple[np.ndarray, np.ndarray]:
     row_i = {k: i for i, k in enumerate(AVG_DEGREE_AXIS_ORDER)}
     col_i = {k: i for i, k in enumerate(HOMOPHILY_AXIS_ORDER)}
-    mean_m = np.full((len(AVG_DEGREE_AXIS_ORDER), len(HOMOPHILY_AXIS_ORDER)), np.nan, dtype=float)
+    mean_m = np.full(
+        (len(AVG_DEGREE_AXIS_ORDER), len(HOMOPHILY_AXIS_ORDER)),
+        np.nan,
+        dtype=float,
+    )
     std_m = np.full_like(mean_m, np.nan)
     rows = rows_by_train_slug.get(train_slug, [])
-    
+
     def _finite_float(x: Any) -> float | None:
         if x is None:
             return None
@@ -873,7 +1024,7 @@ def _ood_mean_std_ood_minus_in_matrix(
             v = float(x)
             return v if math.isfinite(v) else None
         return None
-    
+
     for hk in HOMOPHILY_AXIS_ORDER:
         for ad in AVG_DEGREE_AXIS_ORDER:
             eval_slug = f"{hk}__{ad}__{power_law_key}"
@@ -901,7 +1052,9 @@ def _ood_mean_std_ood_minus_in_matrix(
     return mean_m, std_m
 
 
-def _ood_identity_row_col_for_panel(train_slug: str, pl_key: str) -> tuple[int, int] | None:
+def _ood_identity_row_col_for_panel(
+    train_slug: str, pl_key: str
+) -> tuple[int, int] | None:
     parts = train_slug.split("__")
     if len(parts) != 3:
         return None
@@ -917,36 +1070,65 @@ def _ood_identity_row_col_for_panel(train_slug: str, pl_key: str) -> tuple[int, 
 
 def _ood_mark_baseline_distribution_cell(ax: Axes, i: int, j: int) -> None:
     ax.add_patch(
-        Rectangle((j - 0.5, i - 0.5), 1.0, 1.0, facecolor="black", edgecolor="black",
-                  linewidth=1.5, zorder=25)
+        Rectangle(
+            (j - 0.5, i - 0.5),
+            1.0,
+            1.0,
+            facecolor="black",
+            edgecolor="black",
+            linewidth=1.5,
+            zorder=25,
+        )
     )
     pad = 0.42
-    kw: dict[str, Any] = dict(color="white", linewidth=4.5, zorder=26, solid_capstyle="round")
+    kw: dict[str, Any] = dict(
+        color="white", linewidth=4.5, zorder=26, solid_capstyle="round"
+    )
     ax.plot([j - pad, j + pad], [i - pad, i + pad], **kw)
     ax.plot([j - pad, j + pad], [i + pad, i - pad], **kw)
 
 
 def _ood_annotate_cell_mean_std(
-    ax: Axes, i: int, j: int, mean: float, std: float, *,
-    cmap: mcolors.Colormap, norm: mcolors.Normalize,
-    decimals_mean: int, decimals_std: int,
-    fontsize: int, halo_lw: float = 1.2,
+    ax: Axes,
+    i: int,
+    j: int,
+    mean: float,
+    std: float,
+    *,
+    cmap: mcolors.Colormap,
+    norm: mcolors.Normalize,
+    decimals_mean: int,
+    decimals_std: int,
+    fontsize: int,
+    halo_lw: float = 1.2,
 ) -> None:
     rgb = mcolors.to_rgb(cmap(norm(mean)))
     lum = _relative_luminance_srgb(rgb)
     txt_color = "#f8f8f8" if lum < 0.5 else "#101010"
     halo = "#101010" if lum < 0.5 else "#f5f5f5"
     std_disp = std if math.isfinite(std) else float("nan")
-    line2 = f"±{std_disp:.{decimals_std}f}" if math.isfinite(std_disp) else "±nan"
+    line2 = (
+        f"±{std_disp:.{decimals_std}f}" if math.isfinite(std_disp) else "±nan"
+    )
     txt = f"{mean:.{decimals_mean}f}\n{line2}"
     ax.text(
-        j, i, txt, ha="center", va="center",
-        color=txt_color, fontsize=fontsize, fontweight="600",
-        path_effects=[mpe.withStroke(linewidth=halo_lw, foreground=halo, alpha=0.85)],
+        j,
+        i,
+        txt,
+        ha="center",
+        va="center",
+        color=txt_color,
+        fontsize=fontsize,
+        fontweight="600",
+        path_effects=[
+            mpe.withStroke(linewidth=halo_lw, foreground=halo, alpha=0.85)
+        ],
     )
 
 
-def _ood_add_training_vs_ood_legend_strip(fig: Figure, *, text_fontsize: int, detail_fontsize: int) -> None:
+def _ood_add_training_vs_ood_legend_strip(
+    fig: Figure, *, text_fontsize: int, detail_fontsize: int
+) -> None:
     fw, fh = fig.get_figwidth(), fig.get_figheight()
     box_w, box_h = 0.84, 0.076
     x0 = (1.0 - box_w) / 2.0 + 0.058
@@ -966,12 +1148,24 @@ def _ood_add_training_vs_ood_legend_strip(fig: Figure, *, text_fontsize: int, de
     icon_ax.axis("off")
     pad = 0.12
     icon_ax.add_patch(
-        Rectangle((pad, pad), 1 - 2 * pad, 1 - 2 * pad, facecolor="black",
-                  edgecolor="white", linewidth=2.0, clip_on=False)
+        Rectangle(
+            (pad, pad),
+            1 - 2 * pad,
+            1 - 2 * pad,
+            facecolor="black",
+            edgecolor="white",
+            linewidth=2.0,
+            clip_on=False,
+        )
     )
     inset = 0.22
-    cross_kw: dict[str, Any] = dict(color="white", linewidth=4.2, solid_capstyle="projecting",
-                                     clip_on=False, zorder=5)
+    cross_kw: dict[str, Any] = dict(
+        color="white",
+        linewidth=4.2,
+        solid_capstyle="projecting",
+        clip_on=False,
+        zorder=5,
+    )
     icon_ax.plot([inset, 1 - inset], [inset, 1 - inset], **cross_kw)
     icon_ax.plot([inset, 1 - inset], [1 - inset, inset], **cross_kw)
 
@@ -982,15 +1176,45 @@ def _ood_add_training_vs_ood_legend_strip(fig: Figure, *, text_fontsize: int, de
     text_ax.set_ylim(0, 1)
     text_ax.axis("off")
     cy1, cy2 = 0.62, 0.22
-    text_ax.text(0.0, cy1, "Training distribution", fontsize=text_fontsize, fontweight="700",
-                 va="center", ha="left", transform=text_ax.transAxes)
-    text_ax.text(0.31, cy1, "·", fontsize=text_fontsize * 1.35, va="center", ha="center",
-                 color="#555", transform=text_ax.transAxes)
-    text_ax.text(0.35, cy1, "All other cells: out-of-distribution",
-                 fontsize=detail_fontsize + 2, fontweight="600",
-                 va="center", ha="left", transform=text_ax.transAxes)
-    text_ax.text(0.0, cy2, "Δ = OOD test − in-distribution test; cell text = mean ± std over training seeds",
-                 fontsize=detail_fontsize, va="center", ha="left", transform=text_ax.transAxes)
+    text_ax.text(
+        0.0,
+        cy1,
+        "Training distribution",
+        fontsize=text_fontsize,
+        fontweight="700",
+        va="center",
+        ha="left",
+        transform=text_ax.transAxes,
+    )
+    text_ax.text(
+        0.31,
+        cy1,
+        "·",
+        fontsize=text_fontsize * 1.35,
+        va="center",
+        ha="center",
+        color="#555",
+        transform=text_ax.transAxes,
+    )
+    text_ax.text(
+        0.35,
+        cy1,
+        "All other cells: out-of-distribution",
+        fontsize=detail_fontsize + 2,
+        fontweight="600",
+        va="center",
+        ha="left",
+        transform=text_ax.transAxes,
+    )
+    text_ax.text(
+        0.0,
+        cy2,
+        "Δ = OOD test − in-distribution test; cell text = mean ± std over training seeds",
+        fontsize=detail_fontsize,
+        va="center",
+        ha="left",
+        transform=text_ax.transAxes,
+    )
 
 
 def plot_ood_delta_by_homophily_figure(
@@ -1048,14 +1272,27 @@ def plot_ood_delta_by_homophily_figure(
     tag = _OOD_HOMOPHILY_FILE_TAG.get(homophily_key, homophily_key)
     h_label = _short_axis_label(HOMOPHILY_LEVELS, homophily_key)
     fig = plt.figure(figsize=(24, 22))
-    fig.subplots_adjust(left=0.084, right=0.898, top=0.778, bottom=0.065, hspace=0.26, wspace=0.0)
+    fig.subplots_adjust(
+        left=0.084,
+        right=0.898,
+        top=0.778,
+        bottom=0.065,
+        hspace=0.26,
+        wspace=0.0,
+    )
     exp_title = experiment.replace("_", " ").title()
     fig.suptitle(
         f"{tag.capitalize()} homophily ({h_label}) — {exp_title}: OOD − in-distribution — {slug}",
-        fontsize=suptitle_fontsize, fontweight="600", x=0.53, y=0.906, ha="center"
+        fontsize=suptitle_fontsize,
+        fontweight="600",
+        x=0.53,
+        y=0.906,
+        ha="center",
     )
     _ood_add_training_vs_ood_legend_strip(
-        fig, text_fontsize=legend_title_fontsize, detail_fontsize=legend_detail_fontsize
+        fig,
+        text_fontsize=legend_title_fontsize,
+        detail_fontsize=legend_detail_fontsize,
     )
 
     outer = fig.add_gridspec(2, 2, hspace=0.22, wspace=0.0)
@@ -1072,7 +1309,13 @@ def plot_ood_delta_by_homophily_figure(
                 disp[ii, jj] = float("nan")
 
             masked = np.ma.masked_where(~np.isfinite(disp), disp)
-            ax.imshow(masked, cmap=cmap_resolved, norm=norm, aspect="equal", interpolation="nearest")
+            ax.imshow(
+                masked,
+                cmap=cmap_resolved,
+                norm=norm,
+                aspect="equal",
+                interpolation="nearest",
+            )
             if id_ij is not None:
                 _ood_mark_baseline_distribution_cell(ax, id_ij[0], id_ij[1])
 
@@ -1082,31 +1325,65 @@ def plot_ood_delta_by_homophily_figure(
             show_y = cc == 0
             if show_x:
                 ax.set_xticklabels(
-                    [_short_axis_label(HOMOPHILY_LEVELS, k) for k in HOMOPHILY_AXIS_ORDER],
-                    fontsize=tick_fontsize, rotation=25, ha="right"
+                    [
+                        _short_axis_label(HOMOPHILY_LEVELS, k)
+                        for k in HOMOPHILY_AXIS_ORDER
+                    ],
+                    fontsize=tick_fontsize,
+                    rotation=25,
+                    ha="right",
                 )
-                ax.tick_params(axis="x", which="major", labelsize=tick_fontsize, length=7, width=1.3)
+                ax.tick_params(
+                    axis="x",
+                    which="major",
+                    labelsize=tick_fontsize,
+                    length=7,
+                    width=1.3,
+                )
             else:
                 ax.set_xticklabels([])
             if show_y:
                 ax.set_yticklabels(
-                    [_short_axis_label(AVG_DEGREE_LEVELS, k) for k in AVG_DEGREE_AXIS_ORDER],
-                    fontsize=tick_fontsize
+                    [
+                        _short_axis_label(AVG_DEGREE_LEVELS, k)
+                        for k in AVG_DEGREE_AXIS_ORDER
+                    ],
+                    fontsize=tick_fontsize,
                 )
-                ax.tick_params(axis="y", which="major", labelsize=tick_fontsize, length=7, width=1.3)
+                ax.tick_params(
+                    axis="y",
+                    which="major",
+                    labelsize=tick_fontsize,
+                    length=7,
+                    width=1.3,
+                )
             else:
                 ax.set_yticklabels([])
 
             if show_x and rr == 1:
-                ax.set_xlabel("Homophily", fontsize=axis_title_fontsize, fontweight="700", labelpad=14)
+                ax.set_xlabel(
+                    "Homophily",
+                    fontsize=axis_title_fontsize,
+                    fontweight="700",
+                    labelpad=14,
+                )
             if show_y and pi == 1:
-                ax.set_ylabel("Avg degree", fontsize=axis_title_fontsize, fontweight="700", labelpad=10)
+                ax.set_ylabel(
+                    "Avg degree",
+                    fontsize=axis_title_fontsize,
+                    fontweight="700",
+                    labelpad=10,
+                )
                 ax.yaxis.set_label_coords(-0.16, 1.05, transform=ax.transAxes)
 
             pl_human = _short_axis_label(POWER_LAW_EXPONENT_LEVELS, pl_key)
             gpad = 8 if pi == 0 else 6
-            ax.set_title(rf"Power-law $\gamma$: {pl_human}", fontsize=gamma_title_fontsize,
-                         fontweight="700", pad=gpad)
+            ax.set_title(
+                rf"Power-law $\gamma$: {pl_human}",
+                fontsize=gamma_title_fontsize,
+                fontweight="700",
+                pad=gpad,
+            )
 
             dec_std = max(2, annotate_decimals_mean - 1)
             for i in range(mat.shape[0]):
@@ -1115,13 +1392,23 @@ def plot_ood_delta_by_homophily_figure(
                         continue
                     val = mat[i, j]
                     if np.isfinite(val):
-                        sd = float(std_mat[i, j]) if np.isfinite(std_mat[i, j]) else float("nan")
+                        sd = (
+                            float(std_mat[i, j])
+                            if np.isfinite(std_mat[i, j])
+                            else float("nan")
+                        )
                         _ood_annotate_cell_mean_std(
-                            ax, i, j, float(val), sd,
-                            cmap=cmap_resolved, norm=norm,
+                            ax,
+                            i,
+                            j,
+                            float(val),
+                            sd,
+                            cmap=cmap_resolved,
+                            norm=norm,
                             decimals_mean=annotate_decimals_mean,
                             decimals_std=dec_std,
-                            fontsize=cell_fontsize, halo_lw=4.0,
+                            fontsize=cell_fontsize,
+                            halo_lw=4.0,
                         )
 
     cbar_ax = fig.add_axes([0.912, 0.072, 0.044, 0.69])
@@ -1156,7 +1443,9 @@ def _find_wandb_run_config_yaml(output_dir: Path) -> Path | None:
     return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
-def _read_wandb_run_metrics_from_config_yaml(output_dir: Path) -> dict[str, Any]:
+def _read_wandb_run_metrics_from_config_yaml(
+    output_dir: Path,
+) -> dict[str, Any]:
     """Read selected flat keys from wandb's exported ``config.yaml`` under ``output_dir``."""
     path = _find_wandb_run_config_yaml(output_dir)
     if path is None:
@@ -1191,7 +1480,9 @@ def _json_sanitize(obj: Any) -> Any:
     return obj
 
 
-def _has_finite_metric(results: list[dict[str, Any]], *, experiment: str, value_key: str) -> bool:
+def _has_finite_metric(
+    results: list[dict[str, Any]], *, experiment: str, value_key: str
+) -> bool:
     for r in results:
         if r.get("experiment") != experiment:
             continue
@@ -1201,8 +1492,12 @@ def _has_finite_metric(results: list[dict[str, Any]], *, experiment: str, value_
     return False
 
 
-def _has_ood_eval_data(results: list[dict[str, Any]], *, experiment: str, value_key: str) -> bool:
-    if not _has_finite_metric(results, experiment=experiment, value_key=value_key):
+def _has_ood_eval_data(
+    results: list[dict[str, Any]], *, experiment: str, value_key: str
+) -> bool:
+    if not _has_finite_metric(
+        results, experiment=experiment, value_key=value_key
+    ):
         return False
     for r in results:
         if r.get("experiment") != experiment:
@@ -1225,7 +1520,11 @@ def write_challenge_figure_outputs(
     paths: dict[str, Any] = {}
     apply_publication_matplotlib_style()
 
-    if _has_finite_metric(results, experiment="community_detection", value_key="test_best_rerun_accuracy"):
+    if _has_finite_metric(
+        results,
+        experiment="community_detection",
+        value_key="test_best_rerun_accuracy",
+    ):
         fig_cd = plot_challenge_heatmap_figure(
             results,
             experiment="community_detection",
@@ -1240,7 +1539,11 @@ def write_challenge_figure_outputs(
         plt.close(fig_cd)
         paths["cd_png"] = p_cd
 
-    if _has_finite_metric(results, experiment="triangle_counting", value_key="test_mse_by_total_triangles"):
+    if _has_finite_metric(
+        results,
+        experiment="triangle_counting",
+        value_key="test_mse_by_total_triangles",
+    ):
         fig_tri = plot_challenge_heatmap_figure(
             results,
             experiment="triangle_counting",
@@ -1256,11 +1559,16 @@ def write_challenge_figure_outputs(
         paths["tri_png"] = p_tri
 
     ood_dir = out_dir / "OOD"
-    if _has_ood_eval_data(results, experiment="community_detection", value_key="test_best_rerun_accuracy"):
+    if _has_ood_eval_data(
+        results,
+        experiment="community_detection",
+        value_key="test_best_rerun_accuracy",
+    ):
         ood_dir.mkdir(parents=True, exist_ok=True)
         for hk in HOMOPHILY_AXIS_ORDER:
             fig = plot_ood_delta_by_homophily_figure(
-                results, hk,
+                results,
+                hk,
                 experiment="community_detection",
                 metric_key="test_best_rerun_accuracy",
                 slug=slug,
@@ -1276,11 +1584,16 @@ def write_challenge_figure_outputs(
             plt.close(fig)
         paths["ood_community_dir"] = ood_dir
 
-    if _has_ood_eval_data(results, experiment="triangle_counting", value_key="test_mse_by_total_triangles"):
+    if _has_ood_eval_data(
+        results,
+        experiment="triangle_counting",
+        value_key="test_mse_by_total_triangles",
+    ):
         ood_dir.mkdir(parents=True, exist_ok=True)
         for hk in HOMOPHILY_AXIS_ORDER:
             fig = plot_ood_delta_by_homophily_figure(
-                results, hk,
+                results,
+                hk,
                 experiment="triangle_counting",
                 metric_key="test_mse_by_total_triangles",
                 slug=slug,
@@ -1315,25 +1628,35 @@ def save_challenge_artifacts(
     model_config: str = "graph/gin",
     study_id: str | None = None,
 ) -> dict[str, Any]:
-    sid = study_id or datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+    sid = study_id or datetime.now(UTC).strftime("%Y-%m-%d_%H-%M-%S")
     base = out_dir or (Path(__file__).resolve().parent / "outputs" / sid)
     base.mkdir(parents=True, exist_ok=True)
 
-    seeds_seen = sorted({int(r["train_seed"]) for r in results if r.get("train_seed") is not None})
+    seeds_seen = sorted(
+        {
+            int(r["train_seed"])
+            for r in results
+            if r.get("train_seed") is not None
+        }
+    )
     meta = {
         "study_id": sid,
         "model_config": model_config,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "n_runs": len(results),
         "train_seeds": seeds_seen or list(CHALLENGE_TRAIN_SEEDS),
         "heatmap_note": "Cells show mean ± std over train_seeds (in-distribution test).",
     }
     payload = {"metadata": meta, "results": results}
     json_path = base / "results.json"
-    json_path.write_text(json.dumps(_json_sanitize(payload), indent=2), encoding="utf-8")
+    json_path.write_text(
+        json.dumps(_json_sanitize(payload), indent=2), encoding="utf-8"
+    )
 
     out_paths: dict[str, Any] = {"dir": base, "json": json_path}
-    fig_paths = write_challenge_figure_outputs(results, out_dir=base, model_config=model_config)
+    fig_paths = write_challenge_figure_outputs(
+        results, out_dir=base, model_config=model_config
+    )
     out_paths.update(fig_paths)
 
     print(f"Saved JSON and figures under: {base}")
@@ -1343,6 +1666,7 @@ def save_challenge_artifacts(
 # =============================================================================
 # HELPER UTILITIES
 # =============================================================================
+
 
 def _deep_merge(base: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
     out = copy.deepcopy(base)

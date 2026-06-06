@@ -27,6 +27,11 @@ class TestCombinedPSEs:
         assert transform.encodings == ["LapPE", "RWSE"]
         assert transform.parameters == {}
 
+        # Test with all supported encodings
+        transform = CombinedPSEs(encodings=["LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE", "HKFE"])
+        assert transform.encodings == ["LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE", "HKFE"]
+        assert transform.parameters == {}
+
         # Test with parameters
         params = {
             "LapPE": {"max_pe_dim": 8, "concat_to_x": False},
@@ -442,25 +447,31 @@ class TestCombinedPSEs:
         with pytest.raises(ValueError, match="Unsupported encoding type"):
             transform(data)
 
-    @pytest.mark.parametrize("encoding", ["LapPE", "RWSE"])
-    def test_parametrized_single_encodings(self, encoding):
+    @pytest.mark.parametrize("encoding,params,expected_dim", [
+        ("LapPE", {"max_pe_dim": 4, "concat_to_x": False}, 4),
+        ("RWSE", {"max_pe_dim": 4, "concat_to_x": False}, 4),
+        ("ElectrostaticPE", {"concat_to_x": False}, 7),
+        ("HKdiagSE", {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": False}, 4),
+    ])
+    def test_parametrized_single_encodings(self, encoding, params, expected_dim):
         """Parametrized test for single encodings.
 
         Parameters
         ----------
         encoding : str
-            The encoding type to test ("LapPE" or "RWSE").
+            The encoding type to test.
+        params : dict
+            Parameters for the encoding.
+        expected_dim : int
+            Expected output dimension.
         """
-        params = {
-            encoding: {"max_pe_dim": 4, "concat_to_x": False}
-        }
-        transform = CombinedPSEs(encodings=[encoding], parameters=params)
+        transform = CombinedPSEs(encodings=[encoding], parameters={encoding: params})
         data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
 
         transformed = transform(data)
 
         assert hasattr(transformed, encoding)
-        assert getattr(transformed, encoding).shape == (3, 4)
+        assert getattr(transformed, encoding).shape == (3, expected_dim)
 
     @pytest.mark.parametrize("max_pe_dim", [2, 4, 8, 16])
     def test_parametrized_dimensions(self, max_pe_dim):
@@ -518,3 +529,287 @@ class TestCombinedPSEs:
 
         assert transformed.x.shape == (4, 2 + 4 + 4)
         assert not torch.isnan(transformed.x).any()
+
+    def test_single_electrostatic_pe_encoding(self):
+        """Test transform with only ElectrostaticPE encoding."""
+        params = {
+            "ElectrostaticPE": {"concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["ElectrostaticPE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        # ElectrostaticPE always produces 7 dimensions
+        assert transformed.x is not None
+        assert transformed.x.shape[0] == 3
+        assert transformed.x.shape[1] == 1 + 7  # original + ElectrostaticPE
+        assert transformed.x.dtype == torch.float32
+
+    def test_single_hkdiag_se_encoding(self):
+        """Test transform with only HKdiagSE encoding."""
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        # HKdiagSE with range(1,5) produces 4 dimensions
+        assert transformed.x is not None
+        assert transformed.x.shape[0] == 3
+        assert transformed.x.shape[1] == 1 + 4  # original + HKdiagSE
+        assert transformed.x.dtype == torch.float32
+
+    def test_electrostatic_pe_separate_storage(self):
+        """Test ElectrostaticPE with separate storage."""
+        params = {
+            "ElectrostaticPE": {"concat_to_x": False}
+        }
+        transform = CombinedPSEs(encodings=["ElectrostaticPE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert hasattr(transformed, "ElectrostaticPE")
+        assert transformed.ElectrostaticPE.shape == (3, 7)
+        assert torch.equal(transformed.x, self.x)
+
+    def test_hkdiag_se_separate_storage(self):
+        """Test HKdiagSE with separate storage."""
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": False}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert hasattr(transformed, "HKdiagSE")
+        assert transformed.HKdiagSE.shape == (3, 4)
+        assert torch.equal(transformed.x, self.x)
+
+    def test_all_four_encodings_combined(self):
+        """Test transform with all four encoding types combined."""
+        params = {
+            "LapPE": {"max_pe_dim": 4, "concat_to_x": True},
+            "RWSE": {"max_pe_dim": 4, "concat_to_x": True},
+            "ElectrostaticPE": {"concat_to_x": True},
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 4), "concat_to_x": True},
+        }
+        transform = CombinedPSEs(
+            encodings=["LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE"],
+            parameters=params,
+        )
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        # 1 original + 4 LapPE + 4 RWSE + 7 Electrostatic + 3 HKdiag
+        assert transformed.x is not None
+        assert transformed.x.shape == (3, 1 + 4 + 4 + 7 + 3)
+        assert not torch.isnan(transformed.x).any()
+        assert not torch.isinf(transformed.x).any()
+        assert transformed.x.dtype == torch.float32
+
+    def test_all_four_encodings_separate_storage(self):
+        """Test all four encodings with separate storage."""
+        params = {
+            "LapPE": {"max_pe_dim": 4, "concat_to_x": False},
+            "RWSE": {"max_pe_dim": 4, "concat_to_x": False},
+            "ElectrostaticPE": {"concat_to_x": False},
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 4), "concat_to_x": False},
+        }
+        transform = CombinedPSEs(
+            encodings=["LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE"],
+            parameters=params,
+        )
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert hasattr(transformed, "LapPE")
+        assert hasattr(transformed, "RWSE")
+        assert hasattr(transformed, "ElectrostaticPE")
+        assert hasattr(transformed, "HKdiagSE")
+        assert transformed.LapPE.shape == (3, 4)
+        assert transformed.RWSE.shape == (3, 4)
+        assert transformed.ElectrostaticPE.shape == (3, 7)
+        assert transformed.HKdiagSE.shape == (3, 3)
+        assert torch.equal(transformed.x, self.x)
+
+    def test_electrostatic_pe_no_features(self):
+        """Test ElectrostaticPE when data.x is None."""
+        params = {
+            "ElectrostaticPE": {"concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["ElectrostaticPE"], parameters=params)
+        data = Data(edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert transformed.x is not None
+        assert transformed.x.shape == (3, 7)
+        assert transformed.x.dtype == torch.float32
+
+    def test_hkdiag_se_no_features(self):
+        """Test HKdiagSE when data.x is None."""
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert transformed.x is not None
+        assert transformed.x.shape == (3, 4)
+        assert transformed.x.dtype == torch.float32
+
+    def test_hkdiag_se_different_kernel_params(self):
+        """Test HKdiagSE with different kernel parameter ranges."""
+        # range(1, 9) => 8 dimensions
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 9), "concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert transformed.x.shape == (3, 1 + 8)
+        assert not torch.isnan(transformed.x).any()
+
+    def test_electrostatic_pe_numerical_stability(self):
+        """Test ElectrostaticPE doesn't produce NaN or Inf."""
+        params = {
+            "ElectrostaticPE": {"concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["ElectrostaticPE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert not torch.isnan(transformed.x).any()
+        assert not torch.isinf(transformed.x).any()
+
+    def test_hkdiag_se_numerical_stability(self):
+        """Test HKdiagSE doesn't produce NaN or Inf."""
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert not torch.isnan(transformed.x).any()
+        assert not torch.isinf(transformed.x).any()
+
+    def test_electrostatic_pe_complete_graph(self):
+        """Test ElectrostaticPE on a complete graph."""
+        edges = []
+        for i in range(4):
+            for j in range(4):
+                if i != j:
+                    edges.append([i, j])
+        edge_index = torch.tensor(edges).t()
+        x = torch.randn(4, 2)
+
+        params = {
+            "ElectrostaticPE": {"concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["ElectrostaticPE"], parameters=params)
+        data = Data(x=x, edge_index=edge_index, num_nodes=4)
+
+        transformed = transform(data)
+
+        assert transformed.x.shape == (4, 2 + 7)
+        assert not torch.isnan(transformed.x).any()
+
+    def test_hkdiag_se_complete_graph(self):
+        """Test HKdiagSE on a complete graph."""
+        edges = []
+        for i in range(4):
+            for j in range(4):
+                if i != j:
+                    edges.append([i, j])
+        edge_index = torch.tensor(edges).t()
+        x = torch.randn(4, 2)
+
+        params = {
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": True}
+        }
+        transform = CombinedPSEs(encodings=["HKdiagSE"], parameters=params)
+        data = Data(x=x, edge_index=edge_index, num_nodes=4)
+
+        transformed = transform(data)
+
+        assert transformed.x.shape == (4, 2 + 4)
+        assert not torch.isnan(transformed.x).any()
+
+    def test_encoding_output_dtype_is_float32(self):
+        """Test that all encodings produce float32 output."""
+        params = {
+            "LapPE": {"max_pe_dim": 4, "concat_to_x": False},
+            "RWSE": {"max_pe_dim": 4, "concat_to_x": False},
+            "ElectrostaticPE": {"concat_to_x": False},
+            "HKdiagSE": {"kernel_param_HKdiagSE": (1, 5), "concat_to_x": False},
+        }
+        transform = CombinedPSEs(
+            encodings=["LapPE", "RWSE", "ElectrostaticPE", "HKdiagSE"],
+            parameters=params,
+        )
+        data = Data(x=self.x, edge_index=self.edge_index, num_nodes=self.num_nodes)
+
+        transformed = transform(data)
+
+        assert transformed.LapPE.dtype == torch.float32
+        assert transformed.RWSE.dtype == torch.float32
+        assert transformed.ElectrostaticPE.dtype == torch.float32
+        assert transformed.HKdiagSE.dtype == torch.float32
+
+
+class TestCombinedPSEsEdgeCases:
+    """Cover baseline_device branches and invalid-encoding error."""
+
+    def test_unsupported_encoding_raises_value_error(self):
+        """forward() raises ValueError for unknown encoding names."""
+        transform = CombinedPSEs(encodings=["TOTALLY_UNKNOWN"])
+        data = Data(
+            x=torch.randn(3, 2),
+            edge_index=torch.tensor([[0, 1], [1, 0]]),
+            num_nodes=3,
+        )
+        with pytest.raises(ValueError, match="Unsupported encoding type"):
+            transform(data)
+
+    def test_cuda_unavailable_falls_back_to_cpu(self):
+        """When CUDA is requested but unavailable, target_device falls back to CPU."""
+        params = {"LapPE": {"max_pe_dim": 4, "concat_to_x": True, "device": "cuda"}}
+        transform = CombinedPSEs(encodings=["LapPE"], parameters=params)
+        data = Data(
+            x=torch.randn(3, 1),
+            edge_index=torch.tensor([[0, 1, 2], [1, 2, 0]]),
+            num_nodes=3,
+        )
+        # Should not raise even if CUDA is absent; falls back to CPU
+        out = transform(data)
+        assert out.x is not None
+
+    def test_preprocessor_device_overrides_default(self):
+        """CombinedPSEs uses preprocessor_device as fallback device."""
+        params = {"LapPE": {"max_pe_dim": 4, "concat_to_x": True}}
+        transform = CombinedPSEs(
+            encodings=["LapPE"],
+            parameters=params,
+            preprocessor_device="cpu",
+        )
+        data = Data(
+            x=torch.randn(3, 1),
+            edge_index=torch.tensor([[0, 1, 2], [1, 2, 0]]),
+            num_nodes=3,
+        )
+        out = transform(data)
+        assert out.x is not None

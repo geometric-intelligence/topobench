@@ -194,12 +194,18 @@ By mastering these configuration options, you can easily customize your experime
 
 
 ## :bike: Experiments Reproducibility
-To reproduce Table 1 from the [`TopoBench: A Framework for Benchmarking Topological Deep Learning`](https://arxiv.org/pdf/2406.06642) paper, please run the following command:
+
+The `scripts/` folder contains all the scripts needed to reproduce the experiments from our works. Each subfolder corresponds to one paper:
+
+- **[TopoBench: A Framework for Benchmarking Topological Deep Learning](https://arxiv.org/pdf/2406.06642)** — `scripts/topobench/`
+- **[TopoTune: A Framework for Generalized Combinatorial Complex Neural Networks](https://arxiv.org/pdf/2410.06530)** — `scripts/topotune/`
+- **HOPSE: Higher-Order Positional and Structural Encodings** — `scripts/hopse/`
+
+For example, to reproduce Table 1 from the TopoBench paper:
 
 ```bash
-bash scripts/reproduce.sh
+bash scripts/topobench/reproduce.sh
 ```
-**Remark:** We have additionally provided a public [W&B (Weights & Biases) project](https://wandb.ai/telyatnikov_sap/TopoBenchmark_main?nw=nwusertelyatnikov_sap) with logs for the corresponding runs (updated on June 11, 2024).
 
 
 ## :anchor: Tutorials
@@ -252,7 +258,9 @@ We list the neural networks trained and evaluated by `TopoBench`, organized by t
 ### Combinatorial Complexes
 | Model | Reference |
 | --- | --- |
+| HOPSE | [HOPSE: Scalable Higher-Order Positional and Structural Encoder for Combinatorial Representations](https://arxiv.org/pdf/2505.15405) |
 | GCCN | [TopoTune: A Framework for Generalized Combinatorial Complex Neural Networks](https://arxiv.org/pdf/2410.06530) |
+| SaNN | [SaNN: Simple Yet Powerful Simplicial-aware Neural Networks](https://proceedings.iclr.cc/paper_files/paper/2024/file/193b90d75822dfebd64a546c417819e3-Paper-Conference.pdf) |
 
 **Remark:** TopoBench includes [TopoTune](https://arxiv.org/pdf/2410.06530), a comprehensive framework for easily designing new, general TDL models on any domain using any (graph) neural network as a backbone. Please check out the extended [TopoTune wiki page](https://github.com/geometric-intelligence/TopoBench/wiki/TopoTune) for further details on how to leverage this framework to define and train customized topological neural network architectures.
 

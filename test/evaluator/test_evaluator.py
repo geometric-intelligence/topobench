@@ -146,6 +146,59 @@ class TestTBEvaluator:
                 "labels": torch.tensor([[1, 1, 0], [0, 1, 1]])
             })
 
+    def test_multioutput_classification(self):
+        """Test the update and compute methods for multioutput classification."""
+        multioutput_classes = [3, 2]
+        metrics = ["accuracy-0", "f1-0", "accuracy-1", "f1-1"]
+        evaluator = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=multioutput_classes,
+            metrics=metrics
+        )
+
+        # Predictions for 2 outputs.
+        # dim 0 has 3 classes, dim 1 has 2 classes.
+        # Evaluator rounds and clamps predictions.
+        logits = torch.tensor([
+            [0.1, 1.1], # rounded: 0, 1
+            [0.9, 0.2], # rounded: 1, 0
+            [2.4, 0.7], # rounded: 2, 1
+        ])
+        labels = torch.tensor([
+            [0, 1],
+            [1, 0],
+            [2, 1],
+        ])
+
+        evaluator.update({"logits": logits, "labels": labels})
+        out = evaluator.compute()
+
+        # Check all metrics are present
+        for metric in metrics:
+            assert metric in out, f"Metric {metric} not found in output"
+
+        # Accuracy should be 1.0 for both dimensions
+        assert out["accuracy-0"] == pytest.approx(1.0, abs=0.01)
+        assert out["accuracy-1"] == pytest.approx(1.0, abs=0.01)
+
+    def test_multioutput_clamping(self):
+        """Test that multioutput classification correctly clamps predictions."""
+        multioutput_classes = [2]
+        evaluator = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=multioutput_classes,
+            metrics=["accuracy-0"]
+        )
+
+        # Predictions outside range [0, num_classes-1]
+        logits = torch.tensor([[-1.0], [5.0]]) # Should be clamped to 0 and 1
+        labels = torch.tensor([[0], [1]])
+
+        evaluator.update({"logits": logits, "labels": labels})
+        out = evaluator.compute()
+
+        assert out["accuracy-0"] == pytest.approx(1.0, abs=0.01)
+
     def test_reset(self):
         """Test the reset method."""
         # Update with some data
@@ -237,3 +290,75 @@ class TestTBEvaluator:
         out = evaluator.compute()
         assert "accuracy" in out
         assert 0 <= out["accuracy"] <= 1
+
+
+class TestTBEvaluatorMultioutput:
+    """Test the multioutput classification task branch of TBEvaluator."""
+
+    def test_init_multioutput(self):
+        """TBEvaluator initialises correctly for multioutput classification."""
+        ev = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=[3, 4],
+            metrics=["accuracy-0", "accuracy-1"],
+        )
+        assert ev.task == "multioutput classification"
+        assert ev.multioutput_classes == [3, 4]
+        assert "accuracy-0" in ev.metrics
+        assert "accuracy-1" in ev.metrics
+
+    def test_update_and_compute(self):
+        """update/compute round-trip produces bounded accuracy per output."""
+        ev = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=[3, 4],
+            metrics=["accuracy-0", "accuracy-1"],
+        )
+        # 5 samples, 2 outputs; logits shape [5, max(classes)]
+        logits = torch.zeros(5, 4)
+        # Perfect predictions for first output (class 0), random for second
+        labels = torch.zeros(5, 2, dtype=torch.long)
+
+        ev.update({"logits": logits, "labels": labels})
+        out = ev.compute()
+
+        assert "accuracy-0" in out
+        assert "accuracy-1" in out
+        assert 0.0 <= float(out["accuracy-0"]) <= 1.0
+        assert 0.0 <= float(out["accuracy-1"]) <= 1.0
+
+    def test_perfect_predictions(self):
+        """All-correct predictions yield accuracy=1.0 for each output."""
+        n_classes_0, n_classes_1 = 3, 2
+        ev = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=[n_classes_0, n_classes_1],
+            metrics=["accuracy-0", "accuracy-1"],
+        )
+        n = 6
+        labels = torch.stack(
+            [torch.arange(n) % n_classes_0, torch.arange(n) % n_classes_1], dim=1
+        )
+        # Make logits that round to the correct label for each output
+        logits = labels.float()
+
+        ev.update({"logits": logits, "labels": labels})
+        out = ev.compute()
+
+        assert float(out["accuracy-0"]) == pytest.approx(1.0, abs=1e-4)
+        assert float(out["accuracy-1"]) == pytest.approx(1.0, abs=1e-4)
+
+    def test_reset_clears_state(self):
+        """reset() clears accumulated state so next compute starts fresh."""
+        ev = TBEvaluator(
+            task="multioutput classification",
+            multioutput_classes=[3, 4],
+            metrics=["accuracy-0", "accuracy-1"],
+        )
+        logits = torch.zeros(4, 4)
+        labels = torch.zeros(4, 2, dtype=torch.long)
+        ev.update({"logits": logits, "labels": labels})
+        ev.reset()
+        ev.update({"logits": logits, "labels": labels})
+        out = ev.compute()
+        assert "accuracy-0" in out

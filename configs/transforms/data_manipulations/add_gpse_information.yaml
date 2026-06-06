@@ -1,0 +1,17 @@
+transform_name: "AddGPSEInformation"
+transform_type: "data manipulation"
+max_rank: 2
+copy_initial: ${model.preprocessing_params.copy_initial}
+neighborhoods: ${model.preprocessing_params.neighborhoods}
+path_to_pretrained_model: ${paths.root_dir}/GPSE_pretrained
+
+# Pretrained GPSE model to use (from list of availble models in pyg 2.7). Choose from 'molpcba', 'zinc', 'pcqm4mv2', 'geom', 'chembl'
+pretrain_model: molpcba
+
+# All pretrained GPSE models output 512-dim internal representation. We shouldn't touch this.
+dim_pses: [512]
+
+max_hop: ${get_hop_num_gpse:${.copy_initial}}
+in_channels: ${infer_in_hasse_graph_agg_dim:${.neighborhoods}, ${.dim_pses}, ${.max_rank}, ${.max_hop}, ${oc.select:dataset.parameters.num_features}, 0, 0, ${.copy_initial}, ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted}}
+device: ${trainer.accelerator}
+cuda: ${trainer.devices}

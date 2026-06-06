@@ -1,0 +1,7 @@
+transform_name: "BarycentricSubdivisionTransform"
+transform_type: null
+
+keys_to_keep: ["y"]
+complex_dim: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}
+signed: False

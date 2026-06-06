@@ -1,0 +1,11 @@
+transform_name: "PrecomputeKHopFeatures"
+transform_type: "data manipulation"
+max_hop: 1
+use_initial_features: True
+complex_dim: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
+in_channels: ${infer_in_khop_feature_dim:${model.feature_encoder.dataset_in_channels},${.max_hop},${.complex_dim}}
+max_rank: 2
+# in_features: ${infer_in_sann_khop_feature_dim:${model},${3}}
+
+
+# change of the transfroms: ${new function that looks at dataset.dim (list [3,5,1])} --> list of dim

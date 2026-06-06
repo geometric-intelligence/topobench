@@ -1,6 +1,0 @@
-# USE python -m topobench transforms.one_hot_node_degree_features.degrees_fields=x to run this config
-defaults:
-  - data_manipulations: node_degrees
-  - data_manipulations@one_hot_node_degree_features: one_hot_node_degree_features
-  - data_manipulations@CombinedPSEs: combined_encodings
-  - liftings@_here_: ${get_required_lifting:graph,${model}}

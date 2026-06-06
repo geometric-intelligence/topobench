@@ -7,4 +7,4 @@ filter_func:
 # Required for all liftings to make the pipeline executable
 preserve_edge_attr: False
 complex_dim: 1
-neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

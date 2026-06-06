@@ -39,7 +39,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections.abc import Iterable, Iterator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -102,9 +102,11 @@ class GitHubClient:
             except urllib.error.HTTPError as exc:
                 if exc.code in (403, 429) and attempt < 2:
                     reset = exc.headers.get("X-RateLimit-Reset")
-                    wait = 2 ** attempt
+                    wait = 2**attempt
                     if reset and reset.isdigit():
-                        wait = max(wait, min(60, int(reset) - int(time.time())))
+                        wait = max(
+                            wait, min(60, int(reset) - int(time.time()))
+                        )
                     print(
                         f"[rate-limit] HTTP {exc.code}; sleeping {wait}s",
                         file=sys.stderr,
@@ -116,7 +118,7 @@ class GitHubClient:
                 raise
             except urllib.error.URLError:
                 if attempt < 2:
-                    time.sleep(2 ** attempt)
+                    time.sleep(2**attempt)
                     continue
                 raise
         raise RuntimeError(f"Exceeded retries for {url}")
@@ -155,7 +157,9 @@ class GitHubClient:
 # ---------------------------------------------------------------------------
 
 
-def list_labeled_prs(client: GitHubClient, labels: Iterable[str]) -> list[dict[str, Any]]:
+def list_labeled_prs(
+    client: GitHubClient, labels: Iterable[str]
+) -> list[dict[str, Any]]:
     """Return a deduplicated list of PR records carrying any of ``labels``.
 
     The Issues API surface returns both issues and PRs; we filter to PRs and
@@ -213,7 +217,10 @@ def find_results_json_blobs(
         if entry.get("type") != "blob":
             continue
         path = entry.get("path", "")
-        if not path.endswith(f"/{RESULTS_FILENAME}") and path != RESULTS_FILENAME:
+        if (
+            not path.endswith(f"/{RESULTS_FILENAME}")
+            and path != RESULTS_FILENAME
+        ):
             continue
         if RESULTS_DIR_HINT not in path:
             continue
@@ -222,7 +229,9 @@ def find_results_json_blobs(
     return candidates
 
 
-def fetch_blob_json(client: GitHubClient, blob: dict[str, Any]) -> dict[str, Any] | None:
+def fetch_blob_json(
+    client: GitHubClient, blob: dict[str, Any]
+) -> dict[str, Any] | None:
     repo_full = blob.get("_repo", REPO)
     sha = blob.get("sha")
     if not sha:
@@ -313,7 +322,9 @@ def build_submission(
         "pr_title": pr.get("title"),
         "pr_url": pr.get("html_url"),
         "pr_author": user.get("login"),
-        "pr_state": "merged" if pr.get("merged_at") else pr.get("state", "open"),
+        "pr_state": "merged"
+        if pr.get("merged_at")
+        else pr.get("state", "open"),
         "track": select_track(pr.get("_labels", set())),
         "model_config": metadata.get("model_config"),
         "study_id": metadata.get("study_id"),
@@ -338,21 +349,27 @@ def collect_submissions(client: GitHubClient) -> list[dict[str, Any]]:
         number = pr.get("number")
         blobs = find_results_json_blobs(client, pr)
         if not blobs:
-            print(f"[skip] PR #{number}: no results.json under {RESULTS_DIR_HINT}/",
-                  file=sys.stderr)
+            print(
+                f"[skip] PR #{number}: no results.json under {RESULTS_DIR_HINT}/",
+                file=sys.stderr,
+            )
             continue
         # Prefer the lexicographically latest path so the most recent
         # study_id wins when several JSONs are committed.
         chosen = blobs[-1]
         payload = fetch_blob_json(client, chosen)
         if payload is None:
-            print(f"[skip] PR #{number}: could not load {chosen.get('path')}",
-                  file=sys.stderr)
+            print(
+                f"[skip] PR #{number}: could not load {chosen.get('path')}",
+                file=sys.stderr,
+            )
             continue
         rows = extract_rows(payload)
         if not rows:
-            print(f"[skip] PR #{number}: no usable rows in {chosen.get('path')}",
-                  file=sys.stderr)
+            print(
+                f"[skip] PR #{number}: no usable rows in {chosen.get('path')}",
+                file=sys.stderr,
+            )
             continue
         submissions.append(build_submission(pr, payload, rows))
         print(
@@ -368,7 +385,7 @@ def write_leaderboard(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at_utc": datetime.now(UTC).isoformat(timespec="seconds"),
         "tasks": {
             task: {
                 "metric": TASK_METRIC_NAME[task],
@@ -382,7 +399,10 @@ def write_leaderboard(
         json.dumps(payload, indent=2, sort_keys=False) + "\n",
         encoding="utf-8",
     )
-    print(f"Wrote {output_path} ({len(submissions)} submissions).", file=sys.stderr)
+    print(
+        f"Wrote {output_path} ({len(submissions)} submissions).",
+        file=sys.stderr,
+    )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -398,12 +418,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         type=Path,
         default=None,
         help="Path to an example results.json. When given, the script does NOT call "
-             "the GitHub API and instead emits a single seeded submission. Useful "
-             "for offline preview / initial commit.",
+        "the GitHub API and instead emits a single seeded submission. Useful "
+        "for offline preview / initial commit.",
     )
     p.add_argument("--seed-pr-number", type=int, default=0)
-    p.add_argument("--seed-pr-title", type=str, default="Example submission (seed)")
-    p.add_argument("--seed-pr-url", type=str, default=f"https://github.com/{REPO}")
+    p.add_argument(
+        "--seed-pr-title", type=str, default="Example submission (seed)"
+    )
+    p.add_argument(
+        "--seed-pr-url", type=str, default=f"https://github.com/{REPO}"
+    )
     p.add_argument("--seed-pr-author", type=str, default="example")
     p.add_argument(
         "--seed-track",

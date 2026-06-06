@@ -27,7 +27,7 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
         super().__init__(parameters, **kwargs)
 
     def load_dataset(self, **kwargs) -> MantraDataset:
-        """Load the Citation Hypergraph dataset.
+        """Load the MANTRA dataset.
 
         Parameters
         ----------
@@ -50,7 +50,7 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
         return dataset
 
     def _initialize_dataset(self, **kwargs) -> MantraDataset:
-        """Initialize the Citation Hypergraph dataset.
+        """Initialize the MANTRA dataset.
 
         Parameters
         ----------
@@ -59,7 +59,7 @@ class MantraSimplicialDatasetLoader(AbstractLoader):
 
         Returns
         -------
-        CitationHypergraphDataset
+        MANTRADataset
             The initialized dataset instance.
         """
         return MantraDataset(

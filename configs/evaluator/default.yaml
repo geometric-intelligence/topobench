@@ -6,5 +6,7 @@ num_classes: ${dataset.parameters.num_classes}
 # Automatically selects the default metrics depending on the task
 # Classification: [accuracy, precision, recall, auroc]
 # Regression: [mae, mse]
-metrics: ${get_default_metrics:${evaluator.task},${oc.select:dataset.parameters.metrics,null}}
+metrics: ${get_default_metrics:${evaluator.task},${dataset.parameters.num_classes},${oc.select:dataset.parameters.metrics,null}}
 # Select classification/regression config files to manually define the metrics
+
+multioutput_classes: ${oc.select:dataset.parameters.multioutput_classes,null}  # Only for multi-output tasks

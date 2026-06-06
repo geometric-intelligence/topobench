@@ -3,3 +3,4 @@ transform_type: "data manipulation"
 degrees_fields: ${oc.select:dataset.parameters.degrees_fields,"node_degrees"}
 features_fields: "x"
 max_degree: ${dataset.parameters.max_node_degree}
+keep_degree_field: True

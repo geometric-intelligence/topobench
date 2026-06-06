@@ -4,4 +4,4 @@ feature_lifting: ProjectionSum
 # Required for all liftings to make the pipeline executable
 complex_dim: ${oc.select:dataset.parameters.max_dim_if_lifted,3}
 preserve_edge_attr: False
-neighborhoods: ${oc.select:model.backbone.neighborhoods,null}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

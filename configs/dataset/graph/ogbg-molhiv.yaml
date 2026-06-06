@@ -9,12 +9,15 @@ loader:
 
 # Dataset parameters
 parameters:
-  num_features: 9
+  num_features:
+  - 9 # Node features
+  - 3 # Edge features
   num_classes: 2
   task: classification
   loss_type: cross_entropy
-  monitor_metric: accuracy
+  monitor_metric: auroc
   task_level: graph
+  preserve_edge_attr_if_lifted: True
 
 #splits
 split_params:
@@ -23,7 +26,6 @@ split_params:
   data_seed: 0
   split_type: "fixed" #'k-fold' # either "k-fold" or "random" strategies
   k: 10 # for "k-fold" Cross-Validation
-  train_prop: 0.5 # for "random" strategy splitting
 
 # Dataloader parameters
 dataloader_params:

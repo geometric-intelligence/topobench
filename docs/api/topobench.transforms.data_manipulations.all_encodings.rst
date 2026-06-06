@@ -1,0 +1,7 @@
+topobench.transforms.data\_manipulations.all\_encodings module
+==============================================================
+
+.. automodule:: topobench.transforms.data_manipulations.all_encodings
+   :members:
+   :undoc-members:
+   :show-inheritance:

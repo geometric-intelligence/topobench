@@ -26,7 +26,7 @@ class GraphUniverseDatasetLoader(AbstractLoader):
 
     def __init__(self, parameters: DictConfig) -> None:
         super().__init__(parameters)
-            
+
     def load_dataset(self) -> Dataset:
         """Load Graph Universe dataset.
 
@@ -43,7 +43,7 @@ class GraphUniverseDatasetLoader(AbstractLoader):
 
         dataset = GraphUniverseDataset(
             root=str(self.root_data_dir),
-            parameters=self.parameters["generation_parameters"]
+            parameters=self.parameters["generation_parameters"],
         )
 
         return dataset

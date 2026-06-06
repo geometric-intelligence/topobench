@@ -1,0 +1,12 @@
+# @package _global_
+defaults:
+- override /transforms: HOPSE_M_simplicial
+
+transforms:
+  hopse_encoding:
+    neighborhoods:
+      - 'up_adjacency-0'
+      # - 'down_incidence-1'
+
+  graph2simplicial_lifting:
+    neighborhoods: ${transforms.hopse_encoding.neighborhoods}

@@ -1,0 +1,46 @@
+_target_: topobench.model.TBModel
+
+model_name: hopse_m
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: HOPSEFeatureEncoder
+  dataset_in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  in_channels: ${transforms.hopse_encoding.in_channels}
+  max_hop: ${transforms.hopse_encoding.max_hop}
+  out_channels: 64
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+  all_ones: true
+  fuse_pse2cell: True
+  use_bond_encoder: False
+  use_atom_encoder: False
+
+backbone:
+  _target_: torch_geometric.nn.models.GCN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  num_layers: 2
+  dropout: 0.0
+  act: relu
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.GNNWrapper
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${dataset.parameters.task_level}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

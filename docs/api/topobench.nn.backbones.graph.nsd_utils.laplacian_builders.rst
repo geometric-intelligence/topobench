@@ -1,0 +1,7 @@
+topobench.nn.backbones.graph.nsd\_utils.laplacian\_builders module
+==================================================================
+
+.. automodule:: topobench.nn.backbones.graph.nsd_utils.laplacian_builders
+   :members:
+   :undoc-members:
+   :show-inheritance:

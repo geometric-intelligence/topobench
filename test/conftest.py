@@ -1,5 +1,19 @@
 """Configuration file for pytest."""
+import os
+from pathlib import Path
+from omegaconf import OmegaConf
 import networkx as nx
+
+# 1. Register the 'env' resolver for OmegaConf
+if not OmegaConf.has_resolver("env"):
+    OmegaConf.register_new_resolver("env", lambda key, default=None: os.getenv(key, default))
+
+# 2. Set a fallback PROJECT_ROOT so tests don't crash if it's not set in the shell
+if "PROJECT_ROOT" not in os.environ:
+    # Set PROJECT_ROOT to the directory containing the 'test' folder
+    # Assuming: project_root/test/conftest.py
+    os.environ["PROJECT_ROOT"] = str(Path(__file__).parent.parent.resolve())
+
 import pytest
 import torch
 import torch_geometric
@@ -8,6 +22,9 @@ from topobench.transforms.liftings.graph2simplicial import (
 )
 from topobench.transforms.liftings.graph2cell import (
     CellCycleLifting
+)
+from topobench.transforms.data_manipulations.precompute_khop_features import (
+    PrecomputeKHopFeatures
 )
 
 
@@ -153,6 +170,37 @@ def sg1_clique_lifted(simple_graph_1):
             )
     data = lifting_signed(simple_graph_1)
     data.batch_0 = "null"
+    return data
+
+@pytest.fixture
+def sg1_clique_lifted_precompute_k_hop(simple_graph_1):
+    """Return a simple graph with a clique lifting and a precomputed k-hop neighbourhood embedding.
+
+    Parameters
+    ----------
+    simple_graph_1 : torch_geometric.data.Data
+        A simple graph data object.
+
+    Returns
+    -------
+    torch_geometric.data.Data
+        A simple graph data object with a clique lifting and a K-neighbourhood embedding.
+    """
+    max_hop=2
+    complex_dim=3
+    lifting_signed = SimplicialCliqueLifting(
+                complex_dim=complex_dim, signed=True
+            )
+    data = lifting_signed(simple_graph_1)
+    precompute_k_hop = PrecomputeKHopFeatures(max_hop=max_hop, complex_dim=complex_dim)
+    data = precompute_k_hop(data)
+    # Set all k-hop dimensions to 1 to standardize testing
+    for i in range(max_hop+1):
+        for j in range(complex_dim):
+            data[f"x{j}_{i}"] = data[f"x{j}_{i}"][:, 0:1]
+    data.batch_0 = "null"
+    data.batch_1 = "null"
+    data.batch_2 = "null"
     return data
 
 @pytest.fixture

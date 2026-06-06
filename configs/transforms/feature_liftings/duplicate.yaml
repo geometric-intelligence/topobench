@@ -1,0 +1,4 @@
+_target_: topobenchmark.transforms.data_transform.DataTransform
+transform_name: "Duplicate"
+transform_type: "feature_lifting"
+all_ones: true

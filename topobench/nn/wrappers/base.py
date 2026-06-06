@@ -34,7 +34,7 @@ class AbstractWrapper(ABC, torch.nn.Module):
             )
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(backbone={self.backbone}, out_channels={self.backbone.out_channels}, dimensions={self.dimensions}, residual_connections={self.residual_connections})"
+        return f"{self.__class__.__name__}(backbone={self.backbone}, dimensions={self.dimensions}, residual_connections={self.residual_connections})"
 
     def __call__(self, batch):
         r"""Forward pass for the model.

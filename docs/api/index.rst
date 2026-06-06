@@ -17,11 +17,11 @@ Package Overview
 
 :doc:`topobench.callbacks` - **Callbacks**
     Training callbacks for monitoring and control
-    (1 submodules)
+    (2 submodules)
 
 :doc:`topobench.data` - **Data**
     Dataset loading, preprocessing, and utilities
-    (29 submodules)
+    (31 submodules)
 
 :doc:`topobench.dataloader` - **Data Loaders**
     Data loading utilities and batch processing
@@ -41,7 +41,7 @@ Package Overview
 
 :doc:`topobench.nn` - **Neural Networks**
     Neural network components: backbones, encoders, readouts, and wrappers
-    (48 submodules)
+    (60 submodules)
 
 :doc:`topobench.optimizer` - **Optimizers**
     Optimization algorithms and schedulers
@@ -49,7 +49,7 @@ Package Overview
 
 :doc:`topobench.transforms` - **Transformations**
     Data transformations and topological lifting operations
-    (68 submodules)
+    (85 submodules)
 
 :doc:`topobench.utils` - **Utilities**
     Helper functions and utility modules

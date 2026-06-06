@@ -16,4 +16,5 @@ Submodules
    topobench.nn.encoders.base
    topobench.nn.encoders.dgm_encoder
    topobench.nn.encoders.flat_encoder
+   topobench.nn.encoders.hopse_encoder
    topobench.nn.encoders.kdgm

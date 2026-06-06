@@ -1,0 +1,6 @@
+transform_name: "PPRFE"
+transform_type: "data manipulation"
+alpha_param_PPRFE: [0.1, 10]  # [start_alpha, num_alpha_values]
+concat_to_x: true
+aggregation: "mean"
+self_loop: true

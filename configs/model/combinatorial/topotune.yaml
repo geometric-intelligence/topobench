@@ -18,7 +18,7 @@ feature_encoder:
 backbone:
   _target_: topobench.nn.backbones.combinatorial.gccn.TopoTune
   GNN:
-    _target_: torch_geometric.nn.${model.tune_gnn}
+    _target_: torch_geometric.nn.models.${model.tune_gnn}
     in_channels: ${model.feature_encoder.out_channels}
     out_channels: ${model.feature_encoder.out_channels}
     hidden_channels: ${model.feature_encoder.out_channels}

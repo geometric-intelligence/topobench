@@ -1,0 +1,7 @@
+transform_name: "SheafConnLapPE"
+transform_type: "data manipulation"
+max_pe_dim: 9
+stalk_dim: 3
+include_first: false
+concat_to_x: true
+eps: 1.0e-6

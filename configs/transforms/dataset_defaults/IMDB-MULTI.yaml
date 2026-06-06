@@ -1,4 +1,4 @@
 defaults:
   - data_manipulations: node_degrees
   - data_manipulations@one_hot_node_degree_features: one_hot_node_degree_features
-  - liftings@_here_: ${get_required_lifting:graph,${model}}
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}

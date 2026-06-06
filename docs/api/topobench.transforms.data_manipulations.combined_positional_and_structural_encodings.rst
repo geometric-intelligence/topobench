@@ -1,0 +1,7 @@
+topobench.transforms.data\_manipulations.combined\_positional\_and\_structural\_encodings module
+================================================================================================
+
+.. automodule:: topobench.transforms.data_manipulations.combined_positional_and_structural_encodings
+   :members:
+   :undoc-members:
+   :show-inheritance:

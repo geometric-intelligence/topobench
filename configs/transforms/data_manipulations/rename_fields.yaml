@@ -1,0 +1,4 @@
+transform_name: "RenameFields"
+transform_type: "data manipulation"
+init_field_name: ['x_1', 'x_2']
+new_field_name: ['x_1_new', 'x_2_new']
