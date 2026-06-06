@@ -60,7 +60,9 @@ class MantraDataset(InMemoryDataset):
         self.manifold_dim = parameters.manifold_dim
         self.version = parameters.version
         self.task_variable = parameters.task_variable
-        self.name = "_".join(
+        # The dataset name used for the folder should be independent of task_variable
+        # to allow sharing processed data.
+        self.base_name = "_".join(
             [name, str(self.version), f"manifold_dim_{self.manifold_dim}"]
         )
         self.neighborhoods = parameters.get("neighborhoods", None)
@@ -86,10 +88,22 @@ class MantraDataset(InMemoryDataset):
         else:
             self.data = data_cls.from_dict(data)
 
+        # Select the requested task variable
+        if hasattr(self._data, f"y_{self.task_variable}"):
+            self._data.y = getattr(self._data, f"y_{self.task_variable}")
+        elif hasattr(self._data, "y"):
+            # If it only has 'y', it means it was processed with only one task
+            # or it's already the one we want.
+            pass
+        else:
+            raise ValueError(
+                f"Task variable {self.task_variable} not found in processed data."
+            )
+
         assert isinstance(self._data, Data)
 
     def __repr__(self) -> str:
-        return f"{self.name}(self.root={self.root}, self.name={self.name}, self.parameters={self.parameters}, self.force_reload={self.force_reload})"
+        return f"{self.base_name}(self.root={self.root}, self.name={self.base_name}, self.parameters={self.parameters}, self.force_reload={self.force_reload})"
 
     @property
     def raw_dir(self) -> str:
@@ -102,7 +116,7 @@ class MantraDataset(InMemoryDataset):
         """
         return osp.join(
             self.root,
-            self.name,
+            self.base_name,
             "raw",
         )
 
@@ -138,7 +152,7 @@ class MantraDataset(InMemoryDataset):
         slice = f"_{self.slice}" if self.slice else ""
         self.processed_root = osp.join(
             self.root,
-            self.name,
+            self.base_name,
             self._neighborhoods_signed_hash + slice,
         )
         return self.processed_root
@@ -194,12 +208,6 @@ class MantraDataset(InMemoryDataset):
         # Delete zip file
         os.unlink(path)
 
-        # # Move files from osp.join(folder, name_download) to folder
-        # for file in os.listdir(osp.join(folder, self.name)):
-        #     shutil.move(osp.join(folder, self.name, file), folder)
-        # # Delete osp.join(folder, self.name) dir
-        # shutil.rmtree(osp.join(folder, self.name))
-
     def process(self) -> None:
         r"""Handle the data for the dataset.
 
@@ -207,12 +215,21 @@ class MantraDataset(InMemoryDataset):
         dimension, applies the respective preprocessing if specified and saves
         the preprocessed data to the appropriate location.
         """
+        if self.manifold_dim == 2:
+            all_y_vals = [
+                "betti_numbers",
+                "torsion_coefficients",
+                "name",
+                "genus",
+                "orientable",
+            ]
+        else:
+            all_y_vals = ["betti_numbers", "torsion_coefficients", "name"]
 
         data = read_ndim_manifolds(
-            # TODO Fix this
             osp.join(self.raw_dir, self.raw_file_names[0]),
             self.manifold_dim,
-            self.task_variable,
+            all_y_vals,
             neighborhoods=self.neighborhoods,
             signed=self.signed,
             slice=self.slice,

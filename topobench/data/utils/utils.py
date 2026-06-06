@@ -71,36 +71,68 @@ def get_complex_connectivity(
     practical_shape = list(
         np.pad(list(complex.shape), (0, max_rank + 1 - len(complex.shape)))
     )
+
+    all_types = [
+        "incidence",
+        "down_laplacian",
+        "up_laplacian",
+        "adjacency",
+        "coadjacency",
+        "hodge_laplacian",
+    ]
+
+    if neighborhoods is None:
+        needed_keys = {
+            f"{t}_{r}" for t in all_types for r in range(max_rank + 1)
+        }
+    else:
+        # We always need all incidence matrices as they are always returned
+        # and used for higher-order jumps.
+        needed_keys = {f"incidence_{r}" for r in range(max_rank + 1)}
+        for nb in neighborhoods:
+            parts = nb.split("-")
+            src_rank = int(parts[-1])
+            if len(parts) == 3:  # Jump case, e.g., '2-up_laplacian-0'
+                # Jumps are computed using incidence matrices in select_neighborhoods_of_interest
+                continue
+
+            nb_type = parts[0] if parts[0] != "1" else parts[1]
+            if "adjacency" in nb_type:
+                if "up" in nb_type:
+                    needed_keys.add(f"adjacency_{src_rank}")
+                else:
+                    needed_keys.add(f"coadjacency_{src_rank}")
+            elif "laplacian" in nb_type:
+                needed_keys.add(f"{nb_type}_{src_rank}")
+            elif "incidence" in nb_type:
+                if "up" in nb_type:
+                    needed_keys.add(f"incidence_{src_rank + 1}")
+                else:
+                    needed_keys.add(f"incidence_{src_rank}")
+
     connectivity = {}
     for rank_idx in range(max_rank + 1):
-        for connectivity_info in [
-            "incidence",
-            "down_laplacian",
-            "up_laplacian",
-            "adjacency",
-            "coadjacency",
-            "hodge_laplacian",
-        ]:
+        for connectivity_info in all_types:
+            key = f"{connectivity_info}_{rank_idx}"
+            if key not in needed_keys:
+                continue
+
             try:  #### from_sparse doesn't have rank and signed
-                connectivity[f"{connectivity_info}_{rank_idx}"] = from_sparse(
+                connectivity[key] = from_sparse(
                     getattr(complex, f"{connectivity_info}_matrix")(
                         rank=rank_idx, signed=signed
                     )
                 )
             except:  # noqa: E722
                 if connectivity_info == "incidence":
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx - 1],
-                            n=practical_shape[rank_idx],
-                        )
+                    connectivity[key] = generate_zero_sparse_connectivity(
+                        m=practical_shape[rank_idx - 1],
+                        n=practical_shape[rank_idx],
                     )
                 else:
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx],
-                            n=practical_shape[rank_idx],
-                        )
+                    connectivity[key] = generate_zero_sparse_connectivity(
+                        m=practical_shape[rank_idx],
+                        n=practical_shape[rank_idx],
                     )
     if neighborhoods is not None:
         connectivity = select_neighborhoods_of_interest(
@@ -132,62 +164,74 @@ def get_combinatorial_complex_connectivity(
     practical_shape = list(
         np.pad(list(complex.shape), (0, max_rank + 1 - len(complex.shape)))
     )
+
+    all_types = [
+        "incidence",
+        "down_laplacian",
+        "up_laplacian",
+        "adjacency",
+        "coadjacency",
+        "hodge_laplacian",
+    ]
+
+    if neighborhoods is None:
+        needed_keys = {
+            f"{t}_{r}" for t in all_types for r in range(max_rank + 1)
+        }
+    else:
+        # We always need all incidence matrices as they are always returned
+        # and used for higher-order jumps.
+        needed_keys = {f"incidence_{r}" for r in range(max_rank + 1)}
+        for nb in neighborhoods:
+            parts = nb.split("-")
+            src_rank = int(parts[-1])
+            if len(parts) == 3:  # Jump case
+                continue
+
+            nb_type = parts[0] if parts[0] != "1" else parts[1]
+            if "adjacency" in nb_type:
+                if "up" in nb_type:
+                    needed_keys.add(f"adjacency_{src_rank}")
+                else:
+                    needed_keys.add(f"coadjacency_{src_rank}")
+            elif "laplacian" in nb_type:
+                needed_keys.add(f"{nb_type}_{src_rank}")
+            elif "incidence" in nb_type:
+                if "up" in nb_type:
+                    needed_keys.add(f"incidence_{src_rank + 1}")
+                else:
+                    needed_keys.add(f"incidence_{src_rank}")
+
     connectivity = {}
     for rank_idx in range(max_rank + 1):
-        for connectivity_info in [
-            "incidence",
-            "down_laplacian",
-            "up_laplacian",
-            "adjacency",
-            "coadjacency",
-            "hodge_laplacian",
-        ]:
+        for connectivity_info in all_types:
+            key = f"{connectivity_info}_{rank_idx}"
+            if key not in needed_keys:
+                continue
+
             try:
                 if connectivity_info == "adjacency":
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        from_sparse(
-                            getattr(complex, f"{connectivity_info}_matrix")(
-                                rank_idx, rank_idx + 1
-                            )
+                    connectivity[key] = from_sparse(
+                        getattr(complex, f"{connectivity_info}_matrix")(
+                            rank_idx, rank_idx + 1
                         )
                     )
                 else:  # incidence
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        from_sparse(
-                            getattr(complex, f"{connectivity_info}_matrix")(
-                                rank_idx - 1, rank_idx
-                            )
+                    connectivity[key] = from_sparse(
+                        getattr(complex, f"{connectivity_info}_matrix")(
+                            rank_idx - 1, rank_idx
                         )
                     )
-            except ValueError:
+            except (ValueError, AttributeError):
                 if connectivity_info == "incidence":
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx - 1],
-                            n=practical_shape[rank_idx],
-                        )
+                    connectivity[key] = generate_zero_sparse_connectivity(
+                        m=practical_shape[rank_idx - 1],
+                        n=practical_shape[rank_idx],
                     )
                 else:
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx],
-                            n=practical_shape[rank_idx],
-                        )
-                    )
-            except AttributeError:
-                if connectivity_info == "incidence":
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx - 1],
-                            n=practical_shape[rank_idx],
-                        )
-                    )
-                else:
-                    connectivity[f"{connectivity_info}_{rank_idx}"] = (
-                        generate_zero_sparse_connectivity(
-                            m=practical_shape[rank_idx],
-                            n=practical_shape[rank_idx],
-                        )
+                    connectivity[key] = generate_zero_sparse_connectivity(
+                        m=practical_shape[rank_idx],
+                        n=practical_shape[rank_idx],
                     )
     if neighborhoods is not None:
         connectivity = select_neighborhoods_of_interest(

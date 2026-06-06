@@ -58,6 +58,7 @@ dependencies=[
     "toponetx @ git+https://github.com/pyt-team/TopoNetX.git@c378925",
     "graph-universe==0.1.2",
     "lightning==2.4.0",
+    "GraphRicciCurvature",
     "torch-scatter",
     "torch-sparse",
     "torch-cluster",

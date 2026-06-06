@@ -132,9 +132,9 @@ def read_ndim_manifolds(
         Path to the dataset.
     dim : int
         Dimension of the manifolds to load, required to make sanity checks.
-    y_val : str, optional
+    y_val : str or list of str, optional
         The triangulation information to use as label. Can be one of ['betti_numbers', 'torsion_coefficients',
-        'name', 'genus', 'orientable'] (default: "orientable").
+        'name', 'genus', 'orientable'] or a list of them (default: "betti_numbers").
     neighborhoods : list of str, optional
         The connectivity to consider when building the simplicial complex (default: None, which means all).
     signed : bool, optional
@@ -144,23 +144,26 @@ def read_ndim_manifolds(
 
     Returns
     -------
-    torch_geometric.data.Data
-        Data object of the manifold for the MANTRA dataset.
+    list of torch_geometric.data.Data
+        List of Data objects of the manifolds for the MANTRA dataset.
     """
-    # Assert that y_val is one of the valid options
-    # for each surface
-    if dim == 2:
-        assert y_val in [
-            "betti_numbers",
-            "torsion_coefficients",
-            "name",
-            "genus",
-            "orientable",
-        ]
-    elif dim == 3:
-        assert y_val in ["betti_numbers", "torsion_coefficients", "name"]
-    else:
-        raise ValueError("Invalid dimension. Only 2 and 3 are supported.")
+    # Convert y_val to list if it is a single string
+    y_vals = [y_val] if isinstance(y_val, str) else y_val
+
+    # Assert that each y_val is one of the valid options
+    for y_v in y_vals:
+        if dim == 2:
+            assert y_v in [
+                "betti_numbers",
+                "torsion_coefficients",
+                "name",
+                "genus",
+                "orientable",
+            ]
+        elif dim == 3:
+            assert y_v in ["betti_numbers", "torsion_coefficients", "name"]
+        else:
+            raise ValueError("Invalid dimension. Only 2 and 3 are supported.")
 
     TORSION_COEF_NAMES = ["", "Z_2"]
     HOMEO_NAMES = [
@@ -183,30 +186,43 @@ def read_ndim_manifolds(
     with open(path) as f:
         manifold_list = json.load(f)
 
+    if slice is not None:
+        manifold_list = manifold_list[:slice]
+
     data_list = []
     # For each manifold
-    for manifold in manifold_list[:slice]:
+    for i in range(len(manifold_list)):
+        manifold = manifold_list[i]
+        manifold_list[i] = None  # Free raw dictionary reference
         n_vertices = manifold["n_vertices"]
         x = torch.ones(n_vertices, 1)
-        y_value = manifold[y_val]
 
-        if y_val == "betti_numbers":
-            y = torch.tensor(y_value, dtype=torch.long).unsqueeze(dim=0)
-        elif y_val == "genus":
-            y = torch.tensor([y_value], dtype=torch.long).squeeze()
-        elif y_val == "torsion_coefficients":
-            y = torch.tensor(
-                [TORSION_COEF_NAME_TO_IDX[coef] for coef in y_value],
-                dtype=torch.long,
-            ).unsqueeze(dim=0)
-        elif y_val == "name":
-            y = torch.tensor(
-                [HOMEO_NAME_TO_IDX[y_value]], dtype=torch.long
-            ).squeeze(0)
-        elif y_val == "orientable":
-            y = torch.tensor([y_value], dtype=torch.long).squeeze()
-        else:
-            raise ValueError(f"Invalid y_val: {y_val}")
+        y_dict = {}
+        for y_v in y_vals:
+            y_value = manifold[y_v]
+            if y_v == "betti_numbers":
+                y = torch.tensor(y_value, dtype=torch.long).unsqueeze(dim=0)
+            elif y_v == "genus":
+                y = torch.tensor([y_value], dtype=torch.long).squeeze()
+            elif y_v == "torsion_coefficients":
+                y = torch.tensor(
+                    [TORSION_COEF_NAME_TO_IDX[coef] for coef in y_value],
+                    dtype=torch.long,
+                ).unsqueeze(dim=0)
+            elif y_v == "name":
+                y = torch.tensor(
+                    [HOMEO_NAME_TO_IDX[y_value]], dtype=torch.long
+                ).squeeze(0)
+            elif y_v == "orientable":
+                y = torch.tensor([y_value], dtype=torch.long).squeeze()
+            else:
+                raise ValueError(f"Invalid y_val: {y_v}")
+
+            # If there is only one y_val, use 'y', otherwise use 'y_{y_v}'
+            if len(y_vals) == 1:
+                y_dict["y"] = y
+            else:
+                y_dict[f"y_{y_v}"] = y
 
         sc = SimplicialComplex()
 
@@ -220,22 +236,16 @@ def read_ndim_manifolds(
         }
 
         # Construct the connectivity matrices
-        if dim == 2:
-            inc_dict = get_complex_connectivity(
-                sc, dim + 1, neighborhoods=neighborhoods, signed=signed
-            )
-            assert inc_dict["incidence_3"].size(1) == 0, (
-                "For 2-dim manifolds there shouldn't be any tetrahedrons."
-            )
-        else:
-            inc_dict = get_complex_connectivity(
-                sc, dim, neighborhoods=neighborhoods, signed=signed
-            )
+        # For a d-dim manifold, max rank is d.
+        # No need to check for d+1 as it was doing before.
+        inc_dict = get_complex_connectivity(
+            sc, dim, neighborhoods=neighborhoods, signed=signed
+        )
 
         inc_dict["edge_index"] = torch.Tensor(
             from_sparse(sc.adjacency_matrix(rank=0)).indices()
         )
-        data = Data(x=x, y=y, **x_i, **inc_dict)
+        data = Data(x=x, **y_dict, **x_i, **inc_dict)
 
         data_list.append(data)
     return data_list
