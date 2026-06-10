@@ -1,7 +1,7 @@
 """Unit tests for PolynomialFilterGNN and the Basis protocol.
 
-These tests stress the *abstraction* — the propagation loop and the
-basis interface — not any specific spectral filter. They exist to
+These tests stress the *abstraction*: the propagation loop and the
+basis interface: not any specific spectral filter. They exist to
 verify that the basis-agnostic call path actually works and that
 future basis files won't require backbone changes.
 
@@ -141,7 +141,7 @@ class TestPolynomialFilterGNN:
         """Every basis gets ``signal`` and ``k`` on every step.
 
         The whole point of the uniform signature is that signal-independent
-        bases shouldn't have to opt in to seeing ``signal`` — it's just
+        bases shouldn't have to opt in to seeing ``signal``: it's just
         always there for them to ignore. Verify by recording every call.
         """
         calls: list[dict] = []
@@ -214,7 +214,7 @@ class TestPolynomialFilterGNN:
     def test_laplacian_closure_matches_dense_sym(self):
         """``L_apply`` is numerically the symmetric normalized Laplacian.
 
-        Tiny 3-node path graph 0—1—2 with unit edge weights:
+        Tiny 3-node path graph 0:1:2 with unit edge weights:
         ``D = diag(1, 2, 1)``, ``A`` is the path adjacency, and
         ``L̃_sym = I − D^{-1/2} A D^{-1/2}``. Hand-compute and compare.
         """
@@ -232,7 +232,7 @@ class TestPolynomialFilterGNN:
         L_apply = model._build_laplacian_apply(
             edge_index, edge_weight=None, num_nodes=3
         )
-        # L̃_sym for path 0—1—2:
+        # L̃_sym for path 0:1:2:
         # diag = [1, 1, 1]; off-diagonals: -1/√(1·2) = -1/√2 on (0,1),(1,0),(1,2),(2,1).
         inv_root2 = 1.0 / 2.0 ** 0.5
         L_dense = torch.tensor(
@@ -274,7 +274,7 @@ class TestMonomialBasis:
     """Tests specific to the Monomial basis recurrence."""
 
     def test_monomial_applies_laplacian_once_per_step(self):
-        """``u_k = L_apply(u_{k-1})`` — one matvec, on ``u_prev`` only."""
+        """``u_k = L_apply(u_{k-1})``: one matvec, on ``u_prev`` only."""
         b = Monomial()
         calls: list[Tensor] = []
 
@@ -289,7 +289,7 @@ class TestMonomialBasis:
         assert torch.equal(u_k, 2.0 * u_prev)
 
     def test_monomial_ignores_u_prev_prev_and_signal(self):
-        """Stateless / signal-independent — those args don't change the output."""
+        """Stateless / signal-independent: those args don't change the output."""
         b = Monomial()
         L = lambda h: 3.0 * h
         u_prev = torch.randn(4, 2)
@@ -314,7 +314,7 @@ class TestChebyshevBasis:
     """
 
     def test_chebyshev_k1_uses_first_kind_boundary(self):
-        """``u_1 = L̃ u_0`` — NOT ``2 L̃ u_0 - 0`` (which would be 2nd kind)."""
+        """``u_1 = L̃ u_0``: NOT ``2 L̃ u_0 - 0`` (which would be 2nd kind)."""
         b = Chebyshev()
 
         def L_apply(h: Tensor) -> Tensor:
@@ -387,7 +387,7 @@ class TestChebyshevBasis:
     def test_backbone_runs_with_chebyshev(self):
         """End-to-end forward through the backbone with Chebyshev.
 
-        Witness that the basis abstraction generalizes — Chebyshev's
+        Witness that the basis abstraction generalizes: Chebyshev's
         k=1-boundary recurrence is structurally different from Monomial's
         k-uniform one, yet the backbone code is identical.
         """
@@ -400,7 +400,7 @@ def _backbone_smoke(basis):
     Asserts shape, finiteness, and that *some* learnable parameter
     receives a non-trivial gradient. For most bases this is the
     backbone's ``θ``; for ChebNetII it's the basis's ``θ_interp``
-    (the backbone's ``θ`` is dead by design for that basis — see
+    (the backbone's ``θ`` is dead by design for that basis: see
     ``chebnetii.py``'s module docstring). The check accommodates both
     via a model-wide parameter scan.
     """
@@ -419,7 +419,7 @@ def _backbone_smoke(basis):
     assert torch.isfinite(y).all()
     y.sum().backward()
     # Some learnable parameter (anywhere in the model) must have a
-    # non-trivial gradient — the bare minimum that the basis is
+    # non-trivial gradient: the bare minimum that the basis is
     # actually wired into the autograd graph.
     has_grad = any(
         p.grad is not None and (p.grad.abs() > 0).any()
@@ -434,7 +434,7 @@ class TestJacobiBasis:
     Jacobi is the first basis in the registry that:
     1. takes constructor hyperparameters (``α``, ``β``);
     2. has k-dependent recurrence coefficients (``δ_k``, ``δ'_k``,
-       ``δ''_k``) — i.e. the first basis where the ``k`` argument to
+       ``δ''_k``): i.e. the first basis where the ``k`` argument to
        :meth:`Basis.forward` is genuinely consumed.
 
     The strongest correctness check is the scalar collapse, mirroring
@@ -481,7 +481,7 @@ class TestJacobiBasis:
     def test_jacobi_matches_classical_polynomial_at_scalar(self):
         """For ``L̃ = γ · I``, the basis collapses to ``P_k^{(α,β)}(1-γ) · x``.
 
-        Strongest algebraic check available — exercises the boundary, the
+        Strongest algebraic check available: exercises the boundary, the
         general recurrence, and the ``k``-dependent coefficients
         simultaneously, for ``k = 0..K``. Reference values come from
         applying Liao's own recurrence in scalar form.
@@ -527,7 +527,7 @@ class TestJacobiBasis:
     def test_jacobi_symmetric_case_kills_middle_term(self):
         """When ``α = β``, ``δ'_k = (s-1)(α² - β²)/... = 0`` for all k ≥ 2.
 
-        Sanity check on the formula — no division-by-zero, and the middle
+        Sanity check on the formula: no division-by-zero, and the middle
         ``δ'_k · u_{k-1}`` term genuinely vanishes.
         """
         b = Jacobi(alpha=1.5, beta=1.5)
@@ -560,7 +560,7 @@ class TestJacobiBasis:
         assert sum(p.numel() for p in b.parameters()) == 0
 
     def test_backbone_runs_with_jacobi(self):
-        """End-to-end forward with Jacobi — exercises both new dimensions.
+        """End-to-end forward with Jacobi: exercises both new dimensions.
 
         Constructor hyperparameters (``α``, ``β``) AND a k-dependent
         recurrence, plumbed through the basis-agnostic backbone with
@@ -573,7 +573,7 @@ class TestLegendreBasis:
     """Tests for :class:`Legendre`.
 
     Legendre is shipped as the ``α = β = 0`` reparameterization of
-    :class:`Jacobi` — see ``legendre.py`` for why this differs from
+    :class:`Jacobi`: see ``legendre.py`` for why this differs from
     Liao's standalone Legendre formula. The tests below pin that
     decision: Legendre must produce the same outputs as ``Jacobi(0, 0)``,
     and must stay bounded for ``\\tilde L`` eigenvalues in ``[0, 2]``
@@ -582,7 +582,7 @@ class TestLegendreBasis:
     """
 
     def test_legendre_takes_no_constructor_args(self):
-        # No alpha/beta in __init__ — caller doesn't get to break the
+        # No alpha/beta in __init__: caller doesn't get to break the
         # invariant that Legendre is α=β=0.
         b = Legendre()
         assert b.alpha == 0.0
@@ -595,7 +595,7 @@ class TestLegendreBasis:
     def test_legendre_matches_jacobi_alpha0_beta0_pointwise(self):
         """The Legendre output equals ``Jacobi(0, 0)`` on every step.
 
-        This is the literal verification of the design choice — Legendre
+        This is the literal verification of the design choice: Legendre
         is not "approximately Jacobi(0,0)", it IS Jacobi(0,0). If anyone
         ever changes Legendre.__init__ to do something else (e.g.,
         switch back to Liao's standalone z=L̃ formula), this test fails.
@@ -646,7 +646,7 @@ class TestLegendreBasis:
                 # |P_k(z)| ≤ 1 on [-1, 1]. Allow a small slack for FP error.
                 assert u_k.abs().max().item() <= 1.0 + 1e-5, (
                     f"Legendre |u_{k}| exceeded 1 at γ={gamma}: "
-                    f"{u_k.abs().max().item():.6f} — this would happen "
+                    f"{u_k.abs().max().item():.6f}: this would happen "
                     "if we'd shipped Liao's standalone z=L̃ formula instead."
                 )
                 u_prev_prev, u_prev = u_prev, u_k
@@ -668,7 +668,7 @@ class TestLegendreBasis:
 
 
 class TestChebNetIIBasis:
-    """Tests for ChebNetII — first basis using the ``effective_thetas`` hook.
+    """Tests for ChebNetII: first basis using the ``effective_thetas`` hook.
 
     Recurrence is inherited from :class:`Chebyshev`; the substantive
     addition is the coefficient reparameterization. Tests focus on the
@@ -762,7 +762,7 @@ class TestChebNetIIBasis:
         """For ChebNetII, learning happens via θ_interp; backbone θ is dead.
 
         This is the literal consequence of the ``effective_thetas``
-        protocol hook — ChebNetII's override ignores the backbone's θ,
+        protocol hook: ChebNetII's override ignores the backbone's θ,
         so gradients flow to ``θ_interp`` and ``self.theta`` stays at
         its initialization with ``grad is None`` (no autograd path).
         """
@@ -781,13 +781,13 @@ class TestChebNetIIBasis:
         # θ_interp must have a non-trivial gradient.
         assert model.basis.theta_interp.grad is not None
         assert (model.basis.theta_interp.grad.abs() > 0).any()
-        # Backbone θ has no autograd path through effective_thetas — its
+        # Backbone θ has no autograd path through effective_thetas: its
         # .grad is None (autograd didn't touch it).
         assert model.theta.grad is None
 
 
 class TestFavardGNNBasis:
-    """Tests for FavardGNN — first basis with learnable recurrence coefficients.
+    """Tests for FavardGNN: first basis with learnable recurrence coefficients.
 
     The basis protocol requires ``Basis`` to subclass ``nn.Module`` so
     bases can own their own learnable parameters; FavardGNN is the first
@@ -896,7 +896,7 @@ class TestFavardGNNBasis:
 
 
 class TestOptBasisGNN:
-    """Tests for OptBasisGNN — the load-bearing test of the basis protocol.
+    """Tests for OptBasisGNN: the load-bearing test of the basis protocol.
 
     The defining property is that the basis is **signal-dependent**:
     the recurrence coefficients ``α``, ``γ`` are computed from inner
@@ -904,7 +904,7 @@ class TestOptBasisGNN:
     the same protocol surface as every signal-independent basis is the
     primary correctness criterion for the abstraction. We test:
 
-    1. ``init`` normalizes the input to unit per-channel norm — the
+    1. ``init`` normalizes the input to unit per-channel norm: the
        signal-dependent entry point.
     2. **Scale invariance**: ``OptBasis(c · x) = OptBasis(x)`` for any
        ``c > 0`` (because of the init normalization), which is the
@@ -931,7 +931,7 @@ class TestOptBasisGNN:
         assert b._gamma_prev is None
 
     def test_optbasis_is_scale_invariant_in_signal(self):
-        """``OptBasis(c · x) = OptBasis(x)`` for ``c > 0`` — the literal
+        """``OptBasis(c · x) = OptBasis(x)`` for ``c > 0``: the literal
         signature of signal-dependence.
 
         Contrast with signal-independent bases: Chebyshev gives
@@ -940,7 +940,7 @@ class TestOptBasisGNN:
 
         Note: we deliberately use the **real** ring-graph Laplacian here.
         A scalar L̃ = α·I would collapse the recurrence (every higher u_k
-        becomes the numerical zero vector) — that's not OptBasis's
+        becomes the numerical zero vector): that's not OptBasis's
         domain of usefulness, it's a degenerate edge case.
         """
         torch.manual_seed(6)
@@ -949,7 +949,7 @@ class TestOptBasisGNN:
         x = torch.randn(N, F)
         c = 7.3
 
-        # Real graph Laplacian closure — the only operator under which
+        # Real graph Laplacian closure: the only operator under which
         # the Lanczos recurrence produces distinct basis vectors.
         backbone = PolynomialFilterGNN(
             in_channels=F,
@@ -993,7 +993,7 @@ class TestOptBasisGNN:
         assert torch.allclose(u_cheb_cx, c * u_cheb_x, atol=1e-5)
 
     def test_optbasis_columns_are_orthonormal_per_channel(self):
-        """``⟨u_k, u_j⟩ ≈ δ_{kj}`` per channel — Lanczos orthogonality.
+        """``⟨u_k, u_j⟩ ≈ δ_{kj}`` per channel: Lanczos orthogonality.
 
         This is the literal definition of "optimal basis" (Guo & Wei
         2023 §3); if this test fails, the implementation is wrong.
@@ -1042,7 +1042,7 @@ class TestOptBasisGNN:
     def test_optbasis_multiple_forward_passes_dont_leak_state(self):
         """Two consecutive backbone forward passes must produce identical y.
 
-        State (``_gamma_prev``) is reset in ``init`` — verify that two
+        State (``_gamma_prev``) is reset in ``init``: verify that two
         passes with the same input give bit-for-bit the same output.
         """
         torch.manual_seed(8)
@@ -1078,7 +1078,7 @@ class TestPolynomialFilterGNNHydraConfig:
        the registered basis without any backbone change (proves the
        CLI-sweep workflow actually works end-to-end).
 
-    No training is run — just composition + instantiation, which is fast.
+    No training is run: just composition + instantiation, which is fast.
     """
 
     def setup_method(self):
@@ -1124,7 +1124,7 @@ class TestPolynomialFilterGNNHydraConfig:
         assert cfg.model.backbone.K == 8
         assert cfg.model.backbone.laplacian_norm == "sym"
 
-        # Instantiate just the backbone subtree — no dataset / lightning needed
+        # Instantiate just the backbone subtree: no dataset / lightning needed
         # to prove the class paths and nested instantiation work end-to-end.
         # NB: ``isinstance`` against the directly-imported class would fail
         # here because TopoBench's parent backbone auto-discovery loads
@@ -1141,7 +1141,7 @@ class TestPolynomialFilterGNNHydraConfig:
         """``model.backbone.basis._target_=...Monomial`` swaps the basis.
 
         This is the literal demonstration that running the same backbone
-        with a different basis is a one-flag CLI change — no code edits,
+        with a different basis is a one-flag CLI change: no code edits,
         no separate YAML.
         """
         import hydra
@@ -1161,7 +1161,7 @@ class TestPolynomialFilterGNNHydraConfig:
 
         Jacobi is the first basis whose ``__init__`` takes non-trivial
         hyperparameters (``α``, ``β``). Verify they flow through Hydra's
-        nested instantiation cleanly — this is the pattern every future
+        nested instantiation cleanly: this is the pattern every future
         hyperparameterized basis (ChebNetII, FavardGNN) will rely on.
         """
         import hydra
@@ -1179,7 +1179,7 @@ class TestPolynomialFilterGNNHydraConfig:
         assert backbone.basis.beta == pytest.approx(-0.25)
 
     def test_basis_override_swaps_to_legendre(self):
-        """``...Legendre`` swap — argument-less basis instantiates via Hydra.
+        """``...Legendre`` swap: argument-less basis instantiates via Hydra.
 
         Legendre's ``__init__`` deliberately takes no arguments (see
         ``legendre.py`` docstring). Verify Hydra can instantiate it as
@@ -1230,7 +1230,7 @@ class TestPolynomialFilterGNNHydraConfig:
         assert n_basis_params == 2 * (backbone.K + 1)
 
     def test_basis_override_swaps_to_optbasis(self):
-        """OptBasisGNN swap — argument-less basis instantiates via Hydra.
+        """OptBasisGNN swap: argument-less basis instantiates via Hydra.
 
         OptBasis takes no constructor args (no learnable params; α, γ
         are signal-derived). Verifies the signal-dependent basis plugs

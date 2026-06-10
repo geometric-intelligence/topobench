@@ -2,7 +2,7 @@
 
 This subpackage is **not** scanned by the parent ``graph/__init__.py``
 auto-discovery (which globs ``*.py`` non-recursively). That's
-deliberate — the ``Basis`` protocol and concrete basis implementations
+deliberate: the ``Basis`` protocol and concrete basis implementations
 are not backbones in their own right; they are internal components of
 ``PolynomialFilterGNN``.
 

@@ -1,10 +1,10 @@
-"""Polynomial basis protocol for :class:`PolynomialFilterGNN`.
+r"""Polynomial basis protocol for :class:`PolynomialFilterGNN`.
 
 A :class:`Basis` produces a sequence of basis vectors
 ``u_0, u_1, ..., u_K`` where ``u_k`` corresponds to ``T_k(L̃) x`` for some
 polynomial sequence ``{T_k}``. The backbone owns the coefficients
 ``θ_k`` and the accumulation ``y = Σ_k θ_k · u_k``; the basis owns
-only the recurrence (and any parameters the recurrence needs — e.g.
+only the recurrence (and any parameters the recurrence needs, e.g.
 FavardGNN's ``α``, ``β``; ChebNetII's interpolation nodes).
 
 The single ``forward`` signature is **uniform** across signal-dependent
@@ -20,7 +20,7 @@ The protocol is shaped to fit every variable-basis entry in
 Liao et al. (2024) *A Comprehensive Benchmark on Spectral GNNs*
 (SIGMOD '26, arXiv:2406.09675), Appendix B. The complexity column of
 that appendix's Variable Basis table is ``O(K m F)`` for every basis
-covered here — i.e. all of them are three-term recurrences in
+covered here: all of them are three-term recurrences in
 ``T_{k-1}, T_{k-2}`` (with optional dependence on the current signal).
 """
 
@@ -31,12 +31,12 @@ from collections.abc import Callable
 from torch import Tensor, nn
 
 LaplacianApply = Callable[[Tensor], Tensor]
-"""Closure ``h ↦ L̃ @ h``.
+r"""Closure ``h -> L̃ @ h``.
 
 Built **once per forward pass** by the backbone from
 ``(edge_index, edge_weight)`` and the chosen Laplacian normalization,
 then frozen and handed to the basis. Bases never see ``edge_index`` /
-``edge_weight`` directly — that decouples them from how the operator is
+``edge_weight`` directly: that decouples them from how the operator is
 stored and pins down the normalization convention at the backbone
 level (every registered basis sees the *same* operator). It also makes
 unit-testing trivial: pass a dense lambda ``lambda h: L_dense @ h`` for
@@ -45,25 +45,25 @@ tiny test graphs.
 
 
 class Basis(nn.Module):
-    """Abstract polynomial basis for :class:`PolynomialFilterGNN`.
+    r"""Abstract polynomial basis for :class:`PolynomialFilterGNN`.
 
     Subclasses implement :meth:`forward` returning ``u_k`` from
     ``(u_prev, u_prev_prev, L_apply, signal, k)``. They may override
     :meth:`init` to produce a non-identity ``u_0`` (e.g. OptBasis with
     ``u_0 = x / ‖x‖``).
 
-    Bases are ``nn.Module``\\s so they can own learnable parameters
-    (FavardGNN's ``α``, ``β``; ChebNetII's interpolation coefficients).
-    Stateless bases (Monomial, Chebyshev, Legendre, ...) simply register
-    none.
+    Bases are ``nn.Module`` subclasses so they can own learnable
+    parameters (FavardGNN's ``α``, ``β``; ChebNetII's interpolation
+    coefficients). Stateless bases (Monomial, Chebyshev, Legendre, ...)
+    simply register none.
 
     The backbone treats every basis as opaque and never branches on the
     concrete class. Adding a new basis is a single new file plus a Hydra
-    ``_target_`` swap — no backbone change.
+    ``_target_`` swap: no backbone change.
     """
 
     def init(self, x: Tensor, L_apply: LaplacianApply) -> Tensor:
-        """Return ``u_0``, the zeroth basis vector.
+        r"""Return ``u_0``, the zeroth basis vector.
 
         Default behaviour is ``u_0 = x`` (i.e. ``T_0 = I``), which is
         what every basis in the registry uses **except** OptBasis,
@@ -76,7 +76,7 @@ class Basis(nn.Module):
             The input features being filtered. In :class:`PolynomialFilterGNN`
             this is the post-pre-MLP signal ``h``, not the raw network input.
         L_apply : LaplacianApply
-            Closure ``h ↦ L̃ @ h``. Provided in case ``init`` itself needs it;
+            Closure ``h -> L̃ @ h``. Provided in case ``init`` itself needs it;
             the default implementation ignores it.
 
         Returns
@@ -87,9 +87,9 @@ class Basis(nn.Module):
         return x
 
     def effective_thetas(self, backbone_theta: Tensor) -> Tensor:
-        """Map the backbone's ``θ`` vector to the effective accumulator coefficients.
+        r"""Map the backbone's ``θ`` vector to the effective accumulator coefficients.
 
-        Default: return ``backbone_theta`` unchanged — the standard
+        Default: return ``backbone_theta`` unchanged. This is the standard
         case where the backbone owns the learnable ``θ_k``. Override in
         bases that *reparameterize* the coefficients, e.g. ChebNetII,
         where the user-facing learnable parameters are interpolation
@@ -100,12 +100,12 @@ class Basis(nn.Module):
 
         A basis that overrides this method **may ignore**
         ``backbone_theta`` entirely and emit coefficients from its own
-        ``nn.Parameter``\\s. The backbone's ``self.theta`` is still
-        constructed (it determines the shape signal ``K + 1``), but
-        for such bases it stays at its initialization and contributes
-        nothing to the loss surface — accepted as a small redundancy
-        in exchange for keeping the protocol uniform across bases that
-        do and do not own their coefficients.
+        ``nn.Parameter`` instances. The backbone's ``self.theta`` is
+        still constructed (it determines the shape signal ``K + 1``),
+        but for such bases it stays at its initialization and
+        contributes nothing to the loss surface: accepted as a small
+        redundancy in exchange for keeping the protocol uniform across
+        bases that do and do not own their coefficients.
 
         Parameters
         ----------
@@ -128,7 +128,7 @@ class Basis(nn.Module):
         signal: Tensor,
         k: int,
     ) -> Tensor:
-        """Produce ``u_k`` from the basis recurrence.
+        r"""Produce ``u_k`` from the basis recurrence.
 
         Parameters
         ----------
@@ -139,7 +139,7 @@ class Basis(nn.Module):
             can encode any single-step-special-case (e.g. Chebyshev's
             ``T_1 = L̃ T_0``) inside the basis rather than the backbone.
         L_apply : LaplacianApply
-            Closure ``h ↦ L̃ @ h``. The same closure is reused for every
+            Closure ``h -> L̃ @ h``. The same closure is reused for every
             ``k`` in a given forward pass.
         signal : Tensor, shape ``[N, F]``
             The input features being filtered (same as the ``x`` argument

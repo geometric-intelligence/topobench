@@ -1,17 +1,17 @@
-"""PolynomialFilterGNN: a single polynomial filter on the normalized Laplacian.
+r"""PolynomialFilterGNN: a single polynomial filter on the normalized Laplacian.
 
 Implements the propagation
 
 .. math::
 
-    y \\;=\\; \\mathrm{post}\\!\\left(\\sum_{k=0}^{K} \\theta_k \\, u_k\\right),
-    \\qquad u_k = T_k(\\tilde L)\\,\\mathrm{pre}(x)
+    y \;=\; \mathrm{post}\!\left(\sum_{k=0}^{K} \theta_k \, u_k\right),
+    \qquad u_k = T_k(\tilde L)\,\mathrm{pre}(x)
 
 where ``{T_k}`` is a polynomial sequence produced by a swappable
 :class:`~topobench.nn.backbones.graph.poly_filter.basis.Basis`.
 
-This is the single-polynomial-filter pattern. Filter banks — multiple
-parallel polynomial filters fused with learnable mixing — are a
+This is the single-polynomial-filter pattern. Filter banks (multiple
+parallel polynomial filters fused with learnable mixing) are a
 structurally different forward pass and live in a separate backbone
 (``FilterBankGNN``, planned for a follow-up PR).
 
@@ -28,18 +28,17 @@ The basis owns: the recurrence
 recurrence needs.
 
 The backbone treats the basis as opaque and never branches on its
-concrete class — adding a new basis is a single new file plus a Hydra
+concrete class. Adding a new basis is a single new file plus a Hydra
 ``_target_`` swap.
 
 References
 ----------
 Liao et al. (2024) *A Comprehensive Benchmark on Spectral GNNs*
-(SIGMOD '26, arXiv:2406.09675) — survey unifying every variable-basis
-spectral GNN under the same recurrence-in-``\\tilde L`` template. The
+(SIGMOD '26, arXiv:2406.09675): survey unifying every variable-basis
+spectral GNN under the same recurrence-in-``L̃`` template. The
 single-polynomial-filter pattern implemented here corresponds to
-``g(\\tilde L; \\theta) = \\sum_k \\theta_k T^{(k)}(\\tilde L)``
-(Liao Appendix B, Variable Basis block); the choice of ``T^{(k)}``
-is delegated to the basis registry.
+``g(L̃; θ) = Σ_k θ_k T^{(k)}(L̃)`` (Liao Appendix B, Variable Basis
+block); the choice of ``T^{(k)}`` is delegated to the basis registry.
 """
 
 from __future__ import annotations
@@ -55,7 +54,7 @@ from topobench.nn.backbones.graph.poly_filter.basis import (
 
 
 class PolynomialFilterGNN(nn.Module):
-    """Single polynomial filter on ``L̃`` with a swappable basis.
+    r"""Single polynomial filter on ``L̃`` with a swappable basis.
 
     Parameters
     ----------
@@ -114,7 +113,7 @@ class PolynomialFilterGNN(nn.Module):
         # channels. This matches Liao Appendix B's "shared θ" parameterization
         # for the variable-basis block. If a future registered basis needs
         # per-channel θ (some ChebNetII variants do), promote this to
-        # ``Parameter(K + 1, hidden_channels)`` here — backbone-internal, no
+        # ``Parameter(K + 1, hidden_channels)`` here: backbone-internal, no
         # change to the Basis protocol.
         self.theta = nn.Parameter(torch.empty(K + 1))
         nn.init.normal_(self.theta, mean=1.0 / (K + 1), std=0.01)
@@ -140,7 +139,7 @@ class PolynomialFilterGNN(nn.Module):
         edge_weight: Tensor | None = None,
         **kwargs,
     ) -> Tensor:
-        """Forward pass.
+        r"""Forward pass.
 
         Parameters
         ----------
@@ -149,7 +148,7 @@ class PolynomialFilterGNN(nn.Module):
         edge_index : Tensor, shape ``[2, E]``
             Edge index in COO format.
         batch : Tensor, optional
-            Batch assignment vector. Not used at the propagation level —
+            Batch assignment vector. Not used at the propagation level:
             this backbone produces node-level outputs and the wrapper /
             readout handle pooling.
         edge_weight : Tensor, optional
@@ -167,7 +166,7 @@ class PolynomialFilterGNN(nn.Module):
         h = self.dropout(h)
 
         # Build L̃ once per forward pass and freeze it into a closure.
-        # The basis never sees edge_index / edge_weight directly — the
+        # The basis never sees edge_index / edge_weight directly: the
         # backbone fixes the Laplacian normalization once so every
         # registered basis sees the same operator. See LaplacianApply.
         L_apply = self._build_laplacian_apply(
@@ -200,7 +199,7 @@ class PolynomialFilterGNN(nn.Module):
         edge_weight: Tensor | None,
         num_nodes: int,
     ) -> LaplacianApply:
-        """Build a closure that applies ``L̃`` to a node-feature tensor.
+        r"""Build a closure that applies ``L̃`` to a node-feature tensor.
 
         Uses :func:`torch_geometric.utils.get_laplacian` for the
         normalization, matching the operator definition Liao Appendix B
@@ -219,7 +218,7 @@ class PolynomialFilterGNN(nn.Module):
         Returns
         -------
         LaplacianApply
-            Closure ``h ↦ L̃ @ h`` mapping ``[N, F]`` to ``[N, F]``.
+            Closure ``h -> L̃ @ h`` mapping ``[N, F]`` to ``[N, F]``.
         """
         norm = None if self.laplacian_norm == "none" else self.laplacian_norm
         ei, ew = get_laplacian(
@@ -231,7 +230,7 @@ class PolynomialFilterGNN(nn.Module):
         src, dst = ei[0], ei[1]
 
         def apply(h: Tensor) -> Tensor:
-            """Apply the normalized Laplacian to ``h`` via a scatter-add.
+            r"""Apply the normalized Laplacian to ``h`` via a scatter-add.
 
             Parameters
             ----------
@@ -258,11 +257,11 @@ def _build_mlp(
     n_layers: int,
     dropout: float,
 ) -> nn.Module:
-    """Build a small MLP from ``Linear``/``ReLU``/``Dropout`` blocks.
+    r"""Build a small MLP from ``Linear`` / ``ReLU`` / ``Dropout`` blocks.
 
     ``n_layers == 1`` is a single ``nn.Linear`` (no activation, no
     dropout). For ``n_layers > 1`` the head is a plain ``Linear``
-    too — activations and dropout sit only between hidden layers.
+    too: activations and dropout sit only between hidden layers.
 
     Parameters
     ----------
@@ -279,7 +278,7 @@ def _build_mlp(
     Returns
     -------
     nn.Module
-        The constructed MLP — either a single ``nn.Linear`` or an
+        The constructed MLP: either a single ``nn.Linear`` or an
         ``nn.Sequential``.
     """
     if n_layers <= 1:

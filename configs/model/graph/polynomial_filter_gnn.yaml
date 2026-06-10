@@ -3,7 +3,7 @@
 # Swap bases at the CLI:
 #   model.backbone.basis._target_=topobench.nn.backbones.graph.poly_filter.bases.Monomial
 #   model.backbone.basis._target_=topobench.nn.backbones.graph.poly_filter.bases.Chebyshev
-# The basis registry lives at topobench.nn.backbones.graph.poly_filter.bases.* —
+# The basis registry lives at topobench.nn.backbones.graph.poly_filter.bases.* :
 # adding a basis is a single new file, no config edit.
 
 _target_: topobench.model.TBModel

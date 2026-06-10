@@ -1,4 +1,4 @@
-"""Jacobi polynomial basis.
+r"""Jacobi polynomial basis.
 
 Three-term recurrence with two real hyperparameters ``α, β > -1``.
 Chebyshev (with the appropriate ``α, β``) and Legendre (``α = β = 0``,
@@ -8,32 +8,32 @@ Recurrence (Liao Appendix B; equivalent to Wang & Zhang 2022 Eq. (5)):
 
 .. math::
 
-    T^{(0)}(\\tilde L) = I,
-    \\qquad
-    T^{(1)}(\\tilde L) = \\tfrac{\\alpha - \\beta}{2}\\, I
-                          + \\tfrac{\\alpha + \\beta + 2}{2}\\,(I - \\tilde L),
+    T^{(0)}(\tilde L) = I,
+    \qquad
+    T^{(1)}(\tilde L) = \tfrac{\alpha - \beta}{2}\, I
+                          + \tfrac{\alpha + \beta + 2}{2}\,(I - \tilde L),
 
-    T^{(k)}(\\tilde L) = \\delta_k (I - \\tilde L)\\, T^{(k-1)}(\\tilde L)
-                          + \\delta'_k\\, T^{(k-1)}(\\tilde L)
-                          - \\delta''_k\\, T^{(k-2)}(\\tilde L), \\quad k \\ge 2,
+    T^{(k)}(\tilde L) = \delta_k (I - \tilde L)\, T^{(k-1)}(\tilde L)
+                          + \delta'_k\, T^{(k-1)}(\tilde L)
+                          - \delta''_k\, T^{(k-2)}(\tilde L), \quad k \ge 2,
 
 with
 
 .. math::
 
-    \\delta_k       = \\frac{(2k+\\alpha+\\beta)(2k+\\alpha+\\beta-1)}
-                            {2k(k+\\alpha+\\beta)} ,
+    \delta_k       = \frac{(2k+\alpha+\beta)(2k+\alpha+\beta-1)}
+                            {2k(k+\alpha+\beta)} ,
 
-    \\delta'_k      = \\frac{(2k+\\alpha+\\beta-1)(\\alpha^2-\\beta^2)}
-                            {2k(k+\\alpha+\\beta)(2k+\\alpha+\\beta-2)} ,
+    \delta'_k      = \frac{(2k+\alpha+\beta-1)(\alpha^2-\beta^2)}
+                            {2k(k+\alpha+\beta)(2k+\alpha+\beta-2)} ,
 
-    \\delta''_k     = \\frac{(k+\\alpha-1)(k+\\beta-1)(2k+\\alpha+\\beta)}
-                            {k(k+\\alpha+\\beta)(2k+\\alpha+\\beta-2)} .
+    \delta''_k     = \frac{(k+\alpha-1)(k+\beta-1)(2k+\alpha+\beta)}
+                            {k(k+\alpha+\beta)(2k+\alpha+\beta-2)} .
 
 The constraint ``α > -1, β > -1`` (giving ``α + β > -2``) is enforced in
-``__init__`` — it is the standard integrability condition for the
+``__init__``: it is the standard integrability condition for the
 Jacobi weight ``(1-z)^α (1+z)^β`` and also makes every denominator in
-``δ_k, δ'_k, δ''_k`` strictly positive for ``k ≥ 2``.
+``δ_k, δ'_k, δ''_k`` strictly positive for ``k >= 2``.
 
 The ``k = 1`` boundary is handled inside this basis via the
 ``u_prev_prev is None`` check; the ``k`` step index is used to evaluate
@@ -49,7 +49,7 @@ Liao et al. (2024) *A Comprehensive Benchmark on Spectral GNNs*
 (Variable Basis block), Eqs. for ``T^{(0)}, T^{(1)}, T^{(k)}``.
 
 Wang & Zhang (2022) *How Powerful are Spectral Graph Neural Networks*
-(ICML, arXiv:2205.11172) — primary reference for JacobiConv. The
+(ICML, arXiv:2205.11172): primary reference for JacobiConv. The
 spectral filter ``g(L̃; θ) = Σ_k θ_k T^{(k)}(L̃)`` with the above
 recurrence is their Eq. (5). They prove (Theorem 3.1) that any
 polynomial filter can be expressed in this form and that the choice
@@ -68,7 +68,7 @@ from topobench.nn.backbones.graph.poly_filter.basis import (
 
 
 class Jacobi(Basis):
-    """Jacobi basis ``T_k^{(α, β)}(L̃)``.
+    r"""Jacobi basis ``T_k^{(α, β)}(L̃)``.
 
     Parameters
     ----------
@@ -81,10 +81,11 @@ class Jacobi(Basis):
 
     Notes
     -----
-    Stateless w.r.t. the input signal — ``signal`` is ignored. ``α`` and
-    ``β`` are stored as plain Python floats, not ``nn.Parameter``\\s: in
-    JacobiConv they are *hyperparameters*, not learned. The basis with
-    learnable recurrence coefficients is FavardGNN (separate file).
+    Stateless w.r.t. the input signal: ``signal`` is ignored. ``α`` and
+    ``β`` are stored as plain Python floats, not ``nn.Parameter``
+    instances: in JacobiConv they are *hyperparameters*, not learned.
+    The basis with learnable recurrence coefficients is FavardGNN
+    (separate file).
     """
 
     def __init__(self, alpha: float = 1.0, beta: float = 1.0):
@@ -101,10 +102,10 @@ class Jacobi(Basis):
         u_prev: Tensor,
         u_prev_prev: Tensor | None,
         L_apply: LaplacianApply,
-        signal: Tensor,  # unused — basis is signal-independent
+        signal: Tensor,  # unused: basis is signal-independent
         k: int,
     ) -> Tensor:
-        """Apply the Jacobi three-term recurrence with k-dependent coefficients.
+        r"""Apply the Jacobi three-term recurrence with k-dependent coefficients.
 
         Parameters
         ----------
@@ -113,7 +114,7 @@ class Jacobi(Basis):
         u_prev_prev : Tensor or None, shape ``[N, F]``
             ``u_{k-2}``. ``None`` at ``k = 1``.
         L_apply : LaplacianApply
-            Closure ``h ↦ L̃ @ h``.
+            Closure ``h -> L̃ @ h``.
         signal : Tensor
             Unused for Jacobi (signal-independent basis).
         k : int
