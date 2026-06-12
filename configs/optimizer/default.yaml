@@ -7,7 +7,7 @@ parameters:
   lr: 0.001
   weight_decay: 0.0
 
-scheduler: # Comment or delete these lines to disable the scheduler
+scheduler: # comment or delete these lines to disable scheduler
   scheduler_id: StepLR # torch id of the scheduler. Set to null to disable.
   # scheduler params
   scheduler_params:
