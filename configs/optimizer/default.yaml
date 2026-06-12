@@ -13,4 +13,4 @@ scheduler: # comment or delete these lines to disable scheduler
   scheduler_params:
     step_size: 50
     gamma: 0.5
-    
+
