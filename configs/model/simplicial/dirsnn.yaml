@@ -1,0 +1,13 @@
+defaults:
+  - /model/feature_encoder: all_cell_feature_encoder
+  - /model/backbone_wrapper: simplicial_wrapper
+  - /model/readout: node_readout
+  - _self_
+
+backbone:
+  _target_: topobench.nn.backbones.simplicial.dirsnn.DirSNN
+  in_channels: ${dataset.parameters.num_features}
+  hidden_channels: 64
+  out_channels: ${dataset.parameters.num_classes}
+  num_layers: 2
+  dropout: 0.5
