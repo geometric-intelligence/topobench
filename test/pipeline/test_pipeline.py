@@ -1,13 +1,11 @@
 """Test pipeline for a particular dataset and model."""
 
 import hydra
-import pytest
 
 from test._utils.simplified_pipeline import run
 
-
-DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+DATASET = "graph/MUTAG"
+MODELS = ["combinatorial/etnn"]
 
 
 class TestPipeline:
@@ -34,6 +32,6 @@ class TestPipeline:
                         "paths=test",
                         "callbacks=model_checkpoint",
                     ],
-                    return_hydra_config=True
+                    return_hydra_config=True,
                 )
                 run(cfg)

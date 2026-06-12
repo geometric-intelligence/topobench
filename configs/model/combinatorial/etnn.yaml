@@ -1,0 +1,65 @@
+_target_: topobench.model.TBModel
+
+model_name: etnn
+model_domain: combinatorial
+
+# ETNN consumes rank-wise cell features. The encoder projects all selected
+# ranks into a shared feature dimension before relation-wise message passing.
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+# Coordinate-free ETNN backbone for GraphUniverse: this preserves the
+# relation-wise combinatorial-complex feature update from the ETNN paper
+# (CCMPN/ETNN feature update, Eq. 3 and Eq. 6) while omitting the coordinate
+# update from Eq. 7 because these challenge datasets do not provide physical
+# coordinates/data.pos.
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.etnn.ETNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  neighborhoods:
+    # Same-rank node, edge, and face neighborhoods.
+    - up_adjacency-0
+    - up_adjacency-1
+    - up_adjacency-2
+    # Bidirectional node-edge communication.
+    - up_incidence-0
+    - down_incidence-1
+    # Bidirectional edge-face communication when rank-2 cells are present.
+    - up_incidence-1
+    - down_incidence-2
+  num_layers: 2
+  dropout: 0.0
+  activation: silu
+  use_batch_norm: false
+
+# Reuse the existing combinatorial wrapper contract: the backbone returns a
+# rank-indexed dict, and TuneWrapper exposes x_0/x_1/x_2 to the readout.
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.combinatorial.TuneWrapper
+  _partial_: true
+  wrapper_name: TuneWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+
+# Standard TopoBench readout keeps the initial ETNN integration compatible with
+# the existing training and GraphUniverse evaluation pipeline.
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false
