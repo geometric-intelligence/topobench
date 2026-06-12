@@ -16,8 +16,11 @@ feature_encoder:
     - 1
     - 2
 
-# Stage 1 ETNN backbone: TopoBench-native cell-relation message passing over
-# combinatorial neighborhoods, without requiring external coordinates/data.pos.
+# Coordinate-free ETNN backbone for GraphUniverse: this preserves the
+# relation-wise combinatorial-complex feature update from the ETNN paper
+# (CCMPN/ETNN feature update, Eq. 3 and Eq. 6) while omitting the coordinate
+# update from Eq. 7 because these challenge datasets do not provide physical
+# coordinates/data.pos.
 backbone:
   _target_: topobench.nn.backbones.combinatorial.etnn.ETNN
   in_channels: ${model.feature_encoder.out_channels}

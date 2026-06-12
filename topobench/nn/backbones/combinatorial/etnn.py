@@ -1,10 +1,19 @@
 """TopoBench-native ETNN backbone for combinatorial complexes.
 
-This module implements the coordinate-free core of E(n)-Equivariant
-Topological Neural Networks (ETNNs): typed message passing between cells of
-different ranks. Geometric invariants and coordinate updates can be layered on
-top of this core, but this backbone intentionally does not require ``data.pos``
-so it can run on non-geometric GraphUniverse inputs.
+This module implements the coordinate-free TopoBench adaptation of
+E(n)-Equivariant Topological Neural Networks (ETNNs) from Battiloro et al.,
+``E(n) Equivariant Topological Neural Networks``, arXiv:2405.15429, and the
+official implementation at
+``https://github.com/NSAPH-Projects/topological-equivariant-networks``.
+
+The original ETNN layer combines two coupled pieces: a combinatorial-complex
+message-passing feature update over neighborhood functions (paper Eq. 1--3 and
+Eq. 6) and an E(n)-equivariant coordinate update over geometric node features
+(paper Eq. 7). GraphUniverse datasets used in the TDL Challenge do not provide
+physical coordinates, so this backbone implements the feature-update/message
+passing part of ETNN over TopoBench neighborhoods and intentionally disables
+coordinate updates. This gives a usable combinatorial ETNN core for
+coordinate-free inputs while keeping the geometric extension point explicit.
 """
 
 from __future__ import annotations
@@ -21,13 +30,23 @@ from topobench.data.utils import get_routes_from_neighborhoods
 class ETNN(nn.Module):
     """Coordinate-free ETNN backbone over TopoBench neighborhoods.
 
-    The backbone keeps the ETNN idea of relation-specific message passing over
-    combinatorial cells. Each configured TopoBench neighborhood defines a typed
-    relation from a source rank to a destination rank. For every layer and
-    relation, a separate message MLP consumes sender features, receiver
-    features, and structural edge attributes from the sparse neighborhood
-    tensor. Rank-wise update MLPs then combine the current state with all
-    incoming relation messages.
+    The backbone keeps the ETNN/CCMPN idea that cell embeddings are updated by
+    aggregating neighborhood-specific messages over a combinatorial complex.
+    In the notation of Battiloro et al., the configured TopoBench
+    neighborhoods instantiate the collection of neighborhood functions
+    ``CN`` in Eq. 3 and Eq. 6. Each neighborhood defines a typed relation from
+    a source rank to a destination rank, and every relation receives its own
+    message MLP ``psi``. Rank-wise update MLPs then combine the current cell
+    state with the aggregated incoming messages, corresponding to the feature
+    update ``beta`` in Eq. 6.
+
+    This first TopoBench integration does not implement the coordinate update
+    ``xi`` from Eq. 7 because the challenge GraphUniverse inputs are
+    coordinate-free. Consequently, the class should be read as a
+    combinatorial ETNN backbone: it preserves the topological, rank-wise, and
+    relation-specific message-passing structure of ETNN, but it does not claim
+    full E(n)-equivariance unless geometric coordinates are supplied by a
+    future extension.
 
     Parameters
     ----------
@@ -157,6 +176,13 @@ class ETNN(nn.Module):
 
 class _ETNNLayer(nn.Module):
     """One relation-wise ETNN message-passing layer.
+
+    This layer is the coordinate-free counterpart of the feature update in
+    Battiloro et al. Eq. 6. The intra-neighborhood aggregation ``oplus`` is
+    implemented by summing messages into receiver cells with
+    ``torch.index_add_``. The inter-neighborhood aggregation ``otimes`` is
+    implemented by concatenating the messages arriving at each rank before the
+    rank-specific update MLP.
 
     Parameters
     ----------
@@ -292,6 +318,12 @@ class _ETNNLayer(nn.Module):
 class _ETNNMessagePassing(nn.Module):
     """Relation-specific gated message passing.
 
+    The message block plays the role of the neighborhood- and rank-dependent
+    ``psi`` function in the ETNN feature update. Because this TopoBench
+    baseline has no coordinates, the message input contains sender features,
+    receiver features, and a scalar sparse-neighborhood value instead of the
+    geometric invariant ``Inv`` used by the full ETNN formulation.
+
     Parameters
     ----------
     hidden_channels : int
@@ -403,6 +435,10 @@ def _neighborhood_to_edge_index(
     destination cells on rows and source cells on columns. ETNN message passing
     uses an explicit ``[sender, receiver]`` edge index, so we flip the sparse
     matrix indices.
+
+    The conversion is deliberately centralized here because relation direction
+    is part of the ETNN semantics: messages must flow from the cells in
+    ``N(x)`` to the receiver cell ``x`` in the update equations.
 
     Parameters
     ----------

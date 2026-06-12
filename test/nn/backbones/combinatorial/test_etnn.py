@@ -142,7 +142,7 @@ def test_etnn_runs_without_positions():
 
     # PyG ``Data`` may answer ``hasattr(data, "pos")`` through dynamic
     # attribute handling, so check the actual stored keys instead.
-    assert "pos" not in batch.keys()
+    assert "pos" not in batch
 
     out = create_etnn()(batch)
 
