@@ -100,7 +100,7 @@ def create_mock_complex_batch():
 
 
 def create_etnn():
-    """Instantiate the Stage 1 ETNN backbone."""
+    """Instantiate the coordinate-free ETNN backbone."""
     # Keep this neighborhood list aligned with
     # configs/model/combinatorial/etnn.yaml so unit coverage matches the public
     # model config.
@@ -265,6 +265,34 @@ def test_neighborhood_to_edge_index_compacts_empty_rank_placeholders():
     expected_edge_index = torch.tensor([[1, 0], [0, 1]])
     assert torch.equal(edge_index, expected_edge_index)
     assert edge_attr.shape == (2, 1)
+
+
+def test_neighborhood_to_edge_index_rejects_ambiguous_sparse_axis():
+    """Sparse-axis compaction should fail if batch metadata is unavailable."""
+    # The sparse axis has a placeholder-like extra slot, but without batch_2
+    # assignments there is no reliable way to tell which sparse slots map to
+    # real rank-2 feature rows and which are placeholders.
+    rank_2_adjacency = torch.sparse_coo_tensor(
+        indices=torch.tensor([[1, 2], [2, 1]]),
+        values=torch.ones(2),
+        size=(3, 3),
+    ).coalesce()
+    batch = Data(
+        x_2=torch.randn(2, 16),
+        **{"up_adjacency-2": rank_2_adjacency},
+    )
+
+    with pytest.raises(ValueError, match="batch_2"):
+        _neighborhood_to_edge_index(
+            batch=batch,
+            neighborhood="up_adjacency-2",
+            src_rank=2,
+            dst_rank=2,
+            device=torch.device("cpu"),
+            dtype=torch.float32,
+            num_src_cells=2,
+            num_dst_cells=2,
+        )
 
 
 def test_etnn_requires_neighborhoods():

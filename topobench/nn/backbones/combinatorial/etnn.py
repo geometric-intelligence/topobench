@@ -1,19 +1,40 @@
 """TopoBench-native ETNN backbone for combinatorial complexes.
 
-This module implements the coordinate-free TopoBench adaptation of
+This module implements a coordinate-free TopoBench adaptation of
 E(n)-Equivariant Topological Neural Networks (ETNNs) from Battiloro et al.,
 ``E(n) Equivariant Topological Neural Networks``, arXiv:2405.15429, and the
 official implementation at
 ``https://github.com/NSAPH-Projects/topological-equivariant-networks``.
 
-The original ETNN layer combines two coupled pieces: a combinatorial-complex
-message-passing feature update over neighborhood functions (paper Eq. 1--3 and
-Eq. 6) and an E(n)-equivariant coordinate update over geometric node features
-(paper Eq. 7). GraphUniverse datasets used in the TDL Challenge do not provide
-physical coordinates, so this backbone implements the feature-update/message
-passing part of ETNN over TopoBench neighborhoods and intentionally disables
-coordinate updates. This gives a usable combinatorial ETNN core for
-coordinate-free inputs while keeping the geometric extension point explicit.
+The original ETNN layer combines two coupled updates:
+
+1. A combinatorial-complex feature update over neighborhood functions.
+2. An E(n)-equivariant coordinate update over geometric node features.
+
+GraphUniverse datasets used in the TDL Challenge do not provide physical
+coordinates. Therefore, this backbone implements the ETNN feature update over
+TopoBench neighborhoods and intentionally omits the coordinate update. The
+result is a combinatorial ETNN backbone for coordinate-free inputs. It should
+not be read as a full E(n)-equivariant model unless coordinates and coordinate
+updates are supplied by a future extension.
+
+The feature update implemented here can be read as the following plain-text
+version of the CCMPN/ETNN update from the paper. For a receiver cell c, a
+configured neighborhood N, sender cells d in N(c), receiver rank r, and sender
+rank s:
+
+    m_{c,N} = sum_{d in N(c)} psi_{N,r,s}(h_c, h_d, a_{d,c,N})
+    m_c     = concat_{N in CN(c)} m_{c,N}
+    h'_c    = h_c + beta_r(h_c, m_c)
+
+Here ``h_c`` and ``h_d`` are cell features, ``a_{d,c,N}`` is the scalar sparse
+TopoBench neighborhood value, ``psi`` is a relation-specific message MLP,
+``sum`` is the intra-neighborhood aggregation, ``concat`` is the
+inter-neighborhood aggregation over relation types, and ``beta`` is the
+rank-specific update MLP. This corresponds to the feature part of ETNN Eq. 6
+and the CCMPN neighborhood aggregation described by Eq. 1--3. The coordinate
+update from Eq. 7 is omitted because no Euclidean coordinates are available in
+the challenge data.
 """
 
 from __future__ import annotations
@@ -30,23 +51,24 @@ from topobench.data.utils import get_routes_from_neighborhoods
 class ETNN(nn.Module):
     """Coordinate-free ETNN backbone over TopoBench neighborhoods.
 
-    The backbone keeps the ETNN/CCMPN idea that cell embeddings are updated by
-    aggregating neighborhood-specific messages over a combinatorial complex.
-    In the notation of Battiloro et al., the configured TopoBench
-    neighborhoods instantiate the collection of neighborhood functions
-    ``CN`` in Eq. 3 and Eq. 6. Each neighborhood defines a typed relation from
-    a source rank to a destination rank, and every relation receives its own
-    message MLP ``psi``. Rank-wise update MLPs then combine the current cell
-    state with the aggregated incoming messages, corresponding to the feature
-    update ``beta`` in Eq. 6.
+    The configured TopoBench neighborhoods instantiate the collection of
+    neighborhood functions ``CN`` used by the ETNN feature update. Each
+    neighborhood is a typed relation from a source cell rank to a destination
+    cell rank. The class applies the following computation over those
+    relations:
 
-    This first TopoBench integration does not implement the coordinate update
-    ``xi`` from Eq. 7 because the challenge GraphUniverse inputs are
-    coordinate-free. Consequently, the class should be read as a
-    combinatorial ETNN backbone: it preserves the topological, rank-wise, and
-    relation-specific message-passing structure of ETNN, but it does not claim
-    full E(n)-equivariance unless geometric coordinates are supplied by a
-    future extension.
+        relation message:
+            m_{c,N} = sum_{d in N(c)} psi_N(h_c, h_d, a_{d,c,N})
+
+        rank update:
+            h'_c = h_c + beta_rank(c)(h_c, concat_N m_{c,N})
+
+    This mirrors the paper's neighborhood-wise message functions ``psi`` and
+    rank-wise feature update ``beta`` while adapting the geometric invariant
+    input to the coordinate-free GraphUniverse setting. Since no physical
+    coordinates are available, ``a_{d,c,N}`` is the scalar value stored in the
+    sparse TopoBench neighborhood rather than an E(n)-invariant geometric
+    quantity. The coordinate update from ETNN Eq. 7 is not applied.
 
     Parameters
     ----------
@@ -100,8 +122,9 @@ class ETNN(nn.Module):
         self.num_layers = num_layers
         self.max_rank = max(max(route) for route in self.routes)
 
-        # Stage 1 uses one shared input dimension for all selected ranks because
-        # AllCellFeatureEncoder projects every rank to the same hidden size.
+        # This coordinate-free implementation uses one shared input dimension
+        # for all selected ranks because AllCellFeatureEncoder projects every
+        # rank to the same hidden size.
         self.input_projection = nn.ModuleDict(
             {
                 str(rank): nn.Linear(in_channels, hidden_channels)
@@ -177,12 +200,18 @@ class ETNN(nn.Module):
 class _ETNNLayer(nn.Module):
     """One relation-wise ETNN message-passing layer.
 
-    This layer is the coordinate-free counterpart of the feature update in
-    Battiloro et al. Eq. 6. The intra-neighborhood aggregation ``oplus`` is
-    implemented by summing messages into receiver cells with
-    ``torch.index_add_``. The inter-neighborhood aggregation ``otimes`` is
-    implemented by concatenating the messages arriving at each rank before the
-    rank-specific update MLP.
+    This layer is the coordinate-free counterpart of the ETNN feature update.
+    It implements the paper's two aggregation levels in ordinary tensor
+    operations:
+
+    - Intra-neighborhood aggregation: for a fixed neighborhood relation N,
+      sender messages are summed into receiver cells with ``torch.index_add_``.
+    - Inter-neighborhood aggregation: messages arriving through different
+      relation types are concatenated before the rank-specific update MLP.
+
+    Thus each layer computes a residual update of the form:
+
+        h'_c = h_c + beta_rank(c)(h_c, concat_N sum_{d in N(c)} message_N(d,c))
 
     Parameters
     ----------
@@ -320,9 +349,16 @@ class _ETNNMessagePassing(nn.Module):
 
     The message block plays the role of the neighborhood- and rank-dependent
     ``psi`` function in the ETNN feature update. Because this TopoBench
-    baseline has no coordinates, the message input contains sender features,
-    receiver features, and a scalar sparse-neighborhood value instead of the
-    geometric invariant ``Inv`` used by the full ETNN formulation.
+    implementation has no coordinates, the message input contains sender
+    features, receiver features, and a scalar sparse-neighborhood value instead
+    of the geometric invariant ``Inv`` used by the full ETNN formulation:
+
+        message_N(d,c) = gate_N(z_{d,c}) * mlp_N(z_{d,c})
+        z_{d,c} = concat(h_d, h_c, a_{d,c,N})
+
+    The gate is a learned sigmoid scalar. It follows the same practical design
+    idea as the official ETNN implementation: relation messages are learned by
+    an MLP and can be softly suppressed or amplified per edge.
 
     Parameters
     ----------
@@ -440,6 +476,12 @@ def _neighborhood_to_edge_index(
     is part of the ETNN semantics: messages must flow from the cells in
     ``N(x)`` to the receiver cell ``x`` in the update equations.
 
+    Only scalar sparse-neighborhood values are used as edge attributes. This is
+    enough for TopoBench adjacency/incidence tensors, where a nonzero entry
+    means that the sender cell participates in the receiver cell's
+    neighborhood. Explicitly stored zero values are discarded before message
+    passing because they represent absent or placeholder relations.
+
     Parameters
     ----------
     batch : torch_geometric.data.Data
@@ -479,6 +521,10 @@ def _neighborhood_to_edge_index(
     nonzero_mask = values != 0
     indices = indices[:, nonzero_mask]
     values = values[nonzero_mask]
+    if values.numel() == 0:
+        edge_index = torch.empty((2, 0), dtype=torch.long, device=device)
+        edge_attr = torch.empty((0, 1), dtype=dtype, device=device)
+        return edge_index, edge_attr
 
     # Some TopoBench liftings encode an empty rank with a single zero-valued
     # placeholder row/column. PyG batching preserves those sparse matrix slots,
@@ -510,9 +556,9 @@ def _neighborhood_to_edge_index(
     # passing, we interpret columns as senders and rows as receivers.
     edge_index = torch.stack([sender, receiver], dim=0).to(device)
 
-    # Use one scalar structural edge feature per sparse nonzero for Stage 1.
-    # ``view(-1, 1)`` also gives the correct [0, 1] shape when all stored
-    # entries were filtered out above.
+    # Use one scalar structural edge feature per sparse nonzero in the
+    # coordinate-free model. ``view(-1, 1)`` also gives the correct [0, 1]
+    # shape when all stored entries were filtered out above.
     edge_attr = values.view(-1, 1).to(device=device, dtype=dtype)
     return edge_index, edge_attr
 
@@ -555,14 +601,12 @@ def _sparse_axis_to_feature_index(
 
     batch_key = f"batch_{rank}"
     if not hasattr(batch, batch_key):
-        # Without rank-wise batch assignments, the safest behavior is to keep
-        # only entries that already point into the available feature tensor.
-        mapping = torch.full(
-            (sparse_size,), -1, dtype=torch.long, device=device
+        raise ValueError(
+            "Cannot compact ETNN sparse neighborhood axis for rank "
+            f"{rank}: sparse axis has length {sparse_size}, but the "
+            f"rank-{rank} feature tensor has {num_cells} rows and "
+            f"`{batch_key}` is missing."
         )
-        kept = min(sparse_size, num_cells)
-        mapping[:kept] = torch.arange(kept, device=device)
-        return mapping
 
     batch_vector = getattr(batch, batch_key).to(device)
     num_graphs = getattr(batch, "num_graphs", None)
@@ -575,14 +619,12 @@ def _sparse_axis_to_feature_index(
     expected_sparse_size = sum(max(1, int(count)) for count in counts)
 
     if expected_sparse_size != sparse_size:
-        # Fall back to bounds filtering if this sparse axis does not use the
-        # empty-rank placeholder convention we know how to compact.
-        mapping = torch.full(
-            (sparse_size,), -1, dtype=torch.long, device=device
+        raise ValueError(
+            "Cannot compact ETNN sparse neighborhood axis for rank "
+            f"{rank}: sparse axis has length {sparse_size}, but "
+            f"`{batch_key}` implies {expected_sparse_size} slots under "
+            "TopoBench's empty-rank placeholder convention."
         )
-        kept = min(sparse_size, num_cells)
-        mapping[:kept] = torch.arange(kept, device=device)
-        return mapping
 
     mapping = torch.full((sparse_size,), -1, dtype=torch.long, device=device)
     sparse_offset = 0
@@ -636,8 +678,8 @@ def _make_mlp(
     """
     act = _get_activation(activation)
 
-    # Keep the block intentionally small for the first TopoBench integration;
-    # deeper geometric variants can expand this later if needed.
+    # Keep the block intentionally small so the coordinate-free backbone stays
+    # lightweight inside standard TopoBench training pipelines.
     layers: list[nn.Module] = [nn.Linear(in_channels, hidden_channels)]
     if use_batch_norm:
         layers.append(nn.BatchNorm1d(hidden_channels))
