@@ -11,7 +11,9 @@ feature_encoder:
   proj_dropout: 0.0
 
 backbone:
-  _target_: topobench.nn.backbones.GPRGNN
+  # Full path required: backbone auto-discovery loads this file under a
+  # synthetic module name, which breaks PyG MessagePassing's inspector.
+  _target_: topobench.nn.backbones.graph.gprgnn.GPRGNN
   in_channels: ${model.feature_encoder.out_channels}
   hidden_channels: ${model.feature_encoder.out_channels}
   K: 10
