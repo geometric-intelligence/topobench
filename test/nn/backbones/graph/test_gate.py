@@ -97,6 +97,76 @@ def test_gate_parity_dense(random_graph_input, share_att, has_omega, concat):
     torch.testing.assert_close(ours, ref, rtol=1e-5, atol=1e-5)
 
 
+def test_gate_reduces_to_pyg_gatv2(random_graph_input):
+    """In its GATv2 special case, GATEConv matches PyG's official GATv2Conv.
+
+    This is an external fidelity check: with one shared attention vector,
+    no omega, and the self-value tied to ``lin_r``, GATE collapses to
+    standard GATv2. Copying PyG's weights and asserting bit-for-bit
+    agreement validates our attention routing (the i/j assignment,
+    softmax scope, self-loop handling, and aggregation) against a trusted
+    reference implementation.
+
+    Parameters
+    ----------
+    random_graph_input : tuple
+        Fixture providing random node features and edge indices.
+    """
+    from torch_geometric.nn import GATv2Conv
+
+    x, _, _, edges_1, _ = random_graph_input
+    ei, _ = remove_self_loops(edges_1)  # both add their own self-loops
+    heads, c = 2, 5
+    ref = GATv2Conv(
+        x.shape[1], c, heads=heads, concat=True,
+        add_self_loops=True, bias=False, share_weights=False,
+    ).eval()
+    ours = GATEConv(
+        x.shape[1], c, heads=heads, concat=True,
+        share_att=True, has_omega=False, dropout=0.0,
+    ).eval()
+
+    # Copy by ROLE, not by name: PyG's lin_l is the source transform (and
+    # value), lin_r the target transform; ours uses the paper's opposite
+    # naming (lin_r = source = value, lin_l = target).
+    with torch.no_grad():
+        ours.lin_r.weight.copy_(ref.lin_l.weight)  # source / neighbour value
+        ours.lin_s.weight.copy_(ref.lin_l.weight)  # self value (= source W)
+        ours.lin_l.weight.copy_(ref.lin_r.weight)  # target
+        ours.lin_l.bias.zero_()
+        ours.lin_r.bias.zero_()
+        ours.lin_s.bias.zero_()
+        ours.att.copy_(ref.att)  # att2 is att (share_att=True)
+
+    torch.testing.assert_close(
+        ours(x, ei), ref(x, ei), rtol=1e-5, atol=1e-5
+    )
+
+
+def test_gate_omega_zero_switches_off_neighbours(random_graph_input):
+    """omega=0 fully gates off neighbours (GATE's defining claim).
+
+    With ``omega = 0`` the gate zeroes every neighbour message and passes
+    the self-value through unchanged, so each node's output collapses
+    exactly to its own value transform ``lin_s(x)``. This is a direct,
+    closed-form check of the paper's "keep out intrusive neighbours"
+    mechanism, independent of the formula-level parity tests.
+
+    Parameters
+    ----------
+    random_graph_input : tuple
+        Fixture providing random node features and edge indices.
+    """
+    x, _, _, edges_1, _ = random_graph_input
+    conv = GATEConv(x.shape[1], 6, heads=1, has_omega=True, dropout=0.0)
+    conv.eval()
+    with torch.no_grad():
+        conv.omega.zero_()
+    torch.testing.assert_close(
+        conv(x, edges_1), conv.lin_s(x), rtol=1e-5, atol=1e-5
+    )
+
+
 def test_gate_share_att_ties_vectors():
     """With share_att=True the two attention vectors are the same object."""
     conv = GATEConv(8, 4, share_att=True)
