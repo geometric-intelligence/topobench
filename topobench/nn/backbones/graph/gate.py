@@ -176,9 +176,9 @@ class GATEConv(MessagePassing):
         pre = F.leaky_relu(x_l_i + x_r_j, self.negative_slope)
         self_mask = (ei[0] == ei[1]).to(pre.dtype).unsqueeze(-1)
         nbr_mask = 1.0 - self_mask
-        alpha = (pre * self.att).sum(-1) * nbr_mask + (
-            pre * self.att2
-        ).sum(-1) * self_mask
+        alpha = (pre * self.att).sum(-1) * nbr_mask + (pre * self.att2).sum(
+            -1
+        ) * self_mask
         alpha = softmax(alpha, index, ptr, size_i)
         alpha = F.dropout(alpha, p=self.dropout, training=self.training)
         # Value is U h_u for every edge (self-loops use U h_v with u = v).
