@@ -1,20 +1,32 @@
 """GATE backbone: graph attention that separates self from neighbours.
 
-GATE extends GATv2 by giving a node's self-loop its own attention vector
-and value transform, plus an optional learned gate ``omega`` that controls
-how much a node retains its own signal versus aggregating (potentially
-heterophilic, "intrusive") neighbours. This self/neighbour separation is
-what makes the model robust on heterophilic graphs.
+GATE extends GATv2 with a single change (paper Eq. 4): the attention
+logit uses a *separate* learnable vector for self-loops (``a_t``) versus
+genuine neighbours (``a_s``). This lets a node parameterize its own
+self-attention independently of its neighbours, so it can suppress
+aggregation from unrelated ("intrusive") neighbours -- which is what
+makes the model robust on heterophilic graphs. Apart from the extra
+attention vector, GATE adds no parameters over GATv2: the value and the
+source/target transforms are the same as GATv2.
 
 Notes
 -----
-The exact message routing (value transform, i/j assignment) is validated
-by a numerical parity test against the official ``GATv2Conv`` reference;
-see ``test/nn/backbones/graph/test_gate.py``.
+Faithful to the paper's GATE (Eq. 1, 2, 4), not to the optional knobs in
+the reference repo: the repo's ``omega`` gate and separate self-loop value
+transform are *not* part of the published model (the paper adds only the
+``d``-dimensional ``a_t`` vector and never uses ``omega``), so they are
+intentionally omitted here. Initialization follows the paper: attention
+vectors zero (no initial inductive bias, Thm. 4.3) and weight matrices
+random-orthogonal. (The paper's full "looks-linear" channel-mirroring
+construction is not applied; orthogonal init captures the random-orthogonal
+specification, and the zero attention init provides the Thm. 4.3
+aggregation property.) The base mechanism is validated against PyG's
+``GATv2Conv`` in ``test/nn/backbones/graph/test_gate.py``.
 
 References
 ----------
-.. [1] "GATE: How to Keep Out Intrusive Neighbors." ICML 2024.
+.. [1] Nimrah Mustafa, Rebekka Burkholz. "GATE: How to Keep Out
+   Intrusive Neighbors." ICML 2024. https://arxiv.org/abs/2406.00418
    Official code: https://github.com/RelationalML/GATE
 """
 
@@ -26,14 +38,21 @@ from torch_geometric.utils import add_self_loops, remove_self_loops, softmax
 
 
 class GATEConv(MessagePassing):
-    r"""Single GATE attention layer.
+    r"""Single GATE attention layer (Mustafa & Burkholz, 2024).
 
-    The attention logit for an edge :math:`(i, j)` follows GATv2,
-    :math:`\alpha_{ij} \propto a^\top \mathrm{LeakyReLU}(W_l x_i + W_r x_j)`,
-    but self-loops are parameterized separately: they use a distinct
-    attention vector ``att2`` and a distinct value transform ``lin_s``,
-    and an optional gate :math:`\omega` rescales the per-edge contribution
-    as :math:`x_j (\mathbb{1}_{ii} - \omega(\mathbb{1}_{ii} - \alpha))`.
+    Implements the GATE update. For an edge :math:`(u \to v)` the logit is
+    (Eq. 4)
+
+    .. math::
+        e_{uv} = (\mathbb{1}_{u \neq v}\, a_s
+                  + \mathbb{1}_{u = v}\, a_t)^\top
+                 \,\phi(U h_u + V h_v),
+
+    i.e. a GATv2-style additive score whose attention vector switches
+    between ``a_s`` (neighbours) and ``a_t`` (self-loops). Coefficients are
+    normalized by softmax over the neighbourhood (Eq. 2) and aggregated as
+    :math:`h_v = \sum_u \alpha_{uv} U h_u` (Eq. 1) -- the value transform is
+    the same source matrix :math:`U` for every edge, self-loops included.
 
     Parameters
     ----------
@@ -46,18 +65,13 @@ class GATEConv(MessagePassing):
     concat : bool, optional
         Concatenate heads if True, else average them (default: True).
     negative_slope : float, optional
-        LeakyReLU negative slope (default: 0.2).
+        LeakyReLU negative slope for :math:`\phi` (default: 0.2).
     dropout : float, optional
         Dropout rate on attention coefficients (default: 0.0).
     share_att : bool, optional
-        If True, self and neighbour edges share one attention vector
-        (recovers GATv2); if False, self-loops get a separate ``att2``
-        (the GATE variant) (default: False).
-    has_omega : bool, optional
-        If True, apply the learned self/neighbour gate ``omega``
-        (default: True).
-    omega_init : float, optional
-        Initial value for ``omega`` (default: 1.0).
+        If True, tie ``a_s`` and ``a_t`` into one vector (the paper's
+        weight-sharing "GATES" variant / standard GATv2); if False, use the
+        separate self/neighbour vectors of GATE (default: False).
     **kwargs
         Additional arguments forwarded to
         :class:`torch_geometric.nn.MessagePassing`.
@@ -72,8 +86,6 @@ class GATEConv(MessagePassing):
         negative_slope=0.2,
         dropout=0.0,
         share_att=False,
-        has_omega=True,
-        omega_init=1.0,
         **kwargs,
     ):
         super().__init__(node_dim=0, aggr="add", **kwargs)
@@ -84,31 +96,31 @@ class GATEConv(MessagePassing):
         self.negative_slope = negative_slope
         self.dropout = dropout
         self.share_att = share_att
-        self.has_omega = has_omega
-        self.omega_init = omega_init
 
         h, c = heads, out_channels
-        self.lin_l = Linear(in_channels, h * c)  # query / target transform
-        self.lin_r = Linear(in_channels, h * c)  # key / source transform
-        self.lin_s = Linear(in_channels, h * c)  # self-loop value transform
-        self.att = Parameter(torch.empty(1, h, c))  # neighbour attention
+        self.lin_l = Linear(in_channels, h * c)  # V: target transform
+        self.lin_r = Linear(in_channels, h * c)  # U: source transform & value
+        self.att = Parameter(torch.empty(1, h, c))  # a_s (neighbours)
         self.att2 = (
             self.att if share_att else Parameter(torch.empty(1, h, c))
-        )  # self-loop attention
-        if has_omega:
-            self.omega = Parameter(torch.empty(h * c))
+        )  # a_t (self-loops)
         self.reset_parameters()
 
     def reset_parameters(self):
-        """Reset all learnable parameters."""
-        self.lin_l.reset_parameters()
-        self.lin_r.reset_parameters()
-        self.lin_s.reset_parameters()
-        torch.nn.init.xavier_uniform_(self.att)
+        """Reset parameters following the paper's initialization scheme.
+
+        Weight matrices use random orthogonal initialization; attention
+        vectors and biases start at zero (zero ``a`` gives no initial
+        inductive bias, Thm. 4.3).
+        """
+        torch.nn.init.orthogonal_(self.lin_l.weight)
+        torch.nn.init.orthogonal_(self.lin_r.weight)
+        if self.lin_l.bias is not None:
+            torch.nn.init.zeros_(self.lin_l.bias)
+            torch.nn.init.zeros_(self.lin_r.bias)
+        torch.nn.init.zeros_(self.att)
         if not self.share_att:
-            torch.nn.init.xavier_uniform_(self.att2)
-        if self.has_omega:
-            torch.nn.init.constant_(self.omega, self.omega_init)
+            torch.nn.init.zeros_(self.att2)
 
     def forward(self, x, edge_index):
         """Compute one round of GATE attention.
@@ -130,29 +142,24 @@ class GATEConv(MessagePassing):
         h, c = self.heads, self.out_channels
         x_l = self.lin_l(x).view(-1, h, c)
         x_r = self.lin_r(x).view(-1, h, c)
-        x_s = self.lin_s(x).view(-1, h, c)
 
         edge_index, _ = remove_self_loops(edge_index)
         edge_index, _ = add_self_loops(edge_index, num_nodes=x.size(0))
 
-        out = self.propagate(
-            edge_index, x_l=x_l, x_r=x_r, x_s=x_s, ei=edge_index
-        )
+        out = self.propagate(edge_index, x_l=x_l, x_r=x_r, ei=edge_index)
         return out.reshape(-1, h * c) if self.concat else out.mean(dim=1)
 
-    def message(self, x_l_i, x_r_j, x_s_j, ei, index, ptr, size_i):
-        """Build attention-weighted messages with the self/neighbour split.
+    def message(self, x_l_i, x_r_j, ei, index, ptr, size_i):
+        """Build attention-weighted messages (Eq. 4 logit, Eq. 1 value).
 
         Parameters
         ----------
         x_l_i : torch.Tensor
-            Target-node query features per edge.
+            Target-node transform :math:`V h_v` per edge.
         x_r_j : torch.Tensor
-            Source-node key/value features per edge.
-        x_s_j : torch.Tensor
-            Source-node self-value features per edge (used on self-loops).
+            Source-node transform :math:`U h_u` per edge (also the value).
         ei : torch.Tensor
-            Edge index (to identify self-loops).
+            Edge index, used to flag self-loops (:math:`u = v`).
         index : torch.Tensor
             Target index per edge, for softmax normalization.
         ptr : torch.Tensor
@@ -165,27 +172,17 @@ class GATEConv(MessagePassing):
         torch.Tensor
             Messages of shape ``(num_edges, heads, out_channels)``.
         """
-        x = F.leaky_relu(x_l_i + x_r_j, self.negative_slope)
-        self_mask = (ei[0] == ei[1]).to(x.dtype).unsqueeze(-1)
+        # phi(U h_u + V h_v), then the self/neighbour attention split.
+        pre = F.leaky_relu(x_l_i + x_r_j, self.negative_slope)
+        self_mask = (ei[0] == ei[1]).to(pre.dtype).unsqueeze(-1)
         nbr_mask = 1.0 - self_mask
-
-        alpha = (x * self.att).sum(-1) * nbr_mask + (x * self.att2).sum(
-            -1
-        ) * self_mask
+        alpha = (pre * self.att).sum(-1) * nbr_mask + (
+            pre * self.att2
+        ).sum(-1) * self_mask
         alpha = softmax(alpha, index, ptr, size_i)
         alpha = F.dropout(alpha, p=self.dropout, training=self.training)
-
-        # Neighbours contribute their source value; self-loops contribute
-        # the dedicated self transform.
-        value = x_r_j * nbr_mask.unsqueeze(-1) + x_s_j * self_mask.unsqueeze(
-            -1
-        )
-        if self.has_omega:
-            omega = self.omega.view(self.heads, self.out_channels)
-            sm = self_mask.unsqueeze(-1)
-            a = alpha.unsqueeze(-1)
-            return value * (sm - omega * (sm - a))
-        return value * alpha.unsqueeze(-1)
+        # Value is U h_u for every edge (self-loops use U h_v with u = v).
+        return x_r_j * alpha.unsqueeze(-1)
 
     def __repr__(self):
         """Return a string representation of the layer."""
@@ -198,16 +195,18 @@ class GATEConv(MessagePassing):
 class GATE(torch.nn.Module):
     r"""Stacked GATE backbone.
 
-    Stacks :class:`GATEConv` layers with ELU activations and dropout,
-    returning node embeddings of dimension ``hidden_channels``; the
-    TopoBench readout produces the task logits.
+    Stacks :class:`GATEConv` layers with a homogeneous activation
+    (LeakyReLU, consistent with the paper's :math:`\phi`) and dropout
+    between layers, returning node embeddings of dimension
+    ``hidden_channels``; the TopoBench readout produces the task logits.
 
     Parameters
     ----------
     in_channels : int
         Number of input features.
     hidden_channels : int
-        Hidden width; also the returned embedding dimension.
+        Hidden width; also the returned embedding dimension. Must be
+        divisible by ``heads``.
     num_layers : int, optional
         Number of GATE layers (default: 2).
     heads : int, optional
@@ -215,10 +214,8 @@ class GATE(torch.nn.Module):
     dropout : float, optional
         Dropout rate between layers (default: 0.0).
     share_att : bool, optional
-        Whether self/neighbour edges share an attention vector
+        Whether self/neighbour edges share one attention vector
         (default: False).
-    has_omega : bool, optional
-        Whether to use the learned self/neighbour gate (default: True).
     **kwargs
         Additional arguments (ignored), kept for config compatibility.
     """
@@ -231,11 +228,11 @@ class GATE(torch.nn.Module):
         heads=1,
         dropout=0.0,
         share_att=False,
-        has_omega=True,
         **kwargs,
     ):
         super().__init__()
         self.dropout = dropout
+        self.negative_slope = 0.2
         self.out_channels = hidden_channels
         self.convs = torch.nn.ModuleList()
         for layer in range(num_layers):
@@ -248,7 +245,6 @@ class GATE(torch.nn.Module):
                     concat=True,
                     dropout=dropout,
                     share_att=share_att,
-                    has_omega=has_omega,
                 )
             )
 
@@ -279,6 +275,6 @@ class GATE(torch.nn.Module):
         for i, conv in enumerate(self.convs):
             x = conv(x, edge_index)
             if i < len(self.convs) - 1:
-                x = F.elu(x)
+                x = F.leaky_relu(x, self.negative_slope)
                 x = F.dropout(x, p=self.dropout, training=self.training)
         return x

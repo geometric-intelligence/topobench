@@ -20,7 +20,6 @@ backbone:
   heads: 4
   dropout: 0.5
   share_att: false
-  has_omega: true
 
 backbone_wrapper:
   _target_: topobench.nn.wrappers.GNNWrapper
