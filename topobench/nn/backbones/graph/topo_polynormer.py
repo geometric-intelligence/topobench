@@ -1,40 +1,49 @@
-r"""TopoPolynormer: Polynormer with a topological substructure encoding.
+r"""TopoPolynormer: Polynormer with a random-walk structural encoding.
 
 This backbone augments the Polynormer graph transformer ([1]_) with a small
-per-node **structural / substructure encoding** that gives a message-passing
-model the one thing it provably cannot compute on its own.
+per-node **structural encoding** that gives a message-passing model access to the
+local higher-order structure it is otherwise blind to.
 
 **Why.** Standard message passing is bounded by the 1-Weisfeiler-Leman test,
 which *cannot count triangles* (or any non-star substructure) — see Chen et al.
 ([2]_). Intuitively, a message that only travels along edges can never reveal
 whether *two of a node's neighbours are themselves connected* — i.e. whether the
-node sits on a **triangle** (a 2-simplex). Adding substructure counts as input
-features provably lifts a model beyond 1-WL (Graph Substructure Networks, [3]_).
-This is the minimal, literal bridge from a graph (1-simplices/edges) to topology
-(2-simplices/triangles) — the theme of the challenge.
+node sits on a **triangle** (a 2-simplex). Giving the model structural features
+that encode this local cohesion provably lifts it beyond 1-WL (Graph
+Substructure Networks, [3]_). A triangle is a 2-simplex, so this is the minimal,
+literal bridge from a graph (1-simplices / edges) to topology (2-simplices) — the
+theme of the challenge.
 
-**What.** For every node we compute, from ``edge_index`` alone, a compact
-"local structural fingerprint":
+**What (default).** For every node we compute, from ``edge_index`` alone, a
+*scale-free* "structural fingerprint" — none of whose channels is the raw answer
+to any task:
 
-* ``log1p(degree)`` — the node's connectivity (GraphUniverse graphs come from a
+* ``log1p(degree)`` — connectivity (GraphUniverse graphs come from a
   *degree-corrected* SBM, so degree is part of the generative regime);
-* the **triangle count** ``t_i`` (raw, lightly scaled, and ``log1p``) — its
-  participation in 2-simplices, the 1-WL blind spot;
-* the **local clustering coefficient** ``c_i ∈ [0, 1]`` — a *scale-free* measure
-  of neighbourhood cohesion that transfers across degree/density regimes;
-* **random-walk return probabilities** at steps :math:`k = 2, 3, 4` — a
-  multi-scale density signal that stays informative in sparse regimes where
-  triangles vanish (the ``k = 3`` return is the random-walk-normalised triangle
-  count; ``k = 4`` reflects 4-cycles).
+* the **local clustering coefficient** ``c_i ∈ [0, 1]`` — the *fraction* of a
+  node's neighbour-pairs that are linked (a normalised measure of cohesion);
+* **random-walk return probabilities** at steps :math:`k = 2, 3, 4` — drop a
+  token on the node and ask how likely a random walk is to be *back home* after
+  exactly ``k`` steps. A 3-step return is only possible around a **triangle**, a
+  4-step return reflects 4-cycles, so these are a multi-scale, degree-normalised
+  fingerprint of the local cycle structure (this is GraphGPS's RWSE, [4]_).
 
-These are injected *inside* the backbone (after the input projection), which
-deliberately bypasses the feature encoder's per-graph ``GraphNorm`` — otherwise
-the absolute triangle-count scale, which the graph-level triangle-counting task
-needs, would be standardised away.
+These signals are degree-normalised, so their *meaning* is stable across the
+GraphUniverse degree/density grid, and — crucially — their sum is **not** the
+graph-level triangle-counting target: the model must *learn* to estimate higher-
+order structure from them rather than being handed it.
 
-The encoding is **batch-aware**: it is computed per graph segment (using the
-``batch`` vector) so substructure counts never mix across the disjoint graphs of
-a mini-batch.
+**Optional ablation.** Setting ``use_triangle_count=True`` additionally injects
+the raw per-node triangle count (``t_i`` and ``log1p(t_i)``). Because the
+triangle-counting label is ``Σ_i t_i / 3`` and the readout sum-pools, this makes
+that task an almost-linear readout — useful as an *expressivity demonstration*
+of what perfect 2-simplex information buys, but it trivialises the counting task,
+so it is **off by default**.
+
+The structural encoding is injected *inside* the backbone (after the input
+projection), which bypasses the feature encoder's per-graph ``GraphNorm``, and is
+**batch-aware**: it is computed per graph segment (using the ``batch`` vector) so
+structure never mixes across the disjoint graphs of a mini-batch.
 
 References
 ----------
@@ -45,6 +54,8 @@ References
 .. [3] Bouritsas, Frasca, Zafeiriou, Bronstein. "Improving Graph Neural Network
    Expressivity via Subgraph Isomorphism Counting" (Graph Substructure
    Networks). https://arxiv.org/abs/2006.09252
+.. [4] Rampášek et al. "Recipe for a General, Powerful, Scalable Graph
+   Transformer" (GraphGPS / RWSE). NeurIPS 2022. https://arxiv.org/abs/2205.12454
 """
 
 import torch
@@ -53,10 +64,30 @@ from torch_geometric.nn import GATConv
 from torch_geometric.utils import scatter
 
 DEFAULT_RW_STEPS: tuple[int, ...] = (2, 3, 4)
-# Number of fixed structural channels: log-degree, scaled triangles,
-# log triangles, clustering coefficient.
-NUM_BASE_STRUCT_CHANNELS = 4
 TRIANGLE_SCALE = 5.0
+
+
+def num_struct_channels(
+    rw_steps: tuple[int, ...] = DEFAULT_RW_STEPS,
+    use_triangle_count: bool = False,
+) -> int:
+    """Return the number of channels produced by :func:`structural_encoding`.
+
+    Parameters
+    ----------
+    rw_steps : tuple of int, optional
+        Random-walk return-probability steps included in the encoding.
+    use_triangle_count : bool, optional
+        Whether the two raw triangle-count channels are included.
+
+    Returns
+    -------
+    int
+        The number of structural channels: ``log1p(degree)`` and clustering
+        coefficient always, plus two triangle channels if ``use_triangle_count``,
+        plus one per random-walk step.
+    """
+    return 2 + (2 if use_triangle_count else 0) + len(rw_steps)
 
 
 @torch.no_grad()
@@ -65,20 +96,22 @@ def structural_encoding(
     num_nodes: int,
     batch: torch.Tensor | None = None,
     rw_steps: tuple[int, ...] = DEFAULT_RW_STEPS,
+    use_triangle_count: bool = False,
 ) -> torch.Tensor:
-    r"""Compute the per-node topological substructure encoding.
+    r"""Compute the per-node random-walk structural encoding.
 
-    For each node the following channels are returned, in order:
-    ``[log1p(degree), triangles / TRIANGLE_SCALE, log1p(triangles),
-    clustering_coefficient, rw_return(k) for k in rw_steps]``.
+    For each node the channels are, in order: ``log1p(degree)``; (if
+    ``use_triangle_count``) ``triangles / TRIANGLE_SCALE`` and
+    ``log1p(triangles)``; the local clustering coefficient; then the random-walk
+    return probability for each step in ``rw_steps``.
 
     The triangle count of node :math:`i` is
-    :math:`t_i = \tfrac{1}{2}\sum_j A_{ij} (A^2)_{ij}`, i.e. half the number of
-    edges among its neighbours; the clustering coefficient is
-    :math:`c_i = 2 t_i / (d_i (d_i - 1))`; and the step-:math:`k` return
-    probability is :math:`(P^k)_{ii}` for the row-stochastic random walk
-    :math:`P = D^{-1} A`. Everything is computed per graph segment so counts do
-    not leak across the disjoint graphs of a batch.
+    :math:`t_i = \tfrac{1}{2}\sum_j A_{ij} (A^2)_{ij}` (half the number of edges
+    among its neighbours); the clustering coefficient is
+    :math:`c_i = 2 t_i / (d_i (d_i - 1)) \in [0, 1]`; and the step-:math:`k`
+    return probability is :math:`(P^k)_{ii}` for the row-stochastic random walk
+    :math:`P = D^{-1} A`. Everything is computed per graph segment so structure
+    does not leak across the disjoint graphs of a batch.
 
     Parameters
     ----------
@@ -91,34 +124,36 @@ def structural_encoding(
         treated as a single graph.
     rw_steps : tuple of int, optional
         Random-walk return-probability steps to include. Default ``(2, 3, 4)``.
+    use_triangle_count : bool, optional
+        If ``True``, also include the raw per-node triangle count (and its
+        ``log1p``). Off by default. Default ``False``.
 
     Returns
     -------
     torch.Tensor
         Structural features of shape
-        ``[num_nodes, NUM_BASE_STRUCT_CHANNELS + len(rw_steps)]``.
+        ``[num_nodes, num_struct_channels(rw_steps, use_triangle_count)]``.
     """
     device = edge_index.device
     if batch is None:
         batch = torch.zeros(num_nodes, dtype=torch.long, device=device)
 
-    n_channels = NUM_BASE_STRUCT_CHANNELS + len(rw_steps)
+    n_channels = num_struct_channels(rw_steps, use_triangle_count)
     feats = torch.zeros(num_nodes, n_channels, device=device)
     if num_nodes == 0:
         return feats
 
     num_graphs = int(batch.max().item()) + 1
-    node_mask_all = batch
     max_k = max(rw_steps) if rw_steps else 0
 
     for g in range(num_graphs):
-        idx = (node_mask_all == g).nonzero(as_tuple=False).view(-1)
+        idx = (batch == g).nonzero(as_tuple=False).view(-1)
         ng = int(idx.numel())
         if ng == 0:
             continue
 
         # Restrict edges to this graph and remap node ids to a local 0..ng-1.
-        node_in_g = node_mask_all == g
+        node_in_g = batch == g
         edge_in_g = node_in_g[edge_index[0]] & node_in_g[edge_index[1]]
         e = edge_index[:, edge_in_g]
         remap = torch.full((num_nodes,), -1, dtype=torch.long, device=device)
@@ -137,12 +172,10 @@ def structural_encoding(
         denom = (deg * (deg - 1.0)).clamp(min=1.0)
         clustering = (2.0 * triangles / denom).clamp(0.0, 1.0)
 
-        channels = [
-            torch.log1p(deg),
-            triangles / TRIANGLE_SCALE,
-            torch.log1p(triangles),
-            clustering,
-        ]
+        channels = [torch.log1p(deg)]
+        if use_triangle_count:
+            channels += [triangles / TRIANGLE_SCALE, torch.log1p(triangles)]
+        channels.append(clustering)
 
         if max_k > 0:
             walk = adj * (1.0 / deg.clamp(min=1.0)).unsqueeze(1)  # P = D^-1 A
@@ -312,7 +345,7 @@ class _GlobalLinearAttention(torch.nn.Module):
 
 
 class TopoPolynormer(torch.nn.Module):
-    r"""Polynormer backbone augmented with a topological substructure encoding.
+    r"""Polynormer backbone augmented with a random-walk structural encoding.
 
     The architecture is the Polynormer local-to-global graph transformer ([1]_):
     ``local_layers`` equivariant local attention layers (a GAT message-passing
@@ -321,14 +354,19 @@ class TopoPolynormer(torch.nn.Module):
     :class:`_GlobalLinearAttention` global module. On top of this, a per-node
     structural fingerprint (see :func:`structural_encoding`) is projected and
     **added after the input projection** — inside the backbone, bypassing the
-    encoder's ``GraphNorm`` — giving the model topological "sight" of the
-    triangles/2-simplices that 1-WL message passing is blind to.
+    encoder's ``GraphNorm`` — giving the model degree-normalised "sight" of the
+    local cycle structure (clustering and random-walk returns) that 1-WL message
+    passing is blind to. The raw triangle count is available as an optional
+    ablation (``use_triangle_count``) but is off by default, since injecting it
+    would trivialise the graph-level triangle-counting task.
 
     Differences from the reference Polynormer (documented for the correctness
-    criterion): the global attention is batch-aware (per graph segment); the
-    task heads are replaced by a single output projection to node embeddings
-    (the TopoBench readout produces the final logits); and local+global modules
-    are trained jointly (``global_layers = 0`` recovers a local-only variant).
+    criterion): the global attention and the structural encoding are batch-aware
+    (per graph segment); the task heads are replaced by a single output
+    projection to node embeddings (the TopoBench readout produces the final
+    logits); and local+global modules are trained jointly (``global_layers = 0``
+    recovers a local-only variant; ``use_struct = False`` recovers plain
+    Polynormer).
 
     Parameters
     ----------
@@ -358,9 +396,12 @@ class TopoPolynormer(torch.nn.Module):
     qk_shared : bool, optional
         Whether the global module shares query/key projections. Default True.
     use_struct : bool, optional
-        Whether to inject the topological structural encoding. Default True.
+        Whether to inject the structural encoding. Default True.
     rw_steps : tuple of int, optional
         Random-walk return-probability steps in the encoding. Default (2, 3, 4).
+    use_triangle_count : bool, optional
+        Whether to additionally inject the raw triangle count (ablation only).
+        Default False.
 
     References
     ----------
@@ -384,6 +425,7 @@ class TopoPolynormer(torch.nn.Module):
         qk_shared: bool = True,
         use_struct: bool = True,
         rw_steps: tuple[int, ...] = DEFAULT_RW_STEPS,
+        use_triangle_count: bool = False,
     ):
         super().__init__()
 
@@ -400,7 +442,10 @@ class TopoPolynormer(torch.nn.Module):
         self.use_global = global_layers > 0
         self.use_struct = use_struct
         self.rw_steps = tuple(rw_steps)
-        self.struct_dim = NUM_BASE_STRUCT_CHANNELS + len(self.rw_steps)
+        self.use_triangle_count = use_triangle_count
+        self.struct_dim = num_struct_channels(
+            self.rw_steps, use_triangle_count
+        )
 
         width = heads * hidden_channels
 
@@ -516,7 +561,11 @@ class TopoPolynormer(torch.nn.Module):
         x = self.lin_in(x)
         if self.use_struct:
             struct = structural_encoding(
-                edge_index, x.size(0), batch, self.rw_steps
+                edge_index,
+                x.size(0),
+                batch,
+                self.rw_steps,
+                self.use_triangle_count,
             )
             x = x + self.struct_in(struct)
         x = F.dropout(x, p=self.dropout, training=self.training)

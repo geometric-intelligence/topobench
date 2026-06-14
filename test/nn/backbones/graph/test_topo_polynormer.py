@@ -1,7 +1,7 @@
 """Unit tests for the TopoPolynormer graph backbone.
 
-Covers the topological substructure encoding (triangle counts, clustering,
-random-walk return probabilities) and the full TopoPolynormer backbone,
+Covers the random-walk structural encoding (clustering, return probabilities,
+and the optional raw triangle count) and the full TopoPolynormer backbone,
 including batch-aware behaviour (arXiv:2403.01232 + GSN arXiv:2006.09252).
 """
 
@@ -12,10 +12,10 @@ from torch_geometric.data import Batch, Data
 
 from topobench.nn.backbones.graph.topo_polynormer import (
     DEFAULT_RW_STEPS,
-    NUM_BASE_STRUCT_CHANNELS,
     TRIANGLE_SCALE,
     TopoPolynormer,
     _GlobalLinearAttention,
+    num_struct_channels,
     structural_encoding,
 )
 
@@ -46,19 +46,27 @@ def _rand_graph(num_nodes, seed, feat_dim=16):
 
 
 class TestStructuralEncoding:
-    """Tests for the topological substructure encoding."""
+    """Tests for the random-walk structural encoding."""
 
-    def test_channel_count(self):
-        """The encoding has the documented number of channels."""
+    def test_channel_count_default_and_with_count(self):
+        """Channel counts match ``num_struct_channels`` in both modes."""
+        assert num_struct_channels(DEFAULT_RW_STEPS, False) == 5
+        assert num_struct_channels(DEFAULT_RW_STEPS, True) == 7
         g = _rand_graph(15, 1)
-        s = structural_encoding(g.edge_index, 15, None, DEFAULT_RW_STEPS)
-        assert s.shape == (15, NUM_BASE_STRUCT_CHANNELS + len(DEFAULT_RW_STEPS))
+        s0 = structural_encoding(g.edge_index, 15, None)
+        s1 = structural_encoding(
+            g.edge_index, 15, None, use_triangle_count=True
+        )
+        assert s0.shape == (15, 5)
+        assert s1.shape == (15, 7)
 
     def test_triangle_channel_matches_networkx(self):
-        """The triangle channel equals the per-node triangle count."""
+        """The optional triangle channel equals the true triangle count."""
         g = _rand_graph(25, 2)
-        s = structural_encoding(g.edge_index, 25, None, DEFAULT_RW_STEPS)
-        tri_model = s[:, 1] * TRIANGLE_SCALE
+        s = structural_encoding(
+            g.edge_index, 25, None, use_triangle_count=True
+        )
+        tri_model = s[:, 1] * TRIANGLE_SCALE  # channel 1 is triangles/scale
         G = nx.Graph()
         G.add_nodes_from(range(25))
         G.add_edges_from(g.edge_index.t().tolist())
@@ -70,11 +78,13 @@ class TestStructuralEncoding:
     def test_sum_equals_three_times_total_triangles(self):
         """Sum of per-node triangle counts equals 3x total triangles.
 
-        This is the property that makes graph-level triangle counting a
-        near-linear readout under sum pooling.
+        This is why injecting the raw count trivialises graph-level triangle
+        counting under sum pooling — hence it is off by default.
         """
         g = _rand_graph(30, 3)
-        s = structural_encoding(g.edge_index, 30, None, DEFAULT_RW_STEPS)
+        s = structural_encoding(
+            g.edge_index, 30, None, use_triangle_count=True
+        )
         total_model = (s[:, 1] * TRIANGLE_SCALE).sum().item()
         G = nx.Graph()
         G.add_nodes_from(range(30))
@@ -83,20 +93,20 @@ class TestStructuralEncoding:
         assert abs(total_model - 3 * total_nx) < 1e-3
 
     def test_clustering_in_unit_interval(self):
-        """The clustering-coefficient channel lies in [0, 1]."""
+        """The clustering channel (index 1 in default mode) lies in [0, 1]."""
         g = _rand_graph(20, 4)
-        s = structural_encoding(g.edge_index, 20, None, DEFAULT_RW_STEPS)
-        c = s[:, 3]
+        s = structural_encoding(g.edge_index, 20, None)
+        c = s[:, 1]
         assert (c >= 0).all() and (c <= 1).all()
 
     def test_batch_isolation(self):
         """Per-graph features are unchanged by batching with another graph."""
         g_a = _rand_graph(18, 5)
         g_b = _rand_graph(11, 6)
-        s_a = structural_encoding(g_a.edge_index, 18, None, DEFAULT_RW_STEPS)
+        s_a = structural_encoding(g_a.edge_index, 18, None)
         batch = Batch.from_data_list([g_a, g_b])
         s_batched = structural_encoding(
-            batch.edge_index, batch.num_nodes, batch.batch, DEFAULT_RW_STEPS
+            batch.edge_index, batch.num_nodes, batch.batch
         )
         assert torch.allclose(s_a, s_batched[:18], atol=1e-5)
 
@@ -104,18 +114,18 @@ class TestStructuralEncoding:
         """With empty rw_steps only the base channels are returned."""
         g = _rand_graph(12, 7)
         s = structural_encoding(g.edge_index, 12, None, rw_steps=())
-        assert s.shape == (12, NUM_BASE_STRUCT_CHANNELS)
+        assert s.shape == (12, num_struct_channels((), False))
 
     def test_empty_graph(self):
         """Zero nodes returns an empty feature tensor of correct width."""
         ei = torch.empty((2, 0), dtype=torch.long)
-        s = structural_encoding(ei, 0, None, DEFAULT_RW_STEPS)
-        assert s.shape == (0, NUM_BASE_STRUCT_CHANNELS + len(DEFAULT_RW_STEPS))
+        s = structural_encoding(ei, 0, None)
+        assert s.shape == (0, num_struct_channels(DEFAULT_RW_STEPS, False))
 
     def test_graph_without_edges(self):
         """A graph with no edges yields all-zero structural features."""
         ei = torch.empty((2, 0), dtype=torch.long)
-        s = structural_encoding(ei, 5, None, DEFAULT_RW_STEPS)
+        s = structural_encoding(ei, 5, None)
         assert torch.count_nonzero(s) == 0
 
     def test_missing_batch_id(self):
@@ -127,8 +137,10 @@ class TestStructuralEncoding:
             [[0, 1, 1, 2, 0, 2, 3, 4], [1, 0, 2, 1, 2, 0, 4, 3]],
             dtype=torch.long,
         )
-        s = structural_encoding(edge_index, 5, batch, DEFAULT_RW_STEPS)
-        assert s.shape == (5, NUM_BASE_STRUCT_CHANNELS + len(DEFAULT_RW_STEPS))
+        s = structural_encoding(
+            edge_index, 5, batch, use_triangle_count=True
+        )
+        assert s.shape == (5, num_struct_channels(DEFAULT_RW_STEPS, True))
         # the triangle 0-1-2 gives each node one triangle; graph 2 (an edge) none
         assert s[1, 1] * TRIANGLE_SCALE == pytest.approx(1.0)
         assert s[3, 1] * TRIANGLE_SCALE == pytest.approx(0.0)
@@ -197,12 +209,17 @@ class TestTopoPolynormer:
         model = self._model()
         assert model.use_global is True
         assert model.use_struct is True
+        assert model.use_triangle_count is False
         assert model.struct_in is not None
-        assert model.struct_dim == NUM_BASE_STRUCT_CHANNELS + len(
-            DEFAULT_RW_STEPS
-        )
+        assert model.struct_dim == num_struct_channels(DEFAULT_RW_STEPS, False)
         assert model.global_attn is not None
         assert model.pre_lns is None
+
+    def test_initialization_with_triangle_count(self):
+        """The ablation flag widens the structural projection."""
+        model = self._model(use_triangle_count=True)
+        assert model.use_triangle_count is True
+        assert model.struct_dim == num_struct_channels(DEFAULT_RW_STEPS, True)
 
     def test_initialization_no_struct(self):
         """Disabling the encoding drops the structural projection."""
@@ -240,6 +257,7 @@ class TestTopoPolynormer:
         "kwargs",
         [
             dict(use_struct=False),
+            dict(use_triangle_count=True),
             dict(global_layers=0),
             dict(pre_ln=True),
             dict(beta=0.5),
@@ -335,7 +353,17 @@ class TestTopoPolynormer:
         assert model.struct_in.weight.grad is not None
         assert model.betas.grad is not None
 
-    @pytest.mark.parametrize("kwargs", [dict(), dict(use_struct=False), dict(global_layers=0), dict(pre_ln=True), dict(beta=0.5)])
+    @pytest.mark.parametrize(
+        "kwargs",
+        [
+            dict(),
+            dict(use_struct=False),
+            dict(use_triangle_count=True),
+            dict(global_layers=0),
+            dict(pre_ln=True),
+            dict(beta=0.5),
+        ],
+    )
     def test_reset_parameters(self, kwargs):
         """``reset_parameters`` runs across configuration branches.
 
