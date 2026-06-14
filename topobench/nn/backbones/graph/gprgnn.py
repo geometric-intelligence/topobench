@@ -27,10 +27,14 @@ class GPRProp(MessagePassing):
     hidden features :math:`H`, it computes
     :math:`Z = \sum_{k=0}^{K} \gamma_k \tilde{A}^{k} H`, where
     :math:`\tilde{A} = \tilde{D}^{-1/2}(A + I)\tilde{D}^{-1/2}` is the
-    symmetrically normalized adjacency with self-loops and the
-    coefficients :math:`\gamma_k` are learnable (Eq. 5-6 in the paper).
-    Adapting :math:`\gamma_k` lets the layer realise low- or high-pass
-    filters, which is what makes GPR-GNN robust to heterophily.
+    symmetrically normalized adjacency with self-loops (the
+    :math:`Z` and :math:`\tilde{A}_{\mathrm{sym}}` propagation of
+    Eq. (1), Section 3) and the coefficients :math:`\gamma_k` are
+    learnable. Adapting :math:`\gamma_k` lets the layer realise low- or
+    high-pass filters, which is what makes GPR-GNN robust to
+    heterophily. The :math:`\gamma_k` initialization schemes
+    (``"PPR"``, ``"SGC"``, ...) follow the paper's experimental setup
+    (Section 5) and the authors' reference implementation.
 
     Parameters
     ----------
