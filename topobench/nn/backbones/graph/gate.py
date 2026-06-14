@@ -231,6 +231,13 @@ class GATE(torch.nn.Module):
         **kwargs,
     ):
         super().__init__()
+        if hidden_channels % heads != 0:
+            raise ValueError(
+                f"hidden_channels ({hidden_channels}) must be divisible "
+                f"by heads ({heads}); otherwise the concatenated output "
+                f"width drifts from hidden_channels and breaks the "
+                f"wrapper's residual."
+            )
         self.dropout = dropout
         self.negative_slope = 0.2
         self.out_channels = hidden_channels

@@ -164,6 +164,17 @@ def test_gate_share_att_ties_vectors():
     assert untied.att2 is not untied.att
 
 
+def test_gate_rejects_indivisible_hidden():
+    """hidden_channels not divisible by heads raises at construction.
+
+    Guards the invariant that concatenated head outputs must equal
+    ``hidden_channels``; otherwise the width silently drifts and breaks
+    the wrapper's residual downstream.
+    """
+    with pytest.raises(ValueError, match="divisible"):
+        GATE(8, 10, num_layers=1, heads=4)
+
+
 def test_gate_wrapper_forward(random_graph_input):
     """GATE returns node embeddings of the hidden dimension via the wrapper.
 
