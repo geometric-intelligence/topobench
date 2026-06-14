@@ -117,6 +117,33 @@ def test_gprprop_sgc_init_is_single_hop():
     torch.testing.assert_close(prop.temp.detach(), expected)
 
 
+def test_gprprop_ppr_reduces_to_appnp(random_graph_input):
+    """With PPR init, GPRProp matches PyG's official APPNP bit-for-bit.
+
+    APPNP's K-step personalized-PageRank propagation expands to
+    :math:`\\sum_k \\alpha(1-\\alpha)^k \\tilde{A}^k H` with the final hop
+    weighted :math:`(1-\\alpha)^K` -- exactly GPRProp's PPR-initialized
+    coefficients before any training. Agreement with PyG's APPNP
+    validates the gcn-normalization, hop recursion, and aggregation
+    against a trusted external reference (the GPR analog of GATE's
+    GATv2 reduction test).
+
+    Parameters
+    ----------
+    random_graph_input : tuple
+        Fixture providing random node features and edge indices.
+    """
+    from torch_geometric.nn import APPNP
+
+    x, _, _, edges_1, _ = random_graph_input
+    K, alpha = 10, 0.1
+    prop = GPRProp(K=K, alpha=alpha, init="PPR")
+    ref = APPNP(K=K, alpha=alpha, dropout=0.0)
+    torch.testing.assert_close(
+        prop(x, edges_1), ref(x, edges_1), rtol=1e-5, atol=1e-5
+    )
+
+
 def test_gprgnn_permutation_equivariance(random_graph_input):
     """Relabeling the nodes permutes the outputs identically.
 
