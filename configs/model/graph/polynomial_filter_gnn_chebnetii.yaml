@@ -1,0 +1,52 @@
+# PolynomialFilterGNN with the ChebNetII basis.
+# ChebNetII: Chebyshev recurrence + interpolation reparameterization of theta.
+#
+# Standalone evaluation config: select via the challenge notebook with
+#   MODEL_CONFIG = "graph/polynomial_filter_gnn_chebnetii"
+# This file mirrors polynomial_filter_gnn.yaml; only the `basis` block and
+# `model_name` differ.
+
+_target_: topobench.model.TBModel
+
+model_name: polynomial_filter_gnn_chebnetii
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.PolynomialFilterGNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  K: 8                       # polynomial degree
+  dropout: 0.1
+  laplacian_norm: sym        # 'sym' (Liao App. B default) | 'rw' | 'none'
+  pre_mlp_layers: 1
+  post_mlp_layers: 1
+  basis:
+    _target_: topobench.nn.backbones.graph.poly_filter.bases.ChebNetII
+    K: ${model.backbone.K}        # must match backbone K (interpolation matrix size)
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut    # Options: NoReadOut, PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
