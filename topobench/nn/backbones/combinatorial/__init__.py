@@ -1,7 +1,7 @@
 """Combinatorial backbones with automated exports."""
 
 import inspect
-from importlib import util
+from importlib import import_module
 from pathlib import Path
 from typing import Any
 
@@ -50,20 +50,18 @@ class BackboneExportsManager:
             if file_path.stem == "__init__":
                 continue
 
-            module_name = f"{Path(package_path).stem}.{file_path.stem}"
-            spec = util.spec_from_file_location(module_name, file_path)
-            if spec and spec.loader:
-                module = util.module_from_spec(spec)
-                spec.loader.exec_module(module)
-
-                new_backbones = {
-                    name: obj
-                    for name, obj in inspect.getmembers(module)
-                    if inspect.isclass(obj)
-                    and obj.__module__ == module.__name__
-                    and not name.startswith("_")
-                }
-                backbones.update(new_backbones)
+            # Import under the package name so classes keep their identity,
+            # and export only a module's ``__all__`` when it declares one.
+            module = import_module(f"{__name__}.{file_path.stem}")
+            new_backbones = {
+                name: obj
+                for name, obj in inspect.getmembers(module)
+                if inspect.isclass(obj)
+                and obj.__module__ == module.__name__
+                and not name.startswith("_")
+                and name in getattr(module, "__all__", [name])
+            }
+            backbones.update(new_backbones)
         return backbones
 
 

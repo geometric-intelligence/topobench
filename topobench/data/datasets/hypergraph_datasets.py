@@ -110,7 +110,7 @@ class HypergraphDataset(InMemoryDataset):
         list[str]
             List of raw file names.
         """
-        return []  # ["county_graph.csv", f"county_stats_{self.year}.csv"]
+        return [f"{self.name}.content", f"{self.name}.edges"]
 
     @property
     def processed_file_names(self) -> str:

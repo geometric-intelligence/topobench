@@ -1,0 +1,7 @@
+defaults:
+  - /model/combinatorial/trawl@_here_
+  - _self_
+model_domain: graph
+backbone:
+  max_rank: 0
+  num_neighborhoods: 1

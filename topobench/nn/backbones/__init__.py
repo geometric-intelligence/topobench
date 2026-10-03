@@ -1,7 +1,7 @@
 """Some models implemented for TopoBenchX with automated exports."""
 
 import inspect
-from importlib import util
+from importlib import import_module
 from pathlib import Path
 from typing import Any
 
@@ -52,20 +52,19 @@ class ModelExportsManager:
                     if file_path.stem == "__init__":
                         continue
 
-                    module_name = f"{subpackage.stem}.{file_path.stem}"
-                    spec = util.spec_from_file_location(module_name, file_path)
-                    if spec and spec.loader:
-                        module = util.module_from_spec(spec)
-                        spec.loader.exec_module(module)
-
-                        new_models = {
-                            name: obj
-                            for name, obj in inspect.getmembers(module)
-                            if inspect.isclass(obj)
-                            and obj.__module__ == module.__name__
-                            and not name.startswith("_")
-                        }
-                        models.update(new_models)
+                    module_name = (
+                        f"{__name__}.{subpackage.stem}.{file_path.stem}"
+                    )
+                    module = import_module(module_name)
+                    new_models = {
+                        name: obj
+                        for name, obj in inspect.getmembers(module)
+                        if inspect.isclass(obj)
+                        and obj.__module__ == module.__name__
+                        and not name.startswith("_")
+                        and name in getattr(module, "__all__", [name])
+                    }
+                    models.update(new_models)
         return models
 
 

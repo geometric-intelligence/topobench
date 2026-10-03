@@ -1,0 +1,36 @@
+# @package _global_
+# ZINC regression recipe on base TRAWL.
+defaults:
+  - override /model: combinatorial/trawl
+  - override /dataset: graph/ZINC
+  - override /optimizer: trawl_cosine
+dataset:
+  parameters:
+    loss_type: mae
+  dataloader_params:
+    batch_size: 32
+    pin_memory: true
+model:
+  backbone:
+    architecture: mamba
+    depth: 4
+    pooling: mean
+    dropout: 0.2
+    walk_refresh: fixed
+    checkpoint_layers: true
+    walks:
+      k: 8
+  readout:
+    dropout: 0.2
+trainer:
+  max_epochs: 300
+  check_val_every_n_epoch: 1
+  gradient_clip_val: 1.0
+callbacks:
+  early_stopping:
+    patience: 40
+evaluator:
+  validate_args: false
+evaluation:
+  walk_views: 3
+tags: [trawl, recipe]

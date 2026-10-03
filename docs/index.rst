@@ -999,5 +999,6 @@ domains <https://arxiv.org/pdf/2402.02441>`__
    tdl-challenge-2026/index
    leaderboard/index
    tdl-challenge-2025/index
+   trawl
    api/index
    contributing/index

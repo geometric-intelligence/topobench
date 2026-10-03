@@ -1,0 +1,12 @@
+_target_: topobench.optimizer.TBOptimizer
+optimizer_id: Adam
+parameters:
+  lr: 0.001
+  weight_decay: 0.0001
+scheduler:
+  _target_: topobench.optimizer.schedulers.warmup_cosine
+  _partial_: true
+  epochs: ${trainer.max_epochs}
+  warmup_epochs: 5
+  start_factor: 0.01
+  eta_min: 0.000001

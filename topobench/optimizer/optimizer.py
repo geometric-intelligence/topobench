@@ -31,9 +31,14 @@ class TBOptimizer(AbstractOptimizer):
         )
 
         # CHANGED: Store the scheduler config so we can access keys like 'monitor' later
-        self.scheduler_config = scheduler
+        # A callable scheduler factory (e.g. a partial) carries no such keys.
+        self.scheduler_config = (
+            {} if callable(scheduler) or scheduler is None else scheduler
+        )
 
-        if scheduler is not None:
+        if callable(scheduler):
+            self.scheduler = scheduler
+        elif scheduler is not None:
             scheduler_id = scheduler.get("scheduler_id")
             scheduler_params = scheduler.get("scheduler_params")
             self.scheduler = functools.partial(
@@ -43,10 +48,29 @@ class TBOptimizer(AbstractOptimizer):
             self.scheduler = None
 
     def __repr__(self) -> str:
+        def name(factory):
+            """Return a readable name for an optimizer or scheduler factory.
+
+            Parameters
+            ----------
+            factory : Any
+                Callable, possibly a ``functools.partial``.
+
+            Returns
+            -------
+            str
+                Name of the wrapped callable or of its type.
+            """
+            # functools.partial exposes the wrapped callable as ``func``.
+            factory = getattr(factory, "func", factory)
+            return getattr(factory, "__name__", type(factory).__name__)
+
         if self.scheduler is not None:
-            return f"{self.__class__.__name__}(optimizer={self.optimizer.__name__}, scheduler={self.scheduler.__name__})"
+            return f"{self.__class__.__name__}(optimizer={name(self.optimizer)}, scheduler={name(self.scheduler)})"
         else:
-            return f"{self.__class__.__name__}(optimizer={self.optimizer.__name__})"
+            return (
+                f"{self.__class__.__name__}(optimizer={name(self.optimizer)})"
+            )
 
     def configure_optimizer(self, model_parameters) -> dict[str:Any]:
         """Configure the optimizer and scheduler.

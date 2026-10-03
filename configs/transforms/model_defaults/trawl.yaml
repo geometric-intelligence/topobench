@@ -1,0 +1,3 @@
+defaults:
+  - /transforms/liftings/graph2cell@lifting: cycle
+  - /transforms/data_manipulations@trawl: trawl
