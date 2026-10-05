@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "snapshots/proteins_peak224_richfeat_hybrid_learnable_gate/trawl_proteins.py": "63e171a1d3794f1ea236209d1837a79872381f98981fc984c3b554134f1108e2"
+  },
+  "torch": "2.5.1+cpu",
+  "seed": [
+    782
+  ],
+  "scope": "SISA block forward, gradient and Adam-step parity with the original implementation."
+}

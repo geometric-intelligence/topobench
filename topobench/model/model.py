@@ -8,7 +8,61 @@ from torch_geometric.data import Data
 from torchmetrics import MeanMetric
 
 
-class TBModel(LightningModule):
+class HostBatchTransferMixin:
+    """Move batches to the device without making the host wait.
+
+    Backbones listing ``host_fields`` receive CPU copies of those fields as
+    ``batch.trawl_host`` (read before the transfer), so host-side work such as
+    walk sampling never synchronizes with the device. Batch tensors are copied
+    with ``non_blocking``, which overlaps with compute for pinned memory.
+    """
+
+    def on_before_batch_transfer(self, batch, dataloader_idx):
+        """Attach host copies of the backbone's ``host_fields`` to the batch.
+
+        Parameters
+        ----------
+        batch : Any
+            The batch, still on the host.
+        dataloader_idx : int
+            Index of the dataloader that produced the batch.
+
+        Returns
+        -------
+        Any
+            The batch, with ``trawl_host`` set for ``Data`` batches.
+        """
+        backbone = getattr(self, "backbone", None)
+        fields = getattr(backbone, "host_fields", ())
+        if fields and isinstance(batch, Data):
+            batch.trawl_host = {
+                key: batch[key].numpy() for key in fields if key in batch
+            }
+        return batch
+
+    def transfer_batch_to_device(self, batch, device, dataloader_idx):
+        """Copy the batch to the device, using ``non_blocking`` for ``Data``.
+
+        Parameters
+        ----------
+        batch : Any
+            The batch to transfer.
+        device : torch.device
+            Target device.
+        dataloader_idx : int
+            Index of the dataloader that produced the batch.
+
+        Returns
+        -------
+        Any
+            The batch on ``device``.
+        """
+        if isinstance(batch, Data):
+            return batch.to(device, non_blocking=True)
+        return super().transfer_batch_to_device(batch, device, dataloader_idx)
+
+
+class TBModel(HostBatchTransferMixin, LightningModule):
     r"""A `LightningModule` to define a network.
 
     Parameters
@@ -27,6 +81,10 @@ class TBModel(LightningModule):
         The evaluator class (default: None).
     optimizer : Any, optional
         The optimizer class (default: None).
+    evaluation_autocast : bool, optional
+        If False, validation and test forward passes run with autocast
+        disabled, so mixed-precision training still evaluates in full
+        precision (default: True).
     **kwargs : Any
         Additional keyword arguments.
     """
@@ -40,6 +98,7 @@ class TBModel(LightningModule):
         feature_encoder: torch.nn.Module | None = None,
         evaluator: Any = None,
         optimizer: Any = None,
+        evaluation_autocast: bool = True,
         **kwargs,
     ) -> None:
         super().__init__()
@@ -71,6 +130,7 @@ class TBModel(LightningModule):
         # Loss function
         self.loss = loss
         self.task_level = self.readout.task_level
+        self.evaluation_autocast = evaluation_autocast
 
         # Tracking best so far validation accuracy
         self.val_acc_best = MeanMetric()
@@ -122,7 +182,11 @@ class TBModel(LightningModule):
         batch["model_state"] = self.state_str
 
         # Forward pass
-        model_out = self.forward(batch)
+        if self.training or self.evaluation_autocast:
+            model_out = self.forward(batch)
+        else:
+            with torch.autocast(self.device.type, enabled=False):
+                model_out = self.forward(batch)
 
         # Loss
         model_out = self.process_outputs(model_out=model_out, batch=batch)
@@ -155,11 +219,13 @@ class TBModel(LightningModule):
         self.state_str = "Training"
         model_out = self.model_step(batch)
 
-        # Update and log metrics
-        loss_value = model_out["loss"].item()
+        # Update and log metrics. Logging the tensor (not ``item()``) avoids
+        # a device synchronization per step; Lightning stores the same value.
+        loss_value = model_out["loss"].detach().float()
         self.log(
             "train/loss",
             loss_value,
+            sync_dist=True,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
@@ -183,10 +249,11 @@ class TBModel(LightningModule):
         model_out = self.model_step(batch)
 
         # Log Loss
-        loss_value = model_out["loss"].item()
+        loss_value = model_out["loss"].detach().float()
         self.log(
             "val/loss",
             loss_value,
+            sync_dist=True,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
@@ -207,10 +274,11 @@ class TBModel(LightningModule):
         model_out = self.model_step(batch)
 
         # Log loss
-        loss_value = model_out["loss"].item()
+        loss_value = model_out["loss"].detach().float()
         self.log(
             "test/loss",
             loss_value,
+            sync_dist=True,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
@@ -284,8 +352,14 @@ class TBModel(LightningModule):
         before we reset the evaluator to start the validation loop.
         """
         # Log train metrics and reset evaluator
-        self.log_metrics(mode="train")
-        self.train_metrics_logged = True
+        if (
+            self.trainer.state.fn == "fit"
+            and not self.trainer.sanity_checking
+            and not self.train_metrics_logged
+        ):
+            self.log_metrics(mode="train")
+            self.train_metrics_logged = True
+        self.evaluator.reset()
 
     def on_train_epoch_end(self) -> None:
         r"""Lightning hook that is called when a train epoch ends.
@@ -349,8 +423,27 @@ class TBModel(LightningModule):
         stage : str
             Either "fit", "validate", "test", or "predict".
         """
-        if self.hparams.compile and stage == "fit":
-            self.net = torch.compile(self.net)
+        if stage == "fit":
+            self.configure_compilation()
+
+    def configure_compilation(self):
+        """Compile in place, preserving checkpoint keys and CPU walk sampling."""
+        if not self.hparams.get("compile", False):
+            return
+        scope = self.hparams.get("compile_scope", "backbone")
+        if scope == "layers":
+            if not hasattr(self.backbone, "encoders"):
+                raise ValueError("Layer compilation requires encoder stacks")
+            modules = [
+                layer for stack in self.backbone.encoders for layer in stack
+            ]
+        elif scope == "backbone":
+            modules = [self.backbone]
+        else:
+            raise ValueError(f"Unknown compilation scope: {scope}")
+        for module in modules:
+            if getattr(module, "_compiled_call_impl", None) is None:
+                module.compile()
 
     def configure_optimizers(self) -> dict[str, Any]:
         r"""Configure optimizers and learning-rate schedulers.
@@ -372,5 +465,13 @@ class TBModel(LightningModule):
             + list(self.readout.parameters())
             + list(self.feature_encoder.parameters())
         )
-
+        scheduler = optimizer_config.get("lr_scheduler")
+        if scheduler is not None and isinstance(
+            scheduler["scheduler"], torch.optim.lr_scheduler.ReduceLROnPlateau
+        ):
+            # Step plateau schedulers only on epochs that produce the metric.
+            trainer = self._trainer
+            scheduler["frequency"] = int(
+                getattr(trainer, "check_val_every_n_epoch", None) or 1
+            )
         return optimizer_config

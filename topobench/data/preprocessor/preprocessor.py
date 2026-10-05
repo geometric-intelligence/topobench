@@ -244,6 +244,11 @@ class PreProcessor(torch_geometric.data.InMemoryDataset):
         else:
             self.data_list = data_list
 
+        for wrapped in getattr(self.pre_transform, "transforms", []):
+            finalize = getattr(wrapped.transform, "finalize_dataset", None)
+            if finalize is not None:
+                self.data_list = finalize(self.data_list)
+
         self._data, self.slices = self.collate(self.data_list)
         self._data_list = None  # Reset cache.
 

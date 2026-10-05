@@ -1,0 +1,9 @@
+# @package _global_
+defaults:
+  - override /model: combinatorial/trawl
+model:
+  backbone:
+    num_neighborhoods: 6
+transforms:
+  trawl:
+    neighborhoods: [up_adjacency-0, 2-up_adjacency-0, down_adjacency-1, up_adjacency-1, 2-down_adjacency-2, down_adjacency-2]

@@ -1,5 +1,6 @@
 """This module contains the Evaluator class that is responsible for computing the metrics."""
 
+import torch
 from torchmetrics import MetricCollection
 
 from topobench.evaluator import METRICS, AbstractEvaluator
@@ -38,7 +39,8 @@ class TBEvaluator(AbstractEvaluator):
 
         elif self.task == "multilabel classification":
             num_classes = kwargs.get("num_classes", 1)
-            parameters = {"num_classes": num_classes}
+            # Missing labels (NaN targets) are mapped to -1 and ignored.
+            parameters = {"num_classes": num_classes, "ignore_index": -1}
             parameters["task"] = "multilabel"
             parameters["num_labels"] = num_classes
             metric_names = kwargs["metrics"]
@@ -90,6 +92,13 @@ class TBEvaluator(AbstractEvaluator):
             else:
                 metrics[name] = METRICS[metric_id](**parameters)
         self.metrics = MetricCollection(metrics)
+        # ``validate_args=False`` skips torchmetrics' input checks, which read
+        # values on the host and synchronize the device on every update.
+        # Results are unchanged for valid inputs.
+        if not kwargs.get("validate_args", True):
+            for metric in self.metrics.values():
+                if hasattr(metric, "validate_args"):
+                    metric.validate_args = False
 
         self.best_metric = {}
 
@@ -115,13 +124,23 @@ class TBEvaluator(AbstractEvaluator):
         ValueError
             If the task is not valid.
         """
-        preds = model_out["logits"].cpu()
-        target = model_out["labels"].cpu()
+        # NCCL synchronizes CUDA tensors only. Keep metric state on the model's
+        # device and detach predictions so epoch metrics retain no autograd graph.
+        preds = model_out["logits"].detach()
+        target = model_out["labels"].detach().to(preds.device)
+        self.metrics.to(preds.device)
 
         if self.task == "regression":
-            self.metrics.update(preds, target.unsqueeze(1))
+            self.metrics.update(preds, target.reshape_as(preds))
 
         elif self.task == "classification":
+            if preds.ndim == 2 and preds.shape[-1] == 1:
+                # Score one-logit BCE with ordinary two-class metrics.
+                # Pass probabilities: torchmetrics applies softmax per
+                # update only when some value lies outside [0, 1], so padded
+                # raw logits would be scored inconsistently across batches.
+                positive = preds.float().sigmoid()
+                preds = torch.cat((1 - positive, positive), dim=-1)
             self.metrics.update(preds, target)
 
         elif self.task == "multioutput classification":
@@ -143,11 +162,8 @@ class TBEvaluator(AbstractEvaluator):
                 )
 
         elif self.task == "multilabel classification":
-            self.metrics.update(preds, target)
-            # Raise not supported error
-            raise NotImplementedError(
-                "Multilabel classification evaluator is not supported yet"
-            )
+            target = torch.where(torch.isfinite(target), target, -1).long()
+            self.metrics.update(preds.sigmoid(), target)
 
     def compute(self):
         r"""Compute the metrics.

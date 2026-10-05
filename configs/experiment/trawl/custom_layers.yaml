@@ -1,0 +1,19 @@
+# @package _global_
+defaults:
+  - override /model: combinatorial/trawl
+
+model:
+  backbone:
+    architecture: custom
+    layers:
+      - kind: mamba
+        d_state: 16
+        scan: sequential
+      - kind: sisa
+        n_heads: 8
+        d_ssm: 16
+      - kind: gru
+      - kind: transformer
+        n_heads: 8
+      - kind: mlp
+        expansion: 2

@@ -66,7 +66,7 @@ class LoadManager:
 
             try:
                 # Use importlib to safely import the module
-                module_name = f"{package_dir.stem}.{file_path.stem}"
+                module_name = f"{__name__}.{file_path.stem}"
                 module = importlib.import_module(module_name)
 
                 # Find all encoder classes in the module
