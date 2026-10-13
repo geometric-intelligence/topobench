@@ -1,21 +1,195 @@
-MIT License
+TOPOBENCH RESEARCH LICENCE 1.0
 
-Copyright (c) 2024 TopoBench Team
+Project: Topological Intelligence (TopoBench).
+Licensing contact: topological.intelligence@gmail.com
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+"Software" means TopoBench code and accompanying materials expressly
+offered under this Licence by an authorised rights holder, including
+modifications distributed under clause 3. Each such rights holder is a
+"Licensor" and grants only rights it controls. "You" means the individual
+or organisation exercising these permissions; anyone accepting for an
+organisation must have authority to do so. By relying on these permissions,
+You accept their conditions. Independent rights under clause 6 remain
+unaffected.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Topological Intelligence is the public project name. The name and contact
+address do not themselves identify a separate legal entity or transfer
+rights; the permissions below are granted by each Licensor as defined above.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. RESEARCH PERMISSION
+
+Each Licensor grants You a worldwide, nonexclusive, royalty-free copyright
+licence to copy, install, execute, study and modify its Software for
+Permitted Research, and distribute it under clause 3. Permission lasts
+for the applicable copyright term, subject to clause 9 and applicable law.
+No registration or separate research approval is required.
+
+"Permitted Research" means noncommercial scientific or academic research,
+teaching, learning, or verification and reproduction of research results
+by educational institutions, nonprofit research organisations or public
+research bodies acting in that capacity, or individuals conducting
+independent research outside work for a Commercial Entity. It includes
+research benchmarks, model training and evaluation, and preparing
+publications. Clause 2 takes priority over this permission.
+
+Ordinary salaries, scholarships, tuition, grants and publication fees do
+not alone make eligible research commercial. Company employment alone
+does not exclude independent personal research, but work within company
+duties, on company time, using employer-provided resources or on its behalf
+is excluded. You need not publish private modifications or research results.
+
+2. COMPANY USE AND RESEARCH FUNDING
+
+"Commercial Entity" means a for-profit organisation or a person acting in
+a trade or business capacity, including a sole trader or a university's
+for-profit subsidiary.
+
+Except for clause 5, this Licence grants no permission for any use:
+(a) by or on behalf of a Commercial Entity;
+(b) in a commercial activity, including commercial activities of academic
+    or nonprofit institutions, or to develop, evaluate, improve, operate
+    or supply a commercial product or service;
+(c) for company-directed or company-commissioned research, or consulting,
+    contract research, procurement or investment evaluation for a
+    Commercial Entity or as a commercial activity; or
+(d) to provide a commercial hosted benchmark, evaluation, training,
+    inference or other service incorporating the Software.
+
+These exclusions include internal research, benchmarks, trials, proofs
+of concept, model evaluation and employee training within those uses,
+even without revenue, sales or redistribution, and even if results are
+published. Employees and contractors cannot authorise organisational use
+through a personal research licence. There is no free company trial.
+Excluded use requires an effective agreement under clause 7 before it begins.
+
+Independent company-funded grants remain eligible where researchers
+retain research control and publication freedom. Company-directed or
+company-commissioned work, company-specific evaluations, private company
+deliverables and exclusive sponsor rights to results are excluded.
+Funding acknowledgements, expenditure reports and access to the same
+public results available to others do not alone disqualify a grant.
+Funding gives the sponsor no permission to use the Software.
+
+3. MODIFICATION AND SHARING
+
+You may distribute the Software, including modifications, for Permitted
+Research only if You:
+(a) include this complete, unchanged Licence, its project identification
+    and contact; retain copyright, attribution, third-party
+    notices and accompanying citation instructions; and identify Your
+    changes and their dates;
+(b) provide complete source for the Software distributed, including
+    modifications and necessary build or installation scripts, in the
+    preferred form for making changes;
+(c) have authority to license every copyrightable modification You
+    distribute and offer each under this same TopoBench Research Licence
+    1.0, giving recipients permissions directly from its Licensors; and
+(d) impose no additional terms, fees or technical restrictions preventing
+    exercise of the permissions granted here.
+
+Source must accompany executable or packaged copies or be available at
+an accompanying, working download link without additional charge for as
+long as You distribute that version. An upstream link omitting changes
+is insufficient. Accurate notices for Your contributions may be added.
+Other terms require separate authority from the relevant rights holders.
+
+Recipients must independently qualify for their use. These conditions
+cover the Software and derivative modifications, not independent programs
+merely accompanying or communicating with it. Separately licensed
+components retain their terms. Running the Software through another
+program does not avoid clause 2.
+
+4. PUBLICATIONS, RESULTS AND MANDATORY CITATION
+
+You may publish and share results of Permitted Research, including through
+commercial publishers. Outputs, including papers, measurements, datasets
+and model weights, do not acquire this Licence merely because the Software
+produced them. No ownership of Your results is claimed; embedded Software
+and independent third-party rights retain their applicable terms. Reading,
+citing or analysing published results alone requires no commercial
+agreement. Publication does not authorise an excluded use of the Software.
+
+As a condition of this Licence's permissions, when publishing or publicly
+distributing a paper, thesis, report, presentation or other research output
+describing work performed using the Software, You must acknowledge
+TopoBench, identify the version or commit used, and cite the principal
+publication, "TopoBench: A Framework for Benchmarking Topological Deep
+Learning" (https://openreview.net/forum?id=07sTzyEVtY). The README provides
+its BibTeX entry. Venue citation styles are acceptable.
+This requirement does not oblige You to publish private work.
+
+5. LIMITED INFRASTRUCTURE PERMISSION
+
+Eligible researchers may use ordinary hosting, package distribution,
+storage, networking and rented compute for Permitted Research or sharing
+under clause 3. Providers may copy, transmit and execute the Software only
+as strictly necessary to supply that infrastructure on the researcher's
+instructions. Ordinary infrastructure fees do not disqualify the research.
+Providers gain no permission for their own research, benchmarking, model
+training, product development or other business uses, or to offer a
+TopoBench managed application, conduct research or evaluations for
+customers, or provide a TopoBench-based service. Those uses require clause 7.
+
+6. OWNERSHIP AND EXISTING RIGHTS
+
+Copyright remains with its respective holders. No ownership is assigned.
+Contributions under this Licence alone do not grant the project maintainers
+commercial licensing rights in them. Additional authority may be granted
+through an expressly accepted TopoBench Contributor Agreement or another
+valid agreement with the relevant rights holders.
+
+Required notices must remain. Dependencies, datasets, models and other
+separately licensed material retain their own terms; this Licence supplies
+no missing third-party rights or compatibility.
+
+Fair use, lawful quotation, statutory exceptions and other rights that
+applicable law does not allow a licence to exclude remain unaffected.
+No trademark permission or express patent licence is granted.
+
+7. SEPARATE COMMERCIAL AGREEMENTS
+
+Any use excluded by this Licence requires a separate written commercial
+agreement with the relevant rights holders or their authorised
+representatives. For enquiries, contact topological.intelligence@gmail.com.
+
+8. WARRANTIES AND LIABILITY
+
+THE SOFTWARE IS PROVIDED AS IS. To the extent permitted by law, Licensors
+exclude warranties and conditions of accuracy, reliability, fitness,
+freedom from defects or infringement, and other express or implied
+warranties not separately agreed in writing. No support is promised.
+You are responsible for evaluating the Software and verifying its results.
+
+To the extent permitted by law, no Licensor is liable under this Licence
+for direct or indirect loss arising from the Software or inability to use
+it, including lost data, revenue, business opportunities or interruption.
+These exclusions do not cover fraud, wilful misconduct, gross negligence
+or non-excludable liability, including applicable liability for death or
+personal injury.
+Mandatory consumer and other statutory protections remain available.
+
+9. TERMINATION AND RESTORATION
+
+Permissions end automatically upon breach; You must stop activities
+requiring them. For a first breach confined to clause 3's notice, source
+delivery or licence-delivery requirements, permissions are restored
+automatically if fully remedied within 30 days after You first learn of
+it. This exception does not cover clause 4's publication citation duty or
+permit excluded company use. Other restoration requires written
+authorisation from the relevant Licensors; excluded use requires clause 7.
+Restoration does not retrospectively authorise a breach or release claims
+unless the relevant rights holder expressly agrees.
+
+Compliant recipients' permissions and independent rights under clause 6
+survive. Ownership, independent-rights provisions, warranty and liability
+terms, and rights concerning earlier breaches survive termination.
+
+10. GENERAL TERMS
+
+Unenforceable provisions apply only to the lawful extent; the remainder
+continues where legally possible. Delay in enforcement alone waives no
+right. Only stated permissions are granted. Future licence versions do
+not automatically replace version 1.0 for copies already received or
+cancel independently granted permissions. No governing law or exclusive
+court is selected: ordinary applicable-law and jurisdiction rules apply,
+subject to a valid separate agreement.

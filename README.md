@@ -17,7 +17,7 @@ Assess how your model compares against state-of-the-art topological neural netwo
 [![Codecov](https://codecov.io/gh/geometric-intelligence/TopoBench/branch/main/graph/badge.svg)](https://app.codecov.io/gh/geometric-intelligence/TopoBench)
 [![Docs](https://img.shields.io/badge/docs-website-brightgreen)](https://geometric-intelligence.github.io/topobench/index.html)
 [![Python](https://img.shields.io/badge/python-3.10+-blue?logo=python)](https://www.python.org/)
-[![license](https://badgen.net/github/license/geometric-intelligence/TopoBench?color=green)](https://github.com/geometric-intelligence/TopoBench/blob/main/LICENSE)
+[![Licence: TopoBench Research 1.0](https://img.shields.io/badge/licence-TopoBench_Research_1.0-blue)](LICENSE)
 [![slack](https://img.shields.io/badge/chat-on%20slack-purple?logo=slack)](https://join.slack.com/t/geometric-intelligenceworkspace/shared_invite/zt-2k63sv99s-jbFMLtwzUCc8nt3sIRWjEw)
 
 
@@ -30,7 +30,8 @@ Assess how your model compares against state-of-the-art topological neural netwo
   <a href="#gear-neural-networks">Neural Networks</a> •
   <a href="#rocket-liftings-and-transforms">Liftings and Transforms</a> •
   <a href="#books-datasets">Datasets</a> •
-  <a href="#mag-references">References</a>
+  <a href="#mag-references">References</a> •
+  <a href="#licence">Licence</a>
 </p>
 
 
@@ -51,6 +52,14 @@ TopoBench is an independent project maintained by the Topological Intelligence t
 </p>
 
 The main pipeline trains and evaluates a wide range of state-of-the-art TNNs and Graph Neural Networks (GNNs) (see <a href="#gear-neural-networks">:gear: Neural Networks</a>) on numerous and varied datasets and benchmark tasks (see <a href="#books-datasets">:books: Datasets</a> ). Additionally, the library offers the ability to transform, i.e. _lift_, each dataset from one topological domain to another (see <a href="#rocket-liftings-and-transforms">:rocket: Liftings and Transforms</a>), enabling for the first time an exhaustive inter-domain comparison of TNNs.
+
+## Licence
+
+TopoBench is distributed under the [TopoBench Research Licence 1.0](LICENSE), a source-available licence permitting eligible noncommercial research, teaching and reproducibility, subject to its conditions. Publications describing work using the software must acknowledge TopoBench, identify the version or commit used, and follow the accompanying [citation instructions](#mag-references). Redistributed covered code and modifications must remain under the same licence.
+
+Company use, including internal benchmarking, is excluded from the permissions granted by this research licence. Separate written commercial agreements are available from the relevant rights holders or their authorised representatives. For enquiries, contact [topological.intelligence@gmail.com](mailto:topological.intelligence@gmail.com). Separately licensed material retains its own terms; see [NOTICE](NOTICE) and [third-party notices](third_party_licenses.txt). The complete terms are in [LICENSE](LICENSE).
+
+Read the [plain-language licence guide](docs/legal/TopoBench-Research-Licence-1.0.guide.txt) for examples of research, sharing and infrastructure use.
 
 ## :jigsaw: Get Started
 
@@ -415,9 +424,11 @@ Specially useful in pre-processing steps, these are the general data manipulatio
 
 ## :mag: References ##
 
-To learn more about `TopoBench`, we invite you to read the paper:
+The following paper is the principal TopoBench publication. Under clause 4 of the [TopoBench Research Licence 1.0](LICENSE), when publishing or publicly distributing a paper, thesis, report, presentation or other research output describing work performed using the software, you must acknowledge TopoBench, identify the version or commit used, and cite this publication. This requirement does not oblige you to publish private work.
 
-```
+Read the paper on [OpenReview](https://openreview.net/forum?id=07sTzyEVtY), or copy its BibTeX entry below:
+
+```bibtex
 @article{
 telyatnikov2025topobench,
 title={TopoBench: A Framework for Benchmarking Topological Deep Learning},
@@ -429,7 +440,7 @@ url={https://openreview.net/forum?id=07sTzyEVtY},
 note={}
 }
 ```
-If you find `TopoBench` useful, we would appreciate if you cite us!
+You may use the citation format required by your publication or venue.
 
 
 

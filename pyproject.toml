@@ -1,5 +1,6 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+# PEP 639 licence expressions and project.license-files require setuptools 77+.
+requires = ["setuptools>=77.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,9 +11,10 @@ authors = [
 ]
 readme = "README.md"
 description = "Topological Deep Learning"
-license = {file = "LICENSE.txt"}
+license = "LicenseRef-TopoBench-Research-1.0"
+# Ship the applicable notices and citation instructions.
+license-files = ["LICENSE", "NOTICE", "LICENSES/*.txt", "third_party_licenses.txt", "README.md"]
 classifiers = [
-    "License :: OSI Approved :: MIT License",
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",

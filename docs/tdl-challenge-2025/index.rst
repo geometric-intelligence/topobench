@@ -51,7 +51,7 @@ co-authorship network. TDL provides a principled framework to represent and
 learn from these richer, multi-way relationships, making it especially suited
 for complex data in science and engineering.
 
-**TopoBench** is the premier open-source platform for developing and
+**TopoBench** is the premier research platform for developing and
 benchmarking TDL models. It provides a unified interface for datasets,
 loaders, and tasks across topological domains. TopoBench enables reproducible
 comparisons, accelerates model development, and serves as the central hub for

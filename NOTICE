@@ -1,0 +1,25 @@
+TopoBench
+Copyright (c) 2024 TopoBench Team
+
+The licence offered for this checkout is TopoBench Research Licence 1.0
+in LICENSE. Separately licensed material retains its applicable terms.
+
+The original TopoBench MIT notice is retained verbatim in
+LICENSES/TopoBench-MIT.txt. It applies to material previously published
+under MIT, including the material at commit
+27956913ec7146cded69dd8fb8ebab7b86ca7fcc. Retaining that notice does not
+grant MIT permissions for new material offered only under LICENSE.
+
+The following files retain their Apache-2.0 notices:
+
+Copyright 2022 Twitter, Inc.
+topobench/nn/backbones/graph/nsd_utils/inductive_discrete_models.py
+topobench/nn/backbones/graph/nsd_utils/laplace.py
+topobench/nn/backbones/graph/nsd_utils/laplacian_builders.py
+topobench/nn/backbones/graph/nsd_utils/orthogonal.py
+topobench/nn/backbones/graph/nsd_utils/sheaf_base.py
+topobench/nn/backbones/graph/nsd_utils/sheaf_models.py
+
+The Apache License, Version 2.0, is supplied in LICENSES/Apache-2.0.txt.
+Dataset notices are supplied in third_party_licenses.txt. Dependencies
+and other materials with separate licences retain those terms and notices.

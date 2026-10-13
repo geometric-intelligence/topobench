@@ -11,6 +11,34 @@ process for both novice and experienced contributors.
 independent community project maintained by the Topological Intelligence team.
 Everyone is welcome to contribute.
 
+Contribution Licence
+--------------------
+
+Read the `TopoBench Contributor Agreement 1.0
+<https://github.com/geometric-intelligence/topobench/blob/7258fccaa938ed35cbf84f8a88f705996afde511/CLA.md>`__,
+then personally select its checkbox in your pull request description. No separate
+acceptance email, form or maintainer verification comment is required.
+
+The agreement preserves contributor ownership, offers contributions under
+TopoBench Research Licence 1.0 and grants its identified recipients additional
+commercial sublicensing rights without contributor royalties for authorised
+uses. Those recipients may charge customers.
+
+The ``Contributor agreement`` check requires the exact acknowledgement and its
+link to the fixed agreement revision. New commits in the same PR do not require
+another acceptance while that acknowledgement remains selected; each new PR has
+its own checkbox. Opening a PR alone is not acceptance. Contributors must have
+authority to grant the rights, identify other rights holders and separately
+licensed material, and preserve its notices. Earlier submissions are not
+automatically covered.
+
+The PR is the acceptance record; a passing status does not establish ownership,
+authority or who selected the box. Read the `contribution instructions
+<https://github.com/geometric-intelligence/topobench/blob/main/CONTRIBUTING.md>`__
+and `maintainer guide
+<https://github.com/geometric-intelligence/topobench/blob/main/docs/legal/contributor-agreement-process.md>`__
+for details.
+
 Making Changes
 --------------
 

@@ -46,6 +46,36 @@ i.e. *lift*, each dataset from one topological domain to another (see
 :rocket: Liftings), enabling for the first time an exhaustive
 inter-domain comparison of TNNs.
 
+Licence
+-------
+
+|license|
+
+TopoBench is distributed under the
+`TopoBench Research Licence 1.0 <https://github.com/geometric-intelligence/TopoBench/blob/main/LICENSE>`__,
+a source-available licence permitting eligible noncommercial research,
+teaching and reproducibility, subject to its conditions. Publications
+describing work using the software must acknowledge TopoBench, identify
+the version or commit used, and follow the accompanying citation
+instructions (see References_). Redistributed covered code and
+modifications must remain under the same licence.
+
+Company use, including internal benchmarking, is excluded from the
+permissions granted by this research licence. Separate written commercial
+agreements are available from the relevant rights holders or their
+authorised representatives. For enquiries,
+contact `topological.intelligence@gmail.com <mailto:topological.intelligence@gmail.com>`__.
+Separately licensed material retains its own terms; see
+`NOTICE <https://github.com/geometric-intelligence/TopoBench/blob/main/NOTICE>`__
+and the
+`third-party notices <https://github.com/geometric-intelligence/TopoBench/blob/main/third_party_licenses.txt>`__
+where applicable. The complete terms are in
+`LICENSE <https://github.com/geometric-intelligence/TopoBench/blob/main/LICENSE>`__.
+
+Read the
+`plain-language licence guide <https://github.com/geometric-intelligence/topobench/blob/main/docs/legal/TopoBench-Research-Licence-1.0.guide.txt>`__
+for examples of research, sharing and infrastructure use.
+
 🧩 Get Started
 --------------
 
@@ -873,21 +903,23 @@ Hypergraph
 References
 ~~~~~~~~~~~~~~~~
 
-To learn more about ``TopoBench``, we invite you to read the paper:
+Under clause 4 of the TopoBench Research Licence 1.0, when publishing or
+publicly distributing a paper, thesis, report, presentation or other
+research output describing work performed using the software, you must
+acknowledge TopoBench, identify the version or commit used, and cite the
+principal publication. This requirement does not oblige you to publish
+private work.
 
-::
+The principal publication is
+`TopoBench: A Framework for Benchmarking Topological Deep Learning <https://openreview.net/forum?id=07sTzyEVtY>`__.
+Copy its BibTeX entry below, or find it in the
+:download:`accompanying README <../README.md>`.
+You may use the citation format required by your publication or venue.
 
-   @article{telyatnikov2024topobench,
-         title={TopoBench: A Framework for Benchmarking Topological Deep Learning},
-         author={Lev Telyatnikov and Guillermo Bernardez and Marco Montagna and Pavlo Vasylenko and Ghada Zamzmi and Mustafa Hajij and Michael T Schaub and Nina Miolane and Simone Scardapane and Theodore Papamarkou},
-         year={2024},
-         eprint={2406.06642},
-         archivePrefix={arXiv},
-         primaryClass={cs.LG},
-         url={https://arxiv.org/abs/2406.06642},
-   }
-
-If you find ``TopoBench`` useful, we would appreciate if you cite us!
+.. literalinclude:: ../README.md
+   :language: bibtex
+   :start-after: ```bibtex
+   :end-before: ```
 
 Additional Details
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -989,7 +1021,8 @@ domains <https://arxiv.org/pdf/2402.02441>`__
    :target: https://geometric-intelligence.github.io/topobench/index.html
 .. |Python| image:: https://img.shields.io/badge/python-3.10+-blue?logo=python
    :target: https://www.python.org/
-.. |license| image:: https://badgen.net/github/license/geometric-intelligence/TopoBench?color=green
+.. |license| image:: https://img.shields.io/badge/licence-TopoBench_Research_1.0-blue
+   :alt: Licence: TopoBench Research 1.0
    :target: https://github.com/geometric-intelligence/TopoBench/blob/main/LICENSE
 .. |slack| image:: https://img.shields.io/badge/chat-on%20slack-purple?logo=slack
    :target: https://join.slack.com/t/geometric-intelligenceworkspace/shared_invite/zt-2k63sv99s-jbFMLtwzUCc8nt3sIRWjEw

@@ -1,0 +1,129 @@
+TOPOBENCH RESEARCH LICENCE 1.0 — PLAIN-LANGUAGE GUIDE
+
+This guide explains the permissions and conditions in the repository's
+root LICENSE. It is a summary, not an additional licence or agreement.
+If the summary and LICENSE differ, LICENSE contains the governing terms.
+
+WHO CAN USE TOPOBENCH FOR FREE?
+
+Eligible users may use TopoBench for noncommercial research, teaching,
+learning and reproducing results, without registration or separate approval.
+This includes universities, nonprofit research organisations and public
+research bodies acting in that capacity, and individuals doing independent
+research outside work for a company. See clauses 1 and 2 for the full scope.
+
+For example, a university researcher may run benchmarks, train models and
+publish a paper. Receiving a salary, scholarship or ordinary research grant
+does not by itself make that research commercial.
+
+WHEN IS A COMMERCIAL AGREEMENT REQUIRED?
+
+Apart from the limited infrastructure permission below, company use is
+excluded from this research licence. This includes internal research,
+benchmarks, trials, proofs of concept, employee training and evaluation,
+even if there are no sales or the results will be published. Commercial
+activities of universities and nonprofits are also excluded.
+
+An employee may conduct eligible independent personal research, but work
+within company duties, on company time, using employer-provided resources
+or on its behalf is excluded. A personal research licence cannot authorise
+company use. Excluded use requires a separate written commercial agreement
+with the relevant rights holders or their authorised representatives before
+it begins. Contact topological.intelligence@gmail.com for enquiries.
+
+WHAT ABOUT COMPANY-FUNDED RESEARCH?
+
+An independent grant can qualify if researchers retain control over their
+research and freedom to publish. For example, a company can fund a
+university's independent research and receive the same public results as
+everyone else. Funding acknowledgements and expenditure reports are fine.
+
+Company-directed or commissioned work, private deliverables, company-specific
+evaluations and exclusive sponsor rights to results are excluded. For example,
+benchmarking products for a company's private purchasing decision requires
+a commercial agreement. Funding does not let the sponsor use TopoBench.
+
+CAN I SHARE OR MODIFY THE CODE?
+
+Yes, for eligible research, subject to clause 3. When distributing covered
+code or modifications, include the complete unchanged licence, required
+notices and citation instructions, and identify changes and their dates.
+Provide complete corresponding source, including modifications and necessary
+build or installation scripts, with the copy or at a working download link
+without additional charge for as long as you distribute that version.
+
+Your covered modifications must be offered under the same TopoBench Research
+Licence 1.0, and you must have authority to grant those rights. Do not add
+terms, fees or technical restrictions that prevent recipients from exercising
+the permissions. Each recipient must independently qualify for their use.
+An upstream link that omits your modifications is not sufficient.
+
+This sharing rule covers TopoBench code and derivative modifications.
+It does not automatically apply to independent programs, papers, datasets
+or model weights simply because they were used with or produced by TopoBench.
+Embedded TopoBench code and separately licensed material retain their terms.
+See NOTICE and the accompanying third-party notices where applicable.
+
+WHAT MUST I CITE?
+
+Published or publicly distributed outputs describing work performed using
+TopoBench must acknowledge TopoBench, identify the version or commit used,
+and cite the principal publication:
+
+TopoBench: A Framework for Benchmarking Topological Deep Learning
+https://openreview.net/forum?id=07sTzyEVtY
+
+The README contains a copyable BibTeX entry. The citation format required by
+your journal, conference or other venue is acceptable. This is a licence
+condition, not just a request.
+
+DO I HAVE TO PUBLISH OR CONTRIBUTE MY WORK?
+
+Publication and contributions are encouraged, but the research licence does
+not require you to publish private research results or modifications, or
+submit a pull request. If you distribute covered code or modifications,
+the sharing conditions above apply. Publishing results alone does not
+require releasing private code under the current licence.
+
+Eligible researchers may publish through commercial journals or publishers.
+For example, paying a journal's publication fee does not disqualify eligible
+research. This permission does not let a publisher or another company run
+TopoBench for its own research or business activities.
+
+CAN I USE GITHUB, PACKAGE HOSTING OR CLOUD COMPUTE?
+
+Yes. Clause 5 allows ordinary hosting, package distribution, storage,
+networking and rented compute for eligible research or sharing under clause 3.
+For example, an eligible researcher may rent a cloud GPU to run experiments,
+or use a hosting service to distribute a modified TopoBench version with its
+source under the same licence. Ordinary infrastructure fees are permitted.
+
+Providers may copy, transmit and execute TopoBench only as necessary to
+supply that infrastructure on the researcher's instructions. They receive
+no permission for their own research, benchmarking, model training, product
+development or TopoBench-based services. Those uses require a separate
+commercial agreement.
+
+HOW DO CONTRIBUTIONS TO TOPOBENCH WORK?
+
+Contributions are welcome. CONTRIBUTING.md explains how to submit them and
+accept CLA.md, the TopoBench Contributor Agreement. Contributors retain
+ownership. The agreement provides research permissions and an additional
+royalty-free commercial licensing grant to the recipients identified in the
+agreement. Read the version linked in the PR template and personally select its
+acceptance checkbox. No separate email or form is required. The PR records the
+acceptance; the automated check checks for the acknowledgement, not ownership
+or authority. Each new PR requires its own acceptance.
+
+OTHER TERMS TO KNOW
+
+TopoBench is supplied as is, without promised support; clause 8 sets out
+the warranty and liability terms and their legal limits. No ownership of
+your research results is claimed. No express patent or trademark licence
+is granted.
+
+Breaching the licence ends its permissions. Clause 9 provides a limited
+30-day remedy for a first breach confined to clause 3's notice, source or
+licence delivery requirements. That remedy does not cover missing required
+publication citations or excluded company use. Read clauses 6 to 10 for
+the full ownership, liability, termination and general terms.
