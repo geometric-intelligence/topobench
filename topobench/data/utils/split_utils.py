@@ -90,6 +90,73 @@ def k_fold_split_fixed(labels, parameters, split_idx_list):
     return split_idx
 
 
+def seeded_stratified_split(labels, parameters):
+    """Two-stage stratified split seeded directly by ``data_seed``.
+
+    Train is drawn first (``train_prop``), then the remainder is halved into
+    validation and test, both with ``random_state=data_seed``. This is the
+    split used by the original TRAWL experiments; it differs from the
+    ``stratified`` split type, which selects one of ten precomputed folds.
+
+    Parameters
+    ----------
+    labels : array-like
+        Labels used for stratification.
+    parameters : DictConfig
+        Configuration parameters with ``train_prop`` and ``data_seed``.
+
+    Returns
+    -------
+    dict
+        Dictionary containing the train, validation and test indices, with keys "train", "valid", and "test".
+    """
+    labels = np.asarray(labels).reshape(-1)
+    indices = np.arange(len(labels))
+    train, heldout = train_test_split(
+        indices,
+        train_size=parameters.train_prop,
+        random_state=parameters.data_seed,
+        stratify=labels,
+    )
+    valid, test = train_test_split(
+        heldout,
+        test_size=0.5,
+        random_state=parameters.data_seed,
+        stratify=labels[heldout],
+    )
+    return {"train": train, "valid": valid, "test": test}
+
+
+def imported_split(labels, parameters):
+    """Read explicit split IDs, rejecting overlap, duplicates and missing IDs.
+
+    Parameters
+    ----------
+    labels : array-like
+        Labels, used only for the number of samples.
+    parameters : DictConfig
+        Configuration parameters with ``split_file``, an ``.npz`` file with
+        "train", "valid" and "test" arrays.
+
+    Returns
+    -------
+    dict
+        Dictionary containing the train, validation and test indices, with keys "train", "valid", and "test".
+    """
+    with np.load(parameters.split_file, allow_pickle=False) as saved:
+        splits = {
+            key: np.asarray(saved[key]) for key in ("train", "valid", "test")
+        }
+    all_ids = np.concatenate(list(splits.values()))
+    if all_ids.ndim != 1 or not np.issubdtype(all_ids.dtype, np.integer):
+        raise ValueError("Split IDs must be one-dimensional integers")
+    if not np.array_equal(np.sort(all_ids), np.arange(len(labels))):
+        raise ValueError(
+            "Imported splits must partition the dataset exactly once"
+        )
+    return splits
+
+
 # Generate splits in different fasions
 def k_fold_split(labels, parameters, root=None):
     """Return train and valid indices as in K-Fold Cross-Validation.
@@ -523,6 +590,12 @@ def load_inductive_splits(dataset, parameters):
         split_idx = k_fold_split_fixed(
             labels, parameters, dataset.split_idx_list
         )
+
+    elif parameters.split_type == "seeded_stratified":
+        split_idx = seeded_stratified_split(labels, parameters)
+
+    elif parameters.split_type == "imported":
+        split_idx = imported_split(labels, parameters)
 
     else:
         raise NotImplementedError(

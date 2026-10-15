@@ -1,0 +1,9 @@
+# @package _global_
+defaults:
+  - /experiment/trawl/recipe
+  - override /dataset: graph/PROTEINS
+
+model:
+  backbone:
+    architecture: mamba
+seed: 40

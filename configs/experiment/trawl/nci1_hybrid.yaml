@@ -1,0 +1,7 @@
+# @package _global_
+defaults:
+  - /experiment/trawl/proteins_hybrid
+  - override /dataset: graph/NCI1
+
+trainer:
+  accumulate_grad_batches: 16

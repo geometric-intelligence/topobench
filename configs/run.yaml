@@ -8,6 +8,8 @@ defaults:
   - model: simplicial/hopse_m
   - transforms: ${get_default_transform:${dataset},${model}} #no_transform
   - optimizer: default
+  - pretraining: trawl
+  - evaluation: default
   - loss: default
   - evaluator: default
   - callbacks: default

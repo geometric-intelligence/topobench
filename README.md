@@ -6,6 +6,8 @@
     A Comprehensive Benchmark Suite for Topological Deep Learning
 </h3>
 
+TRAWL integration: [configuration, topology choices, recipes and validation](docs/trawl.md).
+
 <p align="center">
 Assess how your model compares against state-of-the-art topological neural networks.
 </p>

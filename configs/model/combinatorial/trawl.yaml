@@ -1,0 +1,64 @@
+_target_: topobench.model.TBModel
+model_name: trawl
+model_domain: combinatorial
+compile: false
+compile_scope: layers
+feature_encoder: null
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.trawl.TRAWL
+  _recursive_: false
+  hidden_dim: 128
+  max_rank: 2
+  in_channels: null
+  pe_dim: null
+  architecture: hybrid
+  depth: 5
+  layers: null
+  layer_options:
+    mamba:
+      d_state: 16
+      d_conv: 4
+      expand: 2
+      backend: torch
+      scan: parallel
+    sisa:
+      n_heads: 8
+      d_ssm: 16
+      attention_dropout: 0.1
+      dropout: 0.3
+      expansion: 2
+  walk_scope: union
+  num_neighborhoods: 2
+  encoder_sharing: shared
+  fusion: mean
+  pooling: mean_max
+  rank_embedding: true
+  num_colors: 0
+  move_embedding: true
+  dropout: 0.0
+  seed: ${seed}
+  eval_views: 1
+  checkpoint_layers: false
+  walk_refresh: train
+  occurrence_pooling: mean
+  graph_readout: walks
+  transition_cache_size: 1024
+  walks:
+    k: 32
+    length: 32
+    start_policy: coverage
+    epsilon: 0.05
+    reverse: false
+    guidance:
+      gamma: 0.2
+      diffusion_t: 0.1
+      dense_limit: 2048
+readout:
+  _target_: topobench.nn.readouts.trawl.TRAWLReadout
+  hidden_dim: ${model.backbone.hidden_dim}
+  graph_dim: ${trawl_output_dim:${model.backbone.hidden_dim},${model.backbone.pooling}}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${dataset.parameters.task_level}
+  head_hidden: ${model.backbone.hidden_dim}
+  dropout: 0.5
+  aggregation: embedding

@@ -1,7 +1,7 @@
 # https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.callbacks.ModelCheckpoint.html
 
 model_checkpoint:
-  _target_: lightning.pytorch.callbacks.ModelCheckpoint
+  _target_: topobench.callbacks.model_checkpoint.RankedModelCheckpoint
   dirpath: ${paths.output_dir}/checkpoints # directory to save the model file
   filename: "epoch_{epoch:03d}" # checkpoint filename
   monitor: ${get_monitor_metric:${dataset.parameters.task},${dataset.parameters.monitor_metric}} # name of the logged metric which determines when model is improving

@@ -1,0 +1,3 @@
+# Use after your own lifting(s), or on native rank/incidence datasets.
+defaults:
+  - /transforms/data_manipulations@trawl: trawl

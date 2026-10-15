@@ -1,0 +1,5 @@
+defaults:
+  - /transforms/data_manipulations@trawl: trawl
+  - _self_
+trawl:
+  neighborhoods: [up_adjacency-0]

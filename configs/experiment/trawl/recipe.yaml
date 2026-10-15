@@ -1,0 +1,63 @@
+# @package _global_
+# Shared training recipe of the original PROTEINS/NCI1 TRAWL runs, expressed
+# on base TRAWL. The lifting and encodings are ordinary config choices.
+defaults:
+  - override /model: combinatorial/trawl
+  - override /optimizer: trawl
+
+dataset:
+  parameters:
+    loss_type: BCE
+  split_params:
+    split_type: seeded_stratified
+    data_seed: ${seed}
+    train_prop: 0.5
+  dataloader_params:
+    batch_size: 2
+    order_seed: ${seed}
+    pin_memory: true
+transforms:
+  lifting:
+    # Cycles up to six nodes cover the 5- and 6-rings of molecules.
+    max_cell_length: 6
+  trawl:
+    encodings:
+      rw_samples: 8
+      heat_times: [0.05, 0.1, 0.2, 0.5, 1.0]
+      electrostatic_betas: [0.1, 0.5, 1.0]
+      laplacian_dim: 8
+trainer:
+  accumulate_grad_batches: 4
+  max_epochs: 300
+  check_val_every_n_epoch: 1
+  gradient_clip_val: 1.0
+callbacks:
+  early_stopping:
+    patience: 50
+model:
+  # Train under AMP, evaluate in full precision.
+  evaluation_autocast: false
+  backbone:
+    hidden_dim: 224
+    dropout: 0.5
+    eval_views: 3
+    checkpoint_layers: true
+    layer_options:
+      mamba:
+        scan: sequential
+  readout:
+    aggregation: walk_logits
+    out_channels: 1
+pretraining:
+  enabled: true
+  reset_head: true
+  min_delta: 1.0e-5
+  weight_decay: ${optimizer.parameters.weight_decay}
+# Repeatable runs: seeded sampling plus deterministic CUDA kernels.
+deterministic: strict
+evaluator:
+  # Input checks synchronize the device on every metric update.
+  validate_args: false
+evaluation:
+  walk_views: 3
+tags: [trawl, recipe]

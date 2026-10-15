@@ -1,0 +1,13 @@
+_target_: topobench.optimizer.TBOptimizer
+optimizer_id: AdamW
+parameters:
+  lr: 0.0001
+  weight_decay: 0.001
+scheduler:
+  scheduler_id: ReduceLROnPlateau
+  monitor: val/accuracy
+  scheduler_params:
+    mode: max
+    factor: 0.5
+    patience: 5
+    min_lr: 0.000001

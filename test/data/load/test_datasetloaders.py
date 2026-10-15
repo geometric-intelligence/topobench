@@ -49,7 +49,7 @@ class TestLoaders:
 
 
         for dir_path in config_base_dir.iterdir():
-            curr_dir = str(dir_path).split('/')[-1]
+            curr_dir = dir_path.name
             if dir_path.is_dir():
                 config_files.extend([
                     (curr_dir, f.name) for f in dir_path.glob("*.yaml")
