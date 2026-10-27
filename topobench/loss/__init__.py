@@ -2,7 +2,6 @@
 
 import importlib
 import inspect
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -54,11 +53,6 @@ class LoadManager:
         losses = {}
         package_dir = Path(package_path).parent
 
-        # Add parent directory to sys.path to ensure imports work
-        parent_dir = str(package_dir.parent)
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-
         # Iterate through all .py files in the directory
         for file_path in package_dir.glob("*.py"):
             if file_path.stem == "__init__":
@@ -66,7 +60,7 @@ class LoadManager:
 
             try:
                 # Use importlib to safely import the module
-                module_name = f"{package_dir.stem}.{file_path.stem}"
+                module_name = f"{__name__}.{file_path.stem}"
                 module = importlib.import_module(module_name)
 
                 # Find all loss classes in the module

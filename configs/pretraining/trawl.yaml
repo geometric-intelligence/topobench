@@ -1,0 +1,21 @@
+# Self-supervised TRAWL pretraining (masked cell features, colors and
+# connectivity) run before supervised fitting. Enable with `pretraining=trawl`
+# on a TRAWL model; the runner calls this target with the model, datamodule,
+# trainer config and output directory.
+_target_: topobench.model.pretraining.trawl.run_pretraining
+_partial_: true
+max_epochs: 80
+patience: 10
+# Minimum validation improvement for best checkpoint and early stopping.
+min_delta: 0.0
+lr: 0.0001
+weight_decay: 0.001
+mask_probability: 0.15
+objectives:
+  features: 1.0
+  colors: 0.0
+  topology: 0.0
+# Resume from a pretraining checkpoint (e.g. .../pretraining/last.ckpt).
+ckpt_path: null
+# Reinitialize the readout's linear layers after pretraining.
+reset_head: false

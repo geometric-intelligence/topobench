@@ -174,3 +174,142 @@ class TestProcessOutputs:
 
         assert result["logits"].shape == original_logits.shape
         assert torch.equal(result["logits"], original_logits)
+
+
+def _bare_model():
+    """TBModel without running ``__init__`` (no hyperparameters needed)."""
+    from torch import nn
+
+    module = TBModel.__new__(TBModel)
+    nn.Module.__init__(module)
+    return module
+
+
+def test_plateau_scheduler_steps_with_validation():
+    """Plateau schedulers step only on epochs that produce the metric."""
+    from torch import nn
+
+    from topobench.optimizer import TBOptimizer
+
+    class Holder:
+        check_val_every_n_epoch = 5
+
+    module = _bare_model()
+    module.backbone, module.readout = nn.Linear(1, 1), nn.Identity()
+    module.feature_encoder = nn.Identity()
+    module.optimizer = TBOptimizer(
+        "AdamW",
+        {"lr": 1e-3},
+        scheduler={
+            "scheduler_id": "ReduceLROnPlateau",
+            "monitor": "val/accuracy",
+            "scheduler_params": {"mode": "max"},
+        },
+    )
+    module._trainer = Holder()
+    config = module.configure_optimizers()
+    assert config["lr_scheduler"]["frequency"] == 5
+    assert "ReduceLROnPlateau" in repr(module.optimizer)
+
+
+def _cpu_autocast_enabled():
+    # ``torch.is_autocast_enabled(device_type)`` is unavailable before torch 2.4.
+    try:
+        return torch.is_autocast_enabled("cpu")
+    except TypeError:
+        return torch.is_autocast_cpu_enabled()
+
+
+@pytest.mark.parametrize("training", [False, True])
+def test_evaluation_can_disable_autocast(training):
+    """``evaluation_autocast=False`` evaluates without autocast."""
+    from torch import nn
+
+    module = _bare_model()
+    module.evaluation_autocast, module.training = False, training
+    module.backbone, module.state_str = nn.Identity(), "Validation"
+    module._device = torch.device("cpu")
+    seen = []
+
+    def forward(batch):
+        seen.append(_cpu_autocast_enabled())
+        return {}
+
+    module.forward = forward
+    module.process_outputs = lambda model_out, batch: model_out
+    module.loss = lambda model_out, batch: model_out
+    module.evaluator = type("E", (), {"update": lambda self, out: None})()
+    with torch.autocast("cpu", dtype=torch.bfloat16):
+        module.model_step({})
+    assert seen == [training]
+
+
+def test_layer_compilation_preserves_state_keys(monkeypatch):
+    """``compile_scope=layers`` compiles in place, once per layer."""
+    from types import SimpleNamespace
+
+    from torch import nn
+
+    class Backbone(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.layers = nn.ModuleList([nn.Linear(2, 2), nn.Linear(2, 2)])
+
+        def compilable_layers(self):
+            return list(self.layers)
+
+    wrapped = TBModel(
+        Backbone(),
+        SimpleNamespace(task_level="graph"),
+        None,
+        compile=True,
+        compile_scope="layers",
+    )
+    before = set(wrapped.state_dict())
+    calls = []
+
+    def compile_layer(layer):
+        calls.append(layer)
+        layer._compiled_call_impl = lambda *args: None
+
+    monkeypatch.setattr(torch.nn.Module, "compile", compile_layer)
+    wrapped.configure_compilation()
+    wrapped.configure_compilation()
+    assert len(calls) == 2
+    assert set(wrapped.state_dict()) == before
+    assert all(not key.startswith("backbone._orig_mod") for key in before)
+
+
+def test_layer_compilation_requires_compilable_layers():
+    """Backbones without ``compilable_layers`` reject ``compile_scope=layers``."""
+    from types import SimpleNamespace
+
+    from torch import nn
+
+    wrapped = TBModel(
+        nn.Linear(2, 2),
+        SimpleNamespace(task_level="graph"),
+        None,
+        compile=True,
+        compile_scope="layers",
+    )
+    with pytest.raises(ValueError, match="compilable_layers"):
+        wrapped.configure_compilation()
+
+
+def test_host_fields_are_copied_before_transfer():
+    """Backbones listing ``host_fields`` receive CPU copies of those fields."""
+    from torch import nn
+    from torch_geometric.data import Data
+
+    module = _bare_model()
+    module.backbone = nn.Identity()
+    module.backbone.host_fields = ("counts", "absent")
+    batch = module.on_before_batch_transfer(
+        Data(counts=torch.tensor([3, 4]), x=torch.ones(2, 1)), 0
+    )
+    assert batch.host_copies.keys() == {"counts"}
+    assert batch.host_copies["counts"].tolist() == [3, 4]
+    plain = _bare_model()
+    plain.backbone = nn.Identity()
+    assert "host_copies" not in plain.on_before_batch_transfer(Data(x=torch.ones(1)), 0)

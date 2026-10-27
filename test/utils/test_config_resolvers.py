@@ -1148,3 +1148,11 @@ class TestNewHopseResolvers:
         # All initial entries == dim_hidden_graph + dim_hidden_node.
         assert out[0][0] == 24
         assert out[1][0] == 24
+
+
+def test_trawl_output_dim():
+    """Pooled TRAWL embeddings double in width with mean_max pooling."""
+    from topobench.utils.config_resolvers import trawl_output_dim
+
+    assert trawl_output_dim(16, "mean_max") == 32
+    assert trawl_output_dim(16, "mean") == 16

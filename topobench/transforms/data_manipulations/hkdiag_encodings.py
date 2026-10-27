@@ -63,7 +63,10 @@ class HKdiagSE(BaseTransform):
         self.debug = debug
         self.pe_dim = (
             kernel_param_HKdiagSE[1] - kernel_param_HKdiagSE[0]
-            if type(kernel_param_HKdiagSE) is omegaconf.listconfig.ListConfig
+            if isinstance(
+                kernel_param_HKdiagSE,
+                list | tuple | omegaconf.listconfig.ListConfig,
+            )
             else kernel_param_HKdiagSE
         )
 

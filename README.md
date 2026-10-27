@@ -260,6 +260,7 @@ We list the neural networks trained and evaluated by `TopoBench`, organized by t
 | HOPSE | [HOPSE: Scalable Higher-Order Positional and Structural Encoder for Combinatorial Representations](https://arxiv.org/pdf/2505.15405) |
 | GCCN | [TopoTune: A Framework for Generalized Combinatorial Complex Neural Networks](https://arxiv.org/pdf/2410.06530) |
 | SaNN | [SaNN: Simple Yet Powerful Simplicial-aware Neural Networks](https://proceedings.iclr.cc/paper_files/paper/2024/file/193b90d75822dfebd64a546c417819e3-Paper-Conference.pdf) |
+| TRAWL | Random-walk sequence model over the cells of any lifted complex; available for graphs, cell and simplicial complexes, hypergraphs and combinatorial complexes. See [docs/trawl.md](docs/trawl.md). |
 
 **Remark:** TopoBench includes [TopoTune](https://arxiv.org/pdf/2410.06530), a comprehensive framework for easily designing new, general TDL models on any domain using any (graph) neural network as a backbone. Please check out the extended [TopoTune wiki page](https://github.com/geometric-intelligence/TopoBench/wiki/TopoTune) for further details on how to leverage this framework to define and train customized topological neural network architectures.
 
