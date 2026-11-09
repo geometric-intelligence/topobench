@@ -10,6 +10,10 @@ and hosted at the second `Topology, Algebra, and Geometry in Data Science (TAG-D
 .. seealso::
    Link to the challenge repository: `geometric-intelligence/TopoBench <https://github.com/geometric-intelligence/TopoBench>`__.
 
+.. note::
+   **Participation:** The 2026 challenge received **68 qualifying submissions**
+   from **34 teams** across both tracks. Thank you to everyone who took part!
+
 
 🏆 Winners
 ----------
