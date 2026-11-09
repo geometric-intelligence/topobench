@@ -1650,7 +1650,8 @@ def save_challenge_artifacts(
     payload = {"metadata": meta, "results": results}
     json_path = base / "results.json"
     json_path.write_text(
-        json.dumps(_json_sanitize(payload), indent=2), encoding="utf-8"
+        json.dumps(_json_sanitize(payload), indent=2) + "\n",
+        encoding="utf-8",
     )
 
     out_paths: dict[str, Any] = {"dir": base, "json": json_path}

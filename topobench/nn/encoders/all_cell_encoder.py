@@ -82,6 +82,12 @@ class AllCellFeatureEncoder(AbstractFeatureEncoder):
         if not hasattr(data, "x_0"):
             data.x_0 = data.x
 
+        # Conn-NSD's Algorithm 1 is a preprocessing step on the input feature
+        # matrix, not on the trainable feature-encoder output. Preserve that
+        # matrix before mutating ``x_0`` below. Other backbones ignore it.
+        if not hasattr(data, "x_0_connection"):
+            data.x_0_connection = data.x_0.detach()
+
         for i in self.dimensions:
             if hasattr(data, f"x_{i}") and hasattr(self, f"encoder_{i}"):
                 batch = getattr(data, f"batch_{i}")
