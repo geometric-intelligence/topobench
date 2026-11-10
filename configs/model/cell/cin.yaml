@@ -1,0 +1,40 @@
+# configs/model/cell/cin.yaml
+
+_target_: topobench.model.TBModel
+
+model_name: cin
+model_domain: cell
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.cell.cin.CIN
+  in_channels_0: ${model.feature_encoder.out_channels}
+  in_channels_1: ${model.feature_encoder.out_channels}
+  in_channels_2: ${model.feature_encoder.out_channels}
+  hid_channels: ${model.feature_encoder.out_channels}
+  n_layers: 4
+  dropout: 0.5
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.cell.cin_wrapper.CINWrapper
+  _partial_: true
+  wrapper_name: CINWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false
