@@ -7,7 +7,12 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [  # simplicial TNN variants (MUTAG auto-lifts to a clique complex)
+    "simplicial/poly_filter_tnn",
+    "simplicial/poly_filter_tnn_monomial",
+    "simplicial/poly_filter_tnn_jacobi",
+    "simplicial/filter_bank_tnn",
+]
 
 
 class TestPipeline:

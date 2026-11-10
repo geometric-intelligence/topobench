@@ -1,0 +1,9 @@
+model,experiment,n_runs,mean_accuracy,std_accuracy,mean_mse,std_mse
+poly_filter_tnn_jacobi,community_detection,36,0.4318214605251948,0.10981879782142134,,
+poly_filter_tnn_jacobi,triangle_counting,36,,,15367.638321550356,30756.983783625714
+poly_filter_tnn_monomial,community_detection,36,0.3904455415904522,0.1399441663889016,,
+poly_filter_tnn_monomial,triangle_counting,36,,,34531.31546952741,86186.0954174731
+filter_bank_tnn,community_detection,36,0.4367874653802978,0.1195541465326171,,
+filter_bank_tnn,triangle_counting,36,,,11333.36173462992,26166.377313840425
+poly_filter_tnn,community_detection,36,0.43681398944722283,0.11423232631477127,,
+poly_filter_tnn,triangle_counting,36,,,23140.12092021832,49064.76190177002

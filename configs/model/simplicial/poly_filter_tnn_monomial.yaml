@@ -1,0 +1,53 @@
+# PolynomialFilterTNN with the Monomial basis: y_d = Σ_k θ_k L_d^k x_d per
+# rank, the raw (unrescaled) Hodge Laplacian. This is the polynomial-family
+# analogue of TopoModelX's SCNN power convolution, on the full L_d.
+#
+# Select with the Hydra override
+#   model=simplicial/poly_filter_tnn_monomial
+
+_target_: topobench.model.TBModel
+
+model_name: poly_filter_tnn_monomial
+model_domain: simplicial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.PolynomialFilterTNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  K: 5
+  n_ranks: 3
+  laplacian_norm: raw
+  pre_mlp_layers: 1
+  post_mlp_layers: 1
+  basis:
+    _target_: topobench.nn.backbones.graph.poly_filter.bases.Monomial
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: PolyFilterTNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false
