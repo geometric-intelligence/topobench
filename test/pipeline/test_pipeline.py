@@ -7,7 +7,11 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [
+    "combinatorial/topounet",
+    "combinatorial/topounet_edge",
+    "combinatorial/topounet_global",
+]  # ADD ONE OR SEVERAL MODELS
 
 
 class TestPipeline:

@@ -1,0 +1,12 @@
+# Graph -> combinatorial complex lifting for TopoU-Net (arXiv:2605.10091),
+# global-bottleneck variant: nodes (rank 0), edges (rank 1), triangles as
+# maximal 3-cliques (rank 2) and a single global rank-3 cell incident to
+# all triangles (Appendix B.4 of the paper).
+transform_type: 'lifting'
+transform_name: "GraphTriangleGlobalCC"
+
+complex_dim: 3
+add_global_cell: True
+preserve_edge_attr: False
+feature_lifting: ProjectionSum
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

@@ -1,0 +1,46 @@
+_target_: topobench.model.TBModel
+
+# TopoU-Net (arXiv:2605.10091) with the triangle-bottleneck rank path
+# 0 -> 1 -> 2 -> 1 -> 0 (Section 4 of the paper).
+
+model_name: topounet
+model_domain: combinatorial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+  # TopoU-Net consumes a single input cochain at the input rank s_0
+  # (Definition 3.3); higher-rank states are computed by the encoder.
+  selected_dimensions:
+    - 0
+
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.topounet.TopoUNet
+  in_channels: ${model.feature_encoder.out_channels}
+  encoder_rank_path: [0, 1, 2]
+  use_skip: true
+  aggr_norm: true
+  dropout: 0.3
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.combinatorial.TopoUNetWrapper
+  _partial_: true
+  wrapper_name: TopoUNetWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 1
+  residual_connections: false
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut # The decoder already returns the signal to rank 0
+  num_cell_dimensions: 1
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: mean # Global mean pooling for graph-level tasks (Section 4.2)
+
+# compile model for faster training with pytorch 2.0
+compile: false
