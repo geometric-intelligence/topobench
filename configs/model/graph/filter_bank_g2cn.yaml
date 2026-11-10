@@ -1,0 +1,51 @@
+# G²CN filter bank: two Gaussian band-pass channels (low- and
+# high-frequency concentration), summation fusion with learnable gamma
+# (Li et al. 2022). Each channel is exp(α M) truncated to K+1 terms, with
+# M = ((1±β)I - L̃)^2.
+#
+# Select with the Hydra override
+#   model=graph/filter_bank_g2cn
+
+_target_: topobench.model.TBModel
+
+model_name: filter_bank_g2cn
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.G2CN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  dropout: 0.1
+  laplacian_norm: sym        # 'sym' (Liao default) | 'rw' | 'none'
+  pre_mlp_layers: 1
+  post_mlp_layers: 1
+  K: 5                       # Gaussian terms per channel (K + 1 terms)
+  alpha: 1.0                 # exp decay of the term weights α^k / k!
+  betas: [0.5, 0.5]          # shifts: LF uses (1 + β1), HF uses (1 - β2)
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut    # Options: NoReadOut, PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

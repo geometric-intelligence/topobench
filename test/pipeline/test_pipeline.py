@@ -7,7 +7,14 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [  # the FilterBankGNN variants
+    "graph/filter_bank_acmgnn",
+    "graph/filter_bank_fagcn",
+    "graph/filter_bank_fbgnn",
+    "graph/filter_bank_figure",
+    "graph/filter_bank_g2cn",
+    "graph/filter_bank_gnnlfhf",
+]
 
 
 class TestPipeline:
