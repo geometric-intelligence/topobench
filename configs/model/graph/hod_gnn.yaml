@@ -1,0 +1,64 @@
+_target_: topobench.model.TBModel
+
+model_name: hod_gnn
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.HODGNN
+  # First-order 1-HOD-GNN (Eitan et al., ICLR 2026, arXiv:2510.02565), the
+  # empirical architecture of the paper's Appendix F: a deep-and-narrow base
+  # GIN whose exact input-Jacobian is propagated analytically alongside the
+  # features; the 1/t!-scaled per-layer diagonal Jacobians are encoded by a
+  # pointwise MLP and consumed, together with the base features and the raw
+  # input, by a downstream GIN. The derivative channels are a learnable,
+  # strictly-more-expressive generalisation of random-walk structural
+  # encodings (the paper's Theorem 4.2) and are computed inside the backbone
+  # from edge_index, per graph segment (batch-aware).
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  base_channels: 8
+  base_layers: 6
+  downstream_layers: 3
+  encoder_hidden: 64
+  encoder_channels: 32
+  activation: relu # "silu" (analytic) improves substructure counting (paper App. G.1)
+  # "mean" (default here) = the row-normalised random-walk operator from the
+  # constructive proof of the paper's Theorem 4.2: with structural_init the
+  # derivative diagonals start exactly at RWSE and stay degree-normalised,
+  # which is scale-stable across the GraphUniverse density grid and trains
+  # stably under the challenge's fixed single learning rate. "sum" = the
+  # paper's GIN aggregation; combined with structural_init its walk-count
+  # scale features destabilise training on dense graphs at lr 1e-3 (see PR).
+  aggregation: mean
+  structural_init: true
+  include_input: true
+  base_dropout: 0.0
+  dropout: 0.0
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
