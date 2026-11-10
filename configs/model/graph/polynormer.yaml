@@ -1,0 +1,52 @@
+_target_: topobench.model.TBModel
+
+model_name: polynormer
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.Polynormer
+  # ``hidden_channels`` is per attention head; the working width is
+  # ``hidden_channels * heads``. With ``heads: 1`` the width equals the encoder
+  # output (64), and ``out_channels`` returns embeddings of the same width so
+  # the readout can produce the final logits.
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  local_layers: 3
+  global_layers: 2
+  heads: 1
+  beta: -1.0           # < 0 => learnable per-layer gates (paper default)
+  in_dropout: 0.15
+  dropout: 0.3
+  global_dropout: 0.3
+  pre_ln: false
+  qk_shared: true
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  # Polynormer already applies its own residual/gated updates internally, so the
+  # wrapper-level residual connection is disabled (as for the GPS transformer).
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
