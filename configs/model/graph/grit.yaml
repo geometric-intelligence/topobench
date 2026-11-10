@@ -1,0 +1,46 @@
+_target_: topobench.model.TBModel
+
+model_name: grit
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.GRITBackbone
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 4
+  num_heads: 8
+  walk_length: 8 # Number of RRWP channels; kept in sync with the AddRRWP transform.
+  dropout: 0.0
+  attn_dropout: 0.2
+  clamp: 5.0
+  pad_to_full_graph: true # Global attention; set false for sparse (RRWP-support) attention.
+  deg_scaler: true
+  edge_enhance: true
+  update_pair_rep: true
+  edge_dim: null # Set to the raw edge-attribute dimension to fuse edge features.
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GRITWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false # GRIT layers already contain residual connections.
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: mean
+
+# compile model for faster training with pytorch 2.0
+compile: false

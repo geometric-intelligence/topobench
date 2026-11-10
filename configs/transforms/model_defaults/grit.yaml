@@ -1,0 +1,6 @@
+defaults:
+  - data_manipulations@grit_rrwp: rrwp_positional_encodings
+
+# Keep the number of RRWP channels in sync with the GRIT backbone.
+grit_rrwp:
+  walk_length: ${model.backbone.walk_length}
