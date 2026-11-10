@@ -21,10 +21,14 @@ class DatasetLoss(AbstractLoss):
         self.loss_type = dataset_loss["loss_type"]
         # Dataset loss
         if self.task == "classification":
-            assert self.loss_type == "cross_entropy", (
-                "Invalid loss type for classification task,TB supports only cross_entropy loss for classification task"
-            )
-            self.criterion = torch.nn.CrossEntropyLoss()
+            if self.loss_type == "cross_entropy":
+                self.criterion = torch.nn.CrossEntropyLoss()
+            elif self.loss_type == "BCE":
+                self.criterion = torch.nn.BCEWithLogitsLoss()
+            else:
+                raise ValueError(
+                    "Classification loss must be cross_entropy or BCE"
+                )
         elif self.task == "multilabel classification":
             assert self.loss_type == "BCE", (
                 "Invalid loss type for classification task,TB supports only BCE for multilabel classification task"
@@ -84,13 +88,15 @@ class DatasetLoss(AbstractLoss):
             Loss value.
         """
         if self.task == "regression":
-            target = target.unsqueeze(1)
+            target = target.reshape_as(logits)
             dataset_loss = self.criterion(logits, target)
 
         elif self.task == "multioutput classification":
             dataset_loss = self.criterion(logits, target.float())
 
         elif self.task == "classification":
+            if self.loss_type == "BCE":
+                target = target.to(logits).reshape_as(logits)
             dataset_loss = self.criterion(logits, target)
 
         elif self.task == "multilabel classification":
@@ -101,7 +107,13 @@ class DatasetLoss(AbstractLoss):
             # Mask out the loss for NaN values
             loss = loss * mask
             # Take out average
-            dataset_loss = (loss.sum(dim=-1) / mask.sum(dim=-1)).mean()
+            valid_rows = mask.any(dim=-1)
+            row_loss = loss.sum(dim=-1) / mask.sum(dim=-1).clamp_min(1)
+            dataset_loss = (
+                row_loss[valid_rows].mean()
+                if valid_rows.any()
+                else logits.sum() * 0
+            )
 
         else:
             raise Exception("Loss is not defined")

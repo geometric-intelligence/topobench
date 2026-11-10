@@ -1,0 +1,15 @@
+# TRAWL on the original graph, without higher-order cells.
+# See configs/model/combinatorial/trawl.yaml for all options.
+defaults:
+  - /model/combinatorial/trawl@_here_
+  - _self_
+
+model_domain: graph
+backbone:
+  max_rank: 0
+  num_neighborhoods: 1
+backbone_wrapper:
+  walks:
+    guidance:
+      # Node-level graphs usually exceed the dense heat-guidance limit.
+      gamma: 0.0

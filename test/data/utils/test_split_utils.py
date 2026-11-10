@@ -757,3 +757,31 @@ class TestAssignMasks:
         assert len(train_ds) == 5
         assert len(val_ds) == 3
         assert len(test_ds) == 2
+
+
+def test_seeded_stratified_and_imported_splits(tmp_path):
+    """Seeded stratified splits round-trip through imported split files."""
+    from omegaconf import OmegaConf
+
+    from topobench.data.utils.split_utils import (
+        imported_split,
+        seeded_stratified_split,
+    )
+
+    labels = np.tile([0, 1], 20)
+    config = OmegaConf.create({"train_prop": 0.5, "data_seed": 42})
+    splits = seeded_stratified_split(labels, config)
+    assert [len(splits[key]) for key in ["train", "valid", "test"]] == [
+        20,
+        10,
+        10,
+    ]
+    path = tmp_path / "split.npz"
+    np.savez(path, **splits)
+    config.split_file = str(path)
+    imported = imported_split(labels, config)
+    np.testing.assert_array_equal(imported["train"], splits["train"])
+    splits["test"][0] = splits["train"][0]
+    np.savez(path, **splits)
+    with pytest.raises(ValueError):
+        imported_split(labels, config)

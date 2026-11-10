@@ -1,0 +1,7 @@
+# TRAWL on cell complexes (graph inputs are lifted with the default cycle
+# lifting). See configs/model/combinatorial/trawl.yaml for all options.
+defaults:
+  - /model/combinatorial/trawl@_here_
+  - _self_
+
+model_domain: cell

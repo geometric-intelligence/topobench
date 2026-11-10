@@ -1,0 +1,10 @@
+# Checkpoint(s) evaluated after training (and with train=false ckpt_path=...):
+# "best" (default), or "weight_average" / "logit_ensemble" of the top_k
+# checkpoints. Top-K strategies need callbacks.model_checkpoint.save_top_k
+# >= top_k; replaying them from a moved run directory needs
+# topobench.callbacks.model_checkpoint.RankedModelCheckpoint.
+strategy: best
+top_k: 5
+# Write evaluation_report.json (selected checkpoints and final metrics) to
+# the output directory.
+report: false

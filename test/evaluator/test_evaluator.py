@@ -1,6 +1,7 @@
 """Test the TBEvaluator class."""
 import pytest
 import torch
+
 from topobench.evaluator import TBEvaluator
 
 
@@ -132,19 +133,19 @@ class TestTBEvaluator:
         with pytest.raises(ValueError, match="Invalid task"):
             TBEvaluator(task="wrong_task", num_classes=2, metrics=["accuracy"])
 
-    def test_multilabel_not_implemented(self):
-        """Test that multilabel classification raises NotImplementedError."""
+    def test_multilabel_with_missing_labels(self):
+        """Score available binary labels and ignore missing entries."""
         evaluator = TBEvaluator(
             task="multilabel classification",
             num_classes=3,
             metrics=["accuracy"]
         )
 
-        with pytest.raises(NotImplementedError, match="Multilabel classification"):
-            evaluator.update({
-                "logits": torch.tensor([[1, 0, 0], [0, 1, 1]]),
-                "labels": torch.tensor([[1, 1, 0], [0, 1, 1]])
-            })
+        evaluator.update({
+            "logits": torch.tensor([[2.0, -2.0, -2.0], [-2.0, 2.0, 2.0]]),
+            "labels": torch.tensor([[1.0, float("nan"), 0.0], [0.0, 1.0, 1.0]])
+        })
+        assert evaluator.compute()["accuracy"] == pytest.approx(1.0)
 
     def test_multioutput_classification(self):
         """Test the update and compute methods for multioutput classification."""
@@ -362,3 +363,32 @@ class TestTBEvaluatorMultioutput:
         ev.update({"logits": logits, "labels": labels})
         out = ev.compute()
         assert "accuracy-0" in out
+
+
+def test_one_logit_auroc_is_batch_invariant():
+    """One-logit binary outputs are scored as two-class probabilities."""
+    from sklearn.metrics import roc_auc_score
+
+    generator = torch.Generator().manual_seed(0)
+    labels = torch.randint(0, 2, (278,), generator=generator)
+    logits = (labels - 0.5) * 0.8 + torch.randn(278, generator=generator)
+    results = []
+    for size in (2, 278):
+        evaluator = TBEvaluator(
+            "classification", num_classes=2, metrics=["accuracy", "auroc"]
+        )
+        for start in range(0, len(labels), size):
+            stop = start + size
+            evaluator.update(
+                {
+                    "logits": logits[start:stop, None],
+                    "labels": labels[start:stop],
+                }
+            )
+        results.append(evaluator.compute())
+    expected = roc_auc_score(labels.numpy(), logits.numpy())
+    for result in results:
+        assert result["auroc"].item() == pytest.approx(expected, abs=1e-6)
+        assert result["accuracy"].item() == pytest.approx(
+            ((logits > 0).long() == labels).float().mean().item()
+        )

@@ -1,0 +1,10 @@
+# Dataset defaults of ZINC followed by the TRAWL transform.
+# USE python -m topobench transforms.one_hot_node_degree_features.degrees_fields=x to run this config
+defaults:
+  - data_manipulations@one_hot_node_degree_features: one_hot_node_degree_features # Here we use the one_hot_node_degree_features to one-hot atoms types.
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+  - data_manipulations@trawl: trawl
+
+one_hot_node_degree_features:
+  degrees_field: x
+  features_field: x

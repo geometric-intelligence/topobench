@@ -1,0 +1,9 @@
+# Pretraining settings of the TRAWL PROTEINS/NCI1 recipes
+# (configs/experiment/trawl_recipe.yaml).
+defaults:
+  - trawl
+  - _self_
+
+reset_head: true
+min_delta: 1.0e-5
+weight_decay: ${optimizer.parameters.weight_decay}

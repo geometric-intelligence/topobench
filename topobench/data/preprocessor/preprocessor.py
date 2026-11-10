@@ -244,6 +244,16 @@ class PreProcessor(torch_geometric.data.InMemoryDataset):
         else:
             self.data_list = data_list
 
+        # Transforms may define ``finalize_dataset(data_list)`` to make
+        # per-graph outputs consistent across the dataset (for example, the
+        # feature width of ranks that are empty in some graphs).
+        for wrapped in getattr(self.pre_transform, "transforms", []):
+            finalize = getattr(
+                getattr(wrapped, "transform", None), "finalize_dataset", None
+            )
+            if finalize is not None:
+                self.data_list = finalize(self.data_list)
+
         self._data, self.slices = self.collate(self.data_list)
         self._data_list = None  # Reset cache.
 

@@ -1,0 +1,5 @@
+# Dataset defaults of REDDIT-BINARY followed by the TRAWL transform.
+defaults:
+  - data_manipulations@equal_gaus_features: equal_gaus_features
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+  - data_manipulations@trawl: trawl

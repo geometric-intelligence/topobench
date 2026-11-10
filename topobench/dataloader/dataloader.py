@@ -71,9 +71,39 @@ class TBDataloader(LightningDataModule):
         self.num_workers = num_workers
         self.pin_memory = pin_memory
         self.persistent_workers = kwargs.get("persistent_workers", False)
+        self.order_seed = kwargs.get("order_seed")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(dataset_train={self.dataset_train}, dataset_val={self.dataset_val}, dataset_test={self.dataset_test}, batch_size={self.batch_size})"
+
+    @staticmethod
+    def _evaluation_sampler(dataset):
+        """Shard evaluation without Lightning's duplicate padding.
+
+        Returns ``None`` outside an initialized multi-process group, which
+        keeps single-device loaders unchanged.
+
+        Parameters
+        ----------
+        dataset : torch.utils.data.Dataset
+            Evaluation dataset to shard.
+
+        Returns
+        -------
+        UnpaddedDistributedSampler or None
+            Sampler for this rank, or None without multiple processes.
+        """
+        from torch import distributed
+
+        if not (
+            distributed.is_available()
+            and distributed.is_initialized()
+            and distributed.get_world_size() > 1
+        ):
+            return None
+        from topobench.dataloader.samplers import UnpaddedDistributedSampler
+
+        return UnpaddedDistributedSampler(dataset)
 
     def train_dataloader(self) -> DataLoader:
         r"""Create and return the train dataloader.
@@ -83,12 +113,18 @@ class TBDataloader(LightningDataModule):
         torch.utils.data.DataLoader
             The train dataloader.
         """
+        sampler = None
+        if self.order_seed is not None:
+            from topobench.dataloader.samplers import EpochRandomSampler
+
+            sampler = EpochRandomSampler(self.dataset_train, self.order_seed)
         return DataLoader(
             dataset=self.dataset_train,
             batch_size=self.batch_size,
             num_workers=self.num_workers,
             pin_memory=self.pin_memory,
-            shuffle=True,
+            shuffle=sampler is None,
+            sampler=sampler,
             collate_fn=collate_fn,
             persistent_workers=self.persistent_workers,
         )
@@ -107,6 +143,7 @@ class TBDataloader(LightningDataModule):
             num_workers=self.num_workers,
             pin_memory=self.pin_memory,
             shuffle=False,
+            sampler=self._evaluation_sampler(self.dataset_val),
             collate_fn=collate_fn,
             persistent_workers=self.persistent_workers,
         )
@@ -127,6 +164,7 @@ class TBDataloader(LightningDataModule):
             num_workers=self.num_workers,
             pin_memory=self.pin_memory,
             shuffle=False,
+            sampler=self._evaluation_sampler(self.dataset_test),
             collate_fn=collate_fn,
             persistent_workers=self.persistent_workers,
         )

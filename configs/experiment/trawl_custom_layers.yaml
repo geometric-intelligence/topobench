@@ -1,0 +1,21 @@
+# @package _global_
+# Uses the simplicial TRAWL config of the default dataset's domain; pick
+# another one with model=<domain>/trawl (e.g. cell/trawl for graph datasets).
+defaults:
+  - override /model: simplicial/trawl
+
+model:
+  backbone:
+    architecture: custom
+    layers:
+      - kind: mamba
+        d_state: 16
+        scan: sequential
+      - kind: sisa
+        n_heads: 8
+        d_ssm: 16
+      - kind: gru
+      - kind: transformer
+        n_heads: 8
+      - kind: mlp
+        expansion: 2

@@ -164,6 +164,27 @@ def register_all_resolvers():
         replace=True,
     )
     OmegaConf.register_new_resolver("pid", lambda: os.getpid(), replace=True)
+    OmegaConf.register_new_resolver(
+        "trawl_output_dim", trawl_output_dim, replace=True
+    )
+
+
+def trawl_output_dim(width, pooling):
+    r"""Width of a pooled TRAWL walk embedding.
+
+    Parameters
+    ----------
+    width : int
+        Hidden width of the walk tokens.
+    pooling : str
+        Temporal pooling; ``mean_max`` concatenates two pooled vectors.
+
+    Returns
+    -------
+    int
+        Embedding width after pooling.
+    """
+    return int(width) * (2 if pooling == "mean_max" else 1)
 
 
 def define_task_level(dataset_task_level, learning_setting):

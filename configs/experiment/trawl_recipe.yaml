@@ -1,0 +1,57 @@
+# @package _global_
+# Shared training recipe of the original PROTEINS/NCI1 TRAWL runs, expressed
+# on base TRAWL. The lifting and encodings are ordinary config choices.
+defaults:
+  - override /model: cell/trawl
+  - override /optimizer: adamw_plateau
+  - override /pretraining: trawl_recipe
+
+dataset:
+  parameters:
+    loss_type: BCE
+  split_params:
+    split_type: seeded_stratified
+    data_seed: ${seed}
+    train_prop: 0.5
+  dataloader_params:
+    batch_size: 2
+    order_seed: ${seed}
+    pin_memory: true
+transforms:
+  graph2cell_lifting:
+    # Cycles up to six nodes cover the 5- and 6-rings of molecules.
+    max_cell_length: 6
+trainer:
+  accumulate_grad_batches: 4
+  max_epochs: 300
+  check_val_every_n_epoch: 1
+  gradient_clip_val: 1.0
+callbacks:
+  model_checkpoint:
+    # Keeps a top-K index so checkpoints can be replayed after a move.
+    _target_: topobench.callbacks.model_checkpoint.RankedModelCheckpoint
+  early_stopping:
+    patience: 50
+model:
+  # Evaluate in full precision if trainer.precision enables AMP.
+  evaluation_autocast: false
+  backbone:
+    hidden_dim: 224
+    dropout: 0.5
+    checkpoint_layers: true
+    layer_options:
+      mamba:
+        scan: sequential
+  backbone_wrapper:
+    eval_views: 3
+  readout:
+    aggregation: walk_logits
+    out_channels: 1
+# Repeatable runs: seeded sampling plus deterministic CUDA kernels.
+deterministic: strict
+checkpoint_selection:
+  report: true
+evaluator:
+  # Input checks synchronize the device on every metric update.
+  validate_args: false
+tags: [trawl, recipe]

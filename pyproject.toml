@@ -91,6 +91,10 @@ test = [
     "mypy",
     "pytest-mock"
 ]
+# Compiled TRAWL walk sampling; results are identical without it.
+trawl = [
+    "numba>=0.59"
+]
 
 dev = ["TopoBench[test, lint]"]
 all = ["TopoBench[dev, doc]"]

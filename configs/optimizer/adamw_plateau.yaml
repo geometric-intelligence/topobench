@@ -1,0 +1,16 @@
+_target_: topobench.optimizer.TBOptimizer
+# AdamW with a learning rate that halves when the monitored validation
+# metric plateaus.
+
+optimizer_id: AdamW
+parameters:
+  lr: 0.0001
+  weight_decay: 0.001
+scheduler:
+  scheduler_id: ReduceLROnPlateau
+  monitor: ${get_monitor_metric:${dataset.parameters.task},${dataset.parameters.monitor_metric}}
+  scheduler_params:
+    mode: ${get_monitor_mode:${dataset.parameters.task}}
+    factor: 0.5
+    patience: 5
+    min_lr: 0.000001

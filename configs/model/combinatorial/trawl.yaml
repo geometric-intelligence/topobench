@@ -1,0 +1,92 @@
+_target_: topobench.model.TBModel
+
+model_name: trawl
+model_domain: combinatorial
+
+# Whether a TRAWL parameter receives a gradient depends on the configuration
+# and data (e.g. fusion with union walks, absent ranks), so DDP strategies
+# switch to unused-parameter detection.
+ddp_find_unused_parameters: true
+# false runs validation and test without autocast when training under AMP.
+evaluation_autocast: true
+
+# TRAWL projects the raw cell features itself; to use a native rank
+# encoder, wrap it in topobench.nn.encoders.trawl.TRAWLFeatureEncoder.
+feature_encoder: null
+
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.TRAWL
+  _recursive_: false
+  hidden_dim: 128
+  max_rank: 2
+  in_channels: null # inferred from the transformed training data
+  pe_dim: null # inferred from the transformed training data
+  architecture: hybrid
+  depth: 5
+  layers: null
+  layer_options:
+    mamba:
+      d_state: 16
+      d_conv: 4
+      expand: 2
+      backend: torch
+      # The parallel scan keeps O(log length) full-size states per layer for
+      # backward; the sequential scan needs far less memory.
+      scan: sequential
+    sisa:
+      n_heads: 8
+      d_ssm: 16
+      attention_dropout: 0.1
+      dropout: 0.3
+      expansion: 2
+  walk_scope: union
+  num_neighborhoods: 2 # must match the relations built by transforms.trawl
+  encoder_sharing: shared
+  fusion: mean
+  pooling: mean_max
+  rank_embedding: true
+  num_colors: 0
+  move_embedding: true
+  dropout: 0.0
+  # Recompute layer activations in backward instead of storing them.
+  checkpoint_layers: true
+  occurrence_pooling: mean
+  graph_readout: walks
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: TRAWLWrapper
+  out_channels: ${model.backbone.hidden_dim}
+  seed: ${seed}
+  eval_views: 1
+  walk_refresh: train
+  transition_cache_size: 1024
+  walks:
+    k: 32
+    length: 32
+    start_policy: coverage
+    epsilon: 0.05
+    reverse: false
+    guidance:
+      gamma: 0.2
+      diffusion_t: 0.1
+      # Heat guidance needs a dense eigendecomposition; complexes with more
+      # cells raise an error. Set gamma to 0 for large graphs.
+      dense_limit: 2048
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: TRAWLReadout
+  hidden_dim: ${model.backbone.hidden_dim}
+  graph_dim: ${trawl_output_dim:${model.backbone.hidden_dim},${model.backbone.pooling}}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${dataset.parameters.task_level}
+  head_hidden: ${model.backbone.hidden_dim}
+  dropout: 0.5
+  aggregation: embedding
+
+# compile model for faster training with pytorch 2.0
+compile: false
+# "layers" compiles only the sequence layers, keeping walk sampling eager.
+compile_scope: layers

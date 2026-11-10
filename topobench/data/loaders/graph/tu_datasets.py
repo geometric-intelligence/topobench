@@ -22,6 +22,29 @@ class TUDatasetLoader(AbstractLoader):
     def __init__(self, parameters: DictConfig) -> None:
         super().__init__(parameters)
 
+    def get_data_dir(self) -> str:
+        """Get the processed-data directory for the selected attributes.
+
+        Optional continuous node/edge attributes change ``x`` and
+        ``edge_attr``, so they get their own preprocessing cache. The default
+        (no attributes) keeps the upstream path.
+
+        Returns
+        -------
+        str
+            The path to the dataset directory.
+        """
+        data_dir = super().get_data_dir()
+        suffix = "".join(
+            name
+            for key, name in (
+                ("use_node_attr", "_node_attr"),
+                ("use_edge_attr", "_edge_attr"),
+            )
+            if self.parameters.get(key, False)
+        )
+        return data_dir + suffix
+
     def load_dataset(self) -> Dataset:
         """Load TU dataset.
 
@@ -39,6 +62,7 @@ class TUDatasetLoader(AbstractLoader):
         dataset = TUDataset(
             root=str(self.root_data_dir),
             name=self.parameters.data_name,
-            use_node_attr=False,
+            use_node_attr=self.parameters.get("use_node_attr", False),
+            use_edge_attr=self.parameters.get("use_edge_attr", False),
         )
         return dataset
