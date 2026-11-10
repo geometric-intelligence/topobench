@@ -1,0 +1,54 @@
+# HeroFilter (arXiv:2510.10864, NeurIPS 2025) — spectral variant.
+# Spectral patcher (Eq. 6–9): relevance R = U g(Λ) Uᵀ with the learnable
+# adaptive polynomial filter of Eq. 6. w_k is parameterized on num_bins fixed
+# frequency bins and interpolated onto each graph's spectrum, making the
+# paper's transductive w_k ∈ ℝⁿ usable on the inductive evaluation grid
+# (cf. Fig. 2 of the paper, which analyses filters over eigenvalue segments).
+_target_: topobench.model.TBModel
+
+model_name: herofilter_spectral
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.HeroFilter
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  patcher: spectral
+  patch_size: 16
+  order: 10          # polynomial order K (Eq. 6)
+  num_bins: 16       # frequency bins carrying the learnable w_k
+  sigma: identity    # released code applies no activation; satisfies σ(0)=0 (Prop. 2)
+  num_layers: 2
+  expansion_factor: 1
+  dropout: 0.0
+  aggregation: sum   # §4.2 / Appendix pseudocode: aggregate via summation
+  residual: true
+  # Eq. 8–9 select indices (non-differentiable); softmax relevance weighting
+  # of the patches restores the gradient path that makes w_k learnable.
+  weight_patches: true
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.GNNWrapper
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

@@ -6,8 +6,17 @@ import pytest
 from test._utils.simplified_pipeline import run
 
 
-DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+# MUTAG keeps all three HeroFilter configs CI-fast: its ~18-node graphs make
+# the spectral eigendecomposition trivial, and it exercises the graph-level
+# readout and multi-graph batch segmentation. The paper-native transductive
+# node-classification setting is covered by the unit tests and the
+# GraphUniverse evaluation notebook.
+DATASET = "graph/MUTAG"
+MODELS = [
+    "graph/herofilter",
+    "graph/herofilter_spectral",
+    "graph/herofilter_reference",
+]
 
 
 class TestPipeline:
