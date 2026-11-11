@@ -1,0 +1,52 @@
+{
+  "benchmark": "QM9",
+  "target": "mu",
+  "target_unit": "Debye",
+  "protocol": {
+    "batch_size": 96,
+    "epochs": 1000,
+    "gradient_clip_norm": 1.0,
+    "hidden_channels": 128,
+    "learning_rate": 0.0005,
+    "num_layers": 7,
+    "scheduler_t_max": 333,
+    "seed": 42,
+    "split": "egnn",
+    "weight_decay": 0.00001
+  },
+  "controlled_components": {
+    "cell_construction": "Native QM9CC atoms, bonds, and virtual whole-molecule cell",
+    "edge_invariants": "Native five-channel physical invariants",
+    "initialization": "Identical seed-42 native model state",
+    "model_substitution": "Architecture-matched TopoBench ETNN core",
+    "target_normalization": "Native train-split mean and mean absolute deviation"
+  },
+  "results": [
+    {
+      "best_validation_epoch": null,
+      "best_validation_mae": null,
+      "implementation": "ETNN paper, Table 11, configuration 1",
+      "test_mae": 0.03,
+      "value_precision": "rounded to three decimal places"
+    },
+    {
+      "best_validation_epoch": 1000,
+      "best_validation_mae": 0.030985,
+      "implementation": "Native NSAPH reproduction",
+      "test_mae": 0.031815,
+      "value_precision": "six decimal places"
+    },
+    {
+      "best_validation_epoch": 999,
+      "best_validation_mae": 0.030400940332863783,
+      "implementation": "Protocol-matched TopoBench ETNN port",
+      "test_mae": 0.031216726196508338,
+      "value_precision": "full recorded precision"
+    }
+  ],
+  "comparison": {
+    "topobench_minus_native_test_mae": -0.000598273803491662,
+    "topobench_relative_test_mae_change_percent": -1.880477144402526
+  },
+  "interpretation": "Single-seed controlled model-core port validation using native QM9CC inputs and protocol; not an independent molecular-lifting benchmark or evidence of general superiority."
+}

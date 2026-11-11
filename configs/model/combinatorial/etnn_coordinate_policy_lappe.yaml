@@ -1,0 +1,63 @@
+_target_: topobench.model.TBModel
+
+model_name: etnn_coordinate_policy_lappe
+model_domain: combinatorial
+
+# Coordinate-policy ETNN with coordinate_policy=structural_lappe. The matching
+# model-default transform computes LapPE with concat_to_x=false before
+# graph-to-combinatorial lifting. The backbone treats LapPE as structural
+# pseudo-coordinates, lifts them to higher-rank cells, and appends squared
+# structural distances to ETNN relation messages.
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.etnn_coordinate_policy.ETNNCoordinatePolicy
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  neighborhoods:
+    # Same-rank node, edge, and face neighborhoods.
+    - up_adjacency-0
+    - up_adjacency-1
+    - up_adjacency-2
+    # Bidirectional node-edge communication.
+    - up_incidence-0
+    - down_incidence-1
+    # Bidirectional edge-face communication when rank-2 cells are present.
+    - up_incidence-1
+    - down_incidence-2
+  num_layers: 2
+  dropout: 0.0
+  activation: silu
+  use_batch_norm: false
+  coordinate_policy: structural_lappe
+  structural_coordinate_attr: LapPE
+
+# Reuse the same combinatorial wrapper/readout contract as the coordinate-free
+# policy so the only model difference is the explicit coordinate policy.
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.combinatorial.TuneWrapper
+  _partial_: true
+  wrapper_name: TuneWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false

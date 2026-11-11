@@ -1,0 +1,7 @@
+defaults:
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+
+# Coordinate-policy `none` does not add any coordinate preprocessing. Graph
+# datasets still need graph-to-combinatorial lifting so the backbone receives
+# rank-wise cell features and the sparse neighborhoods listed in the model
+# config.

@@ -1,0 +1,13 @@
+defaults:
+  - data_manipulations@lappe_coordinates: laplacian_encodings
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+
+# Keep LapPE separate from node features. The coordinate-policy backbone reads
+# the LapPE tensor as structural pseudo-coordinates and decides how to convert
+# it into invariant ETNN relation attributes.
+lappe_coordinates:
+  max_pe_dim: 3
+  include_eigenvalues: false
+  include_first: false
+  concat_to_x: false
+  method: exact

@@ -1,0 +1,74 @@
+_target_: topobench.model.TBModel
+
+model_name: etnn_coordinate_policy_physical
+model_domain: combinatorial
+
+# Coordinate-policy ETNN with coordinate_policy=physical. This config is meant
+# for graph datasets that expose rank-0 Euclidean coordinates through `data.pos`
+# or an equivalent physical-coordinate attribute. The backbone derives
+# invariant relation features from cell centroids, diameters, and directed
+# Hausdorff-style distances, then updates rank-0 positions internally with an
+# NSAPH-style learned radial coordinate update. Later layers recompute invariants
+# from the updated positions, while the TopoBench wrapper/readout still receive
+# feature embeddings only.
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.combinatorial.etnn_coordinate_policy.ETNNCoordinatePolicy
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  neighborhoods:
+    # Same-rank node, edge, and face neighborhoods.
+    - up_adjacency-0
+    - up_adjacency-1
+    - up_adjacency-2
+    # Bidirectional node-edge communication.
+    - up_incidence-0
+    - down_incidence-1
+    # Bidirectional edge-face communication when rank-2 cells are present.
+    - up_incidence-1
+    - down_incidence-2
+  num_layers: 2
+  dropout: 0.0
+  activation: silu
+  use_batch_norm: false
+  coordinate_policy: physical
+  physical_coordinate_attr: pos
+  pos_update: true
+  coordinate_update_scale: 0.1
+  coordinate_update_neighborhood: up_adjacency-0
+  hausdorff_dists: true
+  normalize_invariants: true
+  invariant_normalization: batch_norm
+  invariant_normalization_eps: 1e-8
+
+# The same wrapper/readout contract is used for all coordinate policies. This
+# keeps the experiment controlled: only the coordinate policy changes the ETNN
+# relation attributes consumed by the backbone.
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.combinatorial.TuneWrapper
+  _partial_: true
+  wrapper_name: TuneWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false

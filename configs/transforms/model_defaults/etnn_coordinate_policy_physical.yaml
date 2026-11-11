@@ -1,0 +1,7 @@
+defaults:
+  - liftings@_here_: ${get_required_lifting:${dataset},${model}}
+
+# Physical-coordinate policy does not add positional preprocessing. It expects
+# the dataset loader to provide rank-0 Euclidean coordinates, usually `pos`,
+# and relies on graph-to-combinatorial lifting to preserve those graph-level
+# attributes while constructing rank-wise cells and neighborhoods.
