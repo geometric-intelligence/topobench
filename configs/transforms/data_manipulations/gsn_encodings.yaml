@@ -1,0 +1,8 @@
+transform_name: "GSNEncodings"
+transform_type: "data manipulation"
+# substructures whose automorphism-orbit counts become the structural
+# encodings. Cycles of length 3-6 and paths of length 3-5 give 11 node
+# orbit channels (see `gsn_channels` on the gsn backbone).
+cycle_lengths: [3, 4, 5, 6]
+path_lengths: [3, 4, 5]
+pyg_kword: gsn_encodings

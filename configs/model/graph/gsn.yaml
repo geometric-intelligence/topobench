@@ -1,0 +1,59 @@
+_target_: topobench.model.TBModel
+
+model_name: gsn
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: GSNFeatureEncoder
+  # kept for parity with the other encoders; used by the cell-dimension
+  # resolvers in the wrapper / readout below. Absorbed by the encoder's
+  # **kwargs (GSNFeatureEncoder does not project features).
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  # shared embedding width, referenced by the backbone / wrapper / readout
+  # below. Absorbed by the encoder's **kwargs (GSNFeatureEncoder does not
+  # project features, it only attaches structural orbit-count encodings).
+  out_channels: 64
+  # the structural encodings themselves are computed once and cached by the
+  # `GSNEncodings` pre-transform (auto-attached via
+  # configs/transforms/model_defaults/gsn.yaml); this encoder is a pure
+  # passthrough that expects them to already be present on the batch. The
+  # substructure definitions therefore live only in the transform config.
+  pyg_kword: gsn_encodings
+
+backbone:
+  # NOTE: target the submodule (not the auto-discovered package alias), so
+  # PyG's MessagePassing signature inspector resolves the class correctly.
+  _target_: topobench.nn.backbones.graph.gsn.GSNGINVirtualNodeModel
+  mode: node
+  num_layers: 4
+  # `infer_in_channels` yields the node-feature channels as a single-element
+  # list (e.g. [7]), normalized across datasets whose `num_features` is either
+  # a scalar or a [node, edge] list. The backbone unwraps the single element.
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  gsn_channels: 11 # number of node orbit channels for the substructures above
+  out_channels: ${model.feature_encoder.out_channels}
+  batch_norm: true
+  dropout: 0.05
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.GSNWrapper
+  _partial_: true
+  wrapper_name: GSNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  # the GSN backbone outputs `out_channels`-wide embeddings while `x_0` holds
+  # the raw node features, so a residual `x_0 + out` would mismatch: disable it.
+  residual_connections: false
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
