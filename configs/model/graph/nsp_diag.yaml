@@ -1,0 +1,52 @@
+# Diag-NSP: Neural Sheaf Propagation with diagonal restriction maps.
+# Suk et al., "Surfing on the Neural Sheaf" (https://openreview.net/pdf?id=xOXFkyRzTlu)
+# Cheapest variant of Table 1: d scalars per edge instead of a d x d matrix.
+_target_: topobench.model.TBModel
+
+model_name: nsp_diag
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.NSPEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  # Width of the 0-cochain space; must stay a multiple of `d`.
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 2 # Table 2 sweeps {2,3,4,5,6,8}
+  d: 4 # stalk dimension; Table 2 sweeps [2,5], and it must divide hidden_dim
+  step_size: 1.0 # leapfrog step h; Table 2 sweeps [0.1,1.0]
+  sheaf_type: diag # diagonal restriction maps -> Diag-NSP
+  dropout: 0.4 # Table 2 sweeps layer dropout in [0.0,0.9]
+  input_dropout: 0.0
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+  # Extra MLP params
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+# compile model for faster training with pytorch 2.0
+compile: false

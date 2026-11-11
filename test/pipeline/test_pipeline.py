@@ -7,7 +7,14 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [
+    "graph/gcn",
+    "cell/topotune",
+    "simplicial/topotune",
+    "graph/nsp",  # O(d)-NSP
+    "graph/nsp_diag",  # Diag-NSP
+    "graph/nsp_general",  # Gen-NSP
+]  # ADD ONE OR SEVERAL MODELS
 
 
 class TestPipeline:

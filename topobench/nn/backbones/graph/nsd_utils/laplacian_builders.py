@@ -138,6 +138,10 @@ class DiagLaplacianBuilder(LaplacianBuilder):
         Edge indices of shape [2, num_edges].
     d : int
         Dimension of the diagonal stalk space.
+    normalised : bool, optional
+        Whether to build the normalised sheaf Laplacian
+        :math:`\\Delta_{\\mathcal{F}} = D^{-1/2} L_{\\mathcal{F}} D^{-1/2}`
+        instead of :math:`L_{\\mathcal{F}}`. Default is False.
     """
 
     def __init__(
@@ -145,8 +149,9 @@ class DiagLaplacianBuilder(LaplacianBuilder):
         size,
         edge_index,
         d,
+        normalised=False,
     ):
-        super().__init__(size, edge_index, d)
+        super().__init__(size, edge_index, d, normalised=normalised)
 
         self.diag_indices, self.tril_indices = (
             compute_learnable_diag_laplacian_indices(
@@ -182,6 +187,11 @@ class DiagLaplacianBuilder(LaplacianBuilder):
         tril_maps = -left_maps * right_maps
         saved_tril_maps = tril_maps.detach().clone()
         diag_maps = scatter_add(maps**2, row, dim=0, dim_size=self.size)
+
+        if self.normalised:
+            diag_maps, tril_maps = self.scalar_normalise(
+                diag_maps, tril_maps, tril_row, tril_col
+            )
 
         tril_indices, diag_indices = self.tril_indices, self.diag_indices
         tril_maps, diag_maps = tril_maps.view(-1), diag_maps.view(-1)

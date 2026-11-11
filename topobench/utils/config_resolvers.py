@@ -1,5 +1,6 @@
 """Configuration resolvers for the topobench package."""
 
+import copy
 import os
 from collections import defaultdict
 
@@ -798,13 +799,19 @@ def infer_in_channels(dataset, transforms):
     list
         List with dimensions of the input channels.
     """
+    import omegaconf
+
     num_features = dataset.parameters.num_features
-    if isinstance(num_features, int) and transforms is not None:
-        num_features = (
-            num_features
-            + check_pses_in_transforms(transforms)
-            + check_fes_in_transforms(transforms)
-        )
+    if transforms is not None:
+        added_features = check_pses_in_transforms(
+            transforms
+        ) + check_fes_in_transforms(transforms)
+        if isinstance(num_features, int):
+            num_features = num_features + added_features
+        elif added_features and len(num_features) > 0:
+            # copy, not list(), so a ListConfig stays a ListConfig
+            num_features = copy.copy(num_features)
+            num_features[0] = num_features[0] + added_features
 
     # Make it possible to pass lifting configuration as file path
     if transforms is not None and transforms.keys() == {"liftings"}:
@@ -949,17 +956,8 @@ def infer_in_channels(dataset, transforms):
             return [num_features]
 
         else:
-            pe_features = (
-                check_pses_in_transforms(transforms)
-                if transforms is not None
-                else 0
-            )
-            fe_features = (
-                check_fes_in_transforms(transforms)
-                if transforms is not None
-                else 0
-            )
-            return [num_features[0] + pe_features + fe_features]
+            # encodings were already folded into num_features[0] above
+            return [num_features[0]]
 
     # This else is never executed
     else:

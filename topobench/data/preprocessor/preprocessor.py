@@ -201,27 +201,59 @@ class PreProcessor(torch_geometric.data.InMemoryDataset):
         )
 
     def save_transform_parameters(self) -> None:
-        """Save the transform parameters."""
+        """Save the transform parameters.
+
+        Raises
+        ------
+        ValueError
+            If the directory already holds a valid record of transform
+            parameters that differ from the current ones, i.e. two different
+            configurations hash to the same directory.
+        """
         # Check if root/params_dict.json exists, if not, save it
         path_transform_parameters = os.path.join(
             self.processed_data_dir, "path_transform_parameters_dict.json"
         )
-        if not os.path.exists(path_transform_parameters):
-            with open(path_transform_parameters, "w") as f:
-                json.dump(self.transforms_parameters, f, indent=4)
-        else:
+        if os.path.exists(path_transform_parameters):
             # If path_transform_parameters exists, check if the transform_parameters are the same
             with open(path_transform_parameters) as f:
                 saved_transform_parameters = json.load(f)
 
-            if saved_transform_parameters != self.transforms_parameters:
+            if saved_transform_parameters == self.transforms_parameters:
+                print(
+                    f"Transform parameters are the same, using existing data_dir: {self.processed_data_dir}"
+                )
+                return
+
+            # The directory is named make_hash(transform parameters), so a
+            # record that hashes back to it does describe the parameters owning
+            # the directory: two configurations collide and neither may be
+            # served the other's data. A record that does not hash back was
+            # written by an older, lossier ensure_serializable (ListConfig used
+            # to be dumped as null), so it is stale and is refreshed below.
+            expected_hash = os.path.basename(self.processed_data_dir)
+            if str(make_hash(saved_transform_parameters)) == expected_hash:
+                differing = sorted(
+                    f"{name}.{key}"
+                    for name in saved_transform_parameters
+                    | self.transforms_parameters
+                    for key in saved_transform_parameters.get(name, {})
+                    | self.transforms_parameters.get(name, {})
+                    if saved_transform_parameters.get(name, {}).get(key)
+                    != self.transforms_parameters.get(name, {}).get(key)
+                )
                 raise ValueError(
-                    "Different transform parameters for the same data_dir"
+                    f"Different transform parameters hash to the same "
+                    f"data_dir '{self.processed_data_dir}'. Differing "
+                    f"parameters: {differing}"
                 )
 
             print(
-                f"Transform parameters are the same, using existing data_dir: {self.processed_data_dir}"
+                f"Refreshing outdated transform parameters record in: {self.processed_data_dir}"
             )
+
+        with open(path_transform_parameters, "w") as f:
+            json.dump(self.transforms_parameters, f, indent=4)
 
     def process(self) -> None:
         """Method that processes the data."""

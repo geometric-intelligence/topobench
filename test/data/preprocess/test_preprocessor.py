@@ -14,6 +14,7 @@ import torch_geometric.data
 from omegaconf import DictConfig
 
 from topobench.data.preprocessor.preprocessor import PreProcessor
+from topobench.data.utils import make_hash
 
 
 class MockTorchDataset(torch.utils.data.Dataset):
@@ -435,23 +436,86 @@ class TestPreProcessorTransforms:
     def test_save_transform_parameters_existing_different(self):
         """Test error when saving different transform parameters to same path."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            # Create existing params file with different params
+            # Create existing params file with different params. The directory
+            # is named after the hash of the params that own it, so a record
+            # hashing back to it is a genuine collision of two configs.
             existing_params = {"transform1": {"param": "old_value"}}
+            data_dir = os.path.join(tmpdir, str(make_hash(existing_params)))
+            os.makedirs(data_dir)
             param_file = os.path.join(
-                tmpdir, "path_transform_parameters_dict.json"
+                data_dir, "path_transform_parameters_dict.json"
             )
             with open(param_file, 'w') as f:
                 json.dump(existing_params, f)
 
             with patch.object(PreProcessor, '__init__', lambda self, *args, **kwargs: None):
                 preprocessor = PreProcessor(None, tmpdir, None)
-                preprocessor.processed_data_dir = tmpdir
+                preprocessor.processed_data_dir = data_dir
                 preprocessor.transforms_parameters = {
                     "transform1": {"param": "new_value"}
                 }
 
-                with pytest.raises(ValueError, match="Different transform parameters"):
+                with pytest.raises(ValueError, match="Different transform parameters") as excinfo:
                     preprocessor.save_transform_parameters()
+
+                # The message must name the offending path and the differing key
+                assert data_dir in str(excinfo.value)
+                assert "transform1.param" in str(excinfo.value)
+
+    def test_save_transform_parameters_refreshes_stale_record(self, capsys):
+        """Test that a record from an older serialization is refreshed.
+
+        An ``omegaconf.ListConfig`` used to be serialized as ``null`` while the
+        directory name was hashed from the real list, so such a record no
+        longer matches the parameters that own its directory. It has to be
+        rewritten instead of aborting every run that reuses the cache.
+
+        Parameters
+        ----------
+        capsys : pytest.CaptureFixture
+            Pytest fixture to capture stdout/stderr output.
+        """
+        params = {"transform1": {"neighborhoods": ["up_adjacency-1"]}}
+        stale_params = {"transform1": {"neighborhoods": None}}
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            data_dir = os.path.join(tmpdir, str(make_hash(params)))
+            os.makedirs(data_dir)
+            param_file = os.path.join(
+                data_dir, "path_transform_parameters_dict.json"
+            )
+            with open(param_file, 'w') as f:
+                json.dump(stale_params, f)
+
+            with patch.object(PreProcessor, '__init__', lambda self, *args, **kwargs: None):
+                preprocessor = PreProcessor(None, tmpdir, None)
+                preprocessor.processed_data_dir = data_dir
+                preprocessor.transforms_parameters = params
+
+                preprocessor.save_transform_parameters()
+
+            with open(param_file, 'r') as f:
+                assert json.load(f) == params
+            assert "Refreshing outdated" in capsys.readouterr().out
+
+    def test_set_processed_data_dir_separates_parameters(self):
+        """Test that only identical transform parameters share a directory."""
+        transforms_config = DictConfig({"transform1": {}})
+        dirs = []
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch.object(PreProcessor, '__init__', lambda self, *args, **kwargs: None):
+                preprocessor = PreProcessor(None, tmpdir, None)
+                for params in [{"param": 1}, {"param": 1}, {"param": 2}]:
+                    transform = MagicMock()
+                    transform.parameters = dict(params)
+                    preprocessor.set_processed_data_dir(
+                        {"transform1": transform}, tmpdir, transforms_config
+                    )
+                    dirs.append(preprocessor.processed_data_dir)
+
+        assert dirs[0] == dirs[1]
+        assert dirs[0] != dirs[2]
 
     def test_instantiate_pre_transform_with_liftings(self):
         """Test instantiate_pre_transform with liftings config."""
