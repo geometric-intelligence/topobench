@@ -308,13 +308,22 @@ def random_graph_input():
     """
     num_nodes = 8
     d_feat = 12
-    x = torch.randn(num_nodes, 12)
-    edges_1 = torch.randint(0, num_nodes, (2, num_nodes*2))
-    edges_2 = torch.randint(0, num_nodes, (2, num_nodes*2))
+    # Use a dedicated generator so the fixture does not depend on the
+    # ambient RNG state, i.e. on which tests ran before. Consumers assume
+    # the edges cover every node (a dense adjacency is built from them),
+    # which only holds for some global seeds.
+    generator = torch.Generator().manual_seed(0)
+    x = torch.randn(num_nodes, 12, generator=generator)
+    edges_1 = torch.randint(
+        0, num_nodes, (2, num_nodes * 2), generator=generator
+    )
+    edges_2 = torch.randint(
+        0, num_nodes, (2, num_nodes * 2), generator=generator
+    )
 
     d_feat_1, d_feat_2 = 5, 17
 
-    x_1 = torch.randn(num_nodes*2, d_feat_1)
-    x_2 = torch.randn(num_nodes*2, d_feat_2)
+    x_1 = torch.randn(num_nodes*2, d_feat_1, generator=generator)
+    x_2 = torch.randn(num_nodes*2, d_feat_2, generator=generator)
 
     return x, x_1, x_2, edges_1, edges_2

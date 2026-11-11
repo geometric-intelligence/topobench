@@ -1,0 +1,2 @@
+defaults:
+  - data_manipulations@RNeighbourhood: r_neighbourhood

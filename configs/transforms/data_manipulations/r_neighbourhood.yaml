@@ -1,0 +1,3 @@
+transform_name: "RNeighbourhood"
+transform_type: "data manipulation"
+r: 2 # Maximal neighbourhood order; must match model.backbone.r
