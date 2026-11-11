@@ -1,0 +1,7 @@
+transform_type: "lifting"
+transform_name: "GraphTriangleCliqueCCLifting"
+
+complex_dim: 2
+preserve_edge_attr: false
+feature_lifting: ProjectionSum
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

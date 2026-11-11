@@ -1,0 +1,2 @@
+defaults:
+  - /transforms/liftings/graph2combinatorial@graph2combinatorial_lifting: triangle_clique_cc
