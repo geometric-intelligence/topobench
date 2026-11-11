@@ -1,0 +1,32 @@
+{
+  "fs_00": {
+    "center_variance": 0.02,
+    "mean_feature_signal": 0.13941546280113817,
+    "std_feature_signal": 0.05144717283433268,
+    "n_graphs_probed": 30
+  },
+  "fs_01": {
+    "center_variance": 0.05,
+    "mean_feature_signal": 0.14238957215157638,
+    "std_feature_signal": 0.05855907457692916,
+    "n_graphs_probed": 30
+  },
+  "fs_02": {
+    "center_variance": 0.2,
+    "mean_feature_signal": 0.2934420876617405,
+    "std_feature_signal": 0.10059748934688391,
+    "n_graphs_probed": 30
+  },
+  "fs_03": {
+    "center_variance": 0.8,
+    "mean_feature_signal": 0.9323061821582778,
+    "std_feature_signal": 0.06568482463586424,
+    "n_graphs_probed": 30
+  },
+  "fs_04": {
+    "center_variance": 2.0,
+    "mean_feature_signal": 1.0,
+    "std_feature_signal": 0.0,
+    "n_graphs_probed": 30
+  }
+}

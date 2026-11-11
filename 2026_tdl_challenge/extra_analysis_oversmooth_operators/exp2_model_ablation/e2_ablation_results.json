@@ -1,0 +1,674 @@
+[
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.28374969959259033,
+    "val_accuracy": 0.2799389660358429,
+    "n_params": 55630,
+    "epochs_run": 179,
+    "wall_clock_s": 459.698043611,
+    "peak_gpu_mb": 2807.614976,
+    "status": "ok"
+  },
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.6134540438652039,
+    "val_accuracy": 0.6145168542861938,
+    "n_params": 55630,
+    "epochs_run": 144,
+    "wall_clock_s": 407.54591336299995,
+    "peak_gpu_mb": 988.36992,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.2894033193588257,
+    "val_accuracy": 0.2819061279296875,
+    "n_params": 55630,
+    "epochs_run": 161,
+    "wall_clock_s": 281.11404660300013,
+    "peak_gpu_mb": 2807.564288,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.6147146224975586,
+    "val_accuracy": 0.6148380041122437,
+    "n_params": 55630,
+    "epochs_run": 147,
+    "wall_clock_s": 240.05340702900003,
+    "peak_gpu_mb": 988.319232,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.2801971137523651,
+    "val_accuracy": 0.27403751015663147,
+    "n_params": 55630,
+    "epochs_run": 211,
+    "wall_clock_s": 387.56379031200004,
+    "peak_gpu_mb": 2807.564288,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.5909924507141113,
+    "val_accuracy": 0.5918342471122742,
+    "n_params": 55630,
+    "epochs_run": 169,
+    "wall_clock_s": 281.8529369560001,
+    "peak_gpu_mb": 988.319232,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.2842463254928589,
+    "val_accuracy": 0.2775302231311798,
+    "n_params": 55630,
+    "epochs_run": 194,
+    "wall_clock_s": 358.94221119400027,
+    "peak_gpu_mb": 2807.614976,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.6173122525215149,
+    "val_accuracy": 0.6173672080039978,
+    "n_params": 55630,
+    "epochs_run": 162,
+    "wall_clock_s": 280.9716297699997,
+    "peak_gpu_mb": 988.36992,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.2858507037162781,
+    "val_accuracy": 0.2794170677661896,
+    "n_params": 55630,
+    "epochs_run": 180,
+    "wall_clock_s": 328.6903133879996,
+    "peak_gpu_mb": 2807.614976,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.6130720376968384,
+    "val_accuracy": 0.6177285313606262,
+    "n_params": 55630,
+    "epochs_run": 194,
+    "wall_clock_s": 325.06654116200025,
+    "peak_gpu_mb": 988.36992,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.28352051973342896,
+    "val_accuracy": 0.28262877464294434,
+    "n_params": 55630,
+    "epochs_run": 137,
+    "wall_clock_s": 185.65412998500005,
+    "peak_gpu_mb": 560.835584,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 42,
+    "test_accuracy": 0.6178088188171387,
+    "val_accuracy": 0.6224657893180847,
+    "n_params": 55630,
+    "epochs_run": 148,
+    "wall_clock_s": 199.5905487280006,
+    "peak_gpu_mb": 533.731328,
+    "status": "ok"
+  },
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.2809993028640747,
+    "val_accuracy": 0.2770484685897827,
+    "n_params": 55630,
+    "epochs_run": 159,
+    "wall_clock_s": 293.9136283130001,
+    "peak_gpu_mb": 2880.654336,
+    "status": "ok"
+  },
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.2849339246749878,
+    "val_accuracy": 0.2798185348510742,
+    "n_params": 55630,
+    "epochs_run": 201,
+    "wall_clock_s": 358.31988880599965,
+    "peak_gpu_mb": 2777.653248,
+    "status": "ok"
+  },
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.6115440726280212,
+    "val_accuracy": 0.6195350885391235,
+    "n_params": 55630,
+    "epochs_run": 176,
+    "wall_clock_s": 289.96084538500054,
+    "peak_gpu_mb": 962.59584,
+    "status": "ok"
+  },
+  {
+    "arm": "A0",
+    "arm_name": "full",
+    "overrides": [],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.6176560521125793,
+    "val_accuracy": 0.6168854832649231,
+    "n_params": 55630,
+    "epochs_run": 167,
+    "wall_clock_s": 279.1010755819998,
+    "peak_gpu_mb": 1009.956864,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.2882191240787506,
+    "val_accuracy": 0.28475651144981384,
+    "n_params": 55630,
+    "epochs_run": 222,
+    "wall_clock_s": 385.5687226679993,
+    "peak_gpu_mb": 2880.620544,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.2857743203639984,
+    "val_accuracy": 0.2789353132247925,
+    "n_params": 55630,
+    "epochs_run": 147,
+    "wall_clock_s": 257.4033404820002,
+    "peak_gpu_mb": 2748.443648,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.6142944693565369,
+    "val_accuracy": 0.621020495891571,
+    "n_params": 55630,
+    "epochs_run": 198,
+    "wall_clock_s": 318.2343581340001,
+    "peak_gpu_mb": 962.562048,
+    "status": "ok"
+  },
+  {
+    "arm": "A1",
+    "arm_name": "spatial_only",
+    "overrides": [
+      "+model.backbone.use_spectral=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.6110474467277527,
+    "val_accuracy": 0.6112248301506042,
+    "n_params": 55630,
+    "epochs_run": 141,
+    "wall_clock_s": 224.51240580500053,
+    "peak_gpu_mb": 1009.906176,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.27943310141563416,
+    "val_accuracy": 0.27640610933303833,
+    "n_params": 55630,
+    "epochs_run": 232,
+    "wall_clock_s": 404.657440342,
+    "peak_gpu_mb": 2880.620544,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.269462913274765,
+    "val_accuracy": 0.26275643706321716,
+    "n_params": 55630,
+    "epochs_run": 113,
+    "wall_clock_s": 197.6370132310003,
+    "peak_gpu_mb": 2748.443648,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.5820536613464355,
+    "val_accuracy": 0.585330605506897,
+    "n_params": 55630,
+    "epochs_run": 110,
+    "wall_clock_s": 177.27223464899998,
+    "peak_gpu_mb": 957.725184,
+    "status": "ok"
+  },
+  {
+    "arm": "A2",
+    "arm_name": "spectral_only",
+    "overrides": [
+      "+model.backbone.use_spatial=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.592902421951294,
+    "val_accuracy": 0.5900678634643555,
+    "n_params": 55630,
+    "epochs_run": 189,
+    "wall_clock_s": 301.4372476790004,
+    "peak_gpu_mb": 1009.906176,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.2800825238227844,
+    "val_accuracy": 0.27676743268966675,
+    "n_params": 55630,
+    "epochs_run": 185,
+    "wall_clock_s": 330.38911014899895,
+    "peak_gpu_mb": 2880.654336,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.2830621004104614,
+    "val_accuracy": 0.27793166041374207,
+    "n_params": 55630,
+    "epochs_run": 213,
+    "wall_clock_s": 392.60874435299957,
+    "peak_gpu_mb": 2777.653248,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.6055084466934204,
+    "val_accuracy": 0.6131117343902588,
+    "n_params": 55630,
+    "epochs_run": 97,
+    "wall_clock_s": 163.32102146500074,
+    "peak_gpu_mb": 957.775872,
+    "status": "ok"
+  },
+  {
+    "arm": "A3",
+    "arm_name": "fusion_sum",
+    "overrides": [
+      "+model.backbone.fusion=sum"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.612078845500946,
+    "val_accuracy": 0.6188927888870239,
+    "n_params": 55630,
+    "epochs_run": 165,
+    "wall_clock_s": 272.0405793300015,
+    "peak_gpu_mb": 1009.956864,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.28161051869392395,
+    "val_accuracy": 0.2792966365814209,
+    "n_params": 55630,
+    "epochs_run": 213,
+    "wall_clock_s": 372.59513544700167,
+    "peak_gpu_mb": 2880.654336,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.2874933183193207,
+    "val_accuracy": 0.2823878824710846,
+    "n_params": 55630,
+    "epochs_run": 243,
+    "wall_clock_s": 421.77872966500036,
+    "peak_gpu_mb": 2878.20288,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.6139506697654724,
+    "val_accuracy": 0.6216226816177368,
+    "n_params": 55630,
+    "epochs_run": 200,
+    "wall_clock_s": 320.8090384850002,
+    "peak_gpu_mb": 962.59584,
+    "status": "ok"
+  },
+  {
+    "arm": "A4",
+    "arm_name": "no_sib",
+    "overrides": [
+      "+model.backbone.use_sib=false"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.6161280274391174,
+    "val_accuracy": 0.6176883578300476,
+    "n_params": 55630,
+    "epochs_run": 203,
+    "wall_clock_s": 325.31244979300027,
+    "peak_gpu_mb": 1009.956864,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.2806173264980316,
+    "val_accuracy": 0.28086233139038086,
+    "n_params": 55630,
+    "epochs_run": 139,
+    "wall_clock_s": 179.69772471100077,
+    "peak_gpu_mb": 570.919936,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_lo__d_lo__pl_lo",
+    "homophily": "h_lo",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.28894492983818054,
+    "val_accuracy": 0.2867638170719147,
+    "n_params": 55630,
+    "epochs_run": 196,
+    "wall_clock_s": 255.32172990799882,
+    "peak_gpu_mb": 566.08768,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 43,
+    "test_accuracy": 0.6205974221229553,
+    "val_accuracy": 0.6200569868087769,
+    "n_params": 55630,
+    "epochs_run": 190,
+    "wall_clock_s": 243.1444082580001,
+    "peak_gpu_mb": 517.49888,
+    "status": "ok"
+  },
+  {
+    "arm": "A5",
+    "arm_name": "clique_only",
+    "overrides": [
+      "+model.backbone.expansions=[clique]"
+    ],
+    "cell_key": "h_hi__d_lo__pl_lo",
+    "homophily": "h_hi",
+    "avg_degree": "d_lo",
+    "power_law": "pl_lo",
+    "seed": 44,
+    "test_accuracy": 0.6147146224975586,
+    "val_accuracy": 0.6189730763435364,
+    "n_params": 55630,
+    "epochs_run": 161,
+    "wall_clock_s": 213.4316578449998,
+    "peak_gpu_mb": 523.021824,
+    "status": "ok"
+  }
+]

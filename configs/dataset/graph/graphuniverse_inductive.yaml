@@ -46,6 +46,7 @@ split_params:
 
 # Dataloader parameters
 dataloader_params:
-  batch_size: 16
-  num_workers: 0
+  batch_size: 64
+  num_workers: 2
   pin_memory: False
+  persistent_workers: True

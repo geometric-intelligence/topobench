@@ -1,0 +1,3 @@
+# Per-run checkpoints/CSV logs — large, regenerable, not part of the
+# reported results (those live in e3_feature_signal_results.json).
+runs/
