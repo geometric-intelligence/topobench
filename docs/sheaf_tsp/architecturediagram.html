@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SheafTSP — Architecture Diagrams</title>
+<script>
+  MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+  :root {
+    --diff: #2b6cb0;   /* diffused signal (operator-normalized) */
+    --count: #2f855a;  /* count term (normalization-free) */
+    --reg: #b7791f;    /* regularizer (loss-side) */
+    --frame: #718096;
+  }
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 900px;
+         margin: 2rem auto; padding: 0 1.25rem; line-height: 1.5; color: #1a1a1a; }
+  h1 { font-size: 1.6rem; border-bottom: 2px solid #333; padding-bottom: .4rem; }
+  h2 { font-size: 1.25rem; margin-top: 2.4rem; border-bottom: 1px solid #bbb; padding-bottom: .25rem; }
+  .small { font-size: .85rem; color: #555; }
+
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 1.2rem 0; }
+  .node { border: 1.5px solid var(--frame); border-radius: 8px; background: #fafafa;
+          padding: .5rem .9rem; text-align: center; font-size: .92rem; max-width: 640px; }
+  .node b { font-size: .95rem; }
+  .node .sub { font-size: .8rem; color: #555; margin-top: .15rem; }
+  .arrow { font-size: 1.15rem; color: #444; line-height: 1.35; text-align: center; }
+  .arrow.lbl { font-size: .78rem; color: #666; font-style: italic; }
+
+  .split { display: flex; gap: 1rem; align-items: stretch; justify-content: center; margin: .2rem 0; }
+  .lane { display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 46%; }
+  .lane .node { width: 100%; box-sizing: border-box; }
+  .diff  { border-color: var(--diff);  background: #ebf4fb; }
+  .count { border-color: var(--count); background: #ecf7f0; }
+  .reg   { border-color: var(--reg);   background: #fdf6e7; border-style: dashed; }
+  .lanehead { font-size: .8rem; font-weight: bold; letter-spacing: .04em; text-transform: uppercase; margin-bottom: .3rem; }
+  .lanehead.d { color: var(--diff); }
+  .lanehead.c { color: var(--count); }
+
+  .layerbox { border: 2px solid var(--diff); border-radius: 10px; padding: .8rem 1rem .4rem;
+              margin: .2rem 0; background: #f6fafd; max-width: 680px; }
+  .layerbox > .cap { font-size: .8rem; font-weight: bold; color: var(--diff);
+                     text-transform: uppercase; letter-spacing: .04em; margin-bottom: .4rem; text-align: center;}
+
+  table { border-collapse: collapse; margin: 1rem 0; width: 100%; font-size: .92rem; }
+  th, td { border: 1px solid #999; padding: .45rem .6rem; text-align: left; }
+  th { background: #efefef; }
+  td.on  { background: #ecf7f0; }
+  td.off { color: #999; }
+  .legend { display: flex; gap: 1.4rem; font-size: .85rem; margin: .6rem 0 0; }
+  .chip { display: inline-block; width: .9em; height: .9em; border-radius: 3px; margin-right: .35em; vertical-align: -0.1em; }
+  code { font-family: 'SF Mono', Menlo, monospace; font-size: .85em; background: #eee; padding: .05rem .3rem; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>SheafTSP — Architecture Diagrams</h1>
+<p class="small">Companion to <code>sheaf_tsp_overview.html</code>. The frozen submission
+configuration is summarized in Sec. 3. Color code:
+<span class="chip" style="background:#ebf4fb;border:1.5px solid var(--diff)"></span>sheaf-diffused signal (operator-normalized) &nbsp;
+<span class="chip" style="background:#ecf7f0;border:1.5px solid var(--count)"></span>exact count term (kept normalization-free) &nbsp;
+<span class="chip" style="background:#fdf6e7;border:1.5px dashed var(--reg)"></span>loss-side regularizer.</p>
+
+<h2>1. End-to-end data flow</h2>
+
+<div class="flow">
+  <div class="node"><b>Input graph</b><div class="sub">$N$ nodes, 15-d features, inductive family (50&ndash;300 nodes)</div></div>
+  <div class="arrow">&darr;</div>
+  <div class="node"><b>Preprocessing transform</b> (cached with the dataset)
+    <div class="sub"><b>CellCliqueLifting</b>: all 3-cliques as 2-cells (canonical set,
+    invariant under relabeling) &rarr;
+    $x_0, x_1, x_2$, incidences $B_1, B_2$ (unsigned, $\{0,1\}$), Hodge Laplacians $L_\downarrow, L_\uparrow$</div></div>
+  <div class="arrow">&darr;</div>
+  <div class="node"><b>AllCellFeatureEncoder</b> (width 64, fixed by challenge)
+    <div class="sub">per-rank linear encoders; ranks {0, 1}</div></div>
+  <div class="arrow">&darr;</div>
+
+  <div class="layerbox">
+    <div class="cap">SheafTSP backbone &mdash; &times;3 layers on 1-cells (detail in Sec. 2)</div>
+    <div class="flow" style="margin:.2rem 0">
+      <div class="node diff">learned sheaf Laplacian $\hat L_{\mathcal F}$ &rarr; polynomial spectral filter &rarr; $x_1'$</div>
+      <div class="arrow lbl">+ per-layer transport regularizer &rarr; task loss (dashed, Sec. 2)</div>
+    </div>
+  </div>
+
+  <div class="arrow">&darr;</div>
+
+  <div class="node"><b>Node embedding assembly</b> (one tensor, three additive terms):
+    $x_0 = \color{#2b6cb0}{B_1 x_1' + x_0^{\text{enc}}} + \color{#2f855a}{W_{\text{tri}}\, t_v}$
+    <div class="sub"><span style="color:var(--diff)">blue terms</span>: sheaf-diffused signal
+    (boundary propagation + encoder residual).
+    <span style="color:var(--count)">green term</span>: linear embed of the exact
+    count signal derived from the complex's own incidences,
+    $t_v = |B_1||B_2|\mathbf 1$ ($\sum_v t_v = 6\cdot\#\triangle$ under the
+    clique lifting; zero-init with a warm-start channel, <code>tri_warm</code>). <b>No normalization is applied to $x_0$</b>
+    (<code>residual_connections: false</code>) — the load-bearing invariant: any
+    LayerNorm here erases the count magnitudes.</div></div>
+
+  <div class="arrow">&darr;</div>
+  <div class="node"><b>Readout</b>: PropagateSignalDown ($x_1 \to x_0$ mix) &rarr; linear head;
+    node-level tasks read $x_0$ directly, graph-level tasks <b>sum</b>-pool it first
+    <div class="sub">every operation from $t_v$ to the prediction is linear, so the
+    pooled green term stays exactly proportional to the triangle count</div></div>
+</div>
+
+<h2>2. Inside one SheafConvLayer</h2>
+
+<div class="flow">
+  <div class="node">$x_1 \in \mathbb R^{N\times C}$ &nbsp; (1-cell features; $N$ = #edges of the graph = nodes of the sheaf)</div>
+  <div class="arrow">&darr;</div>
+
+  <div class="split">
+    <div class="lane">
+      <div class="lanehead d">learned geometry</div>
+      <div class="node diff">dropout$_{\text{mlp}}$(x) &rarr; <b>Restriction-map MLP</b>
+        <div class="sub">surgical regularization: dropout is applied to the restriction-map input only; the filtered signal receives none (<code>mlp_dropout: 0.5</code>)</div></div>
+      <div class="arrow">&darr;</div>
+      <div class="node diff">antisymmetrized skew $S_{uv} = -S_{vu}$ &rarr; <b>Cayley</b> $R_e = (I{-}S)(I{+}S)^{-1} \in SO(d)$
+        <div class="sub">$R_{vu} = R_{uv}^{-1}$ by construction — orientation-equivariant, invariant to node relabeling</div></div>
+      <div class="arrow">&darr;</div>
+      <div class="node diff"><b>Gaussian kernel</b> $k_{ij} = \exp(-\rho_{ij}^2 / 4t)$, learnable $t$
+        <div class="sub">default $\delta^2$: transport-inconsistency $\lVert s_i - R_e s_j\rVert^2$; feature distance available (<code>kernel_distance</code>)</div></div>
+    </div>
+    <div class="lane">
+      <div class="lanehead d">signal</div>
+      <div class="node diff"><b>Stalk lift</b> $s = \mathrm{Lift}(x_1) \in \mathbb R^{Nd\times C}$
+        <div class="sub">each stalk coordinate gets distinct channel content</div></div>
+      <div class="arrow lbl">waits for $\hat L_{\mathcal F}$&hellip;</div>
+    </div>
+  </div>
+
+  <div class="arrow">&darr;</div>
+  <div class="node diff"><b>Sheaf Laplacian</b> $L_{\mathcal F} = \delta^\top K \delta$ &rarr;
+     $\hat L_{\mathcal F} = D^{-1/2} L_{\mathcal F} D^{-1/2}$, spectrum $\subseteq [0,2]$</div>
+  <div class="arrow">&darr;</div>
+  <div class="node diff"><b>Spectral filter</b> — default: PPR scalars on
+    $P = I - \tfrac12\hat L$, $K{=}10$, $w_k = \alpha(1-\alpha)^k$ init
+    <div class="sub">alternatives in the codebase: monomial $\sum_k \hat L^k s W_k$ ($W_0{=}I$ init), Chebyshev $T_k(\hat L{-}I)$</div></div>
+  <div class="arrow">&darr;</div>
+  <div class="node diff">stalk pooling $(N, dC) \to (N, C)$ &rarr; + residual &rarr; LayerNorm &rarr; $x_1'$</div>
+
+  <div class="arrow lbl">meanwhile, loss-side:</div>
+  <div class="node reg"><b>Transport regularizer</b> ($\lambda = 0.01$, signal detached &mdash; gradients only into $R$, $t$):
+    Dirichlet $\mathrm{tr}(s^\top L_{\mathcal F} s)$ &nbsp;or&nbsp;
+    <b>kernel alignment</b> $-\overline{\exp(-\lVert s_i - R_e s_j\rVert^2/4t)}$
+    <div class="sub">the alignment term is bounded per edge, so high-dissimilarity (cross-community) edges contribute at most a fixed gradient magnitude</div></div>
+</div>
+
+<h2>3. Submission configuration</h2>
+<p class="small">The frozen configuration, with the rationale each choice carries.
+Research options retained in the codebase (default off) are documented in the
+config comments and the experiment log.</p>
+
+<table>
+<tr><th>Setting</th><th>Value</th><th>Rationale</th></tr>
+<tr><td><code>filter_basis</code> / <code>filter_order</code></td><td class="on">ppr / 10</td><td>long-range low-pass sheaf diffusion (Sec. 2); improves both tasks</td></tr>
+<tr><td><code>kernel_distance</code></td><td class="on">transport</td><td>edges weighted by inconsistency under the learned maps; improves both tasks</td></tr>
+<tr><td><code>reg_form</code></td><td class="on">alignment</td><td>bounded per-edge transport reward</td></tr>
+<tr><td><code>mlp_dropout</code> (geometry)</td><td class="on">0.5</td><td>regularizes the learned transports; the diffused signal stays clean</td></tr>
+<tr><td><code>dropout</code> (diffused signal)</td><td class="off">0.0</td><td>signal dropout corrupts the count term</td></tr>
+<tr><td><code>count_source</code></td><td class="on">incidence</td><td>exact per-node counts from $|B_1||B_2|\mathbf 1$; endogenous to the lifted complex</td></tr>
+<tr><td><code>rotation_param</code></td><td class="on">cayley</td><td>kept after a head-to-head with the surjective exponential map</td></tr>
+<tr><td><code>tri_warm</code></td><td class="on">0.1</td><td>count channel readable from epoch 0</td></tr>
+<tr><td>lifting</td><td class="on">CellCliqueLifting</td><td>all triangles as 2-cells — canonical set, invariant under node relabeling</td></tr>
+<tr><td><code>residual_connections</code></td><td class="on">false</td><td>post-hoc LayerNorm would erase count magnitudes</td></tr>
+</table>
+
+<p class="small">Invariants the configuration protects: an operator-normalized
+diffused signal for community structure, a strictly sum-linear count term for
+triangle regression, and regularization confined to the learned geometry.</p>
+
+</body>
+</html>

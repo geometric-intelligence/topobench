@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SheafTSP — Approach &amp; Design Principles</title>
+<script>
+  MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px;
+         margin: 2rem auto; padding: 0 1.25rem; line-height: 1.55; color: #1a1a1a; }
+  h1 { font-size: 1.7rem; border-bottom: 2px solid #333; padding-bottom: .4rem; }
+  h2 { font-size: 1.3rem; margin-top: 2.2rem; border-bottom: 1px solid #bbb; padding-bottom: .25rem; }
+  h3 { font-size: 1.05rem; margin-top: 1.6rem; }
+  table { border-collapse: collapse; margin: 1rem 0; width: 100%; font-size: .95rem; }
+  th, td { border: 1px solid #999; padding: .4rem .6rem; text-align: left; }
+  th { background: #efefef; }
+  .win { font-weight: bold; }
+  .eq { background: #f7f7f2; border-left: 4px solid #8a7f3f; padding: .6rem 1rem; margin: 1rem 0; }
+  .vs { background: #f0f4f8; border-left: 4px solid #3f6e8a; padding: .5rem 1rem; margin: .6rem 0 1.2rem; font-size: .95rem; }
+  .principle { background: #f3f8f3; border-left: 4px solid #3f8a4f; padding: .6rem 1rem; margin: 1rem 0; }
+  .caveat { background: #fdf3f3; border-left: 4px solid #a33; padding: .6rem 1rem; margin: 1rem 0; }
+  code { font-family: 'SF Mono', Menlo, monospace; font-size: .88em; background: #eee; padding: .05rem .3rem; border-radius: 3px; }
+  .small { font-size: .85rem; color: #555; }
+</style>
+</head>
+<body>
+
+<h1>SheafTSP: Sheaf-Topological Signal Processing</h1>
+<p class="small">Track 2 (TNN) submission — Topological Deep Learning Challenge 2026, TopoBench integration.
+This page explains the approach and the design principles behind it. Flow diagrams:
+<code>architecturediagram.html</code>. Full experiment log with per-study commands and
+verdicts: <code>docs/BATTLE_PLAN.md</code> in the project repository.</p>
+
+<h2>1. Main Contribution</h2>
+<p>
+SheafTSP is a spectral convolutional network whose diffusion operator is a
+<em>learned, weighted Sheaf Laplacian</em>, replacing the fixed graph or
+Hodge Laplacian. To be precise, the model builds a Hansen&ndash;Ghrist [2] graph
+sheaf over the <em>1-cell adjacency structure</em> of a lifted cell complex
+— stalks and learned transports live on edge pairs; 2-cells contribute the
+adjacency pattern and the exact counting feature (Sec. 3.6). A full
+cellular sheaf with restriction maps up the coboundary (1-cells into
+2-cells) is the natural extension and is future work. Each layer (i) learns orthogonal restriction maps
+between stalks via a Cayley-parameterized MLP, (ii) assembles the
+degree-normalized Sheaf Laplacian, (iii) lifts the channel signal into the
+stalk fibers, and (iv) applies a polynomial spectral filter. Alongside this
+diffusion machinery, the node embedding carries a deliberately
+<em>unnormalized</em> additive term derived from rank-2 structure. The
+central engineering lesson of this project (Sec. 4) is that community
+structure and substructure counting want opposite treatments of
+normalization — so the architecture keeps an operator-normalized diffusion
+signal and a strictly linear count term side by side in one embedding,
+protected from each other.
+</p>
+
+<h2>2. Core Hypotheses</h2>
+
+<h3>2.1 Smoothness as transport-consistency</h3>
+<p>
+The standard graph Laplacian penalizes <em>all</em> neighbor differences —
+an implicit homophily assumption that oversmooths and fails on heterophilic
+graphs. The sheaf Laplacian's zero eigenspace consists of
+<em>global sections</em>: signals consistent with the learned restriction
+maps. Under this operator, smoothness requires only that each node's value
+agree with its neighbors' values after transport along the learned edge
+maps; the features themselves may differ arbitrarily [2][3]. This is the
+mechanism by which a sheaf model can handle low-homophily community
+structure that defeats similarity-based diffusion.
+</p>
+<p>
+<b>Measured evidence.</b> Reading the learned $SO(2)$ transport angles out
+of trained checkpoints: on a mid-homophily benchmark setting the first
+layer learns mild rotations (mean $|\theta| = 9.9^\circ$, 68% of edges
+above $5^\circ$); on a low-homophily setting it learns near-antipodal maps
+(mean
+$|\theta| = 165.8^\circ$, 100% of edges non-trivial) — the transports
+discover that heterophilic neighbors are anti-correlated and flip them into
+consistency. In the magnetic-Laplacian view (Sec. 3.1) the model selects
+phases near $\pi$ (signed regime) under heterophily and near $0$ (standard
+diffusion) under homophily, per edge, from data.
+</p>
+
+<h3>2.2 Communities live in the bottom of the sheaf spectrum</h3>
+<p>
+Transport-consistent partitions of a graph appear as near-harmonic
+eigensections of $L_{\mathcal F}$ — a sheaf-native generalization of
+spectral clustering [1][2]. Consequently the community-detection signal is
+carried by the <em>bottom</em> of the spectrum, and the right filter shape is
+long-range and low-pass. The stability of the bottom spectrum under
+resampling [1] also makes it the transferable part (next hypothesis).
+</p>
+
+<h3>2.3 Spectral stability in the inductive setting</h3>
+<p>
+The challenge is inductive: train and test graphs are drawn from the same
+generative family at different sizes. We state precisely what is and is
+not guaranteed. <b>Guaranteed</b>: the normalized operator satisfies
+$\sigma(\hat L_{\mathcal F}) \subseteq [0,2]$ per input (verified
+numerically; the bound follows from the orthogonal block structure and
+kernel-weighted degrees), so the polynomial filters are numerically
+stable on every graph size. <b>Not claimed</b>: formal geometric
+transferability. The convergence theory of [1] — discrete sheaf
+Laplacians approaching a continuous connection Laplacian — is stated for
+sheaves whose stalks sit on sampled points (0-cells); SheafTSP's sheaf
+lives on the 1-cells of the lifted complex, and the corresponding
+convergence statements (Hodge-type limits for edge operators) are open.
+The design draws on [1] for motivation; cross-size generalization is an
+empirical claim in this submission, supported by the measured inductive
+results (Sec. 5) and consistent with the size-independent construction
+(amortized transports, bounded filters, near-identity initialization).
+</p>
+
+<h3>2.4 Expressivity position</h3>
+<p>
+Message-passing GNNs provably cannot count triangles: no MPNN or 2-IGN can
+count any connected induced substructure on three or more nodes [6] — the
+result that motivates this benchmark's counting task and the field's move
+to lifted (simplicial/cellular) message passing. SheafTSP makes no
+expressivity claim for its diffusion backbone; the design axis is
+different. The lifted complex supplies the structural information
+explicitly (as it does for every topological model in the challenge), and
+the architecture is engineered so that this information survives to the
+prediction — the property most architectures lose to normalization and
+mixing (Sec. 4, P1&ndash;P2). Counting accuracy then measures information
+<em>preservation</em>, and the grid results (Sec. 5) reflect that
+distinction.
+</p>
+
+<h2>3. Architecture</h2>
+
+<p class="small">
+Equation tags (Eq. 8, 10, 15) cite Tandon et&nbsp;al. [1], whose
+architecture is dubbed "HilbNets": the kernel-weighted sheaf Laplacian
+(their Eq. 8, Defs. 3&ndash;4), the polynomial sheaf filter (their Eq. 10),
+and the transport regularizer added to the task loss (their Eq. 15,
+App. D; we use their $\lambda = 0.01$). SheafTSP's deltas from the
+framework are noted per equation below.
+</p>
+
+<h3>3.1 Learning the restriction maps</h3>
+<div class="eq">
+$$ S_{uv} = \mathrm{skew}\!\big(\mathrm{MLP}([x_u \| x_v]) - \mathrm{MLP}([x_v \| x_u])\big), \qquad
+   R_e = (I - S)(I + S)^{-1} \in SO(d) $$
+</div>
+<div class="vs">
+<b>vs. NSD</b> (Bodnar et&nbsp;al., 2022) [3]: NSD learns general or diagonal
+restriction maps with no orthogonality guarantee, so the induced Laplacian can
+be poorly conditioned. <b>vs. BuNN</b> (Bamberger et&nbsp;al., 2024) [4]: BuNN also uses
+orthogonal maps but within a flat-bundle heat-kernel scheme; SheafTSP uses the
+Cayley transform inside a per-edge learned map feeding a spectral filter.
+The MLP amortizes transports across graphs — required for the inductive
+setting, where per-edge transport parameters (as in [2]) are unavailable.
+The generator is antisymmetrized over the edge direction, so
+$R_{vu} = R_{uv}^{-1}$ holds by construction and the model is invariant to
+node relabeling. Precision notes: the Cayley image is the dense subset of
+$SO(d)$ excluding rotations with a $-1$ eigenvalue, and the bandwidth is
+detached inside the transport regularizer so alignment gradients reach the
+transports only.
+<br><br>
+At the default $d = 2$ the structure group $SO(2)$ is
+abelian, and the operator is real-conjugate to a <em>magnetic Laplacian</em>
+with learned, feature-dependent phases [7] — placing the default model in
+the U(1)-connection family, with amortized learned phases and the sheaf
+framing supplying the generalization to non-abelian $d \geq 3$.
+<br><br>
+<span class="small">Parameterization test: the antipodal exclusion is a
+real topological property of the Cayley map (reaching angle $\theta$
+requires generator norm $\tan(\theta/2)$, divergent at $\pi$), and it was
+benchmarked against the surjective alternative. An exponential-map
+variant (verified to reach $-I$ exactly with bounded generators) scored
+0.3172 vs Cayley's 0.3284 on the low-homophily setting — where the
+obstruction would bind — and 0.4075 vs 0.4151 at mid homophily. The
+learned optimum sits near $166^\circ$, reachable under Cayley with
+generator norms $\approx 8$ and stable convergence; the exclusion is
+measurably non-binding, and Cayley remains the default with the
+exponential map available in the codebase.</span>
+</div>
+
+<h3>3.2 Weighted Sheaf Laplacian with learnable kernel (Eq. 8 of [1])</h3>
+<div class="eq">
+$$ k_{ij} = \exp\!\left(-\frac{\rho_{ij}^2}{4t}\right), \qquad
+   \rho_{ij}^2 = \lVert x_i - x_j \rVert^2 \;\text{ or }\;
+   \lVert s_i - R_e\, s_j \rVert^2, \qquad
+   \hat L_{\mathcal F} = D^{-1/2}\, \delta^{\top} K \delta\, D^{-1/2} $$
+</div>
+<div class="vs">
+<b>vs. GCN / Hodge-Laplacian TNNs</b>: those use fixed, data-independent
+operators. Here the coboundary $\delta$ carries the learned $R_e$ and $K$
+is a Gaussian kernel on the distance $\rho_{ij}$ with learnable bandwidth
+$t$. The second distance form is the
+sheaf-native one and the submission default: it weights an edge by the
+<em>inconsistency of the two endpoints under the learned transport</em>. A
+raw-similarity kernel quietly reintroduces the homophily bias that
+hypothesis Sec. 2.1 exists to remove; measured under exact counting
+(Sec. 3.6) the transport form also improved the counting task.
+Symmetric normalization bounds the spectrum in $[0,2]$, keeping filter
+powers stable.
+</div>
+
+<h3>3.3 Lifting channels into the stalk fibers ([1] Prop. 1)</h3>
+<div class="eq">
+$$ s = \mathrm{Lift}(x): \;\; \mathbb{R}^{N \times C} \to \mathbb{R}^{Nd \times C} $$
+</div>
+<div class="vs">
+<b>vs. NSD's Kronecker broadcast</b> [3]: a learned linear map gives each of
+the $d$ stalk coordinates distinct channel content — the stalk is treated as
+a genuine signal fiber, so the transports act on non-degenerate vectors.
+</div>
+
+<h3>3.4 Spectral filter (Eq. 10 of [1])</h3>
+<div class="eq">
+$$ y = \sum_{k=0}^{K} \hat L_{\mathcal F}^{\,k}\, s\, W_k
+   \quad\text{(matrix coefficients, } W_0 = I \text{ init)}
+   \qquad\text{or}\qquad
+   y = \sum_{k=0}^{K} w_k\, P^k s,\;\; P = I - \tfrac{1}{2}\hat L_{\mathcal F} $$
+</div>
+<div class="vs">
+<b>vs. one-hop message passing (GIN, GCN)</b>: GIN and GCN mix one hop per
+layer; each SheafTSP layer applies a $K$-hop sheaf-aware filter. The second
+(scalar-coefficient) form is
+the low-pass long-range realization of hypothesis Sec. 2.2 and the
+submission default ($K = 10$): $P$ is the sheaf lazy walk with spectrum in
+$[0,1]$, so large $K$ is numerically stable, and initializing
+$w_k = \alpha(1-\alpha)^k$ makes the layer personalized-PageRank diffusion
+over the sheaf at epoch&nbsp;0. Raw monomial powers of $\hat L_{\mathcal F}$
+(spectrum $[0,2]$) explode at large $K$ — depth requires either this
+operator change or a Chebyshev basis.
+</div>
+
+<h3>3.5 Transport-alignment regularizer (Eq. 15 of [1])</h3>
+<div class="eq">
+$$ \mathcal L = \mathcal L_{\text{task}} + \lambda \sum_{\ell}
+   \mathrm{tr}\!\left(s_\ell^{\top} L_{\mathcal F}^{(\ell)} s_\ell\right),
+   \qquad \lambda = 0.01 $$
+</div>
+<div class="vs">
+<b>vs. unregularized sheaf learning (NSD)</b> [3]: the signal is detached, so
+gradients flow only into the transports $R$ and bandwidth $t$ — the learned
+geometry is pulled toward configurations where the observed signal is smooth
+<em>in the sheaf sense</em>, without flattening the signal itself. A
+theoretical concern with alignment pressure is geometric trivialization
+(transports collapsing toward global sections and erasing the non-trivial
+holonomy that distinguishes cyclic structure). The measured transport
+distributions rule this out at $\lambda = 0.01$: learned angles span the
+group with large spread (Sec. 2.1; low-homophily settings: mean
+$|\theta| = 165.8^\circ$, $\sigma = 167^\circ$), and the $\lambda = 0$
+ablation was the worst-performing configuration tested — the regularizer
+is load-bearing and the geometry it produces is far from trivial.
+</div>
+
+<h3>3.6 The rank-2 count term</h3>
+<div class="eq">
+$$ t_v = |B_1|\,|B_2|\,\mathbf 1, \qquad
+   x_0 \mathrel{+}= W_{\text{tri}}\, t_v, \qquad
+   \textstyle\sum_{v \in G} t_v = 6 \cdot \#\text{triangles}(G) $$
+</div>
+<div class="vs">
+The count signal is derived <em>inside the model</em> from the lifted
+complex's own incidence matrices — the same $B_1, B_2$ every lifted
+architecture in the challenge consumes. Under the clique lifting
+(Sec. 3.7) this degree signal is exact (each triangle at a node
+contributes 2; verified against direct enumeration), so the graph total
+is exactly linear in the count and the sum-pooled regression head
+recovers the answer by learning a single scale factor. The counting
+signal and the diffusion operator draw on one canonical triangle set.
+$W_{\text{tri}}$ is zero-initialized with one warm channel, so tasks that
+do not benefit keep it switched off. Two properties of the count term's
+route to the prediction are worth
+stating: every operation from $t_v$ to the prediction is linear with no
+normalization, and the pipeline's incidence matrices are unsigned
+($B_1 \in \{0,1\}^{N_0\times N_1}$, column sums $=2$), so global
+sum-pooling aggregates the boundary-projected diffusion signal — the
+cancellation $\mathbf 1^\top B_1 = \mathbf 0^\top$ that holds for the
+<em>signed</em> boundary operator does not arise.
+<br><br>
+<span class="small">Provenance note: under a cycle-basis lifting the same
+formula undercounts on dense graphs (measured: 59 basis cells for 139
+true triangles), which is one of the two reasons the clique lifting is
+the default (Sec. 3.7). Diagnostic details: <code>docs/BATTLE_PLAN.md</code>
+in the project repository.</span>
+<br><br>
+<b>On "the preprocessing does the counting":</b> every topological model in
+this challenge consumes precomputed higher-order structure — the counting
+leader's clique lifting hands it every triangle as an explicit 2-cell, and
+the benchmark exists to test whether architectures exploit such structure.
+The measured differentiator is what happens <em>in transit</em>: most
+architectures destroy cardinality information between the structure and the
+prediction (P2 — a BatchNorm difference alone separates two otherwise
+similar models by 6&times; on this task). SheafTSP's contribution is an
+end-to-end route engineered to preserve it, and the counting margin in
+Sec. 5 is the measurement of that engineering.
+</div>
+
+<h3>3.7 Permutation-invariant lifting</h3>
+<div class="vs">
+The complex is lifted by attaching <em>all 3-cliques</em> of the raw graph
+as 2-cells. The triangle set of a graph is canonical, so the lifted complex
+— and every connectivity matrix derived from it — is invariant under node
+relabeling. Cycle-basis liftings lack this property: the basis returned by
+spanning-tree traversal depends on node ordering, and we measured the same
+20-node graph receiving 11 vs 10 2-cells with only 8 shared under a random
+relabeling. With the clique lifting the measured 2-cell sets are identical
+under relabeling and complete (14/14 true triangles). Combined with the
+orientation-equivariant transports (Sec. 3.1), the full pipeline is
+invariant to node relabeling.
+<br><br>
+<span class="small">Regime note: on sparse graphs (average degree
+&asymp; 2) triangles are almost surely edge-disjoint, so a cycle basis
+coincides with the full triangle set (20/20 sampled graphs identical);
+on dense graphs (average degree &asymp; 4.5) it does not (2/20), which
+is where the canonical choice carries its weight.</span>
+</div>
+
+<h2>4. Design principles</h2>
+
+<div class="principle">
+<b>P1 — Two normalization regimes in one embedding.</b> The two challenge
+tasks are
+antagonistic under a single operator. Community detection wants normalized,
+well-conditioned, long-range low-pass diffusion (Sec. 2.2). Counting wants
+strict sum-linearity: every operation between the counted cells and the
+prediction must be an unnormalized sum. The evidence is stark across the
+field [5]: the community-detection leader is a pure normalized diffusion
+model and is the <em>worst</em> leader at counting; the counting leader is
+pure unnormalized summation and mediocre at communities; and two
+architectures with nearly identical message schemes differ 6&times; in
+counting error purely because one inserts BatchNorm. In SheafTSP the two
+regimes coexist as additive terms of one node embedding: the sheaf-diffused
+signal (Sec. 3.4) is operator-normalized, and the exact count term
+(Sec. 3.6) reaches the prediction through strictly linear, unnormalized
+operations.
+</div>
+
+<div class="principle">
+<b>P2 — Normalization destroys counts.</b> LayerNorm, BatchNorm, degree
+averaging, or mean pooling anywhere between a cardinality signal and the
+prediction removes exactly the magnitude information that carries the
+count. We found this independently
+(a post-hoc LayerNorm residual silently nullified the entire count term)
+before finding the same signature in the field's results [5]. Corollary:
+audit the <em>whole</em> route from structure to prediction, including
+inherited wrapper and readout code.
+</div>
+
+<div class="principle">
+<b>P3 — Regularization belongs on the learned geometry.</b> Dropout on the
+diffused signal corrupts the count term and fights the regression tasks:
+measured in isolation it degrades counting by three orders of magnitude,
+and although combining it with PPR diffusion partially masks the damage,
+the submission excludes signal dropout entirely. Dropout on the
+<em>restriction-map learner's input</em> regularizes the learned
+transports — where overfitting actually lives — and leaves the signal
+clean. Zero-initialized terms additionally need a warm-start
+channel to survive noisy training: a term
+that starts at exactly zero never matures before early stopping fires.
+</div>
+
+<div class="principle">
+<b>P4 — Weight edges by transport-consistency.</b> A
+Gaussian kernel on raw feature distance contradicts hypothesis Sec. 2.1
+inside the very operator built to embody it. The consistency form
+$\lVert s_i - R_e s_j\rVert^2$ makes the kernel and the transports tell the
+same story. (Related, from [2]: quadratic penalties on <em>dissimilar</em>
+pairs let cross-community edges dominate transport gradients; bounded,
+saturating forms behave better.)
+</div>
+
+<div class="principle">
+<b>P5 — Audit structural signals against ground truth.</b> A signal that is
+"exact by construction" is exact only if its construction matches the
+definition being predicted. Our count channel silently inherited a cycle
+lifting's basis semantics and undercounted dense graphs 2&ndash;3&times;;
+the tell was behavioral (training shrank the channel's weight). The
+remedy in the submitted model is structural: a canonical all-triangles
+lifting under which the incidence-derived signal is provably exact
+(Sec. 3.6&ndash;3.7). Verify derived structure against a direct
+computation at least once.
+</div>
+
+<div class="principle">
+<b>P6 — Bandwidth is a function of scale (future work).</b> Consistency
+theory [2] requires the kernel bandwidth to shrink with sample count
+($t \propto n^{-1/(m+2)}$); a size-fixed bandwidth is inconsistent across
+the different graph sizes of an inductive family. The submission learns a
+single scalar $t$; size-conditioned bandwidth (e.g., initialized from the
+standard deviation of pairwise feature distances per graph) is a
+documented, unimplemented refinement.
+</div>
+
+<h2>5. Results on the official grid</h2>
+<p class="small">
+Official protocol: 500 epochs max, early stopping (patience 10), test on
+best checkpoint, encoder width fixed at 64; 12 GraphUniverse settings
+(homophily &times; density &times; power-law) &times; 3 seeds &times; 2
+tasks = 72 runs. CD = community-detection accuracy (&uarr;), TRI =
+triangle-count MSE per triangle (&darr;). Comparison values computed from
+other submissions' published <code>results.json</code> files at time of
+writing [5]; the leaderboard is active and standings may change.
+</p>
+<table>
+<tr><th>Submission</th><th>CD &uarr; (grid mean)</th><th>TRI &darr; (grid mean)</th></tr>
+<tr><td><b>SheafTSP (this submission)</b></td><td>0.4735</td><td class="win"><b>0.0108</b></td></tr>
+<tr><td>HiGCN</td><td class="win">0.4869</td><td>0.8038</td></tr>
+<tr><td>DiffLift-SMCN</td><td>0.4719</td><td>0.1201</td></tr>
+<tr><td>CIN</td><td>0.4681</td><td>0.2638</td></tr>
+<tr><td>MPSN (strongest variant)</td><td>0.4387</td><td>0.0333</td></tr>
+</table>
+<p>
+At time of writing, SheafTSP posts the lowest triangle-counting error
+among published submissions (3.1&times; under the next-lowest) and the
+second-highest community-detection accuracy. The counting result follows
+from Sec. 3.6: with an exact structural signal and a sum-linear route to
+the prediction,
+the task reduces to learning one scale factor, and the residual error
+measures optimization variance; architectural capacity is no longer the
+limiting factor.
+</p>
+<p class="small">
+Per-setting 3-seed means for this submission: CD 0.322&ndash;0.333 (low
+homophily), 0.406&ndash;0.486 (mid), 0.614&ndash;0.719 (high); TRI
+0.0008&ndash;0.026. TRI seed-level outliers occur (a zero-initialized
+count channel occasionally matures late under early stopping; 5 of 36
+runs) and the reported means include them. Full per-run values are in
+<code>results.json</code>.
+</p>
+
+<p class="small">
+Methodological note: the counting design traces to a diagnosis — a
+trained model kept shrinking the weight of a count channel believed to be
+exact, which exposed the cycle-basis undercount (Sec. 3.6, P5) and led
+to the canonical lifting and the endogenous signal the submission ships.
+</p>
+
+<h2>6. References</h2>
+<ul class="small" style="list-style:none; padding-left:0;">
+  <li>[1] Tandon, Gould, Bhatia, Dominici, Ribeiro &amp; Battiloro, "Consistent Geometric Deep Learning via Hilbert Bundles and Cellular Sheaves" (2026, arXiv:2605.06395) — the framework: kernel-weighted sheaf Laplacian (their Eq. 8, Defs. 3&ndash;4), polynomial sheaf filter (their Eq. 10), transport regularizer with $\lambda=0.01$ (their Eq. 15, App. D); convergence theory (Sec. 2.3); sheaf spectral clustering (Sec. 2.2, their App. B).</li>
+  <li>[2] Hansen &amp; Ghrist, "Toward a Spectral Theory of Cellular Sheaves" (J. Appl. Comput. Topol. 2019) — cellular sheaves, the sheaf Laplacian, and global sections (Sec. 1, 2.1&ndash;2.2).</li>
+  <li>[3] Bodnar et&nbsp;al., "Neural Sheaf Diffusion" (2022) — the sheaf view of heterophily and oversmoothing (Sec. 2.1); restriction-map baseline (Sec. 3.1), Kronecker broadcast (Sec. 3.3), unregularized sheaf learning (Sec. 3.5).</li>
+  <li>[4] Bamberger, Barbero, Dong &amp; Bronstein, "Bundle Neural Networks for message diffusion on graphs" (2024, arXiv:2405.15540) — precedent for learned orthogonal bundle maps on graphs, via Householder reflections and direct SO(2) parameterization (Sec. 3.1); our Cayley projection follows the orthogonal-RNN lineage of Helfrich et&nbsp;al. (ICML 2018).</li>
+  <li>[5] TDL Challenge 2026 leaderboard submissions (TopoBench PRs #364 HiGCN, #376 MPSN, #363 CIN, #333 TopNets) — field evidence for P1/P2 (Sec. 4) and the comparison table (Sec. 5).</li>
+  <li>[6] Chen, Chen, Villar &amp; Bruna, "Can Graph Neural Networks Count Substructures?" (NeurIPS 2020, arXiv:2002.04025) — MPNNs/2-IGNs cannot count induced substructures on &ge;3 nodes (Sec. 2.4).</li>
+  <li>[7] Zhang et&nbsp;al., "MagNet: A Neural Network for Directed Graphs" (NeurIPS 2021, arXiv:2102.11391) — magnetic Laplacian / U(1)-connection operator family; the abelian $d=2$ specialization of our transports (Sec. 3.1).</li>
+</ul>
+
+</body>
+</html>

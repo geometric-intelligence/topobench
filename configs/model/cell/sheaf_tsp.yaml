@@ -1,0 +1,91 @@
+_target_: topobench.model.TBModel
+
+model_name: sheaf_tsp
+model_domain: cell
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+
+backbone:
+  _target_: topobench.nn.backbones.cell.sheaf_tsp.SheafTSP
+  in_channels: ${model.feature_encoder.out_channels}
+  n_layers: 3
+  stalk_dim: 2
+  filter_order: 10
+  dropout: 0.0
+  # Surgical regularization: dropout on the restriction-map learner
+  # input only (learned transports), leaving the signal path clean —
+  # measured: signal-path dropout corrupts the rank-2 count pathway.
+  mlp_dropout: 0.5
+  # Spectral filter basis: "monomial" (raw powers of the normalized
+  # Sheaf Laplacian), "chebyshev" (T_k(L^ - I), better conditioned)
+  # or "ppr" (scalar coefficients on the sheaf lazy walk I - L^/2,
+  # PPR-initialized; pair with filter_order 8-10).
+  filter_basis: ppr
+  # Gaussian kernel distance: "feature" (raw ||x_i - x_j||^2) or
+  # "transport" (||s_i - R_e s_j||^2 under the learned maps).
+  kernel_distance: transport
+  ppr_alpha: 0.1
+  # Transport regularizer form: "dirichlet" (Eq. 15 energy) or
+  # "alignment" (bounded kernel-alignment reward, HilbNets App. D).
+  # Alignment: -27% dense-cell TRI, neutral elsewhere, CD gates hold.
+  reg_form: alignment
+  # SO(d) projection for restriction maps: "cayley" (dense subset of
+  # SO(d); antipodal maps need diverging generators) or "exp"
+  # (surjective; antipodal reachable with bounded generators).
+  rotation_param: cayley
+  # Zero-init per-layer global mean-context term (x += W_g mean(x)).
+  global_context: false
+  # Transport-alignment regularizer (Tandon et al., Eq. 15).
+  # Picked up by TBLoss via configs/loss/default.yaml
+  # (modules_losses.backbone) and summed with the task loss.
+  loss:
+    _target_: topobench.nn.backbones.cell.sheaf_tsp.SheafDirichletLoss
+    loss_weight: 0.01
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.SheafTSPWrapper
+  _partial_: true
+  wrapper_name: SheafTSPWrapper
+  # The wrapper does its own x_0 residual; the base class's post-hoc
+  # LayerNorm residual would normalize away the rank-2 count signal.
+  residual_connections: false
+  # Warm-init strength of the rank-2 count channel (see wrapper).
+  tri_warm: 0.1
+  # Count-signal source: "incidence" derives t_v = |B_1||B_2|1 from
+  # the lifted complex — exact under the clique lifting, and
+  # endogenous to the same incidence structure all lifted models
+  # consume. "auto" prefers the TriangleDegree transform if present.
+  count_source: incidence
+  # Learnable scalar gate on the feature streams entering x_0
+  # (init 1.0); lets a task suppress feature noise around the count
+  # channel during training.
+  stream_gate: false
+  # Sheaf-petals branch: SheafConvLayer on the triangle co-membership
+  # graph (A .* A^2 > 0), zero-init fusion into x_0. Substrate follows
+  # HiGCN's order-2 petal observation; mechanism (learned transports,
+  # kernel weighting) is SheafTSP's own.
+  petals: false
+  petals_stalk_dim: 2
+  petals_filter_order: 3
+  petals_mlp_dropout: 0.5
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false

@@ -1,0 +1,7 @@
+transform_type: 'lifting'
+transform_name: "CellCliqueLifting"
+complex_dim: 2
+feature_lifting: ProjectionSum
+# Required for all liftings to make the pipeline executable
+preserve_edge_attr: ${oc.select:dataset.parameters.preserve_edge_attr_if_lifted,False}
+neighborhoods: ${oc.select:model.backbone.neighborhoods,${oc.select:model.preprocessing_params.neighborhoods,null}}

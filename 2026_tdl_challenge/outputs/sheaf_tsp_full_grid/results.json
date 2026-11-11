@@ -1,0 +1,2392 @@
+{
+  "metadata": {
+    "study_id": "sheaf_tsp_full_grid",
+    "model_config": "cell/sheaf_tsp",
+    "generated_at_utc": "2026-07-31T06:54:20.177569+00:00",
+    "n_runs": 72,
+    "train_seeds": [
+      42,
+      43,
+      44
+    ],
+    "heatmap_note": "Cells show mean \u00b1 std over train_seeds (in-distribution test)."
+  },
+  "results": [
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 2.177255153656006,
+      "test_best_rerun_accuracy": 0.325464129447937,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.31507372856140137,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3158377408981323,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.31327831745147705,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__00__h_lo__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 2.1785454750061035,
+      "test_best_rerun_accuracy": 0.32454732060432434,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3133547306060791,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.31083351373672485,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.3000229299068451,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__00__h_lo__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 2.1650285720825195,
+      "test_best_rerun_accuracy": 0.3295515179634094,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3184735178947449,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.31694552302360535,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.3077775239944458,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__00__h_lo__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 2.164802074432373,
+      "test_best_rerun_accuracy": 0.3270685374736786,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.3270685374736786,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.31679272651672363,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.3209947347640991,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__01__h_lo__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 2.2107880115509033,
+      "test_best_rerun_accuracy": 0.3145771324634552,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.31828251481056213,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.30147451162338257,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.2970051169395447,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__01__h_lo__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 2.16806697845459,
+      "test_best_rerun_accuracy": 0.32389792799949646,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.3263809382915497,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3187791407108307,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.317824125289917,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__01__h_lo__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 2.1899783611297607,
+      "test_best_rerun_accuracy": 0.327335923910141,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.29818931221961975,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.28772252798080444,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.32916954159736633,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__02__h_lo__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 2.1839237213134766,
+      "test_best_rerun_accuracy": 0.3264191448688507,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.2970051169395447,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.29425472021102905,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.33039194345474243,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__02__h_lo__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 2.188246726989746,
+      "test_best_rerun_accuracy": 0.3246619403362274,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.29883870482444763,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.29123690724372864,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.32798531651496887,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__02__h_lo__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 2.1495168209075928,
+      "test_best_rerun_accuracy": 0.33600732684135437,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.2944457232952118,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.29585912823677063,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.31327831745147705,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__03__h_lo__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 2.140977621078491,
+      "test_best_rerun_accuracy": 0.333868145942688,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.2982275187969208,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3004049062728882,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3142715394496918,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__03__h_lo__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 2.157916307449341,
+      "test_best_rerun_accuracy": 0.32756513357162476,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.29169532656669617,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.29223012924194336,
+          "test_best_rerun_mse": null
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.30770111083984375,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__community_detection__03__h_lo__d_hi__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 6.576592922210693,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 6.112877368927002,
+      "test_triangles_total_structural": 1388.0,
+      "test_mse_by_total_triangles": 0.004404090323434439,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 4.145211696624756,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.021816903666446084
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 56.30893325805664,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.004270681324084691
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 121.68975067138672,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.04101440871971241
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__00__h_lo__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 0.6291327476501465,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 0.6402482390403748,
+      "test_triangles_total_structural": 1388.0,
+      "test_mse_by_total_triangles": 0.0004612739474354285,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 0.44015222787857056,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.0023165906730451082
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 5.708412170410156,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.00043294745319758486
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 9.755009651184082,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.00328783608061479
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__00__h_lo__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_lo__pl_lo",
+      "test_loss": 34.553367614746094,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 33.123226165771484,
+      "test_triangles_total_structural": 1388.0,
+      "test_mse_by_total_triangles": 0.023863995796665333,
+      "ood_test": {
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 38.88009262084961,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.20463206642552426
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 1619.7716064453125,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.12284957197158229
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 1736.853515625,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.5853904670121335
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__00__h_lo__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 2.2370502948760986,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 2.186133623123169,
+      "test_triangles_total_structural": 190.0,
+      "test_mse_by_total_triangles": 0.011505966437490363,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 47.05411148071289,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.033900656686392576
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3317.6572265625,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.2516236045932878
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 43.5932502746582,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.01469270315964213
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__01__h_lo__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 0.601972222328186,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 0.6045328974723816,
+      "test_triangles_total_structural": 190.0,
+      "test_mse_by_total_triangles": 0.003181752091959903,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 15.420633316040039,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.011109966366023082
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 900.9060668945312,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.06832810518729854
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 10.892008781433105,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.003671051156532897
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__01__h_lo__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_lo__pl_hi",
+      "test_loss": 10.966695785522461,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 10.911737442016602,
+      "test_triangles_total_structural": 190.0,
+      "test_mse_by_total_triangles": 0.05743019706324527,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 131.2247314453125,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.0945423137214067
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 9883.3564453125,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.7495909325227531
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 109.61843872070312,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.036945884300877356
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__01__h_lo__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 12.02881908416748,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 10.467967987060547,
+      "test_triangles_total_structural": 13185.0,
+      "test_mse_by_total_triangles": 0.0007939300710701969,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 92.93031311035156,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.06695267515155012
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 109.73345184326172,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.577544483385588
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 16.52630615234375,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.005570039148076761
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__02__h_lo__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 3.5446560382843018,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 3.554718017578125,
+      "test_triangles_total_structural": 13185.0,
+      "test_mse_by_total_triangles": 0.00026960318677118883,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 12.88923168182373,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.009286189972495484
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 21.110301971435547,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.11110685248123972
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 1.935766339302063,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.0006524322006410728
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__02__h_lo__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_lo__d_hi__pl_lo",
+      "test_loss": 72.08821105957031,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 66.67548370361328,
+      "test_triangles_total_structural": 13185.0,
+      "test_mse_by_total_triangles": 0.005056919507289593,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3.7814221382141113,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.0027243675347363916
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3.450916290283203,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.018162717317280017
+        },
+        "h_lo__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 78.52497100830078,
+          "test_triangles_total_structural": 2967.0,
+          "test_mse_by_total_triangles": 0.026466117630030598
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__02__h_lo__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 156.71241760253906,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 151.01577758789062,
+      "test_triangles_total_structural": 2967.0,
+      "test_mse_by_total_triangles": 0.050898475762686426,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 217.4542999267578,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.15666736305962378
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 25.0101375579834,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.13163230293675474
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 9051.66796875,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.6865125497724687
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__03__h_lo__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 0.7663286328315735,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 0.7837737798690796,
+      "test_triangles_total_structural": 2967.0,
+      "test_mse_by_total_triangles": 0.0002641637276269227,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 7.604443550109863,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.005478705727744859
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 7.087442874908447,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 0.037302330920570774
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 16.935983657836914,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.0012844887112504295
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__03__h_lo__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0-0.1__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_lo",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_lo__d_hi__pl_hi",
+      "test_loss": 86.1387710571289,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 82.29295349121094,
+      "test_triangles_total_structural": 2967.0,
+      "test_mse_by_total_triangles": 0.027736081392386563,
+      "ood_test": {
+        "h_lo__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 455.2110290527344,
+          "test_triangles_total_structural": 1388.0,
+          "test_mse_by_total_triangles": 0.3279618364933245
+        },
+        "h_lo__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 215.75645446777344,
+          "test_triangles_total_structural": 190.0,
+          "test_mse_by_total_triangles": 1.1355602866724919
+        },
+        "h_lo__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 6581.02978515625,
+          "test_triangles_total_structural": 13185.0,
+          "test_mse_by_total_triangles": 0.4991300557570155
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_lo__triangle_counting__03__h_lo__d_hi__pl_hi__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 1.98910653591156,
+      "test_best_rerun_accuracy": 0.4052639603614807,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3961341679096222,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3891817629337311,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.3867369592189789,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__00__h_mid__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 1.9561599493026733,
+      "test_best_rerun_accuracy": 0.4121399521827698,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3958285450935364,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3982733488082886,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.40003055334091187,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__00__h_mid__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 1.9922889471054077,
+      "test_best_rerun_accuracy": 0.4027045667171478,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.3905951678752899,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.4003743529319763,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.41932156682014465,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__00__h_mid__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 1.9695707559585571,
+      "test_best_rerun_accuracy": 0.4048437476158142,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.4096187651157379,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3730231523513794,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.39525556564331055,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__01__h_mid__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 1.9756629467010498,
+      "test_best_rerun_accuracy": 0.4038505554199219,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.4095041751861572,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.3783329427242279,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.4009091556072235,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__01__h_mid__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 1.9576663970947266,
+      "test_best_rerun_accuracy": 0.40843456983566284,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.40816715359687805,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.38070136308670044,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.3979295492172241,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__01__h_mid__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 1.864493727684021,
+      "test_best_rerun_accuracy": 0.4499579668045044,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.38150355219841003,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.35961493849754333,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.4772709906101227,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__02__h_mid__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 1.8614507913589478,
+      "test_best_rerun_accuracy": 0.45179158449172974,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.39185574650764465,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.38177093863487244,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.47616317868232727,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__02__h_mid__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 1.8469184637069702,
+      "test_best_rerun_accuracy": 0.45358699560165405,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.3805485665798187,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.36736953258514404,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.47738558053970337,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__02__h_mid__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 1.6994222402572632,
+      "test_best_rerun_accuracy": 0.48976239562034607,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.3820383548736572,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.37103673815727234,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.44434258341789246,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__03__h_mid__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 1.7720028162002563,
+      "test_best_rerun_accuracy": 0.4707769751548767,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.36519214510917664,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.34765833616256714,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.42039117217063904,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__03__h_mid__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 1.6849000453948975,
+      "test_best_rerun_accuracy": 0.49587440490722656,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.38547635078430176,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.37691953778266907,
+          "test_best_rerun_mse": null
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.44487738609313965,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__community_detection__03__h_mid__d_hi__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 41.40228271484375,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 34.20724868774414,
+      "test_triangles_total_structural": 7485.0,
+      "test_mse_by_total_triangles": 0.004570106705109438,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 35.88252258300781,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.030986634354929026
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 589.2128295898438,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.013682259650516528
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 1461.3458251953125,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.10246429849918051
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__00__h_mid__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 158.32505798339844,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 154.76841735839844,
+      "test_triangles_total_structural": 7485.0,
+      "test_mse_by_total_triangles": 0.0206771432676551,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 186.43649291992188,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.16099869854915533
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3498.100341796875,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.08123026987267497
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 7885.24072265625,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.5528846390868216
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__00__h_mid__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_lo__pl_lo",
+      "test_loss": 25.902042388916016,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 24.45058822631836,
+      "test_triangles_total_structural": 7485.0,
+      "test_mse_by_total_triangles": 0.0032666116534827466,
+      "ood_test": {
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 19.168148040771484,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.016552804871132542
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 101.33977508544922,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.0023532364639942695
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 122.05518341064453,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.008558069233673015
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__00__h_mid__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 11.0818452835083,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 10.77755355834961,
+      "test_triangles_total_structural": 1158.0,
+      "test_mse_by_total_triangles": 0.009307041069386537,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 552.8086547851562,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.07385553170142369
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 12717.05859375,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.29530602344765927
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 717.9149169921875,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.05033760461311089
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__01__h_mid__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 0.7380979657173157,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 0.7258095741271973,
+      "test_triangles_total_structural": 1158.0,
+      "test_mse_by_total_triangles": 0.0006267785614224501,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3.5839498043060303,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.00047881760912572217
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 73.38594818115234,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.0017041136025718081
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 7.033665180206299,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.0004931752335020543
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__01__h_mid__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_lo__pl_hi",
+      "test_loss": 59.55466842651367,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 59.4841423034668,
+      "test_triangles_total_structural": 1158.0,
+      "test_mse_by_total_triangles": 0.05136799853494542,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3077.0986328125,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.411102021751837
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 71807.3359375,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 1.6674562497097343
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 4225.990234375,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.2963111929866078
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__01__h_mid__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 26.09356689453125,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 20.080875396728516,
+      "test_triangles_total_structural": 43064.0,
+      "test_mse_by_total_triangles": 0.00046630306977355835,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 18.843679428100586,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.002517525641696805
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 26.227800369262695,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.022649223116807164
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 10.316168785095215,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.0007233325469846595
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__02__h_mid__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 31.2239933013916,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 28.980052947998047,
+      "test_triangles_total_structural": 43064.0,
+      "test_mse_by_total_triangles": 0.00067295311508448,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 65.57170104980469,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.008760414301911114
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 87.91203308105469,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.07591712701300059
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 25.761951446533203,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.0018063351175524613
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__02__h_mid__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_mid__d_hi__pl_lo",
+      "test_loss": 278.2812194824219,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 263.6515197753906,
+      "test_triangles_total_structural": 43064.0,
+      "test_mse_by_total_triangles": 0.006122318404592946,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 22.327219009399414,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.0029829283913693273
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 13.768780708312988,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.011890138780926587
+        },
+        "h_mid__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 281.2793884277344,
+          "test_triangles_total_structural": 14262.0,
+          "test_mse_by_total_triangles": 0.01972229620163612
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__02__h_mid__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 9.277037620544434,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 8.173556327819824,
+      "test_triangles_total_structural": 14262.0,
+      "test_mse_by_total_triangles": 0.0005731002894278379,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 34.5499382019043,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.004615890207335244
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 51.11407470703125,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.044139960886900906
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 31.155479431152344,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.0007234692418528781
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__03__h_mid__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 3.5445942878723145,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 3.581652879714966,
+      "test_triangles_total_structural": 14262.0,
+      "test_mse_by_total_triangles": 0.00025113258166561253,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 18.990684509277344,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.0025371655991018494
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 20.780567169189453,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.017945222080474485
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 7.601332187652588,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.00017651245094864825
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__03__h_mid__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.4-0.6__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_mid",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_mid__d_hi__pl_hi",
+      "test_loss": 598.5216674804688,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 572.9874267578125,
+      "test_triangles_total_structural": 14262.0,
+      "test_mse_by_total_triangles": 0.04017581172050291,
+      "ood_test": {
+        "h_mid__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 180.9976806640625,
+          "test_triangles_total_structural": 7485.0,
+          "test_mse_by_total_triangles": 0.0241813868622662
+        },
+        "h_mid__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 222.50811767578125,
+          "test_triangles_total_structural": 1158.0,
+          "test_mse_by_total_triangles": 0.1921486335714864
+        },
+        "h_mid__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 216.3046875,
+          "test_triangles_total_structural": 43064.0,
+          "test_mse_by_total_triangles": 0.005022865676667286
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_mid__triangle_counting__03__h_mid__d_hi__pl_hi__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 1.3744392395019531,
+      "test_best_rerun_accuracy": 0.6155932545661926,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.6183054447174072,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6646038889884949,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6911528706550598,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__00__h_hi__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 1.372827172279358,
+      "test_best_rerun_accuracy": 0.6153258681297302,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.6192986369132996,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6608602404594421,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6874474883079529,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__00__h_hi__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 1.3742320537567139,
+      "test_best_rerun_accuracy": 0.6108564734458923,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.6132630705833435,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6685002446174622,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6984108686447144,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__00__h_hi__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 1.356360673904419,
+      "test_best_rerun_accuracy": 0.6154404282569885,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.6078768372535706,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6558178663253784,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6902360916137695,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__01__h_hi__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 1.3791202306747437,
+      "test_best_rerun_accuracy": 0.6076476573944092,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.6025670170783997,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6553594470024109,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6972648501396179,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__01__h_hi__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 1.3470165729522705,
+      "test_best_rerun_accuracy": 0.6197952628135681,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.6104362607002258,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6580716371536255,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.6989457011222839,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__01__h_hi__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 1.1478326320648193,
+      "test_best_rerun_accuracy": 0.6723202466964722,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5846512317657471,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.597639262676239,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.7093743085861206,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__02__h_hi__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 1.1404917240142822,
+      "test_best_rerun_accuracy": 0.6774773001670837,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5933226346969604,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.5979066491127014,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.7070440649986267,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__02__h_hi__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 1.1173591613769531,
+      "test_best_rerun_accuracy": 0.6853082776069641,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5961876511573792,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.6057376265525818,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": 0.7141492962837219,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__02__h_hi__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 0.9908278584480286,
+      "test_best_rerun_accuracy": 0.7130796909332275,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5762472152709961,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.5918710231781006,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6693024635314941,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__03__h_hi__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 1.0078389644622803,
+      "test_best_rerun_accuracy": 0.7156009078025818,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5734586119651794,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.5877836346626282,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6667048931121826,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__03__h_hi__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "community_detection",
+      "wandb_project": "challenge_community_detection",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 0.956399142742157,
+      "test_best_rerun_accuracy": 0.7273665070533752,
+      "test_best_rerun_mse": null,
+      "test_triangles_total_structural": null,
+      "test_mse_by_total_triangles": null,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": 0.5911834239959717,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": 0.6015356183052063,
+          "test_best_rerun_mse": null
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": 0.6802276968955994,
+          "test_best_rerun_mse": null
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__community_detection__03__h_hi__d_hi__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 100.08567810058594,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 90.658935546875,
+      "test_triangles_total_structural": 19509.0,
+      "test_mse_by_total_triangles": 0.004647031398168794,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 130.41552734375,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.02318498263888889
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 219.91127014160156,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.0024875996305736407
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 534.1517333984375,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.008888751325419558
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__00__h_hi__d_lo__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 4.9354658126831055,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 5.155084609985352,
+      "test_triangles_total_structural": 19509.0,
+      "test_mse_by_total_triangles": 0.00026424135578375887,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 4.101696968078613,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.0007291905721028645
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 24.0584659576416,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.00027214535657886724
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 55.70577621459961,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.0009269927647912338
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__00__h_hi__d_lo__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_lo__pl_lo",
+      "test_loss": 7.222598075866699,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 6.7698774337768555,
+      "test_triangles_total_structural": 19509.0,
+      "test_mse_by_total_triangles": 0.0003470130418666695,
+      "ood_test": {
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 1.6620718240737915,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.00029547943539089626
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 83.20620727539062,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.0009412147469587076
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 25.052043914794922,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.0004168878890186032
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__00__h_hi__d_lo__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 4.670165538787842,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 4.354457378387451,
+      "test_triangles_total_structural": 5625.0,
+      "test_mse_by_total_triangles": 0.0007741257561577691,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 3.9656124114990234,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.00020327092170275378
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 27.9946346282959,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.00031667064045672543
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 30.076913833618164,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.0005005061127522035
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__01__h_hi__d_lo__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 2.767242193222046,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 2.8048160076141357,
+      "test_triangles_total_structural": 5625.0,
+      "test_mse_by_total_triangles": 0.0004986339569091797,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 2.398526906967163,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.00012294463616623934
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 15.669689178466797,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.00017725291198790536
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 26.643802642822266,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.00044337614435661834
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__01__h_hi__d_lo__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_1-2.5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_lo",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_lo__pl_hi",
+      "test_loss": 6.380791664123535,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 6.204680919647217,
+      "test_triangles_total_structural": 5625.0,
+      "test_mse_by_total_triangles": 0.0011030543857150608,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 5.591263771057129,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.0002865991988854954
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 23.171710968017578,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.00026211453195047204
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 30.152315139770508,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.0005017608563355218
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__01__h_hi__d_lo__pl_hi__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 37.99776077270508,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 34.344627380371094,
+      "test_triangles_total_structural": 88403.0,
+      "test_mse_by_total_triangles": 0.0003885006999804429,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 36.02397537231445,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.001846531107299936
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 45.017276763916016,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.00800307142469618
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 35.923683166503906,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.0005978014605112726
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__02__h_hi__d_hi__pl_lo__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 3350.86865234375,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 3200.90478515625,
+      "test_triangles_total_structural": 88403.0,
+      "test_mse_by_total_triangles": 0.036208101367105755,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 306.26409912109375,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.01569860572664379
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 223.01904296875,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.03964782986111111
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 5954.55810546875,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.09908904706819013
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__02__h_hi__d_hi__pl_lo__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_1.5-2__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_lo",
+      "run_slug": "h_hi__d_hi__pl_lo",
+      "test_loss": 125.232421875,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 114.26800537109375,
+      "test_triangles_total_structural": 88403.0,
+      "test_mse_by_total_triangles": 0.0012925806292896592,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 26.905439376831055,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.001379129600534679
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 21.192617416381836,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.003767576429578993
+        },
+        "h_hi__d_hi__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 182.55636596679688,
+          "test_triangles_total_structural": 60093.0,
+          "test_mse_by_total_triangles": 0.003037897358540876
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__02__h_hi__d_hi__pl_lo__s44"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s42",
+      "train_seed": 42,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 1053.4273681640625,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 1055.8577880859375,
+      "test_triangles_total_structural": 60093.0,
+      "test_mse_by_total_triangles": 0.017570395688115713,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 12828.580078125,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.6575724064854682
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 13246.7421875,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 2.354976388888889
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 4620.60400390625,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.052267502278273925
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__03__h_hi__d_hi__pl_hi__s42"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s43",
+      "train_seed": 43,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 6.407823085784912,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 6.549461841583252,
+      "test_triangles_total_structural": 60093.0,
+      "test_mse_by_total_triangles": 0.00010898876477432068,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 15.077701568603516,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.0007728587610130461
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 12.746614456176758,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.0022660647922092014
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 13.087259292602539,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.00014804089558728256
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__03__h_hi__d_hi__pl_hi__s43"
+    },
+    {
+      "experiment": "triangle_counting",
+      "wandb_project": "challenge_triangle_counting",
+      "wandb_run_name": "sheaf_tsp_hom_0.9-1__deg_4-5__gamma_4-5__s44",
+      "train_seed": 44,
+      "homophily": "h_hi",
+      "avg_degree": "d_hi",
+      "power_law": "pl_hi",
+      "run_slug": "h_hi__d_hi__pl_hi",
+      "test_loss": 9.310251235961914,
+      "test_best_rerun_accuracy": null,
+      "test_best_rerun_mse": 8.51268196105957,
+      "test_triangles_total_structural": 60093.0,
+      "test_mse_by_total_triangles": 0.00014165846206812057,
+      "ood_test": {
+        "h_hi__d_lo__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 53.50620651245117,
+          "test_triangles_total_structural": 19509.0,
+          "test_mse_by_total_triangles": 0.002742642191421968
+        },
+        "h_hi__d_lo__pl_hi": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 51.4939079284668,
+          "test_triangles_total_structural": 5625.0,
+          "test_mse_by_total_triangles": 0.00915447252061632
+        },
+        "h_hi__d_hi__pl_lo": {
+          "test_best_rerun_accuracy": null,
+          "test_best_rerun_mse": 24.714277267456055,
+          "test_triangles_total_structural": 88403.0,
+          "test_mse_by_total_triangles": 0.0002795637847975301
+        }
+      },
+      "output_dir": "/Users/fernandoespinosa/devel/tsp/TopoBench/logs/train/runs/notebook_gu_grid_sheaf_tsp_grid_h_hi__triangle_counting__03__h_hi__d_hi__pl_hi__s44"
+    }
+  ]
+}

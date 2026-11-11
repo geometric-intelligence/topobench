@@ -1,0 +1,8 @@
+defaults:
+  - liftings/graph2cell@graph2cell_lifting: clique_cell
+
+# All triangles as 2-cells (CellCliqueLifting): the triangle set is
+# canonical, so the lifted complex and the diffusion operator's
+# up-adjacency are invariant under node relabeling. Cycle-basis
+# liftings are traversal-order-dependent and undercount triangles on
+# dense graphs (see docs/BATTLE_PLAN.md experiment log).

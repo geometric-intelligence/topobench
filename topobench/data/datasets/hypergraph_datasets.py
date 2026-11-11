@@ -147,11 +147,17 @@ class HypergraphDataset(InMemoryDataset):
         # Delete zip file
         os.unlink(path)
 
-        # Move files from osp.join(folder, name_download) to folder
+        # Move files from osp.join(folder, name_download) to folder.
+        # Overwrite leftovers from earlier downloads: some hosted
+        # archives contain junk directories (e.g. .ipynb_checkpoints),
+        # and moving onto an existing directory nests it and raises.
         for file in os.listdir(osp.join(folder, self.name)):
-            shutil.move(
-                osp.join(folder, self.name, file), osp.join(folder, file)
-            )
+            dst = osp.join(folder, file)
+            if osp.isdir(dst):
+                shutil.rmtree(dst)
+            elif osp.exists(dst):
+                os.unlink(dst)
+            shutil.move(osp.join(folder, self.name, file), dst)
         # Delete osp.join(folder, self.name) dir
         shutil.rmtree(osp.join(folder, self.name))
 
