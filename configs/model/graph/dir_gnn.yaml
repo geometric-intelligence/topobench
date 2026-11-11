@@ -1,0 +1,12 @@
+# Dir-GNN: Edge Directionality Improves Learning on Heterophilic Graphs
+# Rossi et al., LoG 2024 — https://arxiv.org/abs/2305.10498
+
+defaults:
+  - /model/graph/gcn.yaml  # inherit base structure, override below
+
+backbone:
+  _target_: topobench.nn.backbones.graph.dir_gnn.DirGNN
+  hidden_channels: 64
+  num_layers: 2
+  dropout: 0.5
+  alpha: 0.5          # equal weighting of in/out aggregation
