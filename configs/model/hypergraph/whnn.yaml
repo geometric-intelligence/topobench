@@ -1,0 +1,40 @@
+_target_: topobench.model.TBModel
+
+model_name: whnn
+model_domain: hypergraph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.hypergraph.whnn.WHNN
+  num_features: ${model.feature_encoder.out_channels}
+  num_layers: 2
+  num_projections: 8
+  num_reference_points: 4
+  input_dropout: 0.0
+  dropout: 0.1
+  activation: relu
+  residual: true
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HypergraphWrapper
+  _partial_: true
+  wrapper_name: HypergraphWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 1
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: 1
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false

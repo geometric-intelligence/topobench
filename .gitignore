@@ -208,4 +208,5 @@ result_BREC/
 
 # test temporary
 .test_tmp/
+.worktrees/
 uv.lock
