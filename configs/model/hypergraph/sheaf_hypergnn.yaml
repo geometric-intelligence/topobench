@@ -1,0 +1,53 @@
+_target_: topobench.model.TBModel
+
+model_name: sheaf_hypergnn
+model_domain: hypergraph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 256
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.hypergraph.sheaf_hypergnn.SheafHyperGNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  stalk_dim: 6
+  num_layers: 2
+  sheaf_act: tanh
+  sheaf_normtype: sym_degree_norm
+  sheaf_pred_block: cp_decomp
+  dropout: 0.7
+  sheaf_dropout: false
+  dynamic_sheaf: false
+  init_hedge: avg
+  input_norm: true
+  left_proj: false
+  residual: false
+  sheaf_special_head: false
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HypergraphWrapper
+  _partial_: true
+  wrapper_name: HypergraphWrapper
+  out_channels: ${parameter_multiplication:${model.backbone.hidden_channels},${model.backbone.stalk_dim}}
+  num_cell_dimensions: 1
+  # The reference run sets residual_HCHA=False. Disable TopoBench's wrapper
+  # residual too, otherwise it adds a non-reference residual and LayerNorm.
+  residual_connections: false
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  # SheafHyperGNN already returns node embeddings. No higher-rank signal needs
+  # propagation; AbstractZeroCellReadOut still supplies the dH -> classes head.
+  readout_name: NoReadOut
+  num_cell_dimensions: 1
+  hidden_dim: ${model.backbone_wrapper.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
