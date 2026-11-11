@@ -1,13 +1,15 @@
 _target_: topobench.optimizer.TBOptimizer
 # Full compatibility with all available torch optimizers and schedulers
 
-optimizer_id: Adam # torch id of the optimizer
-# optimizer params
+# Upgraded to AdamW: Decouples weight decay to properly penalize dense clique explosions
+optimizer_id: AdamW
+
 parameters:
   lr: 0.001
-  weight_decay: 0.0
+  # Defensive L2 Regularization (Target 3)
+  weight_decay: 1e-3
 
-scheduler: # Comment or delete these lines to disable the scheduler
+scheduler: # comment or delete these lines to disable scheduler
   scheduler_id: StepLR # torch id of the scheduler. Set to null to disable.
   # scheduler params
   scheduler_params:
