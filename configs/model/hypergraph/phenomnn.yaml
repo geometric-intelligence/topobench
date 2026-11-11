@@ -1,0 +1,41 @@
+_target_: topobench.model.TBModel
+
+model_name: phenomnn
+model_domain: hypergraph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.hypergraph.phenomnn.PhenomNN
+  num_features: ${model.feature_encoder.out_channels}
+  num_layers: 1 # number of stacked unfolded energy-descent blocks
+  prop_step: 16 # number of unfolded iterations within each block
+  lam0: 10.0 # clique-expansion energy weight
+  lam1: 10.0 # star-expansion energy weight
+  alpha: null # step size; null -> 1 / (1 + lam0 + lam1) as in the reference
+  dropout: 0.5
+  compatibility: true # learnable compatibility matrices (full PhenomNN)
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HypergraphWrapper
+  _partial_: true
+  wrapper_name: HypergraphWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 1
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: 1
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
