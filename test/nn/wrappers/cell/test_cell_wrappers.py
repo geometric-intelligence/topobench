@@ -6,12 +6,14 @@ from ...._utils.nn_module_auto_test import NNModuleAutoTest
 from ...._utils.flow_mocker import FlowMocker
 from unittest.mock import MagicMock
 
+from topobench.nn.backbones.cell.smcn import SMCN
 from topobench.nn.wrappers import (
     AbstractWrapper,
     CCCNWrapper,
     CANWrapper,
     CCXNWrapper,
-    CWNWrapper
+    CWNWrapper,
+    SMCNWrapper,
 )
 from topomodelx.nn.cell.can import CAN
 from topomodelx.nn.cell.ccxn import CCXN
@@ -92,5 +94,27 @@ class TestCellWrappers:
         )
         out = wrapper(data)
 
+        for key in ["labels", "batch_0", "x_0", "x_1", "x_2"]:
+            assert key in out
+
+    def test_SMCNWrapper(self, sg1_cell_lifted):
+        """Test SMCNWrapper.
+
+        Parameters
+        ----------
+        sg1_cell_lifted : torch_geometric.data.Data
+            A fixture of simple graph 1 lifted with CellCycleLifting.
+        """
+        data = sg1_cell_lifted
+        out_dim = data.x_0.shape[1]
+        import torch
+        data.x_1 = torch.randn(data.incidence_1.shape[1], out_dim)
+        data.x_2 = torch.randn(data.incidence_2.shape[1], out_dim)
+        wrapper = SMCNWrapper(
+            SMCN(out_dim, n_scl_layers=2),
+            out_channels=out_dim,
+            num_cell_dimensions=3,
+        )
+        out = wrapper(data)
         for key in ["labels", "batch_0", "x_0", "x_1", "x_2"]:
             assert key in out
