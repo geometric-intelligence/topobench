@@ -1,24 +1,21 @@
-"""Test pipeline for a particular dataset and model."""
-
 import hydra
-import pytest
 
 from test._utils.simplified_pipeline import run
 
-
-DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+DATASET = "graph/MUTAG"  # handy spot to swap dataset
+MODELS = [
+    "graph/gcn",
+    "graph/esc_gnn",
+    "cell/topotune",
+    "simplicial/topotune",
+]  # one model or a few
 
 
 class TestPipeline:
-    """Test pipeline for a particular dataset and model."""
-
     def setup_method(self):
-        """Setup method."""
         hydra.core.global_hydra.GlobalHydra.instance().clear()
 
     def test_pipeline(self):
-        """Test pipeline."""
         with hydra.initialize(config_path="../../configs", job_name="job"):
             for MODEL in MODELS:
                 cfg = hydra.compose(
@@ -34,6 +31,6 @@ class TestPipeline:
                         "paths=test",
                         "callbacks=model_checkpoint",
                     ],
-                    return_hydra_config=True
+                    return_hydra_config=True,
                 )
                 run(cfg)

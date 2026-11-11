@@ -1,0 +1,42 @@
+_target_: topobench.model.TBModel
+
+model_name: esc_gnn
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.esc_encoder.ESCFeatureEncoder
+  encoder_name: ESCFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  structural_codebook_size: 387
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.graph.esc_gnn.ESCGNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  num_layers: 3
+  num_structural_codes: ${model.feature_encoder.structural_codebook_size}
+  structural_channels: ${model.feature_encoder.out_channels}
+  dropout: 0.0
+  train_eps: true
+  edge_dim: ${model.backbone.structural_channels}
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.graph.esc_gnn_wrapper.ESCGNNWrapper
+  _partial_: true
+  wrapper_name: ESCGNNWrapper
+  out_channels: ${model.backbone.hidden_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  residual_connections: false
+
+readout:
+  _target_: topobench.nn.readouts.identical.NoReadOut
+  readout_name: NoReadOut
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.backbone.hidden_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false

@@ -1,0 +1,9 @@
+transform_name: ESCStructuralEncoding
+transform_type: data manipulation
+hop_radius: 1
+degree_bins: 300
+rooted_subgraph: induced_union
+include_resistance_distance: false
+add_self_loops: false
+internal_edge_orientation: lexicographic
+encoder_version: esc-paper-induced-v1

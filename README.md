@@ -188,6 +188,9 @@ By mastering these configuration options, you can easily customize your experime
 - **Automatic Lifting:** By default, our pipeline identifies the source and destination topological domains and applies a default lifting between them if required.  
 - **Fine-Grained Configuration:** The same CLI override mechanism applies when modifying finer configurations within a `CONFIG GROUP`.  
   Please refer to the official [`hydra` documentation](https://hydra.cc/docs/intro/) for further details.
+- **ESC-GNN preprocessing:** some datasets bring their own default transform,
+  so select the ESC-GNN encoding explicitly when it would be overridden:
+  `python -m topobench model=graph/esc_gnn dataset=graph/PROTEINS transforms=model_defaults/esc_gnn`.
 
 
 
