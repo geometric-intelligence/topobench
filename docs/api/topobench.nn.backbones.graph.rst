@@ -22,5 +22,6 @@ Submodules
 
    topobench.nn.backbones.graph.gps
    topobench.nn.backbones.graph.graph_mlp
+   topobench.nn.backbones.graph.hymn
    topobench.nn.backbones.graph.identity_gnn
    topobench.nn.backbones.graph.nsd

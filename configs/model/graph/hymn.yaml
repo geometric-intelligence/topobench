@@ -1,0 +1,59 @@
+_target_: topobench.model.TBModel
+
+model_name: hymn
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  # The MolHIV reference config uses dim_inner=300 and reserves 16
+  # channels for the encoded CSE, leaving 284 node-feature channels.
+  out_channels: 284
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.HyMN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: 300
+  # Published MolHIV HyMN hyperparameters (Table 18 / with-CSE config),
+  # paired with the authors' edge-less marked-GIN path for unattributed graphs.
+  num_layers: 2
+  # Two centrality-marked views plus the augmented policy's unmarked view.
+  num_samples: 3
+  cse_steps: 16
+  cse_channels: 16
+  dropout: 0.0
+  train_eps: true
+  # Internal shared-MLP BN; the reference's separate between-layer BN is off.
+  batch_norm: true
+  residual: true
+  use_centrality_encoding: true
+  sample_aggregation: mean
+  # Semantic-only reuse of reference-style preprocessing across model instances.
+  global_cache_size: 65536
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: 300
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  in_channels: 300
+  # layers_post_mp=1 in the reference config is a single linear head.
+  hidden_layers: []
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: mean
+  dropout: 0.0
+  act: relu
+  norm: null
+  final_act: null
+
+compile: false
