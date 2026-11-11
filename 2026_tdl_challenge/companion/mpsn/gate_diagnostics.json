@@ -1,0 +1,64 @@
+{
+ "guesses": {
+  "G1_v2": "from opt-in init (w1+w2 = 0.21), higher-rank mass OPENS on the triangle task and stays closed on the community task, every seed",
+  "G2_v2": "with opt-in init, gated recovers to >= plain accuracy at strong homophily"
+ },
+ "mitigation": {
+  "G2_holds": false,
+  "gated": [
+   0.25594149908592323,
+   0.33089579524680074
+  ],
+  "plain": [
+   0.3071297989031079,
+   0.3327239488117002
+  ]
+ },
+ "task_tracking": [
+  {
+   "G1_holds": false,
+   "com_acc": 0.15636363636363637,
+   "higher_mass_com": 0.25707101076841354,
+   "higher_mass_tri": 0.22763462364673615,
+   "seed": 0,
+   "tri_R2": 0.9251067918590125,
+   "w_com": [
+    0.7429289221763611,
+    0.12482599169015884,
+    0.1322450190782547
+   ],
+   "w_tri": [
+    0.772365391254425,
+    0.11462576687335968,
+    0.11300885677337646
+   ]
+  },
+  {
+   "G1_holds": false,
+   "com_acc": 0.18181818181818182,
+   "higher_mass_com": 0.24413715302944183,
+   "higher_mass_tri": 0.22474709898233414,
+   "seed": 1,
+   "tri_R2": 0.9486545008244341,
+   "w_com": [
+    0.755862832069397,
+    0.11368177831172943,
+    0.1304553747177124
+   ],
+   "w_tri": [
+    0.7752528786659241,
+    0.11494360119104385,
+    0.10980349779129028
+   ]
+  }
+ ],
+ "verdicts": {
+  "G1": {
+   "holds_all_seeds": false
+  },
+  "G2": {
+   "holds_on_mean": false
+  },
+  "caveat": "gates are consistency evidence, not ground-truth attribution; corroborated by independent channel ablations elsewhere in the companion study"
+ }
+}

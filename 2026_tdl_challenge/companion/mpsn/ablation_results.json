@@ -1,0 +1,252 @@
+{
+ "blocks": [
+  {
+   "gnn_sweep": [
+    {
+     "delta": 0.5887705104527542,
+     "delta_hi": 0.8658248407350572,
+     "delta_lo": 0.42634142321313645,
+     "gnn_hi": 0.43986245537880136,
+     "gnn_lo": -0.00645105342480105,
+     "gnn_params": 4545,
+     "gnn_r2": 0.2846577991713164,
+     "hidden": 32,
+     "layers": 2
+    },
+    {
+     "delta": 0.5996966796366969,
+     "delta_hi": 0.9112063027697169,
+     "delta_lo": 0.4378354142035569,
+     "gnn_hi": 0.4400904572144843,
+     "gnn_lo": -0.06916235816128843,
+     "gnn_params": 17281,
+     "gnn_r2": 0.27373162998737366,
+     "hidden": 64,
+     "layers": 2
+    },
+    {
+     "delta": 0.7502915886776198,
+     "delta_hi": 1.2148419064120397,
+     "delta_lo": 0.5306829339919037,
+     "gnn_hi": 0.3581015178449911,
+     "gnn_lo": -0.3748030017018977,
+     "gnn_params": 34177,
+     "gnn_r2": 0.12313672094645078,
+     "hidden": 64,
+     "layers": 4
+    },
+    {
+     "delta": 1.2134566434225236,
+     "delta_hi": 2.0804292733107017,
+     "delta_lo": 0.7901366852956486,
+     "gnn_hi": 0.10928987290673091,
+     "gnn_lo": -1.215222662958789,
+     "gnn_params": 133889,
+     "gnn_r2": -0.3400283337984531,
+     "hidden": 128,
+     "layers": 4
+    }
+   ],
+   "mpsn_cap": [
+    32,
+    2
+   ],
+   "mpsn_hi": 0.9385656223424481,
+   "mpsn_lo": 0.798635810845517,
+   "mpsn_params": 91169,
+   "mpsn_r2": 0.8734283096240706,
+   "name": "R1 (low confound)",
+   "rho": 0.6669119809690334
+  },
+  {
+   "gnn_sweep": [
+    {
+     "delta": 0.33881879379883373,
+     "delta_hi": 0.7527148502155026,
+     "delta_lo": 0.1550011661547982,
+     "gnn_hi": 0.838639479526773,
+     "gnn_lo": 0.23777784048303363,
+     "gnn_params": 4545,
+     "gnn_r2": 0.6543632490209498,
+     "hidden": 32,
+     "layers": 2
+    },
+    {
+     "delta": 1.0268024374815834,
+     "delta_hi": 1.5701625842913107,
+     "delta_lo": 0.5985582436978703,
+     "gnn_hi": 0.3960688899114299,
+     "gnn_lo": -0.5790854214928846,
+     "gnn_params": 17281,
+     "gnn_r2": -0.03362039466179989,
+     "hidden": 64,
+     "layers": 2
+    },
+    {
+     "delta": 0.21373407743823902,
+     "delta_hi": 0.3730136104465308,
+     "delta_lo": 0.11134498528232675,
+     "gnn_hi": 0.8834057671793684,
+     "gnn_lo": 0.6140959201621161,
+     "gnn_params": 34177,
+     "gnn_r2": 0.7794479653815445,
+     "hidden": 64,
+     "layers": 4
+    },
+    {
+     "delta": 0.6381349438501626,
+     "delta_hi": 1.0034233680559688,
+     "delta_lo": 0.3663215250189573,
+     "gnn_hi": 0.6284768850326781,
+     "gnn_lo": -0.012786824509752642,
+     "gnn_params": 133889,
+     "gnn_r2": 0.35504709896962094,
+     "hidden": 128,
+     "layers": 4
+    }
+   ],
+   "mpsn_cap": [
+    32,
+    2
+   ],
+   "mpsn_hi": 0.9953308343547684,
+   "mpsn_lo": 0.9892133551298306,
+   "mpsn_params": 91169,
+   "mpsn_r2": 0.9931820428197835,
+   "name": "R4 (high confound)",
+   "rho": 0.8255624161620396
+  },
+  {
+   "gnn_sweep": [
+    {
+     "delta": 1.0018960272585997,
+     "delta_hi": 1.011238525180211,
+     "delta_lo": 0.9972840207981255,
+     "gnn_hi": 0.0027108692596845437,
+     "gnn_lo": -0.011241804861621478,
+     "gnn_params": 4545,
+     "gnn_r2": -0.001900482081686139,
+     "hidden": 32,
+     "layers": 2
+    },
+    {
+     "delta": 1.0021106448058927,
+     "delta_hi": 1.0114569692421975,
+     "delta_lo": 0.9965230228439222,
+     "gnn_hi": 0.003472351626721021,
+     "gnn_lo": -0.011461145369491204,
+     "gnn_params": 17281,
+     "gnn_r2": -0.0021150996289791557,
+     "hidden": 64,
+     "layers": 2
+    },
+    {
+     "delta": 1.0027448745301846,
+     "delta_hi": 1.013099876379186,
+     "delta_lo": 0.9958557546421772,
+     "gnn_hi": 0.004138487817218551,
+     "gnn_lo": -0.013103689597819568,
+     "gnn_params": 34177,
+     "gnn_r2": -0.0027493293532709906,
+     "hidden": 64,
+     "layers": 4
+    },
+    {
+     "delta": 1.0032533883403074,
+     "delta_hi": 1.014575993013078,
+     "delta_lo": 0.995508586317187,
+     "gnn_hi": 0.004486083748149715,
+     "gnn_lo": -0.014580587766576957,
+     "gnn_params": 133889,
+     "gnn_r2": -0.0032578431633938365,
+     "hidden": 128,
+     "layers": 4
+    }
+   ],
+   "mpsn_cap": [
+    32,
+    2
+   ],
+   "mpsn_hi": 0.9999974301771403,
+   "mpsn_lo": 0.9999934737351259,
+   "mpsn_params": 91169,
+   "mpsn_r2": 0.9999955451769136,
+   "name": "probe (WL-hard)",
+   "rho": 0.0
+  }
+ ],
+ "meta": {
+  "config": {
+   "baseline_hidden": 16,
+   "degree_separation_range": [
+    0.5,
+    1.0
+   ],
+   "epochs": 20,
+   "feature_dim": 4,
+   "grad_clip": 1.0,
+   "hidden": 32,
+   "lr": 0.003,
+   "n_boot": 1000,
+   "n_communities_range": [
+    5,
+    10
+   ],
+   "n_layers": 2,
+   "n_nodes_range": [
+    50,
+    100
+   ],
+   "n_test": 8,
+   "n_train": 12,
+   "seeds": [
+    0,
+    1
+   ],
+   "weight_decay": 0.0005
+  },
+  "elapsed_s": 47.9,
+  "gnn_caps": [
+   [
+    32,
+    2
+   ],
+   [
+    64,
+    2
+   ],
+   [
+    64,
+    4
+   ],
+   [
+    128,
+    4
+   ]
+  ],
+  "mpsn_cap": [
+   32,
+   2
+  ],
+  "scale": "full"
+ },
+ "verdict": {
+  "interpretation": "PROBE: Delta CI-lower stays >0.99 across a 4x-width, 2x-depth GNN sweep -> the gap the WL-hard probe isolates is a PROVABLE 1-WL capability limit, invariant to GNN capacity, not an under-parameterisation artifact. REAL REGIMES: increasing GNN capacity does NOT close the gap; instead test R2 DEGRADES (small-sample overfitting on the training graphs), so the real-regime capacity comparison is CONFOUNDED and uninformative about capability. This is why the probe -- not the on-distribution score -- is the load-bearing instrument for the capability claim. (A pre-registered directional guess that the real-regime gap would SHRINK with GNN capacity, i.e. an efficiency gap, was not supported: recorded here rather than hidden.)",
+  "probe_capability_survives_full_capacity": true,
+  "probe_min_delta_lo": 0.995508586317187,
+  "real_regime_diagnostic": {
+   "R1 (low confound)": {
+    "delta_min_ci_lower_over_caps": 0.42634142321313645,
+    "gnn_degrades_with_capacity": true,
+    "gnn_r2_at_max_cap": -0.3400283337984531,
+    "gnn_r2_at_min_cap": 0.2846577991713164
+   },
+   "R4 (high confound)": {
+    "delta_min_ci_lower_over_caps": 0.11134498528232675,
+    "gnn_degrades_with_capacity": true,
+    "gnn_r2_at_max_cap": 0.35504709896962094,
+    "gnn_r2_at_min_cap": 0.6543632490209498
+   }
+  }
+ }
+}

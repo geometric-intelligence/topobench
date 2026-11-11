@@ -1,0 +1,50 @@
+_target_: topobench.model.TBModel
+
+model_name: mpsn
+model_domain: simplicial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.simplicial.MPSN
+  in_channels_all:
+    - ${model.feature_encoder.out_channels}
+    - ${model.feature_encoder.out_channels}
+    - ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  n_layers: 2
+  activation: relu
+  # Ablate individual MPSN adjacencies (Bodnar et al. 2021, Def. 4) by
+  # setting any of the following to False. Full model uses all four.
+  use_boundary: True
+  use_coboundary: True
+  use_lower: True
+  use_upper: True
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.MPSNWrapper
+  _partial_: true
+  wrapper_name: MPSNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: GatedCrossRankReadout # cross-rank gated fusion (this PR); alternative: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

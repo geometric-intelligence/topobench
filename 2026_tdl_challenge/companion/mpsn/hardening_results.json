@@ -1,0 +1,86 @@
+{
+ "L2": {
+  "drift": {
+   "probe": 0.2595273375152637,
+   "tau95": 0.08950349982087102,
+   "test": 0.07047472815445074
+  },
+  "fracture": {
+   "probe": 0.02212940357557353,
+   "tau95": 0.020404953912061177,
+   "test": 0.017831516096586106
+  },
+  "in_distribution_pass": true,
+  "lof": {
+   "c_star_ref": 0.1,
+   "probe_flagged": 0.49399999999999994,
+   "tau95": 0.29,
+   "test_flagged": 0.16799999999999998
+  },
+  "probe_ood_confirmed": false,
+  "probe_ood_min_ratio": 1.0845113236199493,
+  "scale_params": {
+   "audit_max_edge": 0.28574334979057314,
+   "lof_k": 30,
+   "m_ph": 125,
+   "m_sub": 300,
+   "scale_q": 0.3
+  }
+ },
+ "L4_placebo": {
+  "ci_contains_0": false,
+  "delta": {
+   "hi": 0.03558678159165518,
+   "lo": 0.012221041540265213,
+   "pt": 0.0229362707974331
+  },
+  "generic_floor_reading": {
+   "floor_pt": 0.0229362707974331,
+   "min_onbench_delta": 0.06401558566454535,
+   "note": "strict criterion FAILED: a small generic capacity advantage exists even on a 1-WL-computable target; it bounds the non-capability component of on-benchmark gaps. The probe gap exceeds the floor by >40x; the smallest on-benchmark gap by only ~3x -- high-confound on-benchmark Deltas are therefore only weakly capability-attributable, which sharpens (not weakens) the thesis that the probe is the load-bearing instrument.",
+   "probe_delta": 1.0002596831318242,
+   "ratio_min_onbench_over_floor": 2.7910197882608543,
+   "ratio_probe_over_floor": 43.610388627072176
+  },
+  "gnn_r2": [
+   0.9726468017287775,
+   0.9561705093154304,
+   0.9868786160391089
+  ],
+  "mpsn_r2": [
+   0.9955830725262106,
+   0.9908446055357709,
+   0.9991696105034933
+  ],
+  "target": "node degree"
+ },
+ "guesses": {
+  "P-L2a": "train->test drift & H1 fracture below self-calibrated 95% null; LOF flagged <= c*",
+  "P-L2b": "probe statistics exceed null threshold by > 2x (OOD in representation)",
+  "P-L4": "placebo (degree target) Delta CI contains 0",
+  "P-cap": "probe Delta CI-lower > 0.9 at MPSN hidden 16 and 64"
+ },
+ "mpsn_capacity_probe": {
+  "16": {
+   "hi": 1.0079917146464068,
+   "lo": 0.999468511969844,
+   "pt": 1.0010434973974753
+  },
+  "32": {
+   "hi": 1.0079907053156036,
+   "lo": 0.9994669770192369,
+   "pt": 1.001042139594031
+  },
+  "64": {
+   "hi": 1.0079825012394874,
+   "lo": 0.999458493668373,
+   "pt": 1.0010336232892643
+  }
+ },
+ "verdicts": {
+  "P-L2a": true,
+  "P-L2b": false,
+  "P-L4": false,
+  "P-cap": true
+ }
+}

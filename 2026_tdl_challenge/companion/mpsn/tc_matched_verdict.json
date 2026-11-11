@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "generated_at_utc": "2026-07-22T15:42:49.014905+00:00",
+    "slice_dir": "outputs/tc_matched",
+    "n_slice_files": 432,
+    "n_records": 432,
+    "anchor_budget": 65000,
+    "n_boot": 10000,
+    "rng_seed": 0
+  },
+  "config_census_of_12": {
+    "10000": {
+      "MPSN": 12,
+      "AirTNN": 12,
+      "GCN": 12
+    },
+    "30000": {
+      "MPSN": 12,
+      "AirTNN": 12,
+      "GCN": 12
+    },
+    "65000": {
+      "MPSN": 12,
+      "AirTNN": 12,
+      "GCN": 12
+    },
+    "130000": {
+      "MPSN": 12,
+      "AirTNN": 12,
+      "GCN": 12
+    }
+  },
+  "scaling_curve_mean_tc_error": {
+    "10000": {
+      "MPSN": 0.07513334289878265,
+      "AirTNN": 0.5061609673442932,
+      "GCN": 0.8664067794810557
+    },
+    "30000": {
+      "MPSN": 0.06299035375910411,
+      "AirTNN": 0.49960835606769954,
+      "GCN": 0.8762201315674225
+    },
+    "65000": {
+      "MPSN": 0.05443719406782488,
+      "AirTNN": 0.45736706140544725,
+      "GCN": 0.8806275675946572
+    },
+    "130000": {
+      "MPSN": 0.042827861680968214,
+      "AirTNN": 0.4908205768180862,
+      "GCN": 0.8871212560489035
+    }
+  },
+  "H1_at_anchor": {
+    "anchor": 65000,
+    "available": true,
+    "MPSN_lt_GCN": {
+      "n": 12,
+      "wins_x_lt_y": 12,
+      "statistic": 0.0,
+      "p_raw": 0.000244140625,
+      "mean_diff_x_minus_y": -0.8261903735268324,
+      "ci95": [
+        -1.4350166220065317,
+        -0.3342784267306099
+      ],
+      "ci_below_zero": true,
+      "p_holm": 0.00048828125,
+      "significant": true
+    },
+    "MPSN_lt_AirTNN": {
+      "n": 12,
+      "wins_x_lt_y": 12,
+      "statistic": 0.0,
+      "p_raw": 0.000244140625,
+      "mean_diff_x_minus_y": -0.4029298673376225,
+      "ci95": [
+        -0.6790079124634417,
+        -0.18305324550914268
+      ],
+      "ci_below_zero": true,
+      "p_holm": 0.00048828125,
+      "significant": true
+    },
+    "holds": true
+  },
+  "H2_scaling_dominance": {
+    "per_budget_mpsn_is_lowest": {
+      "10000": true,
+      "30000": true,
+      "65000": true,
+      "130000": true
+    },
+    "holds": true
+  },
+  "VERDICT": "BIAS",
+  "verdict_note": "H1 and H2 hold: at matched capacity MPSN is lower than both baselines AND lowest at every budget. TC advantage attributed to the simplicial inductive bias (capacity-controlled). Headline restored."
+}
