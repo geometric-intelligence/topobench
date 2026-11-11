@@ -1,0 +1,49 @@
+# Co-GNN(sigma, sigma) — "Cooperative Graph Neural Networks" (Finkelshtein et al., ICML 2024)
+# https://arxiv.org/abs/2310.01267
+# Variant with SumGNN action and environment networks (paper notation: Co-GNN(sigma, sigma)).
+_target_: topobench.model.TBModel
+
+model_name: cognn_sum
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.CoGNN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  num_layers: 3
+  env_conv_type: sum_gnn    # environment network eta (paper: sigma)
+  act_conv_type: sum_gnn    # action network pi (paper: sigma)
+  act_num_layers: 1
+  act_hidden_channels: 16
+  dropout: 0.0
+  temp: 0.01                # Gumbel-softmax temperature tau
+  learn_temp: false
+  layer_norm: false
+  skip: false
+  act: relu
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.GNNWrapper
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
