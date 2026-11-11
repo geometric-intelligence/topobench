@@ -1,0 +1,68 @@
+# Res-SheafAN (Barbero et al., 2022) with the paper's GAT attention.
+#
+# Attention mechanism. Equation (2) defines the attention coefficients,
+# and the paper states that "this is the same attention mechanism
+# utilised in GAT", which is what `attention_variant: gat` implements.
+# The GATv2 mechanism reported in the extended version of the work
+# (Barbero, "Attention-based Sheaf Neural Networks", MLMI dissertation,
+# 2022, section 3.1) is available as the sibling config
+# `graph/san_gatv2`.
+#
+# Update rule. The paper proposes two layer parametrizations: the plain
+# SheafAN layer of equation (5) and the Res-SheafAN layer of equation
+# (6), selected through `backbone.residual`. Equation (6) is used here.
+# The paper motivates the residual form "from the spectral perspective of
+# being able to act as both a high-pass and low-pass filter (Di Giovanni
+# et al., 2022). In particular, without a residual connection the model
+# may be dominated by the low frequency signals over the graph as more
+# layers are added, contributing to oversmoothing." Both variants are
+# reported side by side in Table 1.
+_target_: topobench.model.TBModel
+
+model_name: san
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.1
+
+backbone:
+  _target_: topobench.nn.backbones.SANEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 4 # dissertation Table B.1 searches {1, ..., 8}
+  dropout: 0.4 # dissertation Table B.1 searches Uniform[0, 0.9]
+  sheaf_type: bundle # paper uses O(d) restriction maps only
+  d: 4 # dissertation: "d = 4 ... a very competitive middle ground"
+  input_dropout: 0.1
+  num_heads: 8 # dissertation Table B.1 fixes Attention Heads = 8
+  residual: true # Res-SheafAN, paper equation (6); false -> equation (5)
+  attention_variant: gat # paper equation (2); 'gatv2' per dissertation
+  orth: cayley # cayley or matrix_exp
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+compile: false
