@@ -1,0 +1,4 @@
+transform_name: "CellRandomWalkPE"
+transform_type: "data manipulation"
+# Must match the backbone's pe_steps; resolved from the model config.
+pe_steps: ${oc.select:model.backbone.pe_steps,8}
