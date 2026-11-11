@@ -1,0 +1,52 @@
+_target_: topobench.model.TBModel
+
+model_name: hmc_row_norm_attention
+model_domain: combinatorial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  # The challenge harness forces this to 64 for every submission
+  # (`CHALLENGE_FEATURE_ENCODER_OUT_CHANNELS` in 2026_tdl_challenge/utils.py),
+  # so it is pinned here to match the benchmarked configuration.
+  out_channels: 64
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.HMC
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  n_layers: 2
+  negative_slope: 0.2
+  # Plain row normalization of the attention coefficients instead of a
+  # softmax, i.e. A(i, j) = e(i, j) / sum_k e(i, k) with
+  # e(i, j) = LeakyReLU([X_i W || X_j W] a). This is the normalization used
+  # by the TopoModelX reference blocks (HBS/HBNS default to `softmax=False`);
+  # `hmc.yaml` uses the softmax form instead.
+  softmax_attention: false
+  update_func_attention: relu
+  update_func_aggregation: relu
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.combinatorial.HMCWrapper
+  _partial_: true
+  wrapper_name: HMCWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 3
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: 3 # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
