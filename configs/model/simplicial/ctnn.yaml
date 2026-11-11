@@ -1,0 +1,82 @@
+# Copresheaf Topological Neural Network (CTNN) with SheafFC transport maps.
+# Hajij et al., "Copresheaf Topological Neural Networks: A Generalized Deep
+# Learning Framework", NeurIPS 2025 (https://arxiv.org/abs/2505.21251).
+#
+# Layer. Definition 10 of the paper, instantiated with copresheaf attention as
+# the message function (Definition 11 within a rank, Definition 16 across
+# ranks) and a residual MLP with normalisation as the update. This is the
+# Copresheaf Cellular Transformer that Appendix H.5 evaluates on simplicial
+# complexes.
+#
+# Transport maps. `sheaf_fc` is the SheafFC map of Table 18, which Appendix
+# H.5 instantiates: rho = Id + tanh(W [q_x; k_y]) with W zero-initialised, so
+# every map starts at the identity. The two other entries of the catalogue that
+# the paper applies to topological domains ship as the sibling configs
+# `simplicial/ctnn_spd` and `simplicial/ctnn_diag`.
+_target_: topobench.model.TBModel
+
+model_name: ctnn
+model_domain: simplicial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.CopresheafTNN
+  channels: ${model.feature_encoder.out_channels}
+  # The collection N = {N_k} of Definition 10. Every entry names one copresheaf
+  # adjacency or incidence matrix (Definition 8) to transport along. These are
+  # the three message paths of the layer displayed in Appendix H.5, all of them
+  # into rank 0: 0 <- 0, 0 <- 1, and 0 <- 2. The last one is direct, matching
+  # the paper's `rho_{t->v}^{(0<-2)}` for `t` containing `v`; `2-down_incidence-2`
+  # is the composite `incidence_1 . incidence_2`, whose support is exactly
+  # {(v, t) : v in t}. Appendix H.5 has no upward route, so ranks 1 and 2 are
+  # not updated by the backbone and reach the readout as encoder features.
+  #
+  # Deviation: Appendix H.5 defines its 0 <-> 0 adjacency through 2-cells,
+  # `{w | exists t in X^2 : v, w in t}`, which is `2-up_adjacency-0` here. We
+  # use `up_adjacency-0` (adjacency through 1-cells) because GraphUniverse
+  # graphs have average degree 1-5, so triangle-adjacency is nearly empty and
+  # would silence the 0 <- 0 path on most nodes.
+  neighborhoods:
+    - up_adjacency-0
+    - down_incidence-1
+    - 2-down_incidence-2
+  layers: 2 # Section 6.1 and Appendix H.5 both use two transformer layers
+  # Stalk dimension d = channels / heads = 4. The SheafFC transport carries
+  # W in R^{2d x d^2} per head (Table 18), so d drives the parameter count
+  # quadratically: d=16 puts 59% of the backbone's weights in the transport
+  # maps and overfits GraphUniverse. d=4 is the stalk width the paper uses for
+  # its classification tasks (Section 6.3, Appendix H.3.1, Appendix H.4); the
+  # d=16 of Section 6.1 and Appendix H.5 is for physics regression.
+  heads: 16
+  copresheaf_map: sheaf_fc # Table 18 SheafFC, the map of Appendix H.5
+  dropout: 0.2 # Appendix H.5 reports layer norm and grad clipping, no dropout.
+  # We turn dropout on to avoid overfitting on small datasets.
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: TuneWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_topotune_num_cell_dimensions:${oc.select:model.backbone.neighborhoods}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

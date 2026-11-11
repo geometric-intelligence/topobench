@@ -12,4 +12,5 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   topobench.nn.backbones.simplicial.ctnn
    topobench.nn.backbones.simplicial.sccnn
