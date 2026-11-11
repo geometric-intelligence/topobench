@@ -1,0 +1,4 @@
+_target_: topobench.transforms.data_transform.DataTransform
+transform_name: "HypergraphLaplacian"
+transform_type: "liftings"
+m: true

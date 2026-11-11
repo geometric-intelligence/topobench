@@ -1,0 +1,44 @@
+_target_: topobench.model.TBModel
+
+model_name: hypergraph_convolution
+model_domain: hypergraph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+
+backbone:
+  _target_: topobench.nn.backbones.hypergraph.hypergraph_convolution.HyperGraphConvolution
+  a: ${model.feature_encoder.out_channels}
+  b: ${model.feature_encoder.out_channels}
+  # False -> propagate with the raw incidence matrix (works only because the khop
+  #          lifting produces a square [N, N] incidence).
+  # True  -> build the actual HyperGCN Laplacian from the hyperedges each forward.
+  reapproximate: True
+  cuda: 0
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HypergraphWrapper
+  _partial_: true
+  wrapper_name: HypergraphWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 1
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  # Must stay 1: PropagateSignalDown would otherwise look for model_out["x_1"]
+  # and batch["incidence_1"], neither of which exists for the hypergraph domain.
+  num_cell_dimensions: 1
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false
