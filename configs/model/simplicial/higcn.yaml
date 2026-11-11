@@ -1,0 +1,45 @@
+_target_: topobench.model.TBModel
+
+model_name: higcn
+model_domain: simplicial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  # HiGCN is node-centric: it only encodes rank-0 (node) features and uses the
+  # higher-order simplicial structure through the Flower-Petals Laplacians, which
+  # the backbone rebuilds from the incidence matrices attached by the lifting.
+  selected_dimensions:
+    - 0
+
+backbone:
+  _target_: topobench.nn.backbones.simplicial.higcn.HiGCN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  K: 10 # number of propagation hops in each Flower-Petals polynomial filter
+  alpha: 0.1 # PPR teleport probability used to initialize the filter weights
+  order: 2 # highest petal order: 2 fuses pairwise (edges) and triangle structure
+  dropout: 0.5
+  dprate: 0.0
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HiGCNWrapper
+  _partial_: true
+  wrapper_name: HiGCNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: NoReadOut # HiGCN already produces the final node embeddings
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
