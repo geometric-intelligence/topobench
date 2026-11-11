@@ -1,13 +1,11 @@
 """Test pipeline for a particular dataset and model."""
 
 import hydra
-import pytest
 
 from test._utils.simplified_pipeline import run
 
-
-DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+DATASET = "graph/MUTAG"          # graph dataset; lifted to a cell complex by the pipeline
+MODELS = ["cell/airtnn"]         # AirTNN config under configs/model/cell/
 
 
 class TestPipeline:

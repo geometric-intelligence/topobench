@@ -1,0 +1,88 @@
+{
+ "conditions": [
+  {
+   "air": false,
+   "delta": 1.0,
+   "hi": 0.7910810437563714,
+   "lo": 0.41298145932692676,
+   "name": "ideal",
+   "r2": 0.6722603755973195,
+   "snr_db": null
+  },
+  {
+   "air": true,
+   "delta": 1.0,
+   "hi": 0.7492385117945338,
+   "lo": 0.38415997808133606,
+   "name": "SNR 20 dB",
+   "r2": 0.6356159183047967,
+   "snr_db": 20.0
+  },
+  {
+   "air": true,
+   "delta": 1.0,
+   "hi": 0.743256077505607,
+   "lo": 0.39801934213590495,
+   "name": "SNR 10 dB",
+   "r2": 0.6351992226138564,
+   "snr_db": 10.0
+  },
+  {
+   "air": true,
+   "delta": 1.0,
+   "hi": 0.7420181693969309,
+   "lo": 0.40104345309097994,
+   "name": "SNR 5 dB",
+   "r2": 0.6329415985176723,
+   "snr_db": 5.0
+  },
+  {
+   "air": true,
+   "delta": 1.0,
+   "hi": 0.7492385117945338,
+   "lo": 0.38415997808133606,
+   "name": "SNR 0 dB",
+   "r2": 0.6356159183047967,
+   "snr_db": 0.0
+  },
+  {
+   "air": true,
+   "delta": 0.25,
+   "hi": 0.810095215664341,
+   "lo": 0.5334914509379576,
+   "name": "d=0.25, SNR 10",
+   "r2": 0.7192654536842251,
+   "snr_db": 10.0
+  },
+  {
+   "air": true,
+   "delta": 4.0,
+   "hi": 0.704719900794623,
+   "lo": 0.2113198278814964,
+   "name": "d=4.0, SNR 10",
+   "r2": 0.5594590339792975,
+   "snr_db": 10.0
+  }
+ ],
+ "delta_rayleigh": 1.0,
+ "guesses": {
+  "G1": "ideal-channel R2 >= 0.5",
+  "G2": "R2 non-increasing as SNR drops (ideal->20->10->5->0 dB)",
+  "G3": "at SNR 10 dB, retained fraction of ideal R2 >= 0.70",
+  "G4": "R2 at delta=1 >= R2 at delta in {0.25, 4.0} (SNR 10): fading scale away from 1 hurts in both directions"
+ },
+ "harness_note": "edge->node push uses |B1| here; PR wrapper mirrors the signed CCCN convention",
+ "regime": "R2 h-mid d-hi pl-hi",
+ "verdicts": {
+  "G1": true,
+  "G2": false,
+  "G3": true,
+  "G4": false,
+  "delta_axis": {
+   "d0.25": 0.7192654536842251,
+   "d1.0": 0.6351992226138564,
+   "d4.0": 0.5594590339792975
+  },
+  "retained_fraction_at_10dB": 0.9448708352763862
+ }
+}
