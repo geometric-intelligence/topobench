@@ -1,0 +1,57 @@
+_target_: topobench.model.TBModel
+
+model_name: cosimo
+model_domain: simplicial
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 32
+  proj_dropout: 0.0
+  selected_dimensions:
+    - 0
+    - 1
+    - 2
+
+backbone:
+  _target_: topobench.nn.backbones.simplicial.cosimo.COSIMO
+  in_channels_all:
+    - ${model.feature_encoder.out_channels}
+    - ${model.feature_encoder.out_channels}
+    - ${model.feature_encoder.out_channels}
+  hidden_channels_all:
+    - 32
+    - 32
+    - 32
+  n_layers: 2
+  t_init: 0.5
+  num_branches: 3
+  diffusion_method: taylor
+  taylor_order: 3
+  update_func: leaky_relu
+  stabilize: true
+  normalize_laplacian: true
+  max_diffusion_time: 2.0
+  max_abs_value: 10000.0
+  residual: true
+  layer_norm: true
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.SCCNNWrapper
+  _partial_: true
+  wrapper_name: SCCNNWrapper
+  out_channels: ${model.backbone.hidden_channels_all[0]}
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  residual_connections: false
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+  hidden_dim: ${model.backbone.hidden_channels_all[0]}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+compile: false
