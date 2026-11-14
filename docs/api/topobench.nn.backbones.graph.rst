@@ -12,6 +12,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   topobench.nn.backbones.graph.dsnn_utils
    topobench.nn.backbones.graph.nsd_utils
 
 Submodules
@@ -20,6 +21,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   topobench.nn.backbones.graph.dsnn
    topobench.nn.backbones.graph.gps
    topobench.nn.backbones.graph.graph_mlp
    topobench.nn.backbones.graph.identity_gnn

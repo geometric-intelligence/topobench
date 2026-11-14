@@ -1,0 +1,73 @@
+_target_: topobench.model.TBModel
+
+model_name: dsnn_ortho
+model_domain: graph
+
+# Directed Sheaf Neural Network (DSNN), orthogonal restriction maps.
+#   "Sheaves Reloaded: A Directional Awakening", ICLR 2026
+#   https://arxiv.org/abs/2506.02842
+#
+# The "O(d)-DSNN" row of Table 1. Phi predicts d*(d-1)/2 parameters per arc,
+# skew-symmetrized and retracted onto SO(d) by the Cayley transform. Because
+# F^T F = I, the degree block of Eq. 3 is exactly deg(u) * I_d, so Eq. 5 is
+# exact for this family without any eigendecomposition.
+#
+# Keys match configs/model/graph/nsd.yaml (bundle, d=3, 2 layers, dropout 0.4),
+# so a DSNN-vs-NSD comparison here differs only by the phase.
+#
+# See dsnn.yaml for the note on why q is inert on undirected data (Thm 3).
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64 # paper grid {8,16,32,64,128}; the challenge harness pins 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.graph.dsnn.DSNNEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 2 # paper grid {2,3,4,5,6}; smallest, and == nsd.yaml
+  sheaf_type: bundle # O(d)-DSNN
+  d: 3 # == nsd.yaml. Note 64 // 3 * 3 = 63, so one hidden channel is dropped,
+       # exactly as in nsd.yaml
+  q: 0.25 # paper grid [0,0.1,0.15,0.2,0.25,0.5,0.75,1]
+  orientation: none # faithful: read directions from the data, invent none
+  dropout: 0.4 # paper grid {0.0,...,0.9}; == nsd.yaml
+  input_dropout: 0.0 # == nsd.yaml
+  sheaf_act: tanh # paper grid {elu,tanh,relu}, all three available here
+  sheaf_features: unwind # real view of the complex features handed to Phi
+  normalised: true # L_N of Eq. 5, the operator Thms 1-2 are stated for
+  degree_shift: 0.0 # exactly Eq. 5 (1.0 gives the reference's (D+I)^-1/2)
+  block_norm: true # inert for this family: its degree blocks are diagonal
+  orth: cayley # {cayley, matrix_exp}. Both land in SO(d), so the reflection
+               # component of O(d) is unreachable, as in the NSD port
+  phase_sign: 1 # the phase printed in Def. 1
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false # the diffusion already carries Eq. 8's own
+                              # residual term
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+  # Extra MLP params
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+# compile model for faster training with pytorch 2.0
+compile: false

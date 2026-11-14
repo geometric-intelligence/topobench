@@ -7,7 +7,19 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [
+    "graph/gcn",
+    "cell/topotune",
+    "simplicial/topotune",
+    # DSNN, both operator paths. `dsnn` is the faithful config: MUTAG is
+    # undirected, so its Laplacian is provably real and q is inert (Thm 3).
+    # `dsnn_degree` induces an orientation, so the complex terms are non-zero
+    # and the Hermitian assembly is exercised end to end. The `dsnn_ortho` and
+    # `dsnn_general` variants are left out on purpose: they run the same real
+    # path as `dsnn` here, and their builders are covered by the unit tests.
+    "graph/dsnn",
+    "graph/dsnn_degree",
+]  # ADD ONE OR SEVERAL MODELS
 
 
 class TestPipeline:

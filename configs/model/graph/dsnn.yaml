@@ -1,0 +1,84 @@
+_target_: topobench.model.TBModel
+
+model_name: dsnn
+model_domain: graph
+
+# Directed Sheaf Neural Network (DSNN), diagonal restriction maps.
+#   "Sheaves Reloaded: A Directional Awakening", ICLR 2026
+#   https://arxiv.org/abs/2506.02842
+#
+# Diag-DSNN is the family behind most of the paper's Table 1 headline numbers
+# (Texas 88.65 +- 4.95, Wisconsin 90.20 +- 4.02, PubMed 90.23 +- 0.44).
+#
+# The paper reports search grids (App. F) but no per-dataset selected
+# hyperparameters, so every value below is a point of those grids. Where a grid
+# leaves the choice free we take the value already used by
+# configs/model/graph/nsd.yaml, so that a DSNN-vs-NSD comparison isolates the
+# operator and nothing else.
+#
+# IMPORTANT -- q is inert on every graph dataset in TopoBench. On an undirected
+# graph A = A^T, so the phase is 1 and the operator is exactly the real sheaf
+# Laplacian for ANY q (Thm 3); in float64 the imaginary part is identically
+# zero and the spectrum does not move across the whole q grid. This config is
+# therefore the paper's model evaluated in the regime where its directional
+# term provably vanishes. dsnn_degree.yaml reaches the directed regime, and
+# 2026_tdl_challenge/dsnn_directionality.ipynb measures both.
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64 # paper grid {8,16,32,64,128}; the challenge harness pins 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.graph.dsnn.DSNNEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 2 # paper grid {2,3,4,5,6}; smallest, and == nsd.yaml. The sheaf,
+                # and so the Laplacian, is rebuilt per layer, so this is the
+                # cost-dominant knob
+  sheaf_type: diag # Diag-DSNN
+  d: 2 # paper grid {2,3,4,5}; 2 divides the pinned width of 64 exactly, so no
+       # hidden channel is lost to rounding
+  q: 0.25 # paper grid [0,0.1,0.15,0.2,0.25,0.5,0.75,1]; q=1/4 is the
+          # Sign-Magnetic point of Thm 4. Inert here, see the note above
+  orientation: none # faithful: read directions from the data, invent none
+  dropout: 0.4 # paper grid {0.0,...,0.9}; == nsd.yaml
+  input_dropout: 0.0 # == nsd.yaml
+  sheaf_act: tanh # paper grid {elu,tanh,relu}, all three available here
+  sheaf_features: unwind # real view of the complex features handed to Phi
+  normalised: true # L_N of Eq. 5, the operator Thms 1-2 are stated for
+  degree_shift: 0.0 # exactly Eq. 5 (1.0 gives the reference's (D+I)^-1/2)
+  block_norm: true # exact D^-1/2 for full degree blocks; the Jacobi
+                   # alternative does not satisfy Thm 2
+  phase_sign: 1 # the phase printed in Def. 1; its worked example implies the
+                # conjugate, but the two are isospectral and define the same
+                # function class
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false # the diffusion already carries Eq. 8's own
+                              # residual term
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+  # Extra MLP params
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+# compile model for faster training with pytorch 2.0
+compile: false

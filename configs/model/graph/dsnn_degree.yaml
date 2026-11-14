@@ -1,0 +1,88 @@
+_target_: topobench.model.TBModel
+
+model_name: dsnn_degree
+model_domain: graph
+
+# Directed Sheaf Neural Network (DSNN) with an INDUCED orientation.
+#   "Sheaves Reloaded: A Directional Awakening", ICLR 2026
+#   https://arxiv.org/abs/2506.02842
+#
+# This config is a DEVIATION from the paper, and it exists for one reason.
+# Every graph dataset in TopoBench is undirected, so the faithful config
+# (dsnn.yaml) has a provably real operator on which q does nothing at all
+# (Thm 3). orientation: degree derives a direction from the graph itself, so
+# that the complex machinery the paper contributes is actually exercised. The
+# paper only ever orients genuinely directed data; it defines no such
+# construction.
+#
+# The orientation compares nodes by the lexicographic key
+# (deg(u), sum of neighbour degrees), orienting a--b as a->b when a's key is
+# smaller and leaving the edge undirected on a tie. Both keys are isomorphism
+# invariants, so the operator stays permutation equivariant -- unlike a
+# tie-break on node index, which would make the model depend on node ordering.
+# The support stays symmetric; only the phase changes.
+#
+# Consequences worth knowing, both measured:
+#   * On a degree-REGULAR graph every key ties, nothing is oriented, and this
+#     config coincides with dsnn.yaml exactly. That is the price of
+#     equivariance.
+#   * On degree-heterogeneous graphs it orients essentially every edge (100% on
+#     power-law graphs of 50-300 nodes). GraphUniverse sweeps avg_degree and
+#     power_law_exponent, so its graphs are heterogeneous and the phase is live.
+#   * A phase derived from a graph *distance* would be a pure gauge
+#     transformation, hence isospectral with plain sheaf diffusion; that is why
+#     no distance-based mode is offered. What makes a phase genuinely
+#     directional is non-zero holonomy around cycles, so on a tree no induced
+#     orientation can help.
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64 # paper grid {8,16,32,64,128}; the challenge harness pins 64
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.graph.dsnn.DSNNEncoder
+  input_dim: ${model.feature_encoder.out_channels}
+  hidden_dim: ${model.feature_encoder.out_channels}
+  num_layers: 2 # paper grid {2,3,4,5,6}; smallest, and == nsd.yaml
+  sheaf_type: diag # Diag-DSNN, the family behind most of Table 1
+  d: 2 # paper grid {2,3,4,5}; 2 divides the pinned width of 64 exactly
+  q: 0.25 # paper grid [0,0.1,0.15,0.2,0.25,0.5,0.75,1]; ACTIVE in this config
+  orientation: degree # induced; see the header and dsnn_utils/phase.py
+  dropout: 0.4 # paper grid {0.0,...,0.9}; == nsd.yaml
+  input_dropout: 0.0 # == nsd.yaml
+  sheaf_act: tanh # paper grid {elu,tanh,relu}, all three available here
+  sheaf_features: unwind # real view of the complex features handed to Phi
+  normalised: true # L_N of Eq. 5, the operator Thms 1-2 are stated for
+  degree_shift: 0.0 # exactly Eq. 5 (1.0 gives the reference's (D+I)^-1/2)
+  block_norm: true # inert for this family: its degree blocks are diagonal
+  phase_sign: 1 # the phase printed in Def. 1
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.${model.backbone_wrapper.wrapper_name}
+  _partial_: true
+  wrapper_name: GNNWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  residual_connections: false # the diffusion already carries Eq. 8's own
+                              # residual term
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}}
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: MLPReadout
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_layers: [16]
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}} # Handles the edge case of node-inductive task
+  pooling_type: sum
+  # Extra MLP params
+  dropout: 0.2
+  act: "relu"
+  norm: null
+  final_act: null
+
+# compile model for faster training with pytorch 2.0
+compile: false

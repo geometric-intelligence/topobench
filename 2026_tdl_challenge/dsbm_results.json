@@ -1,0 +1,93 @@
+{
+  "description": "Section 7 of dsnn_directionality.ipynb: held-out accuracy on the directed stochastic block model of Appendix E. Cached so the figure can be redrawn without repeating the ~45 minute run. Delete this file to force a retrain.",
+  "protocol": {
+    "n": 2500,
+    "communities": 5,
+    "alpha_intra": 0.1,
+    "beta": 0.2,
+    "seeds": [
+      0,
+      1
+    ],
+    "epochs": 80,
+    "d": 2,
+    "hidden": 32,
+    "layers": 2,
+    "dropout": 0.0,
+    "optimizer": "Adam",
+    "lr": 0.01,
+    "arcs": 263052
+  },
+  "feature_probe": {
+    "mean": 0.179,
+    "std": 0.032,
+    "note": "logistic regression on the 1-D degree feature alone"
+  },
+  "runs": [
+    {
+      "model": "Diag-DSNN, q=0.25",
+      "alpha": 0.05,
+      "scores": [
+        0.832,
+        0.848
+      ]
+    },
+    {
+      "model": "DSNN q=0 (= NSD)",
+      "alpha": 0.05,
+      "scores": [
+        0.197,
+        0.192
+      ]
+    },
+    {
+      "model": "Diag-DSNN, q=0.25",
+      "alpha": 0.08,
+      "scores": [
+        0.92,
+        0.931
+      ]
+    },
+    {
+      "model": "DSNN q=0 (= NSD)",
+      "alpha": 0.08,
+      "scores": [
+        0.173,
+        0.192
+      ]
+    },
+    {
+      "model": "Diag-DSNN, q=0.25",
+      "alpha": 0.1,
+      "scores": [
+        0.968,
+        0.957
+      ]
+    },
+    {
+      "model": "DSNN q=0 (= NSD)",
+      "alpha": 0.1,
+      "scores": [
+        0.176,
+        0.211
+      ]
+    },
+    {
+      "model": "O(d)-DSNN, q=0.25",
+      "alpha": 0.1,
+      "scores": [
+        0.968,
+        0.949
+      ]
+    },
+    {
+      "model": "Gen-DSNN, q=0.25",
+      "alpha": 0.1,
+      "scores": [
+        0.965,
+        0.957
+      ]
+    }
+  ],
+  "note_general": "The Gen-DSNN entries were regenerated after block_inv_sqrt was changed to follow the reference implementation (detached inverse square root, degree-block jitter while training). The general family is the only one with full degree blocks and so the only one that path affects; backpropagating through eigh had been pinning it at chance. The diagonal and orthogonal entries are unchanged and were verified to reproduce exactly."
+}
