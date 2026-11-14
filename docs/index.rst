@@ -18,6 +18,8 @@ where by *topological domain* we refer to a graph, a simplicial complex, a cellu
 :pushpin: Overview
 ------------------
 
+TopoBench is an independent project maintained by the Topological Intelligence team.
+
 ``TopoBench`` (TB) is a modular Python library designed to standardize
 benchmarking and accelerate research in Topological Deep Learning (TDL).
 In particular, TB allows training and comparing the performances of all

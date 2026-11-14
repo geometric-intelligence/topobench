@@ -10,6 +10,38 @@ and hosted at the second `Topology, Algebra, and Geometry in Data Science (TAG-D
 .. seealso::
    Link to the challenge repository: `geometric-intelligence/TopoBench <https://github.com/geometric-intelligence/TopoBench>`__.
 
+.. note::
+   **Participation:** The 2026 challenge received **68 qualifying submissions**
+   from **34 teams** across both tracks. Thank you to everyone who took part!
+
+
+🏆 Winners
+----------
+
+**Track 1 — Graph Neural Networks**
+
+* **First place — $1,000:** **DSNN** — *Team howyadoin*, `PR #412 <https://github.com/geometric-intelligence/TopoBench/pull/412>`__.
+* **Joint second place — $200 each:**
+
+  * **GRIT** — *Team TripleA*, `PR #370 <https://github.com/geometric-intelligence/TopoBench/pull/370>`__.
+  * **HOD-GNN** — *Team SweetLesson*, `PR #402 <https://github.com/geometric-intelligence/TopoBench/pull/402>`__.
+
+**Track 2 — Topological Neural Networks**
+
+The Condorcet evaluation resulted in a tie, so the Track 2 prize was divided
+equally between the two co-winners:
+
+* **Joint first place — $700 each:**
+
+  * **ETNN-CoordinatePolicy** — *Team E(n)igma*, `PR #391 <https://github.com/geometric-intelligence/TopoBench/pull/391>`__.
+  * **TopoU-Net** — *Team TripleA*, `PR #372 <https://github.com/geometric-intelligence/TopoBench/pull/372>`__.
+
+**Honorable mentions**
+
+* **Excellent portfolio — $150 each:** *Team howyadoin* and *Team TripleA*, recognized for multiple high-quality contributions across both tracks.
+* **Novel infrastructure with differentiable liftings — $200:** **DiffLift-SMCN** — *Team One Ring to Lift Them All*, `PR #406 <https://github.com/geometric-intelligence/TopoBench/pull/406>`__.
+* **Outstanding supplementary analysis — $200:** **NSP + Holonomy** — *Team Sheafu*, `PR #373 <https://github.com/geometric-intelligence/TopoBench/pull/373>`__.
+
 
 Motivation
 ----------
