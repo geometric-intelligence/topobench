@@ -14,8 +14,8 @@ sys.path.insert(0, os.path.abspath("../topobench"))
 
 
 project = "TopoBench"
-copyright = "2025, Topological-Intelligence Team, Inc."
-author = "Topological-Intelligence Team Authors"
+copyright = "2025, Topological Intelligence team"
+author = "Topological Intelligence team"
 
 extensions = [
     "nbsphinx",

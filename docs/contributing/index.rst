@@ -7,14 +7,15 @@ Contributing
 This guide aims to ease the contribution
 process for both novice and experienced contributors.
 
-`TopoBenchX <https://github.com/pyt-team/TopoBenchX>`_ is a
-community effort, and everyone is welcome to contribute.
+`TopoBench <https://github.com/geometric-intelligence/topobench>`_ is an
+independent community project maintained by the Topological Intelligence team.
+Everyone is welcome to contribute.
 
 Making Changes
 --------------
 
 The preferred way to contribute to topobench is to fork the `upstream
-repository <https://github.com/pyt-team/TopoBenchX/>`__ and submit a "pull request" (PR).
+repository <https://github.com/geometric-intelligence/topobench>`__ and submit a "pull request" (PR).
 
 Follow these steps before submitting a PR:
 
@@ -40,7 +41,7 @@ Follow these steps before submitting a PR:
        $ git add <modified_files>
        $ git commit -m "Add my feature"
 
-   to record your changes. Then push the changes to your fork of `TopoNextX` with:
+   to record your changes. Then push the changes to your fork of `TopoBench` with:
 
     .. code-block:: bash
 
@@ -85,7 +86,7 @@ Then run the test using:
 
       $ pytest test_add.py
 
-Verify that the code you have added does not break `TopoBenchX` by running all the tests.
+Verify that the code you have added does not break `TopoBench` by running all the tests.
 
     .. code-block:: bash
 

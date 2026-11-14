@@ -36,14 +36,13 @@ Assess how your model compares against state-of-the-art topological neural netwo
 
 ---
 
-> 🏆 **2026 Topological Deep Learning Challenge** is now live! Check out guidelines and full details on [`the challenge website`](https://geometric-intelligence.github.io/topobench/tdl-challenge-2026/index.html).
-<p align="center">
-  <img src="resources/2026_challenge_flyer.png" width="700">
-</p>
+> 🏆 The **TAG-DS 2026 Topological Deep Learning Challenge** has concluded! A huge shoutout to all participants. Check out the winners and honorable mentions at [`the challenge website`](https://geometric-intelligence.github.io/topobench/tdl-challenge-2026/index.html).
 
 ---
 
 ## :pushpin: Overview
+
+TopoBench is an independent project maintained by the Topological Intelligence team.
 
 `TopoBench` (TB) is a modular Python library designed to standardize benchmarking and accelerate research in Topological Deep Learning (TDL). In particular, TB allows training and comparing the performances of all sorts of Topological Neural Networks (TNNs) across the different topological domains, where by _topological domain_ we refer to a graph, a simplicial complex, a cellular complex, or a hypergraph. For detailed information, please refer to the [`TopoBench: A Framework for Benchmarking Topological Deep Learning`](https://arxiv.org/pdf/2406.06642) paper.
 

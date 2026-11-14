@@ -1,4 +1,4 @@
-"""Some models implemented for TopoBenchX with automated exports."""
+"""Some models implemented for TopoBench with automated exports."""
 
 import inspect
 from importlib import util

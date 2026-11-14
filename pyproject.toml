@@ -54,7 +54,7 @@ dependencies=[
     "rich",
     "ogb",
     "rootutils",
-    "topomodelx @ git+https://github.com/pyt-team/TopoModelX.git",
+    "topomodelx @ git+https://github.com/pyt-team/TopoModelX.git@8fc047c",
     "toponetx @ git+https://github.com/pyt-team/TopoNetX.git@c378925",
     "graph-universe==0.1.2",
     "lightning==2.4.0",
