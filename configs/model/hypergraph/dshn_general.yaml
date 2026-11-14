@@ -1,0 +1,65 @@
+_target_: topobench.model.TBModel
+
+model_name: dshn_general
+model_domain: hypergraph
+
+# Directional Sheaf Hypergraph Network (DSHN).
+#   Mule et al., ICLR 2026 -- https://arxiv.org/abs/2510.04727
+#
+# Defaults follow the paper's search space (§D.3) and the reference
+# implementation's argparse defaults, https://github.com/EmaMule/DirectionalSheafHypergraphs
+# Deviations from the reference are noted inline.
+#
+# DSHN with unconstrained restriction maps: Phi predicts all d^2 entries.
+# The only family whose degree blocks D_u are not structurally diagonal, so
+# it takes the eigendecomposition path in block_inv_sqrt. Implemented in the
+# reference but not benchmarked in the paper.
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllCellFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 64 # MLP_hidden in the paper's grid {64, 128, 256, 512}
+  proj_dropout: 0.0
+
+backbone:
+  _target_: topobench.nn.backbones.hypergraph.dshn.DSHN
+  in_channels: ${model.feature_encoder.out_channels}
+  hidden_channels: ${model.feature_encoder.out_channels}
+  out_channels: ${model.feature_encoder.out_channels}
+  n_layers: 2 # grid {1..5}; reference default 3
+  d: 2 # stalk dim; grid {1..6}, kept small for the O(sum_e delta_e^2 d^2) operator
+  q: 0.25 # charge; grid {0.00..0.25}, reference default. NO-OP unless oriented
+  sheaf_type: GeneralSheafs # every DSHN result in the paper uses the diagonal family
+  orientation: none # TopoBench liftings are undirected -> real operator (Thm 6)
+  light: false # true selects the DSHNLight variant
+  dropout: 0.5
+  sheaf_act: sigmoid
+  sheaf_dropout: false
+  sheaf_left_proj: false # the (I_n (x) W_1) factor of Eq. 9; reference default false
+  dynamic_sheaf: false
+  residual: false
+  layer_norm: false
+  input_norm: true
+  init_hedge: avg
+  add_identity: false # reference defaults true, but D_V + I is in neither Eq. 2 nor Eq. 7
+  orthogonal_map: cayley # only used by OrthoSheafs
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.HypergraphWrapper
+  _partial_: true
+  wrapper_name: HypergraphWrapper
+  out_channels: ${model.feature_encoder.out_channels}
+  num_cell_dimensions: 1 # The highest order of cell dimensions to consider
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: PropagateSignalDown
+  num_cell_dimensions: 1
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${define_task_level:${dataset.parameters.task_level},${dataset.split_params.learning_setting}}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false

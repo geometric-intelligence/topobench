@@ -7,7 +7,15 @@ from test._utils.simplified_pipeline import run
 
 
 DATASET = "graph/MUTAG"  # ADD YOUR DATASET HERE
-MODELS = ["graph/gcn", "cell/topotune", "simplicial/topotune"]  # ADD ONE OR SEVERAL MODELS
+MODELS = [
+    "graph/gcn",
+    "cell/topotune",
+    "simplicial/topotune",
+    # DSHN, both operator paths: `dshn` is undirected (the Laplacian is real),
+    # `dshn_directed` induces an orientation so the complex terms are non-zero.
+    "hypergraph/dshn",
+    "hypergraph/dshn_directed",
+]  # ADD ONE OR SEVERAL MODELS
 
 
 class TestPipeline:
