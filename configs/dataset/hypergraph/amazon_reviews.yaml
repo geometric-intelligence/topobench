@@ -1,0 +1,40 @@
+# Amazon Reviews Dataset  
+# Description: Sets of products reviewed by users on Amazon, where node labels are
+#              product categories (e.g., books, electronics, home & kitchen).
+# Source: https://www.cs.cornell.edu/~arb/data/amazon-reviews/
+# Statistics: 2,268,264 products | 4,285,363 co-review sets | 29 categories
+#             Mean/median hyperedge size: 17.1/8 | Max size: 9,350
+# Note: Actual nodes (2,268,264) differs from Cornell website (2,268,231)
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.CornellLabeledNodesDatasetLoader
+  parameters: 
+    data_domain: hypergraph
+    data_type: cornell_labeled_nodes
+    data_name: amazon-reviews
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1  # Simple constant features
+  num_classes: 29  # Product categories
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+# Splits
+split_params:
+  learning_setting: transductive  # Single hypergraph, node classification task
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random
+  k: 10  # for k-fold CV
+  train_prop: 0.5  # for random split
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1  # Fixed for single hypergraph
+  num_workers: 1
+  pin_memory: False

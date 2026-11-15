@@ -1,0 +1,39 @@
+# Senate Committees Dataset
+# Description: Committee membership in the US Senate, where node labels are
+#              political affiliation (Republican/Democrat).
+# Source: https://www.cs.cornell.edu/~arb/data/senate-committees/
+# Statistics: 293 Senate members | 315 committees | 2 parties
+#             Mean/median hyperedge size: 17.2/18.0 | Max size: 29
+
+# Dataset loader config
+loader:
+  _target_: topobench.data.loaders.CornellLabeledNodesDatasetLoader
+  parameters: 
+    data_domain: hypergraph
+    data_type: cornell_labeled_nodes
+    data_name: senate-committees
+    data_dir: ${paths.data_dir}/${dataset.loader.parameters.data_domain}/${dataset.loader.parameters.data_type}
+
+# Dataset parameters
+parameters:
+  num_features: 1  # Simple constant features
+  num_classes: 2  # Political parties (Republican/Democrat)
+  task: classification
+  loss_type: cross_entropy
+  monitor_metric: accuracy
+  task_level: node
+
+# Splits
+split_params:
+  learning_setting: transductive  # Single hypergraph, node classification task
+  data_split_dir: ${paths.data_dir}/data_splits/${dataset.loader.parameters.data_name}
+  data_seed: 0
+  split_type: random
+  k: 10  # for k-fold CV
+  train_prop: 0.5  # for random split
+
+# Dataloader parameters
+dataloader_params:
+  batch_size: 1  # Fixed for single hypergraph
+  num_workers: 1
+  pin_memory: False
