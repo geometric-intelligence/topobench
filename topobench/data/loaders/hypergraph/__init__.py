@@ -5,6 +5,8 @@ from importlib import util
 from pathlib import Path
 from typing import Any, ClassVar
 
+from .omol25_metals_dataset_loader import OMol25MetalsDatasetLoader
+
 
 class HypergraphLoaderManager:
     """Manages automatic discovery and registration of hypergraph loader classes."""
@@ -91,6 +93,7 @@ __all__ = [
     # Loader collections
     "HYPERGRAPH_LOADERS",
     "HYPERGRAPH_LOADERS_list",
+    "OMol25MetalsDatasetLoader",
     # Individual loader classes
     *HYPERGRAPH_LOADERS.keys(),
 ]
