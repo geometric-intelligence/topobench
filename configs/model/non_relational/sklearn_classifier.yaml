@@ -1,0 +1,33 @@
+_target_: topobench.model.TBModel
+
+model_name: logistic_regression
+model_domain: graph
+
+feature_encoder:
+  _target_: topobench.nn.encoders.${model.feature_encoder.encoder_name}
+  encoder_name: AllPCAFeatureEncoder
+  in_channels: ${infer_in_channels:${dataset},${oc.select:transforms,null}}
+  out_channels: 256
+
+backbone:
+  _target_: sklearn.linear_model.LogisticRegression
+  random_state: ${seed}
+
+backbone_wrapper:
+  _target_: topobench.nn.wrappers.graph.sklearn.ClassifierWrapper
+  _partial_: true
+  wrapper_name: ClassifierWrapper
+  use_embeddings: True
+
+
+readout:
+  _target_: topobench.nn.readouts.${model.readout.readout_name}
+  readout_name: SklearnReadOut #  Use <NoReadOut> in case readout is not needed Options: PropagateSignalDown
+  num_cell_dimensions: ${infer_num_cell_dimensions:${oc.select:model.feature_encoder.selected_dimensions,null},${model.feature_encoder.in_channels}} # The highest order of cell dimensions to consider
+  hidden_dim: ${model.feature_encoder.out_channels}
+  out_channels: ${dataset.parameters.num_classes}
+  task_level: ${dataset.parameters.task_level}
+  pooling_type: sum
+
+# compile model for faster training with pytorch 2.0
+compile: false
