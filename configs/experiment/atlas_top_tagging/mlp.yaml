@@ -1,0 +1,31 @@
+# @package _global_
+
+# to run:
+# python -m topobench experiment=atlas_top_tagging/mlp
+
+defaults:
+  - override /dataset: pointcloud/atlas_top_tagging
+  - override /model: graph/graph_mlp
+  - override /callbacks: default
+  - override /trainer: default
+  - override /transforms: null
+
+tags: ["mlp", "atlas_top_tagging"]
+
+seed: 42
+
+trainer:
+  min_epochs: 0
+  max_epochs: 100
+  gradient_clip_val: 0.5
+  check_val_every_n_epoch: 1
+
+model:
+  feature_encoder:
+    out_channels: 32
+  backbone:
+    num_layers: 2
+  compile: false
+
+evaluator:
+    metrics: ['accuracy', 'precision', 'recall', 'auroc', 'f1']
